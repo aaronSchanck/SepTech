@@ -1,4 +1,4 @@
-package com.example.septech;
+package com.septech.centauri;
 
 import android.content.Context;
 
