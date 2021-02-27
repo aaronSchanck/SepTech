@@ -1,1 +1,0 @@
-Upload documents as PDF to maintain consistency!
