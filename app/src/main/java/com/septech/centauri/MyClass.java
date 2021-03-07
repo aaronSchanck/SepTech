@@ -6,23 +6,25 @@ import java.sql.Statement;
 
 public class MyClass {
     public static void main(String[] args) {
-
         Connection c;
         Statement stmt;
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/postgres",
-                            "postgres", "ten10nis");
+                    .getConnection("jdbc:postgresql://104.236.50.161:5432/postgres",
+                            "postgres", "mypassword");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "CREATE TABLE COMPANY " +
+            String sql = "CREATE TABLE USERS " +
                     "(ID INT PRIMARY KEY     NOT NULL," +
-                    " NAME           TEXT    NOT NULL, " +
-                    " AGE            INT     NOT NULL, " +
-                    " ADDRESS        CHAR(50), " +
-                    " SALARY         REAL)";
+                    " EMAIL          TEXT    NOT NULL, " +
+                    " USERNAME       INT     NOT NULL, " +
+                    " PASSWORD       CHAR(50), " +
+                    " FIRSTNAME      CHAR(50), " +
+                    " LASTNAME       TEXT    , " +
+                    " DOB            TEXT    , " +
+                    " BUSINESS       BOOLEAN)";
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();

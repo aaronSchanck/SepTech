@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Centauri">
         <activity
-            android:name="com.septech.centauri.MainActivity"
+            android:name="com.septech.centauri.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Centauri.NoActionBar">
             <intent-filter>
