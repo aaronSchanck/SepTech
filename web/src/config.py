@@ -13,8 +13,7 @@ class Development(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
-    # SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
-    SQLALCHEMY_DATABASE_URI = 'postgres://curly:ten10nis@104.236.50.161:5432/users'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
 
 class Production(object):
     """
