@@ -25,7 +25,7 @@ class UserModel(db.Model):
         self.password = data.get('password')
         self.first_name = data.get('first_name')
         self.last_name = data.get('last_name')
-        self.dob = data.get('dob')
+        self.date_of_birth = data.get('date_of_birth')
 
     def save(self):
         db.session.add(self)
