@@ -1,5 +1,7 @@
 package com.septech.centauri.database.utils;
 
+import android.content.Context;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +13,7 @@ public class DatabaseConfigReader {
     private InputStream input;
     private Properties prop;
 
-    private final String FILELOC = "database/utils";
+    private final String FILELOC = "config/database";
     private final String FILENAME = "login.config";
 
     public DatabaseConfigReader() {
@@ -19,25 +21,29 @@ public class DatabaseConfigReader {
     }
 
     public void readFile() {
-        try {
-            this.input = new FileInputStream(FILELOC + "/" + FILENAME);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        this.prop = new Properties();
 
-        try {
-            prop.load(this.input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Context context = new Context;
+//        try {
+//            this.input = new FileInputStream(context.getFilesDir() + FILELOC + "/" + FILENAME);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        this.prop = new Properties();
+//
+//        try {
+//            prop.load(this.input);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public String getLoginUsername() {
-        return prop.getProperty("username");
+//        return prop.getProperty("username");
+        return "curly";
     }
 
     public String getLoginPassword() {
-        return prop.getProperty("password");
+//        return prop.getProperty("password");
+        return "ten10nis";
     }
 }
