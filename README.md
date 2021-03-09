@@ -10,7 +10,6 @@ Centauri is currently undergoing development. The application has great amounts 
 
 ## Prerequisites
 
-------------------------
 Before you begin, ensure you have met the following requirements:
 
 * You have installed the latest version of Java 8.
@@ -19,18 +18,15 @@ Before you begin, ensure you have met the following requirements:
 
 ## Getting Started
 
-------------------------
 To build this project, use the `gradlew build` command or use "Import Project" in Android Studio. If using the latter, use the build command within Android Studio, followed by executing it.
 
 ## Android Studio IDE setup
 
-------------------------
 For development, the latest version of Android Studio is required. The latest version can be
 downloaded from [here](https://developer.android.com/studio/).
 
 ## Contributing to Centauri
 
-------------------------
 To contribute to Centauri, follow these steps:
 
 1. Fork this repository.
