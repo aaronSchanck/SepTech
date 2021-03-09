@@ -15,15 +15,15 @@ api = Namespace("User")
 @api.route("/")
 class UserResource(Resource):
 
-    @responds(schema=UserSchema, many=True)
-    def get(self) -> List[User]:
+    @responds(schema=UserSchema(many=True))
+    def get(self):
         """Get all Users"""
 
         return UserService.get_all()
 
     @accepts(schema=UserSchema, api=api)
     @responds(schema=UserSchema)
-    def post(self) -> User:
+    def post(self):
         """Create a Single User"""
 
         return UserService.create(request.parsed_obj)
