@@ -39,11 +39,11 @@ public class DatabaseConfigReader {
 
     public String getLoginUsername() {
 //        return prop.getProperty("username");
-        return "curly";
+        return "postgres";
     }
 
     public String getLoginPassword() {
 //        return prop.getProperty("password");
-        return "ten10nis";
+        return "mypassword";
     }
 }
