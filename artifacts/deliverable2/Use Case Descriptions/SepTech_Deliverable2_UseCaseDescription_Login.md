@@ -2,7 +2,7 @@
 
 |Title |   Login      |
 |---------|---------|
-|**Description**|     This use case describes the process of login into a user account.       |
+|**Description**|     This use case describes the process of loging into a user account.       |
 |**System Under Design**|   Centauri/Account System.       |
 |**Primary Actor**|     General User        |
 |**Participants**|     Administrative user, premium user, non-premium user, seller user.        |
