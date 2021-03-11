@@ -7,8 +7,8 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    uuid = Column(Integer, primary_key=True, nullable=False)
-    email = Column(String(127), nullable=False)
+    userid = Column(Integer, primary_key=True)
+    email = Column(String(127), unique=True, nullable=False)
     username = Column(String(127), nullable=False)
     password = Column(String(127), nullable=False)
     first_name = Column(String(127))

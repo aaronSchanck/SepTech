@@ -13,7 +13,8 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    # SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = 'postgres://curly:ten10nis@104.236.50.161:5432/users'
     
 class ProductionConfig(BaseConfig):
     CONFIG_NAME = "prod"
@@ -29,7 +30,8 @@ class TestingConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    # SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = 'postgres://curly:ten10nis@104.236.50.161:5432/users'
     
 CONFIGS: List[Type[BaseConfig]] = [
     DevelopmentConfig,
