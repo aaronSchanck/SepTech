@@ -14,7 +14,7 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User clicks on the button to chat.      |  1a. User navigates to the page of seller/buyer/customer service.       |
-| 2. System opens up a chat box.      |  1b. User clicks on the button on their page to chat.       |
+| 2. System opens up a chat box.      |  1b. User clicks on the button on their page to chat. (Go to step 4.)      |
 | 3. User selects the recipient within the chat box.    |         |
 | 4. User types in a message.     |         |
 | 5. User clicks on the button to send message.     |         |
