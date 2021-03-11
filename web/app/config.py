@@ -13,7 +13,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or 'postgres://postgres:mypassword@104.236.50.161:5432/syzygy'
     
 class ProductionConfig(BaseConfig):
     CONFIG_NAME = "prod"
@@ -21,7 +21,7 @@ class ProductionConfig(BaseConfig):
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or 'postgres://postgres:mypassword@104.236.50.161:5432/syzygy'
     
 class TestingConfig(BaseConfig):
     CONFIG_NAME = "test"
@@ -29,7 +29,7 @@ class TestingConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or 'postgres://postgres:mypassword@104.236.50.161:5432/syzygy'
     
 CONFIGS: List[Type[BaseConfig]] = [
     DevelopmentConfig,
