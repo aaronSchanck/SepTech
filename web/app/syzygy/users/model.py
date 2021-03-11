@@ -14,6 +14,8 @@ class User(db.Model):
     first_name = Column(String(127))
     last_name = Column(String(127))
     date_of_birth = Column(DateTime)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
 
     def update(self, changes: UserInterface):
         for key, val in changes.items():

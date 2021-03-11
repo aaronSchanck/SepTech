@@ -29,7 +29,7 @@ class UserService:
 
     @staticmethod
     def create(new_attrs: UserInterface):
-        new_user = User(username=new_attrs["username"], email=new_attrs["email"], password=new_attrs["password"], first_name=new_attrs["first_name"], last_name=new_attrs["last_name"], date_of_birth=new_attrs["date_of_birth"])
+        new_user = User(username=new_attrs["username"], email=new_attrs["email"], password=new_attrs["password"], first_name=new_attrs["first_name"], last_name=new_attrs["last_name"], date_of_birth=new_attrs["date_of_birth"], created_at=new_attrs["created_at"], modified_at=new_attrs["modified_at"])
 
         db.session.add(new_user)
         db.session.commit()
