@@ -11,9 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Centauri">
+        android:theme="@style/Theme.Centauri"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.Login"
+            android:name=".activities.LoginActivity"
             android:theme="@style/Theme.Centauri.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

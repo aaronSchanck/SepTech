@@ -1,34 +1,27 @@
 package com.septech.centauri.database;
 
-import com.septech.centauri.database.utils.DatabaseConfigReader;
+import android.os.Build;
+import android.util.Log;
+import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Database {
-    private Connection connection;
+    private final String TAG = "centauri-Database";
 
-    private String host;
-    private String databaseName;
     private final int port = 5432;
     private String user;
     private String password;
 
-    private String url = "jdbc:postgresql://%s:%d/%s";
-
-    private boolean status;
-
-    public Database(String host, String database) {
-        this.host = host;
-        this.databaseName = database;
-
-        this.url = String.format(this.url, this.host, this.port, this.databaseName);
-
-        DatabaseConfigReader dbcreader = new DatabaseConfigReader();
-        user = dbcreader.getLoginUsername();
-        password = dbcreader.getLoginPassword();
-
+    public Database() {
         connect();
     }
 
@@ -36,21 +29,28 @@ public class Database {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                URL url = null;
                 try {
-                    Class.forName("org.postgresql.Driver");
-
-                    if (user == null || password == null) {
-                        DatabaseConfigReader dbcreader = new DatabaseConfigReader();
-                        user = dbcreader.getLoginUsername();
-                        password = dbcreader.getLoginPassword();
-                    }
-                    connection = DriverManager.getConnection(url, user, password);
-
-                    status = true;
-                } catch (Exception e) {
-                    status = false;
-                    System.out.print(e.getMessage());
+                    url = new URL("http://104.236.50.161:5000/api/users/");
+                } catch (MalformedURLException e) {
                     e.printStackTrace();
+                }
+                HttpURLConnection urlConnection = null;
+                InputStream in = null;
+                try {
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
+
+
+
+                    String response = getFullResponse(urlConnection);
+
+                    Log.i(TAG, response);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    urlConnection.disconnect();
                 }
             }
         });
@@ -60,26 +60,47 @@ public class Database {
             thread.join();
         } catch (Exception e) {
             e.printStackTrace();
-            this.status = false;
         }
     }
 
     public Connection getConnection() {
-        Connection c = null;
-        try {
-            Class.forName("org.postgresql.Driver");
+//        Connection c = null;
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//
+//            if (user == null || password == null) {
+//                DatabaseConfigReader dbcreader = new DatabaseConfigReader();
+//                user = dbcreader.getLoginUsername();
+//                password = dbcreader.getLoginPassword();
+//            }
+//            c = DriverManager.getConnection(url, user, password);
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return c;
+        return null;
+    }
 
-            if (user == null || password == null) {
-                DatabaseConfigReader dbcreader = new DatabaseConfigReader();
-                user = dbcreader.getLoginUsername();
-                password = dbcreader.getLoginPassword();
-            }
-            c = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public String getFullResponse(HttpURLConnection con) throws IOException {
+        StringBuilder fullResponseBuilder = new StringBuilder();
+
+        fullResponseBuilder.append(con.getResponseCode())
+                .append(" ")
+                .append(con.getResponseMessage())
+                .append("\n");
+
+        InputStream in = new BufferedInputStream(con.getInputStream());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        StringBuilder result = new StringBuilder();
+        String line;
+        while((line = reader.readLine()) != null) {
+            result.append(line + "\n");
         }
-        return c;
+
+        Log.i(TAG, result.toString());
+
+        return fullResponseBuilder.toString();
     }
 }
