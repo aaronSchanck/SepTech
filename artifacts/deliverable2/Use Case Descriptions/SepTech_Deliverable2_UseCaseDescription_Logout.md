@@ -1,6 +1,8 @@
 
 |Title |   Logout      |
 |---------|---------|
+|**ID**|    UC-ACC-4      |
+|**Relevant User Stories**|    FR-ACC-2, FR-ACC-3     |
 |**Description**|     This use case describes the process of logging out of a user account.       |
 |**System Under Design**|     Centauri/Account System        |
 |**Primary Actor**|     General User        |

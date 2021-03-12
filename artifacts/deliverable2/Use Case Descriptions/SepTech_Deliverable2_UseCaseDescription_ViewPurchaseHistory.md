@@ -1,5 +1,7 @@
 |Title |   View Purchase History      |
 |---------|---------|
+|**ID**|    UC-PHI-1      |
+|**Relevant User Stories**|    FR-PHI-1, FR-PHI-2, FR-PHI-3, FR-PHI-6     |
 |**Description**|     This use case describes the steps for viewing an account's purchase history.       |
 |**System Under Design**|     Centauri/Purchase History System        |
 |**Primary Actor**|      General User       |

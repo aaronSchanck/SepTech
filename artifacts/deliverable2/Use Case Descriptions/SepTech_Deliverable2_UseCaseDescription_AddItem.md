@@ -2,6 +2,8 @@
 
 |Title |   Add Item     |
 |---------|---------|
+|**ID**|    UC-IC-1      |
+|**Relevant User Stories**|    FR-CART-1, FR-CART-8      |
 |**Description**|     This use case describes the process for adding an item to the user cart.      |
 |**System Under Design**|     Centauri/Item Cart System        |
 |**Primary Actor**|     General User.        |

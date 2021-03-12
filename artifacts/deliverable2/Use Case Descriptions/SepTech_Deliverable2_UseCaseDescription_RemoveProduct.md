@@ -1,5 +1,7 @@
 |Title |   Remove Product      |
 |---------|---------|
+|**ID**|    UC-ADM-2      |
+|**Relevant User Stories**|    FR-ADM-2     |
 |**Description**|     This use case describes the steps to removing listings from the app.      |
 |**System Under Design**|    Administration System     |
 |**Primary Actor**|   Admin User   |

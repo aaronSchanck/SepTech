@@ -2,6 +2,8 @@
 
 |Title |   Leave Review      |
 |---------|---------|
+|**ID**|    UC-REV-1      |
+|**Relevant User Stories**|    FR-REV-1, FR-REV-2      |
 |**Description**|     This use case describes the process for leaving a review on an item or seller.       |
 |**System Under Design**|     Centauri/Review System        |
 |**Primary Actor**|     General User.       |

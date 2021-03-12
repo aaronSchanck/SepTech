@@ -1,5 +1,7 @@
 |Title |   View Item Location      |
 |---------|---------|
+|**ID**|    UC-TRK-1      |
+|**Relevant User Stories**|    FR-TRK-1, FR-TRK-2, FR-TRK-3     |
 |**Description**|     This use case describes the steps for viewing the current location of an order.      |
 |**System Under Design**|    Tracking System     |
 |**Primary Actor**|   General User   |

@@ -1,7 +1,9 @@
 
 
-|Title |   Premium System     |
+|Title |   Upgrade Membership     |
 |---------|---------|
+|**ID**|    UC-PR-2      |
+|**Relevant User Stories**|    FR-PAY-1, FR-ACC-5    |
 |**Description**|     This use case describes the process of upgrading a user account to a premium account.       |
 |**System Under Design**|     Centauri/Premium System        |
 |**Primary Actor**|     Non-Premium User.       |

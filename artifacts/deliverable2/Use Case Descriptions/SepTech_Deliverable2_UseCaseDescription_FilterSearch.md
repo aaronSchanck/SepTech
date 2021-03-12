@@ -1,5 +1,7 @@
 |Title |   Filter Search      |
 |---------|---------|
+|**ID**|    UC-SER-1      |
+|**Relevant User Stories**|    FR-SER-6    |
 |**Description**|     This use case describes the steps for filtering through the results of a search.      |
 |**System Under Design**|    Search System     |
 |**Primary Actor**|   General User   |

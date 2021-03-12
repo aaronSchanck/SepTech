@@ -2,6 +2,8 @@
 
 |Title |   Place Bid      |
 |---------|---------|
+|**ID**|    UC-BID-1      |
+|**Relevant User Stories**|    FR-BID-1     |
 |**Description**|     This use case describes the process of placing a bid on a biddable item.      |
 |**System Under Design**|     Centauri/Bidding System        |
 |**Primary Actor**|     General User       |

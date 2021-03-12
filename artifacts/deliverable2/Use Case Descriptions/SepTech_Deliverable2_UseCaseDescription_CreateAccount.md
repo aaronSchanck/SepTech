@@ -2,6 +2,8 @@
  
 |Title |   Create Account   |
 |---------|---------|
+|**ID**|    UC-ACC-1      |
+|**Relevant User Stories**|    FR-ACC-4     |
 |**Description**|     This use case describes the process of creating a user account.       |
 |**System Under Design**|    Centauri/Signup System       |
 |**Primary Actor**|     Unregistered User.        |

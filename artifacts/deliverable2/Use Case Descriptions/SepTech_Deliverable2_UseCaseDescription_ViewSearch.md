@@ -1,5 +1,7 @@
 |Title |   View Search      |
 |---------|---------|
+|**ID**|    UC-SER-2      |
+|**Relevant User Stories**|    FR-SER-1, FR-SER-2, FR-SER-3, FR-SER-4, FR-SER-5     |
 |**Description**|     This use case describes the steps for viewing the results of a search.      |
 |**System Under Design**|    Search System     |
 |**Primary Actor**|   General User   |
