@@ -1,5 +1,7 @@
 |Title |   Ban Account      |
 |---------|---------|
+|**ID**|    UC-ADM-1      |
+|**Relevant User Stories**|    FR-ADM-1      |
 |**Description**|     This use case describes the steps banning an account that violates the Terms of Service.      |
 |**System Under Design**|    Administration System     |
 |**Primary Actor**|   Admin User   |

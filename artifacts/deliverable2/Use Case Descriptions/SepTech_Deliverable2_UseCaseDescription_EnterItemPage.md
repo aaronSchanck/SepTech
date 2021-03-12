@@ -2,6 +2,8 @@
 
 |Title |   Enter Item Page     |
 |---------|---------|
+|**ID**|    UC-CAT-1      |
+|**Relevant User Stories**|    FR-CAT-1, FR-CAT-2, FR-CAT-3      |
 |**Description**|     This use case describes the process opening navigating to the item information page.     |
 |**System Under Design**|     Centauri/Item Catalog System       |
 |**Primary Actor**|     General User        |

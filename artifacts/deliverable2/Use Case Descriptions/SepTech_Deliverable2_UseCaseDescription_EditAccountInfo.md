@@ -2,6 +2,8 @@
 
 |Title |   Edit Account Info      |
 |---------|---------|
+|**ID**|    UC-ACC-2      |
+|**Relevant User Stories**|    FR-ACC-6, FR-ACC-7, FR-ACC-8, FR-ACC-9      |
 |**Description**|     This use case describes the process of editing the information associated with a user account.       |
 |**System Under Design**|     Centauri/Account System.        |
 |**Primary Actor**|     General User        |

@@ -1,5 +1,7 @@
 |Title |   Send Message      |
 |---------|---------|
+|**ID**|    UC-CHAT-1      |
+|**Relevant User Stories**|    FR-CHAT-1, FR-CHAT-2, FR-CHAT-3, FR-CHAT-4     |
 |**Description**|     This use case describes the steps for sending a message to another user on the platform.       |
 |**System Under Design**|     Centauri/Chat System        |
 |**Primary Actor**|      General User       |

@@ -1,19 +1,27 @@
 
 
-|Title |   Select Payment Method     |
+|Title |   Enter New Payment Method     |
 |---------|---------|
-|**Description**|     This use case describes the process of selecting a payment method      |
+|**ID**|    UC-PAY-1      |
+|**Relevant User Stories**|    FR-PAY-3      |
+|**Description**|     This use case describes the process of entering a new payment method.      |
 |**System Under Design**|     Centauri/Payment Methods System.        |
 |**Primary Actor**|     	General User.       |
 |**Participants**|     	Administrative user, premium user, non-premium user, seller user.       |
-|**Goal**|     To successfully se       |
-|**Following Use Cases**|     Text here.        |
-|**Invariant**|     Text here.       |
-|**Precondition**|     Text here.       |
-|**Success Postcondition**|     Text here.       |
+|**Goal**|     To successfully enter a new payment method into the system.       |
+|**Following Use Cases**|     Save Payment Method, Saved Payment Notification        |
+|**Invariant**|     None       |
+|**Precondition**|     User must be checking out or user must have a registered account.       |
+|**Success Postcondition**|     Payment method is saved temporarily for the current order, or if entering the new payment in settings using a registered account, payment is saved to the account.       |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1.      |         |
-| 2.      |         |
+| 1.  User selects the button to enter a new payment method.    |         |
+| 2.  The system opens an input box for user to input their new payment method.    |         |
+| 3.  The user types in their credit card information.    |         |
+| 4.  The user clicks on a button to confirm their payment details.   |         |
+| 5.  The system confirms that the payment method is valid.   | 5a. The system can not confirm that the payment method is valid.        |
+| 6.  The system temporarily saves the payment method for the current order.   | 5b. The system prompts the user to enter the correct payment details.        |
+| | 6a. The system saves the payment method to the registered account, if the payment method is entered in the account payment settings.        |
+
