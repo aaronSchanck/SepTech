@@ -11,6 +11,8 @@ import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -22,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Database db = new Database("104.236.50.161", "users");
+        Log.e("MainActivity", "help");
+
+        Debug.waitForDebugger();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);

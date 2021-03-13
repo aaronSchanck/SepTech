@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Login"
+    tools:context=".activities.LoginActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,14 +24,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
         android:padding="20dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"
             android:id="@+id/email"
             android:hint="Email Address"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -43,11 +42,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingTop="5dp"
+            android:layout_height="wrap_content"
             android:id="@+id/password"
             android:hint="Password"
-            app:passwordToggleEnabled="false"
+            app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -69,7 +67,7 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Create An Account"
+            android:text="Sign In"
             android:textSize="16dp"
             android:backgroundTint="@color/centauri__teal"
             android:textColor="@color/gray"
@@ -82,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="5dp"
-            android:text="Sign-In"
+            android:text="Create An Account"
             android:backgroundTint="@color/centauri__teal"
             android:textColor="@color/gray"
             android:textSize="16dp"

@@ -1,4 +1,4 @@
-package com.septech.centauri.database.utils;
+package com.septech.centauri.utils;
 
 import android.content.Context;
 
@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Deprecated
 public class DatabaseConfigReader {
     private InputStream input;
     private Properties prop;

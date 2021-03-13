@@ -1,9 +1,39 @@
-from sqlalchemy import Column, Integer, String, DateTime
+"""/web/app/syzygy/users/model.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
+import logging
+
 from app import db
+from sqlalchemy import *
+
 from .interface import UserInterface
+
+log = logging.getLogger(__name__)
 
 
 class User(db.Model):
+    """[summary]
+
+    :param db: [description]
+    :type db: [type]
+    :return: [description]
+    :rtype: [type]
+    """
+
+    # TODO: Change date_of_birth to Date from DateTime
 
     __tablename__ = "users"
 

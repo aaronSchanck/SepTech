@@ -1,3 +1,19 @@
+"""/web/manage.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
 import os
 
 from app import create_app, db

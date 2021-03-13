@@ -2,12 +2,14 @@
 
 |Title |   Add Item     |
 |---------|---------|
+|**ID**|    UC-IC-1      |
+|**Relevant User Stories**|    FR-CART-1, FR-CART-8      |
 |**Description**|     This use case describes the process for adding an item to the user cart.      |
 |**System Under Design**|     Centauri/Item Cart System        |
 |**Primary Actor**|     General User.        |
 |**Participants**|     Admin user, Premium User, Non-Premium User        |
 |**Goal**|     To successfully add an item to the user cart.        |
-|**Following Use Cases**|     Remove Item, checkout.       |
+|**Following Use Cases**|     None.       |
 |**Invariant**|     No invariant.     |
 |**Precondition**|     User is signed into a user account.       |
 |**Success Postcondition**|     The system saves the item to the users cart.       |

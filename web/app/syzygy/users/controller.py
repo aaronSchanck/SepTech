@@ -1,19 +1,53 @@
+"""/web/app/syzygy/users/controller.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+This file acts as the main router for the API. The main GET/POST/PUT/DELETE
+requests are written here. This also draws the swagger UI on the API for
+rudimentary testing on the browser.
+
+Classes:
+
+    UserResource:
+        Extends Resource from flask-restx. Adding a function with name
+        "get"/"post"/"delete"/"put" will add the respective route to the API.
+
+    UserIdResource:
+        Extends Resource from flask-restx. Follows same functionality from
+        aforementioned class. Must be routed to with {baseurl}/{userid}.
+
+    UserLoginResource:
+        Extends Resource from flask-restx. Acts as a helper class for logging
+        in users.
+
+"""
+
+import logging
 from typing import List
+
 from flask import request
-
-from flask_restx import Namespace, Resource
 from flask_accepts import accepts, responds
+from flask_restx import Namespace, Resource
 
+from .interface import UserInterface
+from .model import User
 from .schema import UserSchema
 from .service import UserService
-from .model import User
-from .interface import UserInterface
 
 api = Namespace("User")
+log = logging.getLogger(__name__)
 
 
 @api.route("/")
 class UserResource(Resource):
+    """[summary]
+
+    Args:
+        Resource ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
 
     @responds(schema=UserSchema(many=True))
     def get(self):
@@ -53,3 +87,20 @@ class UserIdResource(Resource):
         changes: UserInterface = request.parsed_obj
         User = UserService.get_by_id(userid)
         return UserService.update(User, changes)
+
+
+@api.route("/login")
+class UserLoginResource(Resource):
+    @accepts(
+        dict(name="username", type=str, help="A user's username/email"),
+        dict(name="password", type=str, help="A user's password"),
+        api=api,
+    )
+    @responds(schema=UserSchema)
+    def post(self):
+        """Login with user credentials"""
+
+        username = request.parsed_args["username"]
+        password = request.parsed_args["password"]
+
+        return UserService.login(username, password)

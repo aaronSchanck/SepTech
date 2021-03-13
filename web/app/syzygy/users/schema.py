@@ -1,4 +1,26 @@
-from marshmallow import fields, Schema
+"""/web/app/syzygy/users/schema.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
+import logging
+
+from sqlalchemy.dialects import postgresql
+
+from marshmallow import Schema, fields
+
+log = logging.getLogger(__name__)
 
 
 class UserSchema(Schema):
