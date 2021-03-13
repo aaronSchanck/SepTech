@@ -122,3 +122,6 @@ misc/
 app/app-test.db
 
 lenv/
+
+# sphinx build folder
+_build/
