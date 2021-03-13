@@ -26,41 +26,6 @@ public class Database {
     }
 
     private void connect() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                URL url = null;
-                try {
-                    url = new URL("http://104.236.50.161:5000/api/users/");
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection urlConnection = null;
-                InputStream in = null;
-                try {
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setRequestMethod("GET");
-
-
-
-                    String response = getFullResponse(urlConnection);
-
-                    Log.i(TAG, response);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    urlConnection.disconnect();
-                }
-            }
-        });
-        thread.start();
-
-        try {
-            thread.join();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Connection getConnection() {
@@ -81,26 +46,5 @@ public class Database {
 //        }
 //        return c;
         return null;
-    }
-
-    public String getFullResponse(HttpURLConnection con) throws IOException {
-        StringBuilder fullResponseBuilder = new StringBuilder();
-
-        fullResponseBuilder.append(con.getResponseCode())
-                .append(" ")
-                .append(con.getResponseMessage())
-                .append("\n");
-
-        InputStream in = new BufferedInputStream(con.getInputStream());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder result = new StringBuilder();
-        String line;
-        while((line = reader.readLine()) != null) {
-            result.append(line + "\n");
-        }
-
-        Log.i(TAG, result.toString());
-
-        return fullResponseBuilder.toString();
     }
 }

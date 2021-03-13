@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.septech.centauri.R;
+import com.septech.centauri.database.API.Users.Get;
 import com.septech.centauri.database.Database;
 
 
@@ -18,7 +19,10 @@ public class LoginActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
 
-        Database db = new Database();
+//        Database db = new Database();
+
+        new Thread(() -> Get.getSingleUser(1)).start();
+
         setContentView(R.layout.activity_login);
 
         Toolbar toolbar = findViewById(R.id.toolbar);

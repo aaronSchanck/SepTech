@@ -1,4 +1,4 @@
-package com.septech.centauri.database.API;
+package com.septech.centauri.database.API.Users;
 
 import com.septech.centauri.models.User;
 
