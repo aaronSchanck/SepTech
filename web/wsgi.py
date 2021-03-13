@@ -31,4 +31,4 @@ host = "localhost" if env == "test" else "0.0.0.0"
 
 if __name__ == "__main__":
     with setup_logging():
-        app.run(host=host, debug=True)
+        app.run(host="0.0.0.0", debug=True)

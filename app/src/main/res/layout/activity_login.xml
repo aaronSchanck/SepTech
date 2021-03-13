@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/email"
-            android:hint="Email Address"
+            android:hint="Username/Email Address"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -68,12 +68,13 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Sign In"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:backgroundTint="@color/centauri__teal"
             android:textColor="@color/gray"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:elevation="5dp"/>
+            android:elevation="5dp"
+            android:onClick="login"/>
 
         <Button
             android:layout_width="250dp"
@@ -83,10 +84,9 @@
             android:text="Create An Account"
             android:backgroundTint="@color/centauri__teal"
             android:textColor="@color/gray"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:onClick="createAccount"/>
 
     </LinearLayout>
 
@@ -111,7 +111,8 @@
             android:elevation="5dp"
             android:text="Continue As Guest"
             android:textColor="@color/black"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:onClick="continueAsGuest"/>
 
     </LinearLayout>
 

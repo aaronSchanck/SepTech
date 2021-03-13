@@ -7,9 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.septech.centauri.R;
 import com.septech.centauri.database.API.Users.Get;
 import com.septech.centauri.database.Database;
+import com.septech.centauri.models.User;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -21,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //        Database db = new Database();
 
-        new Thread(() -> Get.getSingleUser(1)).start();
+        User user = Database.login("string", "string");
 
         setContentView(R.layout.activity_login);
 
@@ -49,5 +52,17 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void login(View view) {
+
+    }
+
+    public void createAccount(View view) {
+
+    }
+
+    public void continueAsGuest(View view) {
+
     }
 }
