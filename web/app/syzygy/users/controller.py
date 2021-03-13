@@ -1,3 +1,26 @@
+"""/web/app/syzygy/users/controller.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+This file acts as the main router for the API. The main GET/POST/PUT/DELETE
+requests are written here. This also draws the swagger UI on the API for
+rudimentary testing on the browser.
+
+Classes:
+
+    UserResource:
+        Extends Resource from flask-restx. Adding a function with name
+        "get"/"post"/"delete"/"put" will add the respective route to the API.
+
+    UserIdResource:
+        Extends Resource from flask-restx. Follows same functionality from
+        aforementioned class. Must be routed to with {baseurl}/{userid}.
+
+    UserLoginResource:
+        Extends Resource from flask-restx. Acts as a helper class for logging
+        in users.
+"""
+
 from typing import List
 from flask import request
 
@@ -14,6 +37,14 @@ api = Namespace("User")
 
 @api.route("/")
 class UserResource(Resource):
+    """[summary]
+
+    Args:
+        Resource ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
 
     @responds(schema=UserSchema(many=True))
     def get(self):
@@ -53,3 +84,22 @@ class UserIdResource(Resource):
         changes: UserInterface = request.parsed_obj
         User = UserService.get_by_id(userid)
         return UserService.update(User, changes)
+
+
+@api.route("/login")
+class UserLoginResource(Resource):
+    @accepts(
+        dict(name="email", type=str, help="A user's email"),
+        dict(name="password", type=str, help="A user's password"),
+        api=api
+    )
+    @responds(schema=UserSchema)
+    def post(self):
+        """Login with user credentials"""
+
+        print(request.parsed_args)
+
+        email = request.parsed_args["email"]
+        password = request.parsed_args["password"]
+
+        return UserService.login(email, password)

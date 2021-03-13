@@ -4,6 +4,13 @@ from .interface import UserInterface
 
 
 class User(db.Model):
+    """[summary]
+
+    :param db: [description]
+    :type db: [type]
+    :return: [description]
+    :rtype: [type]
+    """
 
     __tablename__ = "users"
 
