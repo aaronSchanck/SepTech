@@ -23,10 +23,12 @@ from utils.logging import setup_logging
 
 log = logging.getLogger(__name__)
 
-app = create_app(os.getenv("FLASK_ENV") or "test")
+env = os.getenv("FLASK_ENV") or "test"
 
-host = "localhost" if app == "test" else "0.0.0.0"
+app = create_app(env)
+
+host = "localhost" if env == "test" else "0.0.0.0"
 
 if __name__ == "__main__":
     with setup_logging():
-        app.run(host="localhost", debug=True)
+        app.run(host=host, debug=True)
