@@ -20,15 +20,11 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.e("MainActivity", "help");
-
-        Debug.waitForDebugger();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
