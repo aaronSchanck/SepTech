@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.database.API.Users.Get;
 import com.septech.centauri.database.Database;
 import com.septech.centauri.models.User;
 
@@ -21,8 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
-
-//        Database db = new Database();
 
         User user = Database.login("string", "string");
 
@@ -55,7 +53,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-
+        TextInputLayout emailTextInput = findViewById(R.id.email);
+        String email = emailTextInput.getEditText().getText().toString();
+        TextInputLayout passwordTextInput = findViewById(R.id.password);
+        String password = passwordTextInput.getEditText().getText().toString();
+        User user = Database.login(email, password);
     }
 
     public void createAccount(View view) {

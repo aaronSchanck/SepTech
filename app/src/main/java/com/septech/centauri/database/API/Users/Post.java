@@ -17,10 +17,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Post {
     private static final String TAG = "centauri-db-api";
@@ -30,37 +39,48 @@ public class Post {
     }
 
     public User login(String username, String password) {
-        HttpURLConnection con = null;
+        HttpsURLConnection con = null;
         User user = null;
         try {
             //create json object and populate
-            JSONObject json = new JSONObject();
-
-            json.put("username", username);
-            json.put("password", password);
 
             URL url = new URL(Utils.getUserTableURL() + "/login");
 
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestProperty("Content-Type", "application/json");
+            Map<String, String> postDataParams = new LinkedHashMap<>();
+            postDataParams.put("username", username);
+            postDataParams.put("password", password);
+
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,String> param : postDataParams.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+
+            byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
+
+            con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            con.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
             con.setDoOutput(true);
             con.setDoInput(true);
-            con.setChunkedStreamingMode(0);
 
-            OutputStream out = new BufferedOutputStream(con.getOutputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                    out, StandardCharsets.UTF_8));
-            writer.write(json.toString());
-            writer.flush();
+            con.getOutputStream().write(postDataBytes);
 
-            int code = con.getResponseCode();
-            if (!(code >=  200 && code < 300)) {
-                throw new IOException("Invalid response from server: " + code);
+            InputStream inputStream;
+            int status = con.getResponseCode();
+
+            if (status != HttpURLConnection.HTTP_OK)  {
+                inputStream = con.getErrorStream();
+            }
+            else  {
+                inputStream = con.getInputStream();
             }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    con.getInputStream()));
+                    inputStream));
 
             StringBuilder result = new StringBuilder();
 
@@ -70,7 +90,6 @@ public class Post {
 
             Log.i(TAG, result.toString());
 
-            user = new User(json);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -78,5 +97,20 @@ public class Post {
         }
 
         return user;
+    }
+
+    private String getPostDataString(List<String> params) throws UnsupportedEncodingException {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        for(String s: params){
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(s);
+        }
+
+        return result.toString();
     }
 }
