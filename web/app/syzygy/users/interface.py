@@ -12,9 +12,11 @@ Functions:
 
     [FunctionsList]
 
-"""import logging
+"""
 
-from mypy_extensions import TypedDict
+import logging
+
+from typing import TypedDict
 
 log = logging.getLogger(__name__)
 

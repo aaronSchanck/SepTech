@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from app import db
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import *
 
 from .interface import UserInterface
 
@@ -32,6 +32,8 @@ class User(db.Model):
     :return: [description]
     :rtype: [type]
     """
+
+    # TODO: Change date_of_birth to Date from DateTime
 
     __tablename__ = "users"
 

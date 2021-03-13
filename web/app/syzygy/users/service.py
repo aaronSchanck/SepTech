@@ -157,7 +157,7 @@ class UserService:
         # check to see if the username matches on email. If so, then the user
         # input a email address in the box instead of a username
         if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", username):
-            log.info("Input username was thought to be a email address")
+            log.info("Input username was thought to be an email address")
             email = username
         else:
             log.info("Input username was thought to be a username")
@@ -178,6 +178,8 @@ class UserService:
         if user.password != password:
             log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
+
+        log.info(f"User {user.userid} was found and returned to client")
 
         # generate JWT token and concatenate
 
