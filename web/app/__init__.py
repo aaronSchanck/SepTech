@@ -1,8 +1,13 @@
+import logging
+
 from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_restx import Api
+from flask_sqlalchemy import SQLAlchemy
+
+log = logging.getLogger(__name__)
 
 db = SQLAlchemy()
+
 
 def create_app(env=None):
     from app.config import config_by_name
@@ -15,7 +20,8 @@ def create_app(env=None):
     register_routes(api, app)
     db.init_app(app)
 
-    app.route('/', methods=['GET'])
+    app.route("/", methods=["GET"])
+
     def index():
         return jsonify("healthy")
 

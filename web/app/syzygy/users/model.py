@@ -1,6 +1,11 @@
-from sqlalchemy import Column, Integer, String, DateTime
+import logging
+
 from app import db
+from sqlalchemy import Column, DateTime, Integer, String
+
 from .interface import UserInterface
+
+log = logging.getLogger(__name__)
 
 
 class User(db.Model):

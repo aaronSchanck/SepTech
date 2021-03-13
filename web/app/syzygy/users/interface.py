@@ -1,4 +1,9 @@
+import logging
+
 from mypy_extensions import TypedDict
+
+log = logging.getLogger(__name__)
+
 
 class UserInterface(TypedDict, total=False):
     userid: int
@@ -10,4 +15,3 @@ class UserInterface(TypedDict, total=False):
     date_of_birth: str
     created_at: str
     modified_at: str
-    

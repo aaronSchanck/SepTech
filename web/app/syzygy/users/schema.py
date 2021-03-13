@@ -1,4 +1,8 @@
-from marshmallow import fields, Schema
+import logging
+
+from marshmallow import Schema, fields
+
+log = logging.getLogger(__name__)
 
 
 class UserSchema(Schema):

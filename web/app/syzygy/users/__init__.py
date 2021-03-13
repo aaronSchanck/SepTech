@@ -1,7 +1,11 @@
+import logging
+
 from .model import User
 from .schema import UserSchema
 
 BASE_ROUTE = "users"
+
+log = logging.getLogger(__name__)
 
 
 def register_routes(api, app, root="api"):

@@ -19,20 +19,23 @@ Classes:
     UserLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
         in users.
+
 """
 
+import logging
 from typing import List
+
 from flask import request
-
-from flask_restx import Namespace, Resource
 from flask_accepts import accepts, responds
+from flask_restx import Namespace, Resource
 
+from .interface import UserInterface
+from .model import User
 from .schema import UserSchema
 from .service import UserService
-from .model import User
-from .interface import UserInterface
 
 api = Namespace("User")
+log = logging.getLogger(__name__)
 
 
 @api.route("/")
@@ -89,17 +92,15 @@ class UserIdResource(Resource):
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(
-        dict(name="email", type=str, help="A user's email"),
+        dict(name="username", type=str, help="A user's email/username"),
         dict(name="password", type=str, help="A user's password"),
-        api=api
+        api=api,
     )
     @responds(schema=UserSchema)
     def post(self):
         """Login with user credentials"""
 
-        print(request.parsed_args)
-
-        email = request.parsed_args["email"]
+        username = request.parsed_args["username"]
         password = request.parsed_args["password"]
 
-        return UserService.login(email, password)
+        return UserService.login(username, password)

@@ -1,10 +1,13 @@
+import logging
 from datetime import datetime
-import pandas as pd
-import numpy as np
-from flask_script import Command
 
+import numpy as np
+import pandas as pd
 from app import db
 from app.syzygy.users import User
+from flask_script import Command
+
+log = logging.getLogger(__name__)
 
 
 def seed_things():
@@ -12,6 +15,7 @@ def seed_things():
     for klass in classes:
         # seed_thing(klass)
         pass
+
 
 # def seed_thing(cls):
 #     db.session.bulk_insert_mappings(cls, things)
