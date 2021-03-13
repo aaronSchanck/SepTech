@@ -92,7 +92,7 @@ class UserIdResource(Resource):
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(
-        dict(name="username", type=str, help="A user's email/username"),
+        dict(name="username", type=str, help="A user's username/email"),
         dict(name="password", type=str, help="A user's password"),
         api=api,
     )

@@ -1,3 +1,19 @@
+"""/web/app/syzygy/routes.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
 import logging
 
 log = logging.getLogger(__name__)

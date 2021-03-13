@@ -1,4 +1,18 @@
-import logging
+"""/web/app/syzygy/users/interface.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""import logging
 
 from mypy_extensions import TypedDict
 

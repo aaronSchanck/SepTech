@@ -1,3 +1,19 @@
+"""/web/commands/seed.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
 import logging
 from datetime import datetime
 

@@ -1,3 +1,19 @@
+"""/web/app/syzygy/__init__.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
 import logging
 
 from flask import Flask, jsonify

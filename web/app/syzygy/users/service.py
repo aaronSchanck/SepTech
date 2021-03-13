@@ -1,3 +1,19 @@
+"""/web/app/syzygy/users/service.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
 from app import db
 from .model import User
 from .interface import UserInterface
@@ -10,6 +26,7 @@ import re
 from typing import List
 
 log = logging.getLogger(__name__)
+
 
 class UserService:
     @staticmethod
@@ -58,11 +75,12 @@ class UserService:
     def update(user: User, User_change_updates: UserInterface) -> User:
         """[summary]
 
-        :param user: [description]
+        :param user: The User to update in the database
         :type user: User
-        :param User_change_updates: [description]
+        :param User_change_updates: Dictionary object containing the new changes
+        to update the User model object with
         :type User_change_updates: UserInterface
-        :return: [description]
+        :return: The updated User model object
         :rtype: User
         """
         user.update(User_change_updates)
@@ -71,15 +89,16 @@ class UserService:
 
     @staticmethod
     def delete_by_id(userid: int) -> List:
-        """[summary]
+        """Deletes a user from the table with the specified userid
 
-        :param userid: [description]
+        :param userid: User's userid
         :type userid: int
-        :return: [description]
-        :rtype: [type]
+        :return: List containing the deleted user, if found, otherwise an empty
+        list
+        :rtype: List
         """
 
-        user = User.query.filter(User.userid == userid).first()
+        user = UserService.get_by_id(userid)
         if not user:
             return []
         db.session.delete(user)
@@ -88,11 +107,11 @@ class UserService:
 
     @staticmethod
     def create(new_attrs: UserInterface) -> User:
-        """[summary]
+        """Creates a user object from the UserInterface TypedDict
 
-        :param new_attrs: [description]
+        :param new_attrs: A dictionary with the input into a User model
         :type new_attrs: UserInterface
-        :return: [description]
+        :return: A new user object based on the input
         :rtype: User
         """
 
@@ -117,39 +136,47 @@ class UserService:
         """Checks user credentials against database. If a user is found, then
         send the user information back to the client.
 
-        :param username: Username of the user
+        :param username: User's username or email, to be figured out in the
+        function
         :type username: str
-        :param password: [description]
+        :param password: User's password
         :type password: str
-        :return: [description]
+        :return: User model from the table with the specified username/email and
+        password
         :rtype: User
         """
 
         log.debug(f"Username: {username}\tPassword: {password}")
 
         if not username:
-            return ErrResponse("No email/username entered", 400)
+            return ErrResponse("No username/email entered", 400)
 
         if not password:
             return ErrResponse("No password entered", 400)
 
+        # check to see if the username matches on email. If so, then the user
+        # input a email address in the box instead of a username
         if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", username):
+            log.info("Input username was thought to be a email address")
             email = username
         else:
+            log.info("Input username was thought to be a username")
             email = ""
 
+        # get user structure from email address or username, whichever was
+        # supplied
         user = (
             UserService.get_by_email(email)
             if email
             else UserService.get_by_username(username)
         )
 
-        print(user)
-
         if user is None:
-            return ErrResponse("Incorrect email", 400)
+            log.info("No user was found for supplied username/email")
+            return ErrResponse("Incorrect username/email", 400)
 
         if user.password != password:
+            log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
         # generate JWT token and concatenate

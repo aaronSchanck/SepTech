@@ -1,3 +1,19 @@
+"""/web/app/syzygy/config.py
+
+Author: Adam Green (adam.green1@maine.edu)
+
+[Description]
+
+Classes:
+
+    [ClassesList]
+
+Functions:
+
+    [FunctionsList]
+
+"""
+
 import logging
 import os
 from typing import List, Type
