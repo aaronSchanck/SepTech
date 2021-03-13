@@ -17,8 +17,8 @@
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. System displays the available items to bid on.     | 5a. Another user places a higher bid         |
-| 2. User selects the item to bid on.     | 5b. User has the option to place another bid.        |
-| 3. System displays the current highest bid, time left to bid, and the number of bidders.     | 5c. System resets the timer back to one minute if a bid is made within one minute from t he time limit.        |
-| 4. User places bid at a minimal interval set by the seller.     |         |
-| 5. User wins at the end of the time limit with the highest bid.  |       |
+| 1. User selects the item to bid on.     | 5a. Another user places a higher bid         |
+| 2. System displays the current highest bid, time left to bid, and the number of bidders.     | 5b. User has the option to place another bid.        |
+| 3. User places bid at a minimal interval set by the seller.     | 5c. System resets the timer back to one minute if a bid is made within one minute from t he time limit.        |
+| 4. User wins at the end of the time limit with the highest bid.     |         |
+
