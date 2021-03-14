@@ -1,6 +1,4 @@
-package com.septech.centauri.database.API;
-
-import java.net.URL;
+package com.septech.centauri.database.syzygy.api;
 
 public abstract class APIEndpoint {
     protected static final String TAG = "centauri-db-api";

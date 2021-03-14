@@ -1,6 +1,6 @@
-package com.septech.centauri.database.API.Users;
+package com.septech.centauri.database.syzygy.api.Users;
 
-public class Utils {
+class Ref {
     private static final String BASEAPIURL = "https://septech.me/api";
     private static final String USERSTABLEAPIURL = "/users";
 

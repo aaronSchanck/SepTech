@@ -1,9 +1,9 @@
-package com.septech.centauri.database.API.Users;
+package com.septech.centauri.database.syzygy.api.Users;
 
 import android.util.Log;
 
-import com.septech.centauri.database.API.APIEndpoint;
-import com.septech.centauri.models.User;
+import com.septech.centauri.database.syzygy.api.APIEndpoint;
+import com.septech.centauri.database.syzygy.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +23,7 @@ public class Get extends APIEndpoint {
     public User getSingleUser(int userid) {
         URL url = null;
         try {
-            url = new URL(Utils.getUserTableURL() + "/" + userid);
+            url = new URL(Ref.getUserTableURL() + "/" + userid);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

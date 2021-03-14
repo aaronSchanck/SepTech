@@ -1,13 +1,16 @@
-package com.septech.centauri.models;
+package com.septech.centauri.database.syzygy.models;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User extends Model implements Comparable<User>{
+public class User extends DatabaseModel implements Comparable<User> {
     private int userid;
     private String username;
     private String email;
     private String firstName;
     private String lastName;
+
+    private JSONObject json;
 
     public User() {
 
@@ -22,6 +25,17 @@ public class User extends Model implements Comparable<User>{
     }
 
     public User(JSONObject json) {
+        this.json = json;
+
+        try {
+            this.userid = (int) Double.parseDouble(json.get("userid").toString());
+            this.username = json.get("username").toString();
+            this.email = json.get("email").toString();
+            this.firstName = json.get("first_name").toString();
+            this.lastName = json.get("last_name").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getUserid() {

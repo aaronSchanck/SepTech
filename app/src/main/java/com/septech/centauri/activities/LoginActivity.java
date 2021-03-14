@@ -1,28 +1,35 @@
 package com.septech.centauri.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.database.Database;
-import com.septech.centauri.models.User;
+import com.septech.centauri.database.betelgeuse.BetelgeuseDatabase;
+import com.septech.centauri.database.syzygy.models.User;
+import com.septech.centauri.utils.Singleton;
 
 
 public class LoginActivity extends AppCompatActivity {
 
+    private Singleton singleton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        singleton = Singleton.getInstance();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
 
-        User user = Database.login("string", "string");
+        BetelgeuseDatabase db = Room.databaseBuilder(getApplicationContext(),
+                BetelgeuseDatabase.class, "betelgeuse").build();
 
         setContentView(R.layout.activity_login);
 
@@ -57,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailTextInput.getEditText().getText().toString();
         TextInputLayout passwordTextInput = findViewById(R.id.password);
         String password = passwordTextInput.getEditText().getText().toString();
-        User user = Database.login(email, password);
+
+        User user = singleton.getSyzygy().login(email, password);
     }
 
     public void createAccount(View view) {
