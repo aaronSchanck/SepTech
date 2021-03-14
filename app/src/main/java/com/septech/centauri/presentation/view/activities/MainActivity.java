@@ -1,17 +1,14 @@
-package com.septech.centauri.activities;
+package com.septech.centauri.presentation.view.activities;
 
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.septech.centauri.R;
-import com.septech.centauri.database.Database;
 
-import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 

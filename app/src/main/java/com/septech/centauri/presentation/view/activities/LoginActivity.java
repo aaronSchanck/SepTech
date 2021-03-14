@@ -1,4 +1,4 @@
-package com.septech.centauri.activities;
+package com.septech.centauri.presentation.view.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,8 +12,7 @@ import androidx.room.Room;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.database.Database;
-import com.septech.centauri.database.betelgeuse.BetelgeuseDatabase;
+import com.septech.centauri.data.cache.database.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.database.syzygy.models.User;
 import com.septech.centauri.utils.Singleton;
 
@@ -66,6 +65,10 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordTextInput.getEditText().getText().toString();
 
         User user = singleton.getSyzygy().login(email, password);
+
+        BetelgeuseDatabase db = singleton.getBetelgeuse(getApplicationContext());
+
+        System.out.println("view = " + view);
     }
 
     public void createAccount(View view) {

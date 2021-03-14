@@ -18,6 +18,6 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User views item in the item catalog.     |         |
-| 2. System highlights the item, allowing user to click on it.     |         |
+| 2. System highlights the item, allowing localUser to click on it.     |         |
 | 3. User clicks on item.     |         |
-| 4. System brings user to the item page.     |         |
+| 4. System brings localUser to the item page.     |         |

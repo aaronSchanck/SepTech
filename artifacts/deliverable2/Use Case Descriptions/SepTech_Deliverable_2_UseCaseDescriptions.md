@@ -2,22 +2,22 @@
 |---------|---------|
 |**ID**|    UC-IC-1      |
 |**Relevant User Stories**|    FR-CART-1, FR-CART-8      |
-|**Description**|     This use case describes the process for adding an item to the user cart.      |
+|**Description**|     This use case describes the process for adding an item to the localUser cart.      |
 |**System Under Design**|     Centauri/Item Cart System        |
 |**Primary Actor**|     General User.        |
-|**Participants**|     Admin user, Premium User, Non-Premium User        |
-|**Goal**|     To successfully add an item to the user cart.        |
+|**Participants**|     Admin localUser, Premium User, Non-Premium User        |
+|**Goal**|     To successfully add an item to the localUser cart.        |
 |**Following Use Cases**|     None.       |
 |**Invariant**|     No invariant.     |
-|**Precondition**|     User is signed into a user account.       |
-|**Success Postcondition**|     The system saves the item to the users cart.       |
+|**Precondition**|     User is signed into a localUser account.       |
+|**Success Postcondition**|     The system saves the item to the localUsers cart.       |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User selects "add to cart" button on a purchasable item.      | 3a. Item is no longer in stock.        |
-| 2. System directs user to their cart.     | 3b. System displays message to user that the item is no longer in stock.        |
-| 3. System saves item in the user's cart.     |         |
+| 2. System directs localUser to their cart.     | 3b. System displays message to localUser that the item is no longer in stock.        |
+| 3. System saves item in the localUser's cart.     |         |
 
 
 ---
@@ -30,23 +30,23 @@
 |**System Under Design**|    Administration System     |
 |**Primary Actor**|   Admin User   |
 |**Participants**|    Offending User   |
-|**Goal**| Remove user account from the system.      |
+|**Goal**| Remove localUser account from the system.      |
 |**Following Use Cases**| Provide Reason for Ban       |
 |**Invariant**| None   |
-|**Precondition**|  The user must have administrative permissions.   |
+|**Precondition**|  The localUser must have administrative permissions.   |
 |**Success Postcondition**| The account violating terms is barred access to the app.     |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1.  The admin user navigates to the profile of the offending user.     |  1a. The admin user views a report on an offending user.     |
-| 2.  The system displays the page of the offending user.  |  1b. The admin clicks on the link to the offending user. (Go to step 2.)   |
-| 3.  The admin user clicks on the button to ban the account. |      |
-| 4.  The system directs the admin user to a page requesting reason for a ban. |      |
-| 5.  The admin user enters information into the form. |      |
-| 6.  The admin user clicks the button concluding the ban. |      |
-| 7.  The system sends a notification to the offending user's email inbox indicating they have been banned. |      |
-| 8.  The system displays a message indicating they have been banned upon an attempt to sign in by the offending user. |      |
+| 1.  The admin localUser navigates to the profile of the offending localUser.     |  1a. The admin localUser views a report on an offending localUser.     |
+| 2.  The system displays the page of the offending localUser.  |  1b. The admin clicks on the link to the offending localUser. (Go to step 2.)   |
+| 3.  The admin localUser clicks on the button to ban the account. |      |
+| 4.  The system directs the admin localUser to a page requesting reason for a ban. |      |
+| 5.  The admin localUser enters information into the form. |      |
+| 6.  The admin localUser clicks the button concluding the ban. |      |
+| 7.  The system sends a notification to the offending localUser's email inbox indicating they have been banned. |      |
+| 8.  The system displays a message indicating they have been banned upon an attempt to sign in by the offending localUser. |      |
 | 9.  The system locks the account down. |      |
 
 ---
@@ -59,21 +59,21 @@
 |**System Under Design**|     Centauri/Premium System        |
 |**Primary Actor**|     Premium User.       |
 |**Participants**|     None       |
-|**Goal**|     To successfully downgrade a user account to a non-premium one.      |
+|**Goal**|     To successfully downgrade a localUser account to a non-premium one.      |
 |**Following Use Cases**|     None       |
-|**Invariant**|     User has a valid user account.      |
+|**Invariant**|     User has a valid localUser account.      |
 |**Precondition**|     User is a premium member.      |
-|**Success Postcondition**|     User becomes a regular user.      |
+|**Success Postcondition**|     User becomes a regular localUser.      |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. The user selects "Cancel My Subscription" button.     |        |
-| 2. The system directs the user to a new page to confirm if they are sure.     |    |
-| 3. The user selects the option "Yes".     |  3a. The user selects the option "No".       |
-| 4. The system downgrades the user to a regular account in the database.   | 3b.  The system directs the user back to their account settings.        |
-| 5. The system notifies the user in app of when their membership access will officially terminate. |       |
-| 6. The system sends the user an email notifying them that they have successfully unsubscribed. |        |
+| 1. The localUser selects "Cancel My Subscription" button.     |        |
+| 2. The system directs the localUser to a new page to confirm if they are sure.     |    |
+| 3. The localUser selects the option "Yes".     |  3a. The localUser selects the option "No".       |
+| 4. The system downgrades the localUser to a regular account in the database.   | 3b.  The system directs the localUser back to their account settings.        |
+| 5. The system notifies the localUser in app of when their membership access will officially terminate. |       |
+| 6. The system sends the localUser an email notifying them that they have successfully unsubscribed. |        |
 
 ---
 
@@ -81,11 +81,11 @@
 |---------|---------|
 |**ID**|    UC-ACC-1      |
 |**Relevant User Stories**|    FR-ACC-4     |
-|**Description**|     This use case describes the process of creating a user account.       |
+|**Description**|     This use case describes the process of creating a localUser account.       |
 |**System Under Design**|    Centauri/Signup System       |
 |**Primary Actor**|     Unregistered User.        |
 |**Participants**|     No Additional Participants.        |
-|**Goal**|     The goal is to create a user account successfully.        |
+|**Goal**|     The goal is to create a localUser account successfully.        |
 |**Following Use Cases**|     login        |
 |**Invariant**|     No Invariant       |
 |**Precondition**|     User Selects "create account" button       |
@@ -95,11 +95,11 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User Selects "create account" button    | 5a. User chooses a username, password, or email that already exists for another account.        |
-| 2. System displays dedicated account creation page    | 5b. System notifies user to select another username password, or email.        |
+| 2. System displays dedicated account creation page    | 5b. System notifies localUser to select another username password, or email.        |
 | 3. User chooses a standard account, a seller account, or both     |         |
-| 4. System requests the user to input a unique username, password, and email.    |         |
+| 4. System requests the localUser to input a unique username, password, and email.    |         |
 | 5. User Inputs a unique username, password, and email.     |         |
-| 6. System sends email to the address listed by the user for confirmation.     |         |
+| 6. System sends email to the address listed by the localUser for confirmation.     |         |
 | 7. User confirms account through email     |         |
 
 ---
@@ -109,11 +109,11 @@
 |---------|---------|
 |**ID**|    UC-ACC-2      |
 |**Relevant User Stories**|    FR-ACC-6, FR-ACC-7, FR-ACC-8, FR-ACC-9      |
-|**Description**|     This use case describes the process of editing the information associated with a user account.       |
+|**Description**|     This use case describes the process of editing the information associated with a localUser account.       |
 |**System Under Design**|     Centauri/Account System.        |
 |**Primary Actor**|     General User        |
-|**Participants**|     Administrative user, premium user, non-premium user, seller user.      |
-|**Goal**|     To successfully edit the information associated with a user account.        |
+|**Participants**|     Administrative localUser, premium localUser, non-premium localUser, seller localUser.      |
+|**Goal**|     To successfully edit the information associated with a localUser account.        |
 |**Following Use Cases**|     Change Username, change password, change email        |
 |**Invariant**|     No Invariant.      |
 |**Precondition**|     User is signed into a valid account.       |
@@ -123,9 +123,9 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User selects "Edit account information" page.     | 3a. The inputed information matches an existing account.        |
-| 2. System prompts user to enter a new username, password, or email.      | 3b. The system prompts the user to input a different username password or email.        |
+| 2. System prompts localUser to enter a new username, password, or email.      | 3b. The system prompts the localUser to input a different username password or email.        |
 | 3. User enters a new username, password, or email.     | 5a. The inputed information does not match the initial input.        |
-| 4. System prompts user to re-enter the new username, password, or email.     | 5b. The system informs the user that the inputs do not match.        |
+| 4. System prompts localUser to re-enter the new username, password, or email.     | 5b. The system informs the localUser that the inputs do not match.        |
 | 5. User re-enters new username, password, or email.     |         |
 | 6. User selects the "confirm" button.     |         |
 | 7. System saves new information to account database.     |         |
@@ -151,9 +151,9 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User views item in the item catalog.     |         |
-| 2. System highlights the item, allowing user to click on it.     |         |
+| 2. System highlights the item, allowing localUser to click on it.     |         |
 | 3. User clicks on item.     |         |
-| 4. System brings user to the item page.     |         |
+| 4. System brings localUser to the item page.     |         |
 
 ---
 
@@ -166,22 +166,22 @@
 |**Description**|     This use case describes the process of entering a new payment method.      |
 |**System Under Design**|     Centauri/Payment Methods System.        |
 |**Primary Actor**|     	General User.       |
-|**Participants**|     	Administrative user, premium user, non-premium user, seller user.       |
+|**Participants**|     	Administrative localUser, premium localUser, non-premium localUser, seller localUser.       |
 |**Goal**|     To successfully enter a new payment method into the system.       |
 |**Following Use Cases**|     Save Payment Method, Saved Payment Notification        |
 |**Invariant**|     None       |
-|**Precondition**|     User must be checking out or user must have a registered account.       |
+|**Precondition**|     User must be checking out or localUser must have a registered account.       |
 |**Success Postcondition**|     Payment method is saved temporarily for the current order, or if entering the new payment in settings using a registered account, payment is saved to the account.       |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1.  User selects the button to enter a new payment method.    |         |
-| 2.  The system opens an input box for user to input their new payment method.    |         |
-| 3.  The user types in their credit card information.    |         |
-| 4.  The user clicks on a button to confirm their payment details.   |         |
+| 2.  The system opens an input box for localUser to input their new payment method.    |         |
+| 3.  The localUser types in their credit card information.    |         |
+| 4.  The localUser clicks on a button to confirm their payment details.   |         |
 | 5.  The system confirms that the payment method is valid.   | 5a. The system can not confirm that the payment method is valid.        |
-| 6.  The system temporarily saves the payment method for the current order.   | 5b. The system prompts the user to enter the correct payment details.        |
+| 6.  The system temporarily saves the payment method for the current order.   | 5b. The system prompts the localUser to enter the correct payment details.        |
 | | 6a. The system saves the payment method to the registered account, if the payment method is entered in the account payment settings.        |
 
 
@@ -224,10 +224,10 @@
 |**Description**|     This use case describes the process for leaving a review on an item or seller.       |
 |**System Under Design**|     Centauri/Review System        |
 |**Primary Actor**|     General User.       |
-|**Participants**|     Admin user, Premium User, Non-Premium User, Seller account.       |
+|**Participants**|     Admin localUser, Premium User, Non-Premium User, Seller account.       |
 |**Goal**|     To successfully leave a review on an item or a seller.        |
 |**Following Use Cases**|     None.      |
-|**Invariant**|     User is signed into a valid user account.       |
+|**Invariant**|     User is signed into a valid localUser account.       |
 |**Precondition**|     User has interacted with the item or seller in question previously.     |
 |**Success Postcondition**|     User successfully leaves a review on a item or seller.      |
 
@@ -235,14 +235,14 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User selects "leave review" button.     | 3a. User chooses to leave review of a seller.        |
-| 2. System prompts user to pick either an item review or a seller review.      | 3b. System displays the previous sellers that the user has bought from.        |
+| 2. System prompts localUser to pick either an item review or a seller review.      | 3b. System displays the previous sellers that the localUser has bought from.        |
 | 3. User chooses to leave a review of an item.     | 3c. User selects seller to review.        |
-| 4. System displays the previous items that the user has bought.     | 3d. System prompts user to write a review title, seller rating, and the written review itself.        |
+| 4. System displays the previous items that the localUser has bought.     | 3d. System prompts localUser to write a review title, seller rating, and the written review itself.        |
 | 5. User selects item to review.     | 3e. User provides this information.         |
-| 6. System prompts user to write a review title, product rating, and the written review itself.     | 3f. User selects the "confirm review" button.        |
+| 6. System prompts localUser to write a review title, product rating, and the written review itself.     | 3f. User selects the "confirm review" button.        |
 | 7. User provides this information.        | 3g. System attaches the review to the selected seller.            |
 | 8. User selects the "confirm review" button. | 7a. User does not fill out all 3 sections.        |
-| 9. System attaches the review to the selected item.  | 7b. System prompts user to fill in remaining sections.           |
+| 9. System attaches the review to the selected item.  | 7b. System prompts localUser to fill in remaining sections.           |
 
 
 ---
@@ -253,11 +253,11 @@
 |---------|---------|
 |**ID**|    UC-ACC-3      |
 |**Relevant User Stories**|    FR-ACC-1     |
-|**Description**|     This use case describes the process of loging into a user account.       |
+|**Description**|     This use case describes the process of loging into a localUser account.       |
 |**System Under Design**|   Centauri/Account System.       |
 |**Primary Actor**|     General User        |
-|**Participants**|     Administrative user, premium user, non-premium user, seller user.        |
-|**Goal**|     To successfully login to a user account       |
+|**Participants**|     Administrative localUser, premium localUser, non-premium localUser, seller localUser.        |
+|**Goal**|     To successfully login to a localUser account       |
 |**Following Use Cases**|     Edit account info, upgrade account, view cart,  view item catalog, leave review, view bidding page, view purchase history, view recommendations, search function, chat function.       |
 |**Invariant**|     Account being logged into exists.      |
 |**Precondition**|     User selects "login" button.        |
@@ -267,12 +267,12 @@
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User enters username and password.     | 3a. Entered username or password do not match any reference in the account database.        |
-| 2. User selects "login" button.     | 3b. System alerts user that username or password are incorrect.        |
-| 3. System cross references entered username and password with account database     | 3c. System prompts user to enter a different username and password.        |
+| 2. User selects "login" button.     | 3b. System alerts localUser that username or password are incorrect.        |
+| 3. System cross references entered username and password with account database     | 3c. System prompts localUser to enter a different username and password.        |
 | 4. System loads Centauri home page     | 3d. User selects "forgot username or password.        |
-| 5.      | 3e. System prompts user to enter connected email address.        |
+| 5.      | 3e. System prompts localUser to enter connected email address.        |
 | 6.      | 3f. User enters connected email address.        |
-| 7.      | 3g. System sends user email to reset username or password.        |
+| 7.      | 3g. System sends localUser email to reset username or password.        |
 | 8.      | 3h. User changes username or password.        |
 
 
@@ -283,23 +283,23 @@
 |---------|---------|
 |**ID**|    UC-ACC-4      |
 |**Relevant User Stories**|    FR-ACC-2, FR-ACC-3     |
-|**Description**|     This use case describes the process of logging out of a user account.       |
+|**Description**|     This use case describes the process of logging out of a localUser account.       |
 |**System Under Design**|     Centauri/Account System        |
 |**Primary Actor**|     General User        |
-|**Participants**|     Administrative user, premium user, non-premium user, seller user.        |
-|**Goal**|     To successfully logout of a user profile.        |
+|**Participants**|     Administrative localUser, premium localUser, non-premium localUser, seller localUser.        |
+|**Goal**|     To successfully logout of a localUser profile.        |
 |**Following Use Cases**|     No following use cases.       |
 |**Invariant**|     No Invariant.       |
-|**Precondition**|     User is signed into a user account.       |
-|**Success Postcondition**|     User is successfully logged out of the user profile.      |
+|**Precondition**|     User is signed into a localUser account.       |
+|**Success Postcondition**|     User is successfully logged out of the localUser profile.      |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User selects "logout" button.     | 3a. User selects "all connected devices".        |
-| 2. System prompts user to log out of current device or all connected devices.     | 3b. System removes user access to the account from all connected devices.        |
+| 2. System prompts localUser to log out of current device or all connected devices.     | 3b. System removes localUser access to the account from all connected devices.        |
 | 3. User selects "current device".    |         |
-| 4. System removes user access to the account from the current device.     |         |
+| 4. System removes localUser access to the account from the current device.     |         |
 
 ---
 
@@ -315,14 +315,14 @@
 |**Participants**|     Admin User, Premium User, Non-Premium User, Seller.        |
 |**Goal**|     To successfully place a bid on a biddable item.       |
 |**Following Use Cases**|     None       |
-|**Invariant**|     User is signed into a valid user account.      |
+|**Invariant**|     User is signed into a valid localUser account.      |
 |**Precondition**|     User views the item in the bidding menu.       |
 |**Success Postcondition**|     User successfully places a bid on an item.     |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. User selects the item to bid on.     | 5a. Another user places a higher bid         |
+| 1. User selects the item to bid on.     | 5a. Another localUser places a higher bid         |
 | 2. System displays the current highest bid, time left to bid, and the number of bidders.     | 5b. User has the option to place another bid.        |
 | 3. User places bid at a minimal interval set by the seller.     | 5c. System resets the timer back to one minute if a bid is made within one minute from t he time limit.        |
 | 4. User wins at the end of the time limit with the highest bid.     |         |
@@ -334,25 +334,25 @@
 |---------|---------|
 |**ID**|    UC-CART-2      |
 |**Relevant User Stories**|    FR-CART-2, FR-CART-3, FR-CART-6, FR-CART-7     |
-|**Description**|     This use case describes the process for removing an item from the user cart.      |
+|**Description**|     This use case describes the process for removing an item from the localUser cart.      |
 |**System Under Design**|     Centauri/Item Cart System        |
 |**Primary Actor**|     General User.        |
-|**Participants**|     Admin user, Premium User, Non-Premium User        |
-|**Goal**|     To successfully remove an item from the user cart.        |
+|**Participants**|     Admin localUser, Premium User, Non-Premium User        |
+|**Goal**|     To successfully remove an item from the localUser cart.        |
 |**Following Use Cases**|     Add Item, checkout.       |
 |**Invariant**|     No invariant.     |
-|**Precondition**|     User is signed into a user account.       |
-|**Success Postcondition**|     The system updates the current state of the user's cart.       |
+|**Precondition**|     User is signed into a localUser account.       |
+|**Success Postcondition**|     The system updates the current state of the localUser's cart.       |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. The user clicks on the Cart icon.      |        |
-| 2. The system directs the user to their cart.     |    |
-| 3. The user clicks on the quantity number of an item in their cart.     |  3a. The user clicks on the 'X' icon next to the item to remove an item. (Go to step 5.)       |
-| 4. The user changes the quantity of the item to zero.     |         |
+| 1. The localUser clicks on the Cart icon.      |        |
+| 2. The system directs the localUser to their cart.     |    |
+| 3. The localUser clicks on the quantity number of an item in their cart.     |  3a. The localUser clicks on the 'X' icon next to the item to remove an item. (Go to step 5.)       |
+| 4. The localUser changes the quantity of the item to zero.     |         |
 | 5. The system removes the item from their cart.     |         |
-| 6. The system displays the updated cart upon the user refreshing or revisiting the cart.     |         |
+| 6. The system displays the updated cart upon the localUser refreshing or revisiting the cart.     |         |
 
 ---
 
@@ -367,21 +367,21 @@
 |**Goal**| Remove listing from the system.      |
 |**Following Use Cases**| Provide Reason for Removal       |
 |**Invariant**| None   |
-|**Precondition**|  The user must have administrative permissions.   |
+|**Precondition**|  The localUser must have administrative permissions.   |
 |**Success Postcondition**| The system no longer lists the item listing on the app.     |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1.  The admin user navigates to the profile of the seller.     |       |
+| 1.  The admin localUser navigates to the profile of the seller.     |       |
 | 2.  The system displays the seller profile.  |     |
-| 3.  The admin user clicks on a button to remove products. |      |
+| 3.  The admin localUser clicks on a button to remove products. |      |
 | 4.  The system displays a list of current listings with the ability to check/uncheck listings. |      |
-| 5.  The admin user checks on the items that they wish to remove. |      |
-| 6.  The admin user clicks on a button confirming removal of the items. |      |
-| 7.  The system directs the admin user to a form requesting information on reason for removal. |      |
-| 8.  The admin user fills out the form. |      |
-| 9.  The admin user clicks on a button submitting the form. |      |
+| 5.  The admin localUser checks on the items that they wish to remove. |      |
+| 6.  The admin localUser clicks on a button confirming removal of the items. |      |
+| 7.  The system directs the admin localUser to a form requesting information on reason for removal. |      |
+| 8.  The admin localUser fills out the form. |      |
+| 9.  The admin localUser clicks on a button submitting the form. |      |
 | 10.  The system sends a notification to the seller's email inbox and app messages indicating listings have been removed. |      |
 | 11.  The system deletes the listings from the database. |      |
 
@@ -393,19 +393,19 @@
 |**Description**|     This use case describes the process of selecting a payment method      |
 |**System Under Design**|     Centauri/Payment Methods System.        |
 |**Primary Actor**|     	General User.       |
-|**Participants**|     	Administrative user, premium user, non-premium user, seller user, guest user.       |
+|**Participants**|     	Administrative localUser, premium localUser, non-premium localUser, seller localUser, guest localUser.       |
 |**Goal**|     To successfully select a payment method for an order.      |
 |**Following Use Cases**|     Display Order Review, Payment Confirmation        |
 |**Invariant**|     None       |
-|**Precondition**|     The user must be checking out.       |
-|**Success Postcondition**|     The user is able to pay with the payment method.      |
+|**Precondition**|     The localUser must be checking out.       |
+|**Success Postcondition**|     The localUser is able to pay with the payment method.      |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. The system displays the possible payment methods for the user.     |         |
-| 2.  The user clicks on a saved payment method.    | 2a. The user inputs a new payment method.        |
-| 3.  The user checks out with the selected payment method.    | 2b. The user clicks on a button to confirm the new payment method is to be used.        |
+| 1. The system displays the possible payment methods for the localUser.     |         |
+| 2.  The localUser clicks on a saved payment method.    | 2a. The localUser inputs a new payment method.        |
+| 3.  The localUser checks out with the selected payment method.    | 2b. The localUser clicks on a button to confirm the new payment method is to be used.        |
 |     | 2c. The system temporarily saves the payment method for the current order. (Go to step 3.)        |
 
 ---
@@ -414,11 +414,11 @@
 |---------|---------|
 |**ID**|    UC-CHAT-1      |
 |**Relevant User Stories**|    FR-CHAT-1, FR-CHAT-2, FR-CHAT-3, FR-CHAT-4     |
-|**Description**|     This use case describes the steps for sending a message to another user on the platform.       |
+|**Description**|     This use case describes the steps for sending a message to another localUser on the platform.       |
 |**System Under Design**|     Centauri/Chat System        |
 |**Primary Actor**|      General User       |
-|**Participants**|     Admin user, Premium User, Non-Premium User        |
-|**Goal**|     Successfully deliver a message to another Centauri user.        |
+|**Participants**|     Admin localUser, Premium User, Non-Premium User        |
+|**Goal**|     Successfully deliver a message to another Centauri localUser.        |
 |**Following Use Cases**|     None        |
 |**Invariant**|   None         |
 |**Precondition**|     User must be registered. The message must not be an empty message.       |
@@ -433,8 +433,8 @@
 | 4. User types in a message.     |         |
 | 5. User clicks on the button to send message.     |         |
 | 6. App checks if message input is valid.     | 6a. System recognizes the message is invalid.        |
-| 7. System delivers message to recipient.     | 6b. System notifies the user that they have entered an empty message.       |
-| 8. Recipient user receives a message notification.     |         |
+| 7. System delivers message to recipient.     | 6b. System notifies the localUser that they have entered an empty message.       |
+| 8. Recipient localUser receives a message notification.     |         |
 
 ---
 
@@ -444,25 +444,25 @@
 |---------|---------|
 |**ID**|    UC-PR-2      |
 |**Relevant User Stories**|    FR-PAY-1, FR-ACC-5    |
-|**Description**|     This use case describes the process of upgrading a user account to a premium account.       |
+|**Description**|     This use case describes the process of upgrading a localUser account to a premium account.       |
 |**System Under Design**|     Centauri/Premium System        |
 |**Primary Actor**|     Non-Premium User.       |
 |**Participants**|     None       |
-|**Goal**|     To successfully upgrade a user account to a premium one.      |
+|**Goal**|     To successfully upgrade a localUser account to a premium one.      |
 |**Following Use Cases**|     More accurate search functions, higher customer service priority, faster shipping options, cancel subscription.       |
-|**Invariant**|     User has a valid user account.      |
+|**Invariant**|     User has a valid localUser account.      |
 |**Precondition**|     User is not already a premium member.      |
-|**Success Postcondition**|     User becomes a premium user.      |
+|**Success Postcondition**|     User becomes a premium localUser.      |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
 | 1. User selects "upgrade account" button.     | 4a. User has not saved a payment method.        |
-| 2. System loads upgrade account page.     | 4b. System prompts user to enter payment information.        |
-| 3. System prompts user to select payment method.     |         |
+| 2. System loads upgrade account page.     | 4b. System prompts localUser to enter payment information.        |
+| 3. System prompts localUser to select payment method.     |         |
 | 4. User selects saved payment method.   |          |
 | 5. System now designates account as premium account. |       |
-| 6. System sends user a billing statement to their email. |        |
+| 6. System sends localUser a billing statement to their email. |        |
 
 ---
 
@@ -483,9 +483,9 @@
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1.  The user clicks on the button to view their order.    |  1a. The user clicks on a notification of a tracking update. (Go to step 4)     |
-| 2.  The system redirects the user to the page of an order.   |      |
-| 3.   The user clicks on the button to view the tracking of an order.  |       |
+| 1.  The localUser clicks on the button to view their order.    |  1a. The localUser clicks on a notification of a tracking update. (Go to step 4)     |
+| 2.  The system redirects the localUser to the page of an order.   |      |
+| 3.   The localUser clicks on the button to view the tracking of an order.  |       |
 | 4.   The system fetches the current and previous statuses of an order.  |     |
 | 5.   The system returns a page displaying the current location, current status, and previous statuses of an order.  | 5a. The system displays that the current status of the item is not yet available.      |
 
@@ -499,11 +499,11 @@
 |**Description**|     This use case describes the steps for viewing an account's purchase history.       |
 |**System Under Design**|     Centauri/Purchase History System        |
 |**Primary Actor**|      General User       |
-|**Participants**|     Admin user, Premium User, Non-Premium User        |
+|**Participants**|     Admin localUser, Premium User, Non-Premium User        |
 |**Goal**|     Successfully display a list of all purchases made on the account.       |
 |**Following Use Cases**|     Search History, Filter History, View Item       |
-|**Invariant**|   The user must be logged in.         |
-|**Precondition**|     The user must have an account in the system.       |
+|**Invariant**|   The localUser must be logged in.         |
+|**Precondition**|     The localUser must have an account in the system.       |
 |**Success Postcondition**|     The system displays the list of all purchases made on the account, if any.       |
 
 

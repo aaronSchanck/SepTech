@@ -1,4 +1,4 @@
-package com.septech.centauri.fragments;
+package com.septech.centauri.presentation.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

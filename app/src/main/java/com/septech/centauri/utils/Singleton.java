@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
-import com.septech.centauri.database.Database;
-import com.septech.centauri.database.betelgeuse.BetelgeuseDatabase;
+import com.septech.centauri.data.cache.database.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.database.syzygy.SyzygyDatabase;
 
 public class Singleton {
@@ -15,8 +14,6 @@ public class Singleton {
     private final String PREFS_NAME = "com.septech.centauri.UserPrefs";
 
     private SharedPreferences settings;
-
-    private Database db;
 
     private SyzygyDatabase syzygy;
 

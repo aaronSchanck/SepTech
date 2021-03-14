@@ -10,14 +10,14 @@
 |**Participants**|     Admin User, Premium User, Non-Premium User, Seller.        |
 |**Goal**|     To successfully place a bid on a biddable item.       |
 |**Following Use Cases**|     None       |
-|**Invariant**|     User is signed into a valid user account.      |
+|**Invariant**|     User is signed into a valid localUser account.      |
 |**Precondition**|     User views the item in the bidding menu.       |
 |**Success Postcondition**|     User successfully places a bid on an item.     |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. User selects the item to bid on.     | 5a. Another user places a higher bid         |
+| 1. User selects the item to bid on.     | 5a. Another localUser places a higher bid         |
 | 2. System displays the current highest bid, time left to bid, and the number of bidders.     | 5b. User has the option to place another bid.        |
 | 3. User places bid at a minimal interval set by the seller.     | 5c. System resets the timer back to one minute if a bid is made within one minute from t he time limit.        |
 | 4. User wins at the end of the time limit with the highest bid.     |         |

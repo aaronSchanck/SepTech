@@ -8,18 +8,18 @@
 |**System Under Design**|     Centauri/Premium System        |
 |**Primary Actor**|     Premium User.       |
 |**Participants**|     None       |
-|**Goal**|     To successfully downgrade a user account to a non-premium one.      |
+|**Goal**|     To successfully downgrade a localUser account to a non-premium one.      |
 |**Following Use Cases**|     None       |
-|**Invariant**|     User has a valid user account.      |
+|**Invariant**|     User has a valid localUser account.      |
 |**Precondition**|     User is a premium member.      |
-|**Success Postcondition**|     User becomes a regular user.      |
+|**Success Postcondition**|     User becomes a regular localUser.      |
 
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. The user selects "Cancel My Subscription" button.     |        |
-| 2. The system directs the user to a new page to confirm if they are sure.     |    |
-| 3. The user selects the option "Yes".     |  3a. The user selects the option "No".       |
-| 4. The system downgrades the user to a regular account in the database.   | 3b.  The system directs the user back to their account settings.        |
-| 5. The system notifies the user in app of when their membership access will officially terminate. |       |
-| 6. The system sends the user an email notifying them that they have successfully unsubscribed. |        |
+| 1. The localUser selects "Cancel My Subscription" button.     |        |
+| 2. The system directs the localUser to a new page to confirm if they are sure.     |    |
+| 3. The localUser selects the option "Yes".     |  3a. The localUser selects the option "No".       |
+| 4. The system downgrades the localUser to a regular account in the database.   | 3b.  The system directs the localUser back to their account settings.        |
+| 5. The system notifies the localUser in app of when their membership access will officially terminate. |       |
+| 6. The system sends the localUser an email notifying them that they have successfully unsubscribed. |        |

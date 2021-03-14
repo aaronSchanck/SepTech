@@ -117,7 +117,7 @@ venv.bak/
 *.pptx
 
 misc/
-.Rproj.user
+.Rproj.localUser
 
 app/app-test.db
 

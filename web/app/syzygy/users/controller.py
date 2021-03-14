@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/controller.py
+"""/web/app/syzygy/localUsers/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -18,7 +18,7 @@ Classes:
 
     UserLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
-        in users.
+        in localUsers.
 
 """
 
@@ -92,13 +92,13 @@ class UserIdResource(Resource):
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(
-        dict(name="username", type=str, help="A user's username/email"),
-        dict(name="password", type=str, help="A user's password"),
+        dict(name="username", type=str, help="A localUser's username/email"),
+        dict(name="password", type=str, help="A localUser's password"),
         api=api,
     )
     @responds(schema=UserSchema)
     def post(self):
-        """Login with user credentials"""
+        """Login with localUser credentials"""
 
         username = request.parsed_args["username"]
         password = request.parsed_args["password"]

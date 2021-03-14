@@ -18,14 +18,14 @@ public class SyzygyDatabase {
     private com.septech.centauri.database.syzygy.api.Users.Delete usersDelete;
     private com.septech.centauri.database.syzygy.api.Users.Put usersPut;
 
-    private com.septech.centauri.database.syzygy.api.Items.Get itemsGet;
-    private com.septech.centauri.database.syzygy.api.Items.Post itemsPost;
-    private com.septech.centauri.database.syzygy.api.Items.Delete itemsDelete;
-    private com.septech.centauri.database.syzygy.api.Items.Put itemsPut;
+//    private com.septech.centauri.database.syzygy.api.Items.Get itemsGet;
+//    private com.septech.centauri.database.syzygy.api.Items.Post itemsPost;
+//    private com.septech.centauri.database.syzygy.api.Items.Delete itemsDelete;
+//    private com.septech.centauri.database.syzygy.api.Items.Put itemsPut;
 
     public SyzygyDatabase() {
         initUserTableAPIEndpoints();
-        initItemTableAPIEndpoints();
+//        initItemTableAPIEndpoints();
     }
 
     private void initUserTableAPIEndpoints() {
@@ -35,12 +35,12 @@ public class SyzygyDatabase {
         usersPut = new com.septech.centauri.database.syzygy.api.Users.Put();
     }
 
-    private void initItemTableAPIEndpoints() {
-        itemsGet = new com.septech.centauri.database.syzygy.api.Items.Get();
-        itemsPost = new com.septech.centauri.database.syzygy.api.Items.Post();
-        itemsDelete = new com.septech.centauri.database.syzygy.api.Items.Delete();
-        itemsPut = new com.septech.centauri.database.syzygy.api.Items.Put();
-    }
+//    private void initItemTableAPIEndpoints() {
+//        itemsGet = new com.septech.centauri.database.syzygy.api.Items.Get();
+//        itemsPost = new com.septech.centauri.database.syzygy.api.Items.Post();
+//        itemsDelete = new com.septech.centauri.database.syzygy.api.Items.Delete();
+//        itemsPut = new com.septech.centauri.database.syzygy.api.Items.Put();
+//    }
 
     public User login(String username, String password) {
         Callable<User> callable = () -> usersPost.login(username, password);

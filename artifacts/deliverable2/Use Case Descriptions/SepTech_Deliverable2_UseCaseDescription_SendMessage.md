@@ -2,11 +2,11 @@
 |---------|---------|
 |**ID**|    UC-CHAT-1      |
 |**Relevant User Stories**|    FR-CHAT-1, FR-CHAT-2, FR-CHAT-3, FR-CHAT-4     |
-|**Description**|     This use case describes the steps for sending a message to another user on the platform.       |
+|**Description**|     This use case describes the steps for sending a message to another localUser on the platform.       |
 |**System Under Design**|     Centauri/Chat System        |
 |**Primary Actor**|      General User       |
-|**Participants**|     Admin user, Premium User, Non-Premium User        |
-|**Goal**|     Successfully deliver a message to another Centauri user.        |
+|**Participants**|     Admin localUser, Premium User, Non-Premium User        |
+|**Goal**|     Successfully deliver a message to another Centauri localUser.        |
 |**Following Use Cases**|     None        |
 |**Invariant**|   None         |
 |**Precondition**|     User must be registered. The message must not be an empty message.       |
@@ -21,5 +21,5 @@
 | 4. User types in a message.     |         |
 | 5. User clicks on the button to send message.     |         |
 | 6. App checks if message input is valid.     | 6a. System recognizes the message is invalid.        |
-| 7. System delivers message to recipient.     | 6b. System notifies the user that they have entered an empty message.       |
-| 8. Recipient user receives a message notification.     |         |
+| 7. System delivers message to recipient.     | 6b. System notifies the localUser that they have entered an empty message.       |
+| 8. Recipient localUser receives a message notification.     |         |
