@@ -2,12 +2,12 @@
 |---------|---------|
 |**ID**|    UC-IC-1      |
 |**Relevant User Stories**|    FR-CART-1, FR-CART-8      |
-|**Description**|    This use case describes the process for adding an item to the user cart.      |
+|**Description**|     This use case describes the process for adding an item to the user cart.      |
 |**System Under Design**|     Centauri/Item Cart System        |
 |**Primary Actor**|     General User.        |
 |**Participants**|     Admin user, Premium User, Non-Premium User        |
 |**Goal**|     To successfully add an item to the user cart.        |
-|**Following Use Cases**|     Remove Item, checkout.       |
+|**Following Use Cases**|     None.       |
 |**Invariant**|     No invariant.     |
 |**Precondition**|     User is signed into a user account.       |
 |**Success Postcondition**|     The system saves the item to the users cart.       |
@@ -18,6 +18,7 @@
 | 1. User selects "add to cart" button on a purchasable item.      | 3a. Item is no longer in stock.        |
 | 2. System directs user to their cart.     | 3b. System displays message to user that the item is no longer in stock.        |
 | 3. System saves item in the user's cart.     |         |
+
 
 ---
 
@@ -321,11 +322,10 @@
 
 |**STEPS**|**ALTERNATIVE**|
 |---------|---------|
-| 1. System displays the available items to bid on.     | 5a. Another user places a higher bid         |
-| 2. User selects the item to bid on.     | 5b. User has the option to place another bid.        |
-| 3. System displays the current highest bid, time left to bid, and the number of bidders.     | 5c. System resets the timer back to one minute if a bid is made within one minute from t he time limit.        |
-| 4. User places bid at a minimal interval set by the seller.     |         |
-| 5. User wins at the end of the time limit with the highest bid.  |       |
+| 1. User selects the item to bid on.     | 5a. Another user places a higher bid         |
+| 2. System displays the current highest bid, time left to bid, and the number of bidders.     | 5b. User has the option to place another bid.        |
+| 3. User places bid at a minimal interval set by the seller.     | 5c. System resets the timer back to one minute if a bid is made within one minute from t he time limit.        |
+| 4. User wins at the end of the time limit with the highest bid.     |         |
 
 ---
 
