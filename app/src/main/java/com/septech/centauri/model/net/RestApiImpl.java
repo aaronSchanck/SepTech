@@ -1,32 +1,16 @@
 package com.septech.centauri.model.net;
 
-import android.util.Log;
-
 import com.septech.centauri.model.entity.user.UserEntity;
 import com.septech.centauri.model.entity.user.mapper.UserEntityJsonMapper;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class RestApiImpl implements RestApi {
 
-    UserEntityJsonMapper userEntityJsonMapper;
+    private final UserEntityJsonMapper userEntityJsonMapper;
 
     public RestApiImpl() {
         this.userEntityJsonMapper = new UserEntityJsonMapper();
