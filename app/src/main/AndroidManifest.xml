@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.view.activities.LoginActivity"
+            android:name=".view.view.activities.LoginActivity"
             android:theme="@style/Theme.Centauri.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.view.activities.MainActivity"
+            android:name=".view.view.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Centauri.NoActionBar">
 <!--            <intent-filter>-->
