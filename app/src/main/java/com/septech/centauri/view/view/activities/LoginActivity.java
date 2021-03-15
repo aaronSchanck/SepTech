@@ -20,6 +20,8 @@ import com.septech.centauri.viewmodel.repository.UserRepository;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //TODO: abstract repo in view to a viewmodel
+    //TODO: pass context to repo
     UserRepository userRepo = new UserDataRepository();
 
     @Override

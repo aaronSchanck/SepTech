@@ -49,7 +49,7 @@ public class ApiConnection {
     @Nullable
     String syncApiCallGET() {
         connectToAPIGET();
-        return response;
+        return this.response;
     }
 
     public void connectToAPIGET() {
@@ -73,12 +73,18 @@ public class ApiConnection {
         return request;
     }
 
-    public void connectToAPIPOST(Map<String, String> vars) {
+    @Nullable
+    String syncApiCallPOST(Map<String, String> params) {
+        connectToAPIPOST(params);
+        return this.response;
+    }
+
+    public void connectToAPIPOST(Map<String, String> params) {
         OkHttpClient okHttpClient = this.createClient();
 
         RequestBody formBody = new FormBody.Builder()
                 .add("username", "string")
-                .add("username", "string")
+                .add("password", "string")
                 .build();
 
         final Request request = this.constructPOSTRequest(formBody);
@@ -167,6 +173,4 @@ public class ApiConnection {
 
         return spec;
     }
-
-
 }

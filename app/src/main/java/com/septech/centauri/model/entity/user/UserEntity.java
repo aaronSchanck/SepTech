@@ -13,13 +13,13 @@ public class UserEntity {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("firstName")
+    @SerializedName("first_name")
     private String firstName;
 
-    @SerializedName("lastName")
+    @SerializedName("last_name")
     private String lastName;
 
-    @SerializedName("dateOfBirth")
+    @SerializedName("date_of_birth")
     private String dateOfBirth;
 
     public UserEntity() {
