@@ -39,7 +39,7 @@ parentheses) while the virtual environment is active.
 
 .Notes
 On Windows, it may be required to enable this Activate.ps1 script by setting the
-execution policy for the localUser. You can do this by issuing the following PowerShell
+execution policy for the user. You can do this by issuing the following PowerShell
 command:
 
 PS C:\> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
