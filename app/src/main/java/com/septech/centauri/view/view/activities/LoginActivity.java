@@ -8,31 +8,34 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.model.cache.database.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.model.repository.UserDataRepository;
 import com.septech.centauri.viewmodel.models.User;
 import com.septech.centauri.viewmodel.repository.UserRepository;
+import com.septech.centauri.viewmodel.viewmodel.MyViewModel;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     //TODO: abstract repo in view to a viewmodel
     //TODO: pass context to repo
-    UserRepository userRepo = new UserDataRepository();
+    private UserRepository userRepo = new UserDataRepository();
+    private MyViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
 
-        BetelgeuseDatabase db = Room.databaseBuilder(getApplicationContext(),
-                BetelgeuseDatabase.class, "betelgeuse").build();
+//        BetelgeuseDatabase db = Room.databaseBuilder(getApplicationContext(),
+//                BetelgeuseDatabase.class, "betelgeuse").build();
 
         setContentView(R.layout.activity_login);
+
+        mViewModel = new ViewModelProvider(this).get(MyViewModel.class);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordTextInput.getEditText().getText().toString();
 
         User user = userRepo.login(email, password);
+        this.mViewModel.user = user;
 
         System.out.println("view = " + view);
     }

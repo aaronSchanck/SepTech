@@ -5,28 +5,32 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.septech.centauri.model.cache.database.betelgeuse.models.LocalUser;
-
+import com.septech.centauri.model.cache.database.betelgeuse.models.UserModel;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM users")
-    List<LocalUser> getAll();
+    Observable<List<UserModel>> getAll();
+
+    @Query("SELECT * FROM users WHERE username LIKE :username AND password LIKE :password LIMIT 1")
+    UserModel login(String username, String password);
 
     @Query("SELECT * FROM users WHERE id IN (:userIds)")
-    List<LocalUser> loadAllByIds(int[] userIds);
+    List<UserModel> loadAllByIds(int[] userIds);
 
     @Query("SELECT * FROM users WHERE first_name LIKE :first AND " +
             "last_name LIKE :last LIMIT 1")
-    LocalUser findByName(String first, String last);
+    UserModel findByName(String first, String last);
 
     @Insert
-    void insertAll(LocalUser... localUsers);
+    void insertAll(UserModel... localUsers);
 
     @Insert
-    void insertInto(LocalUser localUser);
+    void insertInto(UserModel localUser);
 
     @Delete
-    void delete(LocalUser localUser);
+    void delete(UserModel localUser);
 }

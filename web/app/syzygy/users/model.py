@@ -1,4 +1,4 @@
-"""/web/app/syzygy/localUsers/model.py
+"""/web/app/syzygy/users/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -35,7 +35,7 @@ class User(db.Model):
 
     # TODO: Change date_of_birth to Date from DateTime
 
-    __tablename__ = "localUsers"
+    __tablename__ = "users"
 
     userid = Column(Integer, primary_key=True)
     email = Column(String(127), unique=True, nullable=False)

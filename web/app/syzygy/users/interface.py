@@ -1,4 +1,4 @@
-"""/web/app/syzygy/localUsers/interface.py
+"""/web/app/syzygy/users/interface.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

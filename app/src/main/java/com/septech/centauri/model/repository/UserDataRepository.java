@@ -1,11 +1,14 @@
 package com.septech.centauri.model.repository;
 
 
+import android.content.Context;
+
+import com.septech.centauri.model.cache.database.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.model.entity.user.UserEntity;
 import com.septech.centauri.model.entity.user.mapper.UserEntityDataMapper;
-import com.septech.centauri.model.executor.JobExecutor;
 import com.septech.centauri.model.net.RestApi;
 import com.septech.centauri.model.net.RestApiImpl;
+import com.septech.centauri.persistent.CentauriApp;
 import com.septech.centauri.viewmodel.models.User;
 import com.septech.centauri.viewmodel.repository.UserRepository;
 
@@ -15,16 +18,32 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 public class UserDataRepository implements UserRepository {
 
+    private static UserDataRepository mInstance;
+
+    private BetelgeuseDatabase database;
     private ExecutorService executor;
     private RestApi restApi;
     private UserEntityDataMapper userEntityDataMapper;
 
-    public UserDataRepository() {
+    public UserDataRepository(Context ctx) {
         this.executor = Executors.newFixedThreadPool(10);
-        restApi = new RestApiImpl();
         userEntityDataMapper = new UserEntityDataMapper();
+
+        restApi = new RestApiImpl();
+        this.database = BetelgeuseDatabase.getDatabase(ctx);
+    }
+
+    public static UserRepository getInstance() {
+        if (mInstance == null) {
+            mInstance = new UserDataRepository(CentauriApp.getAppContext());
+        }
+
+        return mInstance;
     }
 
 

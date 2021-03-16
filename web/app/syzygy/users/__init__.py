@@ -1,4 +1,4 @@
-"""/web/app/syzygy/localUsers/__init__.py
+"""/web/app/syzygy/users/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -19,7 +19,7 @@ import logging
 from .model import User
 from .schema import UserSchema
 
-BASE_ROUTE = "localUsers"
+BASE_ROUTE = "users"
 
 log = logging.getLogger(__name__)
 

@@ -5,13 +5,15 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "users")
-public class LocalUser {
+public class UserModel {
     @PrimaryKey
     public int id;
 
     public int userid;
     public String email;
     public String username;
+
+    public String password;
 
     @ColumnInfo(name = "first_name")
     public String firstName;
@@ -48,6 +50,14 @@ public class LocalUser {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
