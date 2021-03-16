@@ -92,13 +92,13 @@ class UserIdResource(Resource):
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(
-        dict(name="username", type=str, help="A localUser's username/email"),
-        dict(name="password", type=str, help="A localUser's password"),
+        dict(name="username", type=str, help="A user's username/email"),
+        dict(name="password", type=str, help="A user's password"),
         api=api,
     )
     @responds(schema=UserSchema)
     def post(self):
-        """Login with localUser credentials"""
+        """Login with user credentials"""
 
         username = request.parsed_args["username"]
         password = request.parsed_args["password"]
