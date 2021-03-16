@@ -1,4 +1,4 @@
-"""/web/app/syzygy/localUsers/service.py
+"""/web/app/syzygy/users/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

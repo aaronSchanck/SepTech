@@ -1,4 +1,4 @@
-"""/web/app/syzygy/localUsers/controller.py
+"""/web/app/syzygy/users/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -18,7 +18,7 @@ Classes:
 
     UserLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
-        in localUsers.
+        in users.
 
 """
 

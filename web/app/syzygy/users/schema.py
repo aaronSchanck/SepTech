@@ -1,4 +1,4 @@
-"""/web/app/syzygy/localUsers/schema.py
+"""/web/app/syzygy/users/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
