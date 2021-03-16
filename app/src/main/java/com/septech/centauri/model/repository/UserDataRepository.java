@@ -60,7 +60,7 @@ public class UserDataRepository implements UserRepository {
 
         User user = userEntityDataMapper.transform(mUser);
 
-        return null;
+        return user;
     }
 
     @Override

@@ -82,10 +82,14 @@ public class ApiConnection {
     public void connectToAPIPOST(Map<String, String> params) {
         OkHttpClient okHttpClient = this.createClient();
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("username", "string")
-                .add("password", "string")
-                .build();
+        //build request
+        FormBody.Builder formBuilder = new FormBody.Builder();
+
+        for (String s : params.keySet()) {
+            formBuilder.add(s, params.get(s));
+        }
+
+        RequestBody formBody = formBuilder.build();
 
         final Request request = this.constructPOSTRequest(formBody);
         try {
