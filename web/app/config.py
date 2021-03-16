@@ -37,7 +37,7 @@ class DevelopmentConfig(BaseConfig):
     TESTING = False
     SQLALCHEMY_DATABASE_URI = (
         os.getenv("DATABASE_URI")
-        or "postgres://postgres:mypassword@104.236.50.161:5432/syzygy"
+        or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
     )
 
 
@@ -52,7 +52,7 @@ class ProductionConfig(BaseConfig):
     TESTING = False
     SQLALCHEMY_DATABASE_URI = (
         os.getenv("DATABASE_URI")
-        or "postgres://postgres:mypassword@104.236.50.161:5432/syzygy"
+        or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
     )
 
 
@@ -67,7 +67,7 @@ class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = (
         os.getenv("DATABASE_URI")
-        or "postgres://postgres:mypassword@104.236.50.161:5432/syzygy"
+        or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
     )
 
 

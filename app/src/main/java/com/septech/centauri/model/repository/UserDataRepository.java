@@ -30,7 +30,9 @@ public class UserDataRepository implements UserRepository {
 
     private UserEntityManager userEntityManager;
 
-    public UserDataRepository(Context ctx) {
+    public UserDataRepository() {
+        executor = Executors.newFixedThreadPool(3);
+
         this.userEntityManager = new UserEntityManager();
 
         this.userEntityDataMapper = new UserEntityDataMapper();
@@ -39,9 +41,9 @@ public class UserDataRepository implements UserRepository {
         this.database = BetelgeuseDatabase.getDatabase();
     }
 
-    public static UserRepository getInstance() {
+    public static UserDataRepository getInstance() {
         if (mInstance == null) {
-            mInstance = new UserDataRepository(CentauriApp.getAppContext());
+            mInstance = new UserDataRepository();
         }
 
         return mInstance;

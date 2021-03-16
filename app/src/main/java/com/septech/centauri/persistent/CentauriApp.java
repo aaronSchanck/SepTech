@@ -12,8 +12,6 @@ public class CentauriApp extends Application {
 
     private static CentauriApp mInstance;
 
-    private AppExecutors mExecutors;
-
     @Contract(pure = true)
     @Nullable
     public static Context getAppContext() {
@@ -23,8 +21,6 @@ public class CentauriApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        mExecutors = new AppExecutors();
 
         Log.d(TAG, "onCreate() called");
         mInstance = this;
