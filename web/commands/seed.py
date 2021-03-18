@@ -20,7 +20,7 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 from app import db
-from app.syzygy.localUsers import User
+from app.syzygy.users import User
 from flask_script import Command
 
 log = logging.getLogger(__name__)

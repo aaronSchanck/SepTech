@@ -9,4 +9,21 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="username_email_address">Username/Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_your_password">Forgot Your Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_an_account">Create An Account</string>
+    <string name="continue_as_guest">Continue As Guest</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="string_username_incorrect">"Username length must be > 5"</string>
+    <string name="string_password_incorrect">"Password length must be > 5"</string>
 </resources>

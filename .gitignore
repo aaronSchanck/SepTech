@@ -16,3 +16,5 @@
 local.properties
 config/database/login.config
 .idea/dictionaries/adamg.xml
+
+webenv/
