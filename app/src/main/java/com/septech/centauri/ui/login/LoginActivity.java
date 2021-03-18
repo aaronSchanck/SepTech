@@ -1,6 +1,7 @@
 package com.septech.centauri.ui.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.view.activities.MainActivity;
 import com.septech.centauri.ui.viewmodel.Response;
 
 
@@ -119,9 +121,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void processResponse(Response response) {
         if (response == Response.LOADING) {
+            mUsernameTextInput.getEditText().setText("loading");
             showLoadingIcon();
         } else if (response == Response.FAILED) {
             hideLoadingIcon();
+            mUsernameTextInput.getEditText().setText("failed");
             onUnsuccessfulLogin();
         } else {
             mLoadingIcon.setVisibility(View.GONE);
@@ -139,12 +143,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void changeActivities() {
         mUsernameTextInput.getEditText().setText("success");
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void bindButtonListeners() {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
+
                 String username = mUsernameTextInput.getEditText().getText().toString();
                 String password = mPasswordTextInput.getEditText().getText().toString();
 
@@ -170,7 +178,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onSuccessfulLogin(User user) {
         Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getUsername()),
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_LONG).show();
+        Intent i = new Intent();
     }
 
     private void onGuestLogin(User user) {

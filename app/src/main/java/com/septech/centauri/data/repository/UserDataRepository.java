@@ -51,7 +51,6 @@ public class UserDataRepository implements UserRepository {
 
     @Override
     public Single<User> login(final String username, final String password) {
-
         try {
             Single<UserEntity> userEntity = RestApiClient.getInstance().login(username,
                     password);
