@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +23,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.view.activities.MainActivity;
-import com.septech.centauri.ui.viewmodel.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -119,11 +116,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void processResponse(Response response) {
-        if (response == Response.LOADING) {
+    private void processResponse(LoginResponse response) {
+        if (response == LoginResponse.LOADING) {
             mUsernameTextInput.getEditText().setText("loading");
             showLoadingIcon();
-        } else if (response == Response.FAILED) {
+        } else if (response == LoginResponse.FAILED) {
             hideLoadingIcon();
             mUsernameTextInput.getEditText().setText("failed");
             onUnsuccessfulLogin();

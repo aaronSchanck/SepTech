@@ -37,7 +37,6 @@ def create_app(env=None):
     db.init_app(app)
 
     app.route("/", methods=["GET"])
-
     def index():
         return jsonify("healthy")
 
