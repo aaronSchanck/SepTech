@@ -16,7 +16,7 @@ Functions:
 
 import logging
 
-from sqlalchemy.dialects import postgresqli
+from sqlalchemy.dialects import postgresql
 
 from marshmallow import Schema, fields
 

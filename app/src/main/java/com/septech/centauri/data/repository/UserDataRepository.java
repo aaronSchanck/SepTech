@@ -25,10 +25,10 @@ public class UserDataRepository implements UserRepository {
     private RestApi restApi;
     private UserEntityDataMapper userEntityDataMapper;
 
-    private UserDataSource userEntityManager;
+    private UserDataSource userDataSource;
 
     private UserDataRepository() {
-        this.userEntityManager = new UserDataSource();
+        this.userDataSource = new UserDataSource();
 
         this.userEntityDataMapper = new UserEntityDataMapper();
 

@@ -1,7 +1,5 @@
 package com.septech.centauri.ui.login;
 
-import android.service.autofill.UserData;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -9,7 +7,6 @@ import com.septech.centauri.R;
 import com.septech.centauri.data.repository.UserDataRepository;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
-import com.septech.centauri.ui.viewmodel.Response;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -25,7 +22,7 @@ public class LoginViewModel extends ViewModel {
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
     private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Response> responseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginResponse> responseLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
@@ -36,7 +33,7 @@ public class LoginViewModel extends ViewModel {
         return userLiveData;
     }
 
-    public MutableLiveData<Response> getResponseLiveData() {
+    public MutableLiveData<LoginResponse> getResponseLiveData() {
         return responseLiveData;
     }
 
@@ -56,18 +53,18 @@ public class LoginViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onStart() {
-                        responseLiveData.setValue(Response.LOADING);
+                        responseLiveData.setValue(LoginResponse.LOADING);
                     }
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        responseLiveData.setValue(Response.SUCCESS);
+                        responseLiveData.setValue(LoginResponse.SUCCESS);
                         userLiveData.setValue(user);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(Response.FAILED);
+                        responseLiveData.setValue(LoginResponse.FAILED);
                     }
                 })
         );
