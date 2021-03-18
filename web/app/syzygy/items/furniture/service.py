@@ -1,4 +1,4 @@
-"""/web/app/syzygy/electronics/service.py
+"""/web/app/syzygy/furniture/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,8 +15,8 @@ Functions:
 """
 
 from app import db
-from .model import Electronic
-from .interface import ElectronicInterface
+from .model import Furniture
+from .interface import FurnitureInterface
 from flask import Response
 import json
 import logging
@@ -28,7 +28,7 @@ from typing import List
 log = logging.getLogger(__name__)
 
 
-class ElectronicService:
+class FurnitureService:
     @staticmethod
     def get_all():
         """[summary]
@@ -36,10 +36,10 @@ class ElectronicService:
         :return: [description]
         :rtype: [type]
         """
-        return Electronic.query.all()
+        return Furniture.query.all()
 
     @staticmethod
-    def get_by_id(itemid: int) -> Electronic:
+    def get_by_id(itemid: int) -> Furniture:
         """[summary]
 
         :param itemid: [description]
@@ -47,10 +47,10 @@ class ElectronicService:
         :return: [description]
         :rtype: [type]
         """
-        return Electronic.query.get(itemid)
+        return Furniture.query.get(itemid)
 
     @staticmethod
-    def get_by_email(email: str) -> Electronic:
+    def get_by_email(email: str) -> Furniture:
         """[summary]
 
         :param email: [description]
@@ -58,10 +58,10 @@ class ElectronicService:
         :return: [description]
         :rtype: [type]
         """
-        return Electronic.query.filter(Electronic.email == email).first()
+        return Furniture.query.filter(Furniture.email == email).first()
 
     @staticmethod
-    def get_by_name(name: str) -> Electronic:
+    def get_by_name(name: str) -> Furniture:
         """[summary]
 
         :param name: [description]
@@ -69,60 +69,60 @@ class ElectronicService:
         :return: [description]
         :rtype: [type]
         """
-        return Electronic.query.filter(Electronic.name == name).first()
+        return Furniture.query.filter(Furniture.name == name).first()
 
     @staticmethod
-    def update(electronic: Electronic, Electronic_change_updates: ElectronicInterface) -> Electronic:
+    def update(furniture: Furniture, furniture_change_updates: FurnitureInterface) -> Furniture:
         """[summary]
 
-        :param electronic: The Electronic to update in the database
-        :type electronic: Electronic
-        :param Electronic_change_updates: Dictionary object containing the new changes
-        to update the Electronic model object with
-        :type Electronic_change_updates: ElectronicInterface
-        :return: The updated Electronic model object
-        :rtype: Electronic
+        :param furniture: The Furniture to update in the database
+        :type furniture: Furniture
+        :param Furniture_change_updates: Dictionary object containing the new changes
+        to update the Furniture model object with
+        :type Furniture_change_updates: FurnitureInterface
+        :return: The updated Furniture model object
+        :rtype: Furniture
         """
-        electronic.update(Electronic_change_updates)
+        furniture.update(furniture_change_updates)
         db.session.commit()
-        return electronic
+        return furniture
 
     @staticmethod
     def delete_by_id(itemid: int) -> List:
-        """Deletes a electronic from the table with the specified itemid
+        """Deletes a furniture from the table with the specified itemid
 
-        :param itemid: Electronic's itemid
+        :param itemid: Furniture's itemid
         :type itemid: int
-        :return: List containing the deleted electronic, if found, otherwise an empty
+        :return: List containing the deleted furniture, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        electronic = ElectronicService.get_by_id(itemid)
-        if not electronic:
+        furniture = FurnitureService.get_by_id(itemid)
+        if not furniture:
             return []
-        db.session.delete(electronic)
+        db.session.delete(furniture)
         db.session.commit()
         return [itemid]
 
     @staticmethod
-    def create(new_attrs: ElectronicInterface) -> Electronic:
-        """Creates a electronic object from the ElectronicInterface TypedDict
+    def create(new_attrs: FurnitureInterface) -> Furniture:
+        """Creates a furniture object from the FurnitureInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a Electronic model
-        :type new_attrs: ElectronicInterface
-        :return: A new electronic object based on the input
-        :rtype: Electronic
+        :param new_attrs: A dictionary with the input into a Furniture model
+        :type new_attrs: FurnitureInterface
+        :return: A new furniture object based on the input
+        :rtype: Furniture
         """
 
-        new_electronic = Electronic(
+        new_furniture = Furniture(
             name=new_attrs["name"], discriminator=new_attrs["discriminator"], subcategory_1=new_attrs["subcategory_1"], subcategory_2=new_attrs["subcategory_2"], subcategory_3=new_attrs["subcategory_3"], subcategory_4=new_attrs["subcategory_4"], subcategory_5=new_attrs["subcategory_5"],
         )
 
-        db.session.add(new_electronic)
+        db.session.add(new_furniture)
         db.session.commit()
 
-        return new_electronic
+        return new_furniture
 
 def NormalResponse(response: dict, status: int) -> Response:
     """Function to return a normal response (200-299)

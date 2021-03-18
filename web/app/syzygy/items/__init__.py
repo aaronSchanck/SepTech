@@ -24,6 +24,6 @@ BASE_ROUTE = "items"
 log = logging.getLogger(__name__)
 
 def register_routes(api, app, root="api"):
-    from .controller import api as item_electronics_api
+    from .controller import api as item_api
 
-    api.add_namespace(item_electronics_api, path=f"/{root}/{BASE_ROUTE}")
+    api.add_namespace(item_api, path=f"/{root}/{BASE_ROUTE}")

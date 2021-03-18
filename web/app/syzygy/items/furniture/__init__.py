@@ -16,16 +16,16 @@ Functions:
 
 import logging
 
-from .model import Electronic
-from .schema import ElectronicSchema
+from .model import Furniture
+from .schema import FurnitureSchema
 
 from .. import BASE_ROUTE as BASE_ROUTE_ITEMS
 
-BASE_ROUTE = "electronics"
+BASE_ROUTE = "furniture"
 
 log = logging.getLogger(__name__)
 
 def register_routes(api, app, root="api"):
-    from .controller import api as item_electronic_api
+    from .controller import api as item_furniture_api
 
-    api.add_namespace(item_electronic_api, path=f"/{root}/{BASE_ROUTE_ITEMS}/{BASE_ROUTE}")
+    api.add_namespace(item_furniture_api, path=f"/{root}/{BASE_ROUTE_ITEMS}/{BASE_ROUTE}")

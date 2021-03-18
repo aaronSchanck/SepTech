@@ -20,14 +20,14 @@ from app import db
 from sqlalchemy import Column, ForeignKey, String, Column, Integer
 from sqlalchemy.orm import relationship
 
-from .interface import ElectronicInterface
+from .interface import FurnitureInterface
 
 from ..model import Item
 
 log = logging.getLogger(__name__)
 
 
-class Electronic(Item):
+class Furniture(Item):
     """[summary]
 
     :param db: [description]
@@ -36,7 +36,7 @@ class Electronic(Item):
     :rtype: [type]
     """
 
-    __tablename__ = "electronics"
+    __tablename__ = "furniture"
 
     itemid = Column(Integer, ForeignKey('items.itemid'), primary_key=True)
 
@@ -46,14 +46,11 @@ class Electronic(Item):
     subcategory_4 = Column(String(63))
     subcategory_5 = Column(String(63))
 
-    # items = relationship("Item", backref="electronic")
-
-
     __mapper_args__ = {
-        'polymorphic_identity': 'electronics'
+        'polymorphic_identity': 'furniture'
     }
 
-    def update(self, changes: ElectronicInterface):
+    def update(self, changes: FurnitureInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 

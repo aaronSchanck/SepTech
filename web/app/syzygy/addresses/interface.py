@@ -21,12 +21,7 @@ from typing import TypedDict
 log = logging.getLogger(__name__)
 
 
-class ElectronicInterface(TypedDict, total=False):
+class ItemInterface(TypedDict, total=False):
     itemid: int
     name: str
     discriminator: str
-    subcategory_1: str
-    subcategory_2: str
-    subcategory_3: str
-    subcategory_4: str
-    subcategory_5: str

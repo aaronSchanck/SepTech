@@ -21,7 +21,7 @@ from typing import TypedDict
 log = logging.getLogger(__name__)
 
 
-class ElectronicInterface(TypedDict, total=False):
+class FurnitureInterface(TypedDict, total=False):
     itemid: int
     name: str
     discriminator: str
