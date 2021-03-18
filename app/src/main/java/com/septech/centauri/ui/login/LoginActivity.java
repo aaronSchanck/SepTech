@@ -24,7 +24,6 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.view.activities.MainActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
-import com.septech.centauri.ui.viewmodel.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
