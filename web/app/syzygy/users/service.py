@@ -120,6 +120,18 @@ class UserService:
         return new_user
 
     @staticmethod
+    def create_user(email, password, salt, first_name, last_name, phone_number):
+        new_user = User(
+            email=email,
+            password=password,  #hash again
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number,
+            password_salt1=salt
+            date_of_birth=
+        )
+
+    @staticmethod
     def login(email: str, password: str) -> User:
         """Checks user credentials against database. If a user is found, then
         send the user information back to the client.

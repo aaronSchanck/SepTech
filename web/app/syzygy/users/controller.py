@@ -55,12 +55,33 @@ class UserResource(Resource):
 
         return UserService.get_all()
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    # @accepts(schema=UserSchema, api=api)
+    # @responds(schema=UserSchema)
+    # def post(self):
+    #     """Create a Single User"""
+
+    #     return UserService.create(request.parsed_obj)
+
+    @accepts(
+        dict(name="email", type=str, help="A user's email"),
+        dict(name="password", type=str, help="A user's password"),
+        dict(name="salt", type=str, help="A user password's salt"),
+        dict(name="first_name", type=str, help="A user's first name"),
+        dict(name="last_name", type=str, help="A user's last name"),
+        dict(name="phone_number", type=str, help="A user's phone number"),
+        api=api,
+    )
     def post(self):
         """Create a Single User"""
 
-        return UserService.create(request.parsed_obj)
+        email = request.parsed_args["email"]
+        password = request.parsed_args["password"]
+        salt = request.parsed_args["salt"]
+        first_name = request.parsed_args["first_name"]
+        last_name = request.parsed_args["last_name"]
+        phone_number = request.parsed_args["phone_number"]
+
+        return UserService.create_user(email, password, salt, first_name, last_name, phone_number)
 
 
 @api.route("/<int:userid>")

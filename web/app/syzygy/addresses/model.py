@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/model.py
+"""/web/app/syzygy/address/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -19,12 +19,12 @@ import logging
 from app import db
 from sqlalchemy import *
 
-from .interface import ItemInterface
+from .interface import AddressInterface
 
 log = logging.getLogger(__name__)
 
 
-class Item(db.Model):
+class Address(db.Model):
     """[summary]
 
     :param db: [description]
@@ -33,18 +33,19 @@ class Item(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "items"
+    __tablename__ = "address"
 
-    itemid = Column(Integer, primary_key=True)
-    name = Column(String(127))
-    discriminator = Column(String(63))
+    unit = Column(String(15))
+    building = Column(String(15))
+    street_name = Column(String(63))
+    street_type = Column(String(15))
+    city = Column(String(63))
+    region = Column(String(15))
+    country = Column(String(15))
+    address_code = Column(String(15))
+    postal_code = Column(String(15))
 
-    __mapper_args__ = {
-        'polymorphic_identity': 'item',
-        'polymorphic_on': discriminator
-    }
-
-    def update(self, changes: ItemInterface):
+    def update(self, changes: AddressInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 

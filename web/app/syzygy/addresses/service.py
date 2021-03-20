@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/service.py
+"""/web/app/syzygy/address/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,8 +15,8 @@ Functions:
 """
 
 from app import db
-from .model import Item
-from .interface import ItemInterface
+from .model import Address
+from .interface import AddressInterface
 from flask import Response
 import json
 import logging
@@ -28,7 +28,7 @@ from typing import List
 log = logging.getLogger(__name__)
 
 
-class ItemService:
+class AddressService:
     @staticmethod
     def get_all():
         """[summary]
@@ -36,21 +36,21 @@ class ItemService:
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.all()
+        return Address.query.all()
 
     @staticmethod
-    def get_by_id(itemid: int) -> Item:
+    def get_by_id(addressid: int) -> Address:
         """[summary]
 
-        :param itemid: [description]
-        :type itemid: int
+        :param addressid: [description]
+        :type addressid: int
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.get(itemid)
+        return Address.query.get(addressid)
 
     @staticmethod
-    def get_by_email(email: str) -> Item:
+    def get_by_email(email: str) -> Address:
         """[summary]
 
         :param email: [description]
@@ -58,71 +58,117 @@ class ItemService:
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.filter(Item.email == email).first()
+        return Address.query.filter(Address.email == email).first()
 
     @staticmethod
-    def get_by_itemname(itemname: str) -> Item:
+    def update(address: Address, Address_change_updates: AddressInterface) -> Address:
         """[summary]
 
-        :param itemname: [description]
-        :type itemname: str
-        :return: [description]
-        :rtype: [type]
+        :param address: The Address to update in the database
+        :type address: Address
+        :param Address_change_updates: Dictionary object containing the new changes
+        to update the Address model object with
+        :type Address_change_updates: AddressInterface
+        :return: The updated Address model object
+        :rtype: Address
         """
-        return Item.query.filter(Item.itemname == itemname).first()
-
-    @staticmethod
-    def update(item: Item, Item_change_updates: ItemInterface) -> Item:
-        """[summary]
-
-        :param item: The Item to update in the database
-        :type item: Item
-        :param Item_change_updates: Dictionary object containing the new changes
-        to update the Item model object with
-        :type Item_change_updates: ItemInterface
-        :return: The updated Item model object
-        :rtype: Item
-        """
-        item.update(Item_change_updates)
+        address.update(Address_change_updates)
         db.session.commit()
-        return item
+        return address
 
     @staticmethod
-    def delete_by_id(itemid: int) -> List:
-        """Deletes a item from the table with the specified itemid
+    def delete_by_id(addressid: int) -> List:
+        """Deletes a address from the table with the specified addressid
 
-        :param itemid: Item's itemid
-        :type itemid: int
-        :return: List containing the deleted item, if found, otherwise an empty
+        :param addressid: Address's addressid
+        :type addressid: int
+        :return: List containing the deleted address, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        item = ItemService.get_by_id(itemid)
-        if not item:
+        address = AddressService.get_by_id(addressid)
+        if not address:
             return []
-        db.session.delete(item)
+        db.session.delete(address)
         db.session.commit()
-        return [itemid]
+        return [addressid]
 
     @staticmethod
-    def create(new_attrs: ItemInterface) -> Item:
-        """Creates a item object from the ItemInterface TypedDict
+    def create(new_attrs: AddressInterface) -> Address:
+        """Creates a address object from the AddressInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a Item model
-        :type new_attrs: ItemInterface
-        :return: A new item object based on the input
-        :rtype: Item
+        :param new_attrs: A dictionary with the input into a Address model
+        :type new_attrs: AddressInterface
+        :return: A new address object based on the input
+        :rtype: Address
         """
 
-        new_item = Item(
-            name=new_attrs["name"], discriminator=new_attrs["discriminator"]
+        new_address = Address(
+            email=new_attrs["email"],
+            password=new_attrs["password"],
+            first_name=new_attrs["first_name"],
+            last_name=new_attrs["last_name"],
+            date_of_birth=new_attrs["date_of_birth"],
+            created_at=new_attrs["created_at"],
+            modified_at=new_attrs["modified_at"],
         )
 
-        db.session.add(new_item)
+        db.session.add(new_address)
         db.session.commit()
 
-        return new_item
+        return new_address
+
+    @staticmethod
+    def create_address(email, password, salt, first_name, last_name, phone_number):
+        new_address = Address(
+            email=email,
+            password=password,  #hash again
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number,
+            password_salt1=salt
+            date_of_birth=
+        )
+
+    @staticmethod
+    def login(email: str, password: str) -> Address:
+        """Checks address credentials against database. If a address is found, then
+        send the address information back to the client.
+
+        :param email: Address's email
+        :type email: str
+        :param password: Address's password
+        :type password: str
+        :return: Address model from the table with the specified email and
+        password
+        :rtype: Address
+        """
+
+        log.debug(f"email: {email}\tPassword: {password}")
+
+        if not email:
+            return ErrResponse("No email entered", 400)
+
+        if not password:
+            return ErrResponse("No password entered", 400)
+
+        address = AddressService.get_by_email(email)
+
+        if address is None:
+            log.info("No address was found for supplied email")
+            return ErrResponse("Incorrect email", 400)
+
+        if address.password != password:
+            log.info("No address was found for supplied password")
+            return ErrResponse("Incorrect password", 400)
+
+        log.info(f"Address {address.addressid} was found and returned to client")
+
+        # generate JWT token and concatenate
+
+        return address
+
 
 def NormalResponse(response: dict, status: int) -> Response:
     """Function to return a normal response (200-299)

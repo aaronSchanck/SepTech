@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/controller.py
+"""/web/app/syzygy/address/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -8,17 +8,17 @@ rudimentary testing on the browser.
 
 Classes:
 
-    ItemResource:
+    AddressResource:
         Extends Resource from flask-restx. Adding a function with name
         "get"/"post"/"delete"/"put" will add the respective route to the API.
 
-    ItemIdResource:
+    AddressIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{itemid}.
+        aforementioned class. Must be routed to with {baseurl}/{addressid}.
 
-    ItemLoginResource:
+    AddressLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
-        in items.
+        in address.
 
 """
 
@@ -29,17 +29,17 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import ItemInterface
-from .model import Item
-from .schema import ItemSchema
-from .service import ItemService
+from .interface import AddressInterface
+from .model import Address
+from .schema import AddressSchema
+from .service import AddressService
 
-api = Namespace("Item")
+api = Namespace("Address")
 log = logging.getLogger(__name__)
 
 
 @api.route("/")
-class ItemResource(Resource):
+class AddressResource(Resource):
     """[summary]
 
     Args:
@@ -49,41 +49,43 @@ class ItemResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=ItemSchema(many=True))
+    @responds(schema=AddressSchema(many=True))
     def get(self):
-        """Get all Items"""
+        """Get all Addresss"""
 
-        return ItemService.get_all()
+        return AddressService.get_all()
 
-    # @accepts(schema=ItemSchema, api=api)
-    # @responds(schema=ItemSchema)
+    # @accepts(schema=AddressSchema, api=api)
+    # @responds(schema=AddressSchema)
     # def post(self):
-    #     """Create a Single Item"""
+    #     """Create a Single Address"""
 
-    #     return ItemService.create(request.parsed_obj)
+    #     return AddressService.create(request.parsed_obj)
+    def post(self):
+        """Create a Single Address"""
 
 
-@api.route("/<int:itemid>")
-@api.param("itemid", "Item database ID")
-class ItemIdResource(Resource):
-    @responds(schema=ItemSchema)
-    def get(self, itemid: int):
-        """Get Single Item"""
+@api.route("/<int:addressid>")
+@api.param("addressid", "Address database ID")
+class AddressIdResource(Resource):
+    @responds(schema=AddressSchema)
+    def get(self, addressid: int):
+        """Get Single Address"""
 
-        return ItemService.get_by_id(itemid)
+        return AddressService.get_by_id(addressid)
 
-    # def delete(self, itemid: int):
-    #     """Delete Single Item"""
-    #     from flask import jsonify
+    def delete(self, addressid: int):
+        """Delete Single Address"""
+        from flask import jsonify
 
-    #     id = ItemService.delete_by_id(itemid)
-    #     return jsonify(dict(status="Success", id=id))
+        id = AddressService.delete_by_id(addressid)
+        return jsonify(dict(status="Success", id=id))
 
-    # @accepts(schema=ItemSchema, api=api)
-    # @responds(schema=ItemSchema)
-    # def put(self, itemid: int):
-    #     """Update Single Item"""
+    @accepts(schema=AddressSchema, api=api)
+    @responds(schema=AddressSchema)
+    def put(self, addressid: int):
+        """Update Single Address"""
 
-    #     changes: ItemInterface = request.parsed_obj
-    #     Item = ItemService.get_by_id(itemid)
-    #     return ItemService.update(Item, changes)
+        changes: AddressInterface = request.parsed_obj
+        Address = AddressService.get_by_id(addressid)
+        return AddressService.update(Address, changes)

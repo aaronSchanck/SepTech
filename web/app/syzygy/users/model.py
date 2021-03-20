@@ -42,7 +42,7 @@ class User(db.Model):
     password = Column(String(127), nullable=False)
     first_name = Column(String(127))
     last_name = Column(String(127))
-    date_of_birth = Column(DateTime)
+    date_of_birth = Column(Date)
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
 

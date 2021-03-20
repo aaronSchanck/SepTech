@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/schema.py
+"""/web/app/syzygy/address/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -16,12 +16,22 @@ Functions:
 
 import logging
 
+import datetime as dt
+
+from sqlalchemy.dialects import postgresql
+
 from marshmallow import Schema, fields
 
 log = logging.getLogger(__name__)
 
 
-class ItemSchema(Schema):
-    itemid = fields.Number(dump_only=True)
-    name = fields.Str(required=True)
-    discriminator = fields.Str(required=True, dump_only=True)
+class AddressSchema(Schema):
+    unit = fields.String()
+    building = fields.String()
+    street_name = fields.String()
+    street_type = fields.String()
+    city = fields.String()
+    region = fields.String()
+    country = fields.String()
+    address_code = fields.String()
+    postal_code = fields.String()

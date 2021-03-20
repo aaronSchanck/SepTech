@@ -16,6 +16,8 @@ Functions:
 
 import logging
 
+import datetime as dt
+
 from sqlalchemy.dialects import postgresql
 
 from marshmallow import Schema, fields
@@ -29,6 +31,6 @@ class UserSchema(Schema):
     password = fields.Str(required=True, load_only=True)
     first_name = fields.Str(required=True)
     last_name = fields.Str(required=True)
-    date_of_birth = fields.Date()
-    created_at = fields.DateTime()
-    modified_at = fields.DateTime()
+    date_of_birth = fields.Date(default=dt.date(1970, 1, 1))
+    created_at = fields.DateTime(default=dt.datetime.now())
+    modified_at = fields.DateTime(default=dt.datetime.now())
