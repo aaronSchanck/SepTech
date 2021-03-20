@@ -99,7 +99,7 @@ class UserEmailResource(Resource):
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(
-        dict(name="username", type=str, help="A user's username/email"),
+        dict(name="email", type=str, help="A user's email"),
         dict(name="password", type=str, help="A user's password"),
         api=api,
     )
@@ -107,7 +107,7 @@ class UserLoginResource(Resource):
     def post(self):
         """Login with user credentials"""
 
-        username = request.parsed_args["username"]
+        email = request.parsed_args["email"]
         password = request.parsed_args["password"]
 
-        return UserService.login(username, password)
+        return UserService.login(email, password)

@@ -61,17 +61,6 @@ class UserService:
         return User.query.filter(User.email == email).first()
 
     @staticmethod
-    def get_by_username(username: str) -> User:
-        """[summary]
-
-        :param username: [description]
-        :type username: str
-        :return: [description]
-        :rtype: [type]
-        """
-        return User.query.filter(User.username == username).first()
-
-    @staticmethod
     def update(user: User, User_change_updates: UserInterface) -> User:
         """[summary]
 
@@ -116,7 +105,6 @@ class UserService:
         """
 
         new_user = User(
-            username=new_attrs["username"],
             email=new_attrs["email"],
             password=new_attrs["password"],
             first_name=new_attrs["first_name"],
@@ -132,48 +120,32 @@ class UserService:
         return new_user
 
     @staticmethod
-    def login(username: str, password: str) -> User:
+    def login(email: str, password: str) -> User:
         """Checks user credentials against database. If a user is found, then
         send the user information back to the client.
 
-        :param username: User's username or email, to be figured out in the
-        function
-        :type username: str
+        :param email: User's email
+        :type email: str
         :param password: User's password
         :type password: str
-        :return: User model from the table with the specified username/email and
+        :return: User model from the table with the specified email and
         password
         :rtype: User
         """
 
-        log.debug(f"Username: {username}\tPassword: {password}")
+        log.debug(f"email: {email}\tPassword: {password}")
 
-        if not username:
-            return ErrResponse("No username/email entered", 400)
+        if not email:
+            return ErrResponse("No email entered", 400)
 
         if not password:
             return ErrResponse("No password entered", 400)
 
-        # check to see if the username matches on email. If so, then the user
-        # input a email address in the box instead of a username
-        if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", username):
-            log.info("Input username was thought to be an email address")
-            email = username
-        else:
-            log.info("Input username was thought to be a username")
-            email = ""
-
-        # get user structure from email address or username, whichever was
-        # supplied
-        user = (
-            UserService.get_by_email(email)
-            if email
-            else UserService.get_by_username(username)
-        )
+        user = UserService.get_by_email(email)
 
         if user is None:
-            log.info("No user was found for supplied username/email")
-            return ErrResponse("Incorrect username/email", 400)
+            log.info("No user was found for supplied email")
+            return ErrResponse("Incorrect email", 400)
 
         if user.password != password:
             log.info("No user was found for supplied password")

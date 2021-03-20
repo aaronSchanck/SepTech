@@ -39,7 +39,6 @@ class User(db.Model):
 
     userid = Column(Integer, primary_key=True)
     email = Column(String(127), unique=True, nullable=False)
-    username = Column(String(127), nullable=False)
     password = Column(String(127), nullable=False)
     first_name = Column(String(127))
     last_name = Column(String(127))

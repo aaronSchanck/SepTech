@@ -12,8 +12,6 @@ public class UserModel {
 
     private int userId;
 
-    private String username;
-
     private String email;
 
     private String password;
@@ -27,10 +25,9 @@ public class UserModel {
     @ColumnInfo(name = "date_of_birth")
     private String dateOfBirth;
 
-    public UserModel(int userId, String username, String email, String password, String firstName
+    public UserModel(int userId, String email, String password, String firstName
             , String lastName, String dateOfBirth) {
         this.userId = userId;
-        this.username = username;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -52,14 +49,6 @@ public class UserModel {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {

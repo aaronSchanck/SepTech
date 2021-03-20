@@ -16,9 +16,6 @@ public class UserEntity {
     @SerializedName("userid")
     private int userId;
 
-    @SerializedName("username")
-    private String username;
-
     @SerializedName("email")
     private String email;
 
@@ -48,9 +45,8 @@ public class UserEntity {
         //empty
     }
 
-    public UserEntity(String username, String email, String password, String firstName,
+    public UserEntity(String email, String password, String firstName,
                       String lastName, String dateOfBirth) {
-        this.username = username;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -72,14 +68,6 @@ public class UserEntity {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {

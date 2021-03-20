@@ -24,6 +24,7 @@ public class RegisterFormState {
         this.firstNameError = firstNameError;
         this.lastNameError = lastNameError;
         this.phoneNumberError = phoneNumberError;
+        this.phoneNumberError = phoneNumberError;
         this.isDataValid = false;
     }
 

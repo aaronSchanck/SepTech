@@ -101,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mLoginButton.setEnabled(loginFormState.isDataValid());
-        if (loginFormState.getUsernameError() != null) {
-            mUsernameTextInput.getEditText().setError(getString(loginFormState.getUsernameError()));
+        if (loginFormState.getEmailError() != null) {
+            mUsernameTextInput.getEditText().setError(getString(loginFormState.getEmailError()));
         }
         if (loginFormState.getPasswordError() != null) {
             mPasswordTextInput.getEditText().setError(getString(loginFormState.getPasswordError()));
@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void onSuccessfulLogin(User user) {
-        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getUsername()),
+        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFirstName()),
                 Toast.LENGTH_LONG).show();
         Intent i = new Intent();
     }

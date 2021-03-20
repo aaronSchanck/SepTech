@@ -2,7 +2,6 @@ package com.septech.centauri.domain.models;
 
 public class User {
     private int userid;
-    private String username;
     private String email;
     private String password;
     private String firstName;
@@ -13,9 +12,8 @@ public class User {
 
     }
 
-    public User(int userId, String username, String email, String firstName, String lastName, String dateOfBirth) {
+    public User(int userId, String email, String firstName, String lastName, String dateOfBirth) {
         this.userid = userId;
-        this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,7 +23,6 @@ public class User {
     public User(int userId, String username, String email, String password, String firstName,
                 String lastName, String dateOfBirth) {
         this.userid = userId;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -39,14 +36,6 @@ public class User {
 
     public void setUserid(int userid) {
         this.userid = userid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
