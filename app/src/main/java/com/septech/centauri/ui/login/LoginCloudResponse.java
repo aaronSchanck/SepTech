@@ -1,6 +1,6 @@
 package com.septech.centauri.ui.login;
 
-public enum LoginResponse {
+public enum LoginCloudResponse {
     FAILED,
     LOADING,
     SUCCESS

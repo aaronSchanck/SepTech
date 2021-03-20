@@ -88,6 +88,13 @@ class UserIdResource(Resource):
         User = UserService.get_by_id(userid)
         return UserService.update(User, changes)
 
+@api.route("/<email>")
+@api.param("email", "User database email")
+class UserEmailResource(Resource):
+    @responds(schema=UserSchema)
+    def get(self, email: int):
+        return UserService.get_by_email(email)
+
 
 @api.route("/login")
 class UserLoginResource(Resource):

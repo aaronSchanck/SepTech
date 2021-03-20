@@ -6,6 +6,7 @@ import com.septech.centauri.R;
 import android.os.Bundle;
 
 public class RegisterActivity extends AppCompatActivity {
+    private static final String TAG = "RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

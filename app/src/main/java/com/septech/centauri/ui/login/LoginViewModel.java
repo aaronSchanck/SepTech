@@ -16,13 +16,14 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class LoginViewModel extends ViewModel {
+    private static final String TAG = "LoginViewModel";
 
     private final UserRepository userRepo;
 
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
     private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
-    private final MutableLiveData<LoginResponse> responseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginCloudResponse> responseLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
@@ -33,7 +34,7 @@ public class LoginViewModel extends ViewModel {
         return userLiveData;
     }
 
-    public MutableLiveData<LoginResponse> getResponseLiveData() {
+    public MutableLiveData<LoginCloudResponse> getResponseLiveData() {
         return responseLiveData;
     }
 
@@ -53,18 +54,18 @@ public class LoginViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onStart() {
-                        responseLiveData.setValue(LoginResponse.LOADING);
+                        responseLiveData.setValue(LoginCloudResponse.LOADING);
                     }
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        responseLiveData.setValue(LoginResponse.SUCCESS);
+                        responseLiveData.setValue(LoginCloudResponse.SUCCESS);
                         userLiveData.setValue(user);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(LoginResponse.FAILED);
+                        responseLiveData.setValue(LoginCloudResponse.FAILED);
                     }
                 })
         );

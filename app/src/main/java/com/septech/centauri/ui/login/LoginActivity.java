@@ -117,11 +117,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void processResponse(LoginResponse response) {
-        if (response == LoginResponse.LOADING) {
+    private void processResponse(LoginCloudResponse response) {
+        if (response == LoginCloudResponse.LOADING) {
             mUsernameTextInput.getEditText().setText("loading");
             showLoadingIcon();
-        } else if (response == LoginResponse.FAILED) {
+        } else if (response == LoginCloudResponse.FAILED) {
             hideLoadingIcon();
             mUsernameTextInput.getEditText().setText("failed");
             onUnsuccessfulLogin();

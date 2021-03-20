@@ -1,39 +1,35 @@
 package com.septech.centauri.data.repository;
 
 
-import com.septech.centauri.data.datasource.UserDataSource;
+import android.util.Log;
+
+import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
-import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.user.mapper.UserEntityDataMapper;
-import com.septech.centauri.data.net.RestApi;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 
 public class UserDataRepository implements UserRepository {
+    private static final String TAG = UserDataRepository.class.getSimpleName();
 
     private static UserDataRepository mInstance;
 
     private BetelgeuseDatabase database;
-    private RestApi restApi;
-    private UserEntityDataMapper userEntityDataMapper;
-
-    private UserDataSource userDataSource;
+    private final FileCache fileCache;
+    private final RestApiClient restApiImpl;
+    private final BetelgeuseDatabase localDb;
 
     private UserDataRepository() {
-        this.userDataSource = new UserDataSource();
-
-        this.userEntityDataMapper = new UserEntityDataMapper();
-
-//        this.restApi = new RestApiImpl();
-//        this.database = BetelgeuseDatabase.getDatabase();
+        this.restApiImpl = RestApiClient.getInstance();
+        this.localDb = BetelgeuseDatabase.getDatabase();
+        this.fileCache = new FileCache();
     }
 
     public static UserDataRepository getInstance() {
@@ -44,36 +40,46 @@ public class UserDataRepository implements UserRepository {
     }
 
 
-    public Observable<User> getSingleUser(int userid) {
-
+    public Single<User> getUserById(int userid) {
+        try {
+            return restApiImpl.getUserById(userid).map(UserEntityDataMapper::transform);
+        } catch (Exception e) {
+            Log.w(TAG, e.toString());
+        }
         return null;
     }
 
     @Override
     public Single<User> login(final String username, final String password) {
-        try {
-            Single<UserEntity> userEntity = RestApiClient.getInstance().login(username,
-                    password);
-            return userEntity.map(new Function<UserEntity, User>() {
-                        @Override
-                        public User apply(@NonNull UserEntity userEntity) throws Exception {
-                            return UserEntityDataMapper.transform(userEntity);
-                        }
-                    });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return restApiImpl.login(username, password).map(UserEntityDataMapper::transform);
     }
 
     @Override
-    public Observable<User> deleteUser(int userid) {
+    public Single<User> deleteUser(int userid) {
+        return restApiImpl.deleteUser(userid);
+    }
+
+    @Override
+    public void createUser(User user) {
+        restApiImpl.createUser(UserEntityDataMapper.transform(user));
+    }
+
+    @Override
+    public Observable<List<User>> getAllUsers() {
+        //return restApi.getAllUsers().map(UserEntityDataMapper::transform);
+
+        //TODO: return list of users
         return null;
     }
 
     @Override
-    public Observable<User> createUser(User user) {
-        return null;
+    public void createAccount(String email, String password, String firstName,
+                              String lastName, String phoneNumber) {
+        restApiImpl.createAccount(email, password, firstName, lastName, phoneNumber);
+    }
+
+    @Override
+    public Single<User> getUserByEmail(String email) {
+        return restApiImpl.getUserByEmail(email).map(UserEntityDataMapper::transform);
     }
 }

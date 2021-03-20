@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
+import com.septech.centauri.domain.models.User;
 
 @Entity(tableName = "users")
 public class UserEntity {
@@ -45,6 +46,16 @@ public class UserEntity {
 
     public UserEntity() {
         //empty
+    }
+
+    public UserEntity(String username, String email, String password, String firstName,
+                      String lastName, String dateOfBirth) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public int getId() {

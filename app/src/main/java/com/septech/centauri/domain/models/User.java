@@ -4,6 +4,7 @@ public class User {
     private int userid;
     private String username;
     private String email;
+    private String password;
     private String firstName;
     private String lastName;
     private String dateOfBirth;
@@ -15,6 +16,17 @@ public class User {
     public User(int userId, String username, String email, String firstName, String lastName, String dateOfBirth) {
         this.userid = userId;
         this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public User(int userId, String username, String email, String password, String firstName,
+                String lastName, String dateOfBirth) {
+        this.userid = userId;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -67,5 +79,9 @@ public class User {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

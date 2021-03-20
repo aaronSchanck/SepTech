@@ -46,9 +46,6 @@ class Electronic(Item):
     subcategory_4 = Column(String(63))
     subcategory_5 = Column(String(63))
 
-    # items = relationship("Item", backref="electronic")
-
-
     __mapper_args__ = {
         'polymorphic_identity': 'electronics'
     }
