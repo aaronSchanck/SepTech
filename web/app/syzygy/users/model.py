@@ -33,8 +33,6 @@ class User(db.Model):
     :rtype: [type]
     """
 
-    # TODO: Change date_of_birth to Date from DateTime
-
     __tablename__ = "users"
 
     userid = Column(Integer, primary_key=True)
@@ -45,6 +43,9 @@ class User(db.Model):
     date_of_birth = Column(Date)
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
+    phone_number = Column(String(15))
+    password_salt1 = Column(String(63))
+    password_salt2 = Column(String(63))
 
     def update(self, changes: UserInterface):
         for key, val in changes.items():

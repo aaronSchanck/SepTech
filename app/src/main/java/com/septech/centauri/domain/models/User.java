@@ -8,26 +8,31 @@ public class User {
     private String lastName;
     private String dateOfBirth;
 
+    private String salt1;
+
     public User() {
 
     }
 
-    public User(int userId, String email, String firstName, String lastName, String dateOfBirth) {
-        this.userid = userId;
+    public User(int userid, String email, String firstName, String lastName, String dateOfBirth,
+                String salt1) {
+        this.userid = userid;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.salt1 = salt1;
     }
 
-    public User(int userId, String username, String email, String password, String firstName,
-                String lastName, String dateOfBirth) {
-        this.userid = userId;
+    public User(int userid, String email, String password, String firstName,
+                String lastName, String dateOfBirth, String salt1) {
+        this.userid = userid;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.salt1 = salt1;
     }
 
     public int getUserid() {
@@ -72,5 +77,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPasswordSalt() {
+        return salt1;
     }
 }

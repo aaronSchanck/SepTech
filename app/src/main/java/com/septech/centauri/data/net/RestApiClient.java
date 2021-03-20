@@ -14,10 +14,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
-    private final String API_BASE_URL = "https://septech.me/api/";
+    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
 
-    private static RestApiClient instance;
-    private RestApi restApi;
+    private static RestApiClient instance;                          // singleton instance of class
+    private RestApi restApi;                                        // retrofit instance of restapi
 
     private RestApiClient() {
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
@@ -54,8 +54,9 @@ public class RestApiClient {
         return restApi.getAllUsers();
     }
 
-    public void createAccount(String email, String password, String firstName, String lastName, String phoneNumber) {
-        restApi.createAccount(email, password, firstName, lastName, phoneNumber);
+    public void createAccount(String email, String password, String firstName, String lastName,
+                              String phoneNumber, String passwordSalt) {
+        restApi.createAccount(email, password, firstName, lastName, phoneNumber, passwordSalt);
     }
 
     public Single<UserEntity> getUserByEmail(String email) {

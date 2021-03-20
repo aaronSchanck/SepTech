@@ -112,24 +112,14 @@ class UserService:
             date_of_birth=new_attrs["date_of_birth"],
             created_at=new_attrs["created_at"],
             modified_at=new_attrs["modified_at"],
+            phone_number=new_attrs["phone_number"],
+            password_salt1=new_attrs["password_salt1"]
         )
 
         db.session.add(new_user)
         db.session.commit()
 
         return new_user
-
-    @staticmethod
-    def create_user(email, password, salt, first_name, last_name, phone_number):
-        new_user = User(
-            email=email,
-            password=password,  #hash again
-            first_name=first_name,
-            last_name=last_name,
-            phone_number=phone_number,
-            password_salt1=salt
-            date_of_birth=
-        )
 
     @staticmethod
     def login(email: str, password: str) -> User:

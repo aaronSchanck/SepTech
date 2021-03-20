@@ -10,6 +10,7 @@ import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
+import com.septech.centauri.ui.login.LoginCloudResponse;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,6 +18,11 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserDataRepository implements UserRepository {
     private static final String TAG = UserDataRepository.class.getSimpleName();
@@ -28,10 +34,14 @@ public class UserDataRepository implements UserRepository {
     private final RestApiClient restApiImpl;
     private final BetelgeuseDatabase localDb;
 
+    private CompositeDisposable mDisposables = new CompositeDisposable();
+
     private UserDataRepository() {
         this.restApiImpl = RestApiClient.getInstance();
         this.localDb = BetelgeuseDatabase.getDatabase();
         this.fileCache = new FileCache();
+
+        this.mDisposables = new CompositeDisposable();
     }
 
     public static UserDataRepository getInstance() {
@@ -52,10 +62,10 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<User> login(final String username, final String password) {
+    public Single<User> login(final String email, final String password) {
         PasswordUtils pwUtils = new PasswordUtils(password);
         String pwHash = Arrays.toString(pwUtils.hash());
-        return restApiImpl.login(username, password).map(UserEntityDataMapper::transform);
+        return restApiImpl.login(email, password).map(UserEntityDataMapper::transform);
     }
 
     @Override

@@ -30,16 +30,16 @@ public class UserEntity {
     private String password;
 
     @SerializedName("first_name")
-    @ColumnInfo(name = "first_name")
     private String firstName;
 
     @SerializedName("last_name")
-    @ColumnInfo(name = "last_name")
     private String lastName;
 
     @SerializedName("date_of_birth")
-    @ColumnInfo(name = "date_of_birth")
     private String dateOfBirth;
+
+    @SerializedName("password_salt")
+    private String password_salt;
 
     public UserEntity() {
         //empty
@@ -100,5 +100,9 @@ public class UserEntity {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPasswordSalt() {
+        return sal
     }
 }

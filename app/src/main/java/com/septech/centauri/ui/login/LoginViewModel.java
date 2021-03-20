@@ -47,8 +47,8 @@ public class LoginViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void login(String username, String password) {
-        mDisposables.add(userRepo.login(username, password)
+    public void login(String email, String password) {
+        mDisposables.add(userRepo.getUserByEmail(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
@@ -59,8 +59,27 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        responseLiveData.setValue(LoginCloudResponse.SUCCESS);
-                        userLiveData.setValue(user);
+                        mDisposables.add(userRepo.login(email, password)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeWith(new DisposableSingleObserver<User>() {
+                                    @Override
+                                    public void onStart() {
+                                        responseLiveData.setValue(LoginCloudResponse.LOADING);
+                                    }
+
+                                    @Override
+                                    public void onSuccess(@NonNull User user) {
+                                        responseLiveData.setValue(LoginCloudResponse.SUCCESS);
+                                        userLiveData.setValue(user);
+                                    }
+
+                                    @Override
+                                    public void onError(@NonNull Throwable e) {
+                                        responseLiveData.setValue(LoginCloudResponse.FAILED);
+                                    }
+                                })
+                        );
                     }
 
                     @Override
@@ -75,7 +94,7 @@ public class LoginViewModel extends ViewModel {
         if (!usernameIsValid(username))
             loginFormStateLiveData.setValue(new LoginFormState(R.string.string_username_incorrect,
                     null));
-        else if(!passwordIsValid(password))
+        else if (!passwordIsValid(password))
             loginFormStateLiveData.setValue(new LoginFormState(null,
                     R.string.string_password_incorrect));
         else

@@ -77,12 +77,13 @@ public interface RestApi {
      * @param firstName
      * @param lastName
      * @param phoneNumber
+     * @param salt
      */
     @POST("users")
     void createAccount(@Field("email") String email,
                        @Field("password") String password,
-                       @Field("hash") String hash,
                        @Field("first_name") String firstName,
                        @Field("last_name") String lastName,
-                       @Field("phone_number") String phoneNumber);
+                       @Field("phone_number") String phoneNumber,
+                       @Field("salt") String salt);
 }

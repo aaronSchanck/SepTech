@@ -10,7 +10,8 @@ public class UserEntityDataMapper {
                 userEntity.getEmail(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
-                userEntity.getDateOfBirth()
+                userEntity.getDateOfBirth(),
+                userEntity.getPasswordSalt()
         );
     }
 
