@@ -26,6 +26,10 @@ public class PasswordUtils {
         this.salt = salt.getBytes();
     }
 
+    public byte[] getSalt() {
+        return salt;
+    }
+
     public byte[] generatePasswordSalt() {
         byte[] salt = new byte[16];
         random.nextBytes(salt);

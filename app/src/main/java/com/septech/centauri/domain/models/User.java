@@ -8,31 +8,16 @@ public class User {
     private String lastName;
     private String dateOfBirth;
 
+    private String phoneNumber;
+
     private String salt1;
 
     public User() {
 
     }
 
-    public User(int userid, String email, String firstName, String lastName, String dateOfBirth,
-                String salt1) {
+    public User(int userid) {
         this.userid = userid;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.salt1 = salt1;
-    }
-
-    public User(int userid, String email, String password, String firstName,
-                String lastName, String dateOfBirth, String salt1) {
-        this.userid = userid;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.salt1 = salt1;
     }
 
     public int getUserid() {
@@ -81,5 +66,21 @@ public class User {
 
     public String getPasswordSalt() {
         return salt1;
+    }
+
+    public void setPasswordSalt(String salt1) {
+        this.salt1 = salt1;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

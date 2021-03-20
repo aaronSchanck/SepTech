@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
+import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.user.mapper.UserEntityDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
@@ -89,7 +90,19 @@ public class UserDataRepository implements UserRepository {
     @Override
     public void createAccount(String email, String password, String firstName,
                               String lastName, String phoneNumber) {
-        restApiImpl.createAccount(email, password, firstName, lastName, phoneNumber);
+        PasswordUtils pwUtils = new PasswordUtils(password);
+        String pwHash = Arrays.toString(pwUtils.hash());
+
+        UserEntity userEntity = new UserEntity();
+
+        userEntity.setEmail(email);
+        userEntity.setPassword(pwHash);
+        userEntity.setFirstName(firstName);
+        userEntity.setLastName(lastName);
+        userEntity.setPhoneNumber(phoneNumber);
+        userEntity.setPasswordSalt(Arrays.toString(pwUtils.getSalt()));
+
+        restApiImpl.createUser(userEntity);
     }
 
     @Override

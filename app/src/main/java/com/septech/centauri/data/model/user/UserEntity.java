@@ -7,26 +7,9 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 import com.septech.centauri.domain.models.User;
 
-@Entity(tableName = "users")
 public class UserEntity {
-
-    @PrimaryKey
-    private int id;
-
-    @SerializedName("userid")
-    private int userId;
-
-    @SerializedName("email")
+    private int userid;
     private String email;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     private String password;
 
     @SerializedName("first_name")
@@ -38,36 +21,26 @@ public class UserEntity {
     @SerializedName("date_of_birth")
     private String dateOfBirth;
 
-    @SerializedName("password_salt")
-    private String password_salt;
+    @SerializedName("phone_number")
+    private String phoneNumber;
+
+    @SerializedName("password_salt1")
+    private String passwordSalt;
 
     public UserEntity() {
         //empty
     }
 
-    public UserEntity(String email, String password, String firstName,
-                      String lastName, String dateOfBirth) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public UserEntity(int userid) {
+        this.userid = userid;
     }
 
     public int getUserId() {
-        return userId;
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int userid) {
+        this.userid = userid;
     }
 
     public String getEmail() {
@@ -76,6 +49,14 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -102,7 +83,20 @@ public class UserEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPasswordSalt() {
-        return sal
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
 }

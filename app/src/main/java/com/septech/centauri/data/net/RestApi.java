@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -35,8 +36,7 @@ public interface RestApi {
      * @param userEntity The UserEntity object to create the user.
      */
     @POST("users")
-    @FormUrlEncoded
-    void createUser(@Body UserEntity userEntity);
+    Single<UserEntity> createUser(@Body UserEntity userEntity);
 
     /**
      * GET endpoint interface method for getting a user by their userid. Mostly used as a
@@ -69,21 +69,4 @@ public interface RestApi {
      */
     @GET("users/{email}")
     Single<UserEntity> getUserByEmail(@Path("email") String email);
-
-    /**
-     *
-     * @param email
-     * @param password
-     * @param firstName
-     * @param lastName
-     * @param phoneNumber
-     * @param salt
-     */
-    @POST("users")
-    void createAccount(@Field("email") String email,
-                       @Field("password") String password,
-                       @Field("first_name") String firstName,
-                       @Field("last_name") String lastName,
-                       @Field("phone_number") String phoneNumber,
-                       @Field("salt") String salt);
 }

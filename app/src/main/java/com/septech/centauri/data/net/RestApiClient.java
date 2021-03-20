@@ -38,8 +38,8 @@ public class RestApiClient {
         return restApi.login(username, password);
     }
 
-    public void createUser(UserEntity userEntity) {
-        restApi.createUser(userEntity);
+    public Single<UserEntity> createUser(UserEntity userEntity) {
+        return restApi.createUser(userEntity);
     }
 
     public Single<UserEntity> getUserById(int userid) {
@@ -52,11 +52,6 @@ public class RestApiClient {
 
     public Observable<List<UserEntity>> getAllUsers() {
         return restApi.getAllUsers();
-    }
-
-    public void createAccount(String email, String password, String firstName, String lastName,
-                              String phoneNumber, String passwordSalt) {
-        restApi.createAccount(email, password, firstName, lastName, phoneNumber, passwordSalt);
     }
 
     public Single<UserEntity> getUserByEmail(String email) {

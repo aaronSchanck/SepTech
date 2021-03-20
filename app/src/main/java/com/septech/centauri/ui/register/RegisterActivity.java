@@ -173,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                mCreateAccountBtn.setEnabled(registerFormState.isDataValid());
+                mCreateAccountBtn.setEnabled(true);
 
                 if (registerFormState.isFirstNameEdited() && registerFormState.getFirstNameError() != null) {
                     mFNameEditText.setError(getString(registerFormState.getFirstNameError()));

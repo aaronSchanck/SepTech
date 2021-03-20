@@ -47,7 +47,12 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
-        return User.query.get(userid)
+        user = User.query.get(userid)
+
+        if user is None:
+            return ErrResponse("Requested user doesn't exist", 400)
+
+        return user
 
     @staticmethod
     def get_by_email(email: str) -> User:
@@ -58,7 +63,12 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
-        return User.query.filter(User.email == email).first()
+        user = User.query.filter(User.email == email).first()
+
+        if user is None:
+            return ErrResponse("Requested user doesn't exist", 400)
+
+        return user
 
     @staticmethod
     def update(user: User, User_change_updates: UserInterface) -> User:
