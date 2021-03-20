@@ -18,8 +18,8 @@ public interface UserDao {
     @Query("SELECT * FROM users")
     Observable<List<UserModel>> getAllUsers();
 
-    @Query("SELECT * FROM users WHERE username=:username AND password=:password")
-    Single<UserModel> login(String username, String password);
+    @Query("SELECT * FROM users WHERE email=:email AND password=:password")
+    Single<UserModel> login(String email, String password);
 
     @Query("SELECT * FROM users WHERE first_name LIKE :first AND " +
             "last_name LIKE :last LIMIT 1")

@@ -27,4 +27,10 @@
     <string name="login_failed">"Login failed"</string>
     <string name="string_username_incorrect">"Username length must be > 5"</string>
     <string name="string_password_incorrect">"Password length must be > 5"</string>
+    <string name="register_string_fname_incorrect"><![CDATA[\"First name length must be > 1]]></string>
+    <string name="register_string_email_incorrect">Email incorrect</string>
+    <string name="register_string_lname_incorrect"><![CDATA[Last name length must be > 1]]></string>
+    <string name="register_string_password_incorrect">Password incorrect</string>
+    <string name="register_string_confirm_password_incorrect">Passwords don\'t match</string>
+    <string name="register_string_phone_number_incorrect">Phone number incorrect</string>
 </resources>

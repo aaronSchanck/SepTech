@@ -221,7 +221,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/sign_in_btn"
+                android:id="@+id/register_create_account_btn"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

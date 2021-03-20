@@ -7,10 +7,12 @@ import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.data.model.user.mapper.UserEntityDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
+import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -51,6 +53,8 @@ public class UserDataRepository implements UserRepository {
 
     @Override
     public Single<User> login(final String username, final String password) {
+        PasswordUtils pwUtils = new PasswordUtils(password);
+        String pwHash = Arrays.toString(pwUtils.hash());
         return restApiImpl.login(username, password).map(UserEntityDataMapper::transform);
     }
 
