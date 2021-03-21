@@ -36,16 +36,14 @@ class User(db.Model):
     __tablename__ = "users"
 
     userid = Column(Integer, primary_key=True)
-    email = Column(String(127), unique=True, nullable=False)
-    password = Column(String(127), nullable=False)
-    first_name = Column(String(127))
-    last_name = Column(String(127))
+    email = Column(String(255), unique=True, nullable=False)
+    password = Column(LargeBinary(127), nullable=False)
+    full_name = Column(String(255))
     date_of_birth = Column(Date)
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
-    phone_number = Column(String(15))
+    phone_number = Column(String(10))
     password_salt1 = Column(String(63))
-    password_salt2 = Column(String(63))
 
     def update(self, changes: UserInterface):
         for key, val in changes.items():

@@ -20,6 +20,8 @@ from .interface import UserInterface
 from flask import Response
 import json
 import logging
+from utils.auth import encrypt_pw
+import bcrypt
 
 import re
 
@@ -114,16 +116,17 @@ class UserService:
         :rtype: User
         """
 
+        encrypted_pw = encrypt_pw(new_attrs["password"])
+
         new_user = User(
             email=new_attrs["email"],
-            password=new_attrs["password"],
-            first_name=new_attrs["first_name"],
-            last_name=new_attrs["last_name"],
+            password=encrypted_pw,
+            full_name=new_attrs["full_name"],
             date_of_birth=new_attrs["date_of_birth"],
             created_at=new_attrs["created_at"],
             modified_at=new_attrs["modified_at"],
             phone_number=new_attrs["phone_number"],
-            password_salt1=new_attrs["password_salt1"]
+            password_salt1=new_attrs["password_salt1"],
         )
 
         db.session.add(new_user)
@@ -159,7 +162,7 @@ class UserService:
             log.info("No user was found for supplied email")
             return ErrResponse("Incorrect email", 400)
 
-        if user.password != password:
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password):
             log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
