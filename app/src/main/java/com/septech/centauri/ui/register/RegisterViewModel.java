@@ -40,18 +40,17 @@ public class RegisterViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
+                    @Override
+                    public void onSuccess(@NonNull User user) {
+                        System.out.println("user = " + user);
+                    }
 
-                                   @Override
-                                   public void onSuccess(@NonNull User user) {
-                                       System.out.println("user = " + user);
-                                   }
-
-                                   @Override
-                                   public void onError(@NonNull Throwable e) {
-                                       System.out.println("e = " + e);
-                                   }
-                               })
-                );
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                })
+        );
     }
 
     public MutableLiveData<RegisterFormState> getRegisterFormState() {
@@ -64,7 +63,7 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setFirstNameEdited(true);
 
-        if(!isFirstNameValid(fname)) {
+        if (!isFirstNameValid(fname)) {
             registerFormState.setFirstNameError(R.string.register_string_fname_incorrect);
         } else {
             registerFormState.setFirstNameError(null);
@@ -80,7 +79,7 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setLastNameEdited(true);
 
-        if(!isLastNameValid(lname)) {
+        if (!isLastNameValid(lname)) {
             registerFormState.setLastNameError(R.string.register_string_lname_incorrect);
         } else {
             registerFormState.setLastNameError(null);
@@ -96,7 +95,7 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setEmailEdited(true);
 
-        if(!isEmailValid(email)) {
+        if (!isEmailValid(email)) {
             registerFormState.setEmailError(R.string.register_string_email_incorrect);
         } else {
             registerFormState.setEmailError(null);
@@ -112,14 +111,14 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setPasswordEdited(true);
 
-        if(!isPasswordValid(password)) {
+        if (!isPasswordValid(password)) {
             registerFormState.setPasswordError(R.string.register_string_password_incorrect);
         } else {
             registerFormState.setPasswordError(null);
             registerFormState.checkDataValid();
         }
 
-        if(!isConfirmPasswordValid(confirmPassword, password)) {
+        if (!isConfirmPasswordValid(confirmPassword, password)) {
             registerFormState.setConfirmPasswordError(R.string.register_string_confirm_password_incorrect);
         } else {
             registerFormState.setConfirmPasswordError(null);
@@ -135,7 +134,7 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setConfirmPasswordEdited(true);
 
-        if(!isConfirmPasswordValid(confirmPassword, password)) {
+        if (!isConfirmPasswordValid(confirmPassword, password)) {
             registerFormState.setConfirmPasswordError(R.string.register_string_confirm_password_incorrect);
         } else {
             registerFormState.setConfirmPasswordError(null);
@@ -151,7 +150,7 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setPhoneNumberEdited(true);
 
-        if(!isPhoneNumberValid(phoneNumber)) {
+        if (!isPhoneNumberValid(phoneNumber)) {
             registerFormState.setPhoneNumberError(R.string.register_string_phone_number_incorrect);
         } else {
             registerFormState.setPhoneNumberError(null);
@@ -168,6 +167,7 @@ public class RegisterViewModel extends ViewModel {
     public boolean isLastNameValid(String lastName) {
         return lastName.length() > 1;
     }
+
     public boolean isEmailValid(String email) {
         return false;
     }

@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
-import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.Observable;

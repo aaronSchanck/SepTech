@@ -15,7 +15,6 @@ import com.septech.centauri.domain.repository.UserRepository;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
