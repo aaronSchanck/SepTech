@@ -27,26 +27,6 @@ public class RegisterFormState {
 
     private boolean isDataValid;
 
-    RegisterFormState(@Nullable Integer emailError, @Nullable Integer passwordError,
-                      @Nullable Integer confirmPasswordError, @Nullable Integer firstNameError,
-                      @Nullable Integer lastNameError, @Nullable Integer phoneNumberError) {
-        this.emailError = emailError;
-        this.passwordError = passwordError;
-        this.firstNameError = firstNameError;
-        this.lastNameError = lastNameError;
-        this.phoneNumberError = phoneNumberError;
-        this.confirmPasswordError = confirmPasswordError;
-
-        this.emailEdited = false;
-        this.passwordEdited = false;
-        this.confirmPasswordEdited = false;
-        this.firstNameEdited = false;
-        this.lastNameEdited = false;
-        this.phoneNumberEdited = false;
-
-        this.isDataValid = false;
-    }
-
     RegisterFormState() {
         this.emailError = null;
         this.passwordError = null;

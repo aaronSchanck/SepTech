@@ -11,17 +11,14 @@ public class UserEntity {
     @SerializedName("email")
     @Expose
     private String email;
+
     @SerializedName("password")
     @Expose
     private String password;
 
-    @SerializedName("first_name")
+    @SerializedName("full_name")
     @Expose
-    private String firstName;
-
-    @SerializedName("last_name")
-    @Expose
-    private String lastName;
+    private String fullName;
 
     @SerializedName("date_of_birth")
     @Expose
@@ -75,20 +72,12 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getDateOfBirth() {

@@ -10,6 +10,8 @@ class LoginFormState {
     private Integer emailError;
     @Nullable
     private Integer passwordError;
+
+
     private boolean isDataValid;
 
     LoginFormState(@Nullable Integer emailError, @Nullable Integer passwordError) {

@@ -9,8 +9,7 @@ public class UserEntityDataMapper {
 
         user.setEmail(userEntity.getEmail());
         user.setPassword(userEntity.getPassword());
-        user.setFirstName(userEntity.getFirstName());
-        user.setLastName(userEntity.getLastName());
+        user.setFullName(userEntity.getFullName());
         user.setDateOfBirth(userEntity.getDateOfBirth());
         user.setPhoneNumber(userEntity.getPhoneNumber());
         user.setPasswordSalt(userEntity.getPasswordSalt());
@@ -23,8 +22,7 @@ public class UserEntityDataMapper {
 
         userEntity.setEmail(user.getEmail());
         userEntity.setPassword(user.getPassword());
-        userEntity.setFirstName(user.getFirstName());
-        userEntity.setLastName(user.getLastName());
+        userEntity.setFullName(user.getFullName());
         userEntity.setDateOfBirth(user.getDateOfBirth());
         userEntity.setPhoneNumber(user.getPhoneNumber());
         userEntity.setPasswordSalt(user.getPasswordSalt());

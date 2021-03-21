@@ -146,37 +146,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void bindButtonListeners() {
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideKeyboard();
+        mLoginButton.setOnClickListener(v -> {
+            hideKeyboard();
 
-                String username = mUsernameTextInput.getEditText().getText().toString();
-                String password = mPasswordTextInput.getEditText().getText().toString();
+            String username = mUsernameTextInput.getEditText().getText().toString();
+            String password = mPasswordTextInput.getEditText().getText().toString();
 
-                mLoginViewModel.login(username, password);
-            }
+            mLoginViewModel.login(username, password);
         });
 
-        mCreateAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        mCreateAccountBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
-        mForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
+        mForgotPasswordBtn.setOnClickListener(v -> {
+            //TODO
         });
     }
 
 
     private void onSuccessfulLogin(User user) {
-        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFirstName()),
+        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFullName()),
                 Toast.LENGTH_LONG).show();
         Intent i = new Intent();
     }

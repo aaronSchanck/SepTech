@@ -94,8 +94,7 @@ public class UserDataRepository implements UserRepository {
 
         userEntity.setEmail(email);
         userEntity.setPassword(pwHash);
-        userEntity.setFirstName(firstName);
-        userEntity.setLastName(lastName);
+        userEntity.setFullName(firstName+lastName);
         userEntity.setPhoneNumber(phoneNumber);
         userEntity.setPasswordSalt(pwUtils.getSalt());
 

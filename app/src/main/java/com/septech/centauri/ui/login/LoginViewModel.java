@@ -105,6 +105,6 @@ public class LoginViewModel extends ViewModel {
     }
 
     private boolean passwordIsValid(String password) {
-        return password.length() > 5;
+        return password.length() > 3;
     }
 }

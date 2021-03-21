@@ -49,8 +49,8 @@ public interface RestApi {
     Single<UserEntity> getUserById(@Path("userid") int userid);
 
     /**
-     *
-     * @return
+     * GET endpoint interface method for getting all users from the table.
+     * @return All user entities y
      */
     @GET("users")
     Observable<List<UserEntity>> getAllUsers();
