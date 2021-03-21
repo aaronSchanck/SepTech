@@ -11,19 +11,16 @@ import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
-import com.septech.centauri.ui.login.LoginCloudResponse;
 
-import java.io.IOException;
-import java.util.Arrays;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
 
 public class UserDataRepository implements UserRepository {
     private static final String TAG = UserDataRepository.class.getSimpleName();
@@ -63,10 +60,11 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<User> login(final String email, final String password) {
-        PasswordUtils pwUtils = new PasswordUtils(password);
-        String pwHash = Arrays.toString(pwUtils.hash());
-        return restApiImpl.login(email, password).map(UserEntityDataMapper::transform);
+    public Single<User> login(final String email, final String password, String passwordSalt) {
+        PasswordUtils pwUtils = new PasswordUtils(password, passwordSalt);
+        String pwHash = pwUtils.hash();
+
+        return restApiImpl.login(email, pwHash).map(UserEntityDataMapper::transform);
     }
 
     @Override
@@ -88,10 +86,10 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public void createAccount(String email, String password, String firstName,
-                              String lastName, String phoneNumber) {
+    public Single<User> createAccount(String email, String password, String firstName,
+                                      String lastName, String phoneNumber) {
         PasswordUtils pwUtils = new PasswordUtils(password);
-        String pwHash = Arrays.toString(pwUtils.hash());
+        String pwHash = pwUtils.hash();
 
         UserEntity userEntity = new UserEntity();
 
@@ -100,9 +98,21 @@ public class UserDataRepository implements UserRepository {
         userEntity.setFirstName(firstName);
         userEntity.setLastName(lastName);
         userEntity.setPhoneNumber(phoneNumber);
-        userEntity.setPasswordSalt(Arrays.toString(pwUtils.getSalt()));
+        userEntity.setPasswordSalt(pwUtils.getSalt());
 
-        restApiImpl.createUser(userEntity);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        String date = df.format(Calendar.getInstance().getTime());
+
+        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+        String date2 = df2.format(Calendar.getInstance().getTime());
+
+        Log.i("words", pwHash);
+
+        userEntity.setCreatedAt(date);
+        userEntity.setModifiedAt(date);
+        userEntity.setDateOfBirth(date2);
+
+        return restApiImpl.createUser(userEntity).map(UserEntityDataMapper::transform);
     }
 
     @Override

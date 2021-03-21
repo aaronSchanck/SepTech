@@ -59,13 +59,12 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        mDisposables.add(userRepo.login(email, password)
+                        mDisposables.add(userRepo.login(email, password, user.getPasswordSalt())
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeWith(new DisposableSingleObserver<User>() {
                                     @Override
                                     public void onStart() {
-                                        responseLiveData.setValue(LoginCloudResponse.LOADING);
                                     }
 
                                     @Override

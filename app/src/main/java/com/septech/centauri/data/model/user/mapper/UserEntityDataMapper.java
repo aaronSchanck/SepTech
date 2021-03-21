@@ -5,7 +5,7 @@ import com.septech.centauri.domain.models.User;
 
 public class UserEntityDataMapper {
     public static User transform(UserEntity userEntity) {
-        User user = new User(userEntity.getUserId());
+        User user = new User(userEntity.getUserid());
 
         user.setEmail(userEntity.getEmail());
         user.setPassword(userEntity.getPassword());

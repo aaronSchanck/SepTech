@@ -5,7 +5,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
 import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class RegisterViewModel extends ViewModel {
     private static final String TAG = "RegisterViewModel";
@@ -14,15 +21,37 @@ public class RegisterViewModel extends ViewModel {
 
     private final UserRepository userRepo;
 
+    private CompositeDisposable mDisposables = new CompositeDisposable();
+
     public RegisterViewModel() {
         userRepo = UserDataRepository.getInstance();
 
         mRegisterFormState.setValue(new RegisterFormState());
     }
 
+    @Override
+    protected void onCleared() {
+        mDisposables.clear();
+    }
+
     public void createAccount(String email, String password, String firstName, String lastName,
                               String phoneNumber) {
-        userRepo.createAccount(email, password, firstName, lastName, phoneNumber);
+        mDisposables.add(userRepo.createAccount(email, password, firstName, lastName, phoneNumber)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<User>() {
+
+                                   @Override
+                                   public void onSuccess(@NonNull User user) {
+                                       System.out.println("user = " + user);
+                                   }
+
+                                   @Override
+                                   public void onError(@NonNull Throwable e) {
+                                       System.out.println("e = " + e);
+                                   }
+                               })
+                );
     }
 
     public MutableLiveData<RegisterFormState> getRegisterFormState() {

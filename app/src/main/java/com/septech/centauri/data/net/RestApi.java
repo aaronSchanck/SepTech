@@ -13,6 +13,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -35,7 +36,8 @@ public interface RestApi {
      * Creates a user based on a UserEntity object.
      * @param userEntity The UserEntity object to create the user.
      */
-    @POST("users")
+    @Headers("Content-Type: application/json")
+    @POST("users/")
     Single<UserEntity> createUser(@Body UserEntity userEntity);
 
     /**

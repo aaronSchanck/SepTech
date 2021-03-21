@@ -1,5 +1,7 @@
 package com.septech.centauri.data.net;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
@@ -19,9 +21,12 @@ public class RestApiClient {
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
 
+    private Gson gson;
+
     private RestApiClient() {
+        gson = new GsonBuilder().disableHtmlEscaping().create();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         restApi = retrofit.create(RestApi.class);

@@ -36,4 +36,3 @@ class UserSchema(Schema):
     modified_at = fields.DateTime()
     phone_number = fields.String()
     password_salt1 = fields.String(required=True)
-    password_salt2 = fields.String()

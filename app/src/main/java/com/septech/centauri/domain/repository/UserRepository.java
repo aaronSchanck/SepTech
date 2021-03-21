@@ -12,7 +12,7 @@ public interface UserRepository {
 
     Single<User> getUserById(int userid);
 
-    Single<User> login(String username, String password);
+    Single<User> login(String username, String password, String passwordSalt);
 
     Single<User> deleteUser(int userid);
 
@@ -20,7 +20,7 @@ public interface UserRepository {
 
     Observable<List<User>> getAllUsers();
 
-    void createAccount(String email, String password, String firstName, String lastName,
+    Single<User> createAccount(String email, String password, String firstName, String lastName,
                        String phoneNumber);
 
     Single<User> getUserByEmail(String email);
