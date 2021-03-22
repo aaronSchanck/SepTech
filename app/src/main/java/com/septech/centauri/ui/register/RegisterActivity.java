@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 
-import android.app.AutomaticZenRule;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -27,6 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mConfirmPasswordEditText;
     private EditText mPhoneNumberEditText;
     private Button mCreateAccountBtn;
+    private ProgressBar mLoadingIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +37,28 @@ public class RegisterActivity extends AppCompatActivity {
 
         mRegisterViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        TextInputLayout firstNameTextInput =
+        TextInputLayout fullNameTextInput =
                 (TextInputLayout)findViewById(R.id.fname_text_input);
-        TextInputLayout lastNameTextInput = findViewById(R.id.lname_text_input);
+//        TextInputLayout lastNameTextInput = findViewById(R.id.lname_text_input);
         TextInputLayout emailTextInput = findViewById(R.id.email_text_input);
         TextInputLayout passwordTextInput = findViewById(R.id.password_text_input);
         TextInputLayout confirmPasswordTextInput = findViewById(R.id.confirm_password_text_input);
         TextInputLayout phoneTextInput = findViewById(R.id.phone_text_input);
 
-        mFNameEditText = firstNameTextInput.getEditText();
-        mLNameEditText = lastNameTextInput.getEditText();
+        //TODO: link loading icon to response
+        mLoadingIcon = findViewById(R.id.loading_icon);
+        mLoadingIcon.setVisibility(View.GONE);
+
+        mRegisterViewModel.getResponseLiveData().observe(this, this::processResponse);
+
+        mFNameEditText = fullNameTextInput.getEditText();
+//        mLNameEditText = lastNameTextInput.getEditText();
         mEmailEditText = emailTextInput.getEditText();
         mPasswordEditText = passwordTextInput.getEditText();
         mConfirmPasswordEditText = confirmPasswordTextInput.getEditText();
         mPhoneNumberEditText = phoneTextInput.getEditText();
+
+        //TODO: get birth date from calendar
 
         mFNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -63,26 +73,26 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateFirstName(mFNameEditText.getText().toString());
+                mRegisterViewModel.onUpdateFullName(mFNameEditText.getText().toString());
             }
         });
 
-        mLNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateLastName(mLNameEditText.getText().toString());
-            }
-        });
+//        mLNameEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // intentionally left empty
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // intentionally left empty
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                mRegisterViewModel.onUpdateLastName(mLNameEditText.getText().toString());
+//            }
+//        });
 
         mEmailEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -161,7 +171,8 @@ public class RegisterActivity extends AppCompatActivity {
                 mRegisterViewModel.createAccount(
                         mEmailEditText.getText().toString(),
                         mPasswordEditText.getText().toString(),
-                        mFNameEditText.getText().toString(), mLNameEditText.getText().toString(),
+                        mFNameEditText.getText().toString(),
+//                        mLNameEditText.getText().toString(),
                         mPhoneNumberEditText.getText().toString());
             }
         });
@@ -175,17 +186,17 @@ public class RegisterActivity extends AppCompatActivity {
 
                 mCreateAccountBtn.setEnabled(true);
 
-                if (registerFormState.isFirstNameEdited() && registerFormState.getFirstNameError() != null) {
-                    mFNameEditText.setError(getString(registerFormState.getFirstNameError()));
+                if (registerFormState.isFullNameEdited() && registerFormState.getFullNameError() != null) {
+                    mFNameEditText.setError(getString(registerFormState.getFullNameError()));
                 } else {
                     mFNameEditText.setError(null);
                 }
 
-                if (registerFormState.isLastNameEdited() && registerFormState.getLastNameError() != null) {
-                    mLNameEditText.setError(getString(registerFormState.getLastNameError()));
-                } else {
-                    mLNameEditText.setError(null);
-                }
+//                if (registerFormState.isLastNameEdited() && registerFormState.getLastNameError() != null) {
+//                    mLNameEditText.setError(getString(registerFormState.getLastNameError()));
+//                } else {
+//                    mLNameEditText.setError(null);
+//                }
 
                 if (registerFormState.isEmailEdited() && registerFormState.getEmailError() != null) {
                     mEmailEditText.setError(getString(registerFormState.getEmailError()));
@@ -213,5 +224,24 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void processResponse(RegisterCloudResponse response) {
+        if (response == RegisterCloudResponse.LOADING) {
+            showLoadingIcon();
+        } else if (response == RegisterCloudResponse.FAILED) {
+            hideLoadingIcon();
+        } else {
+            mLoadingIcon.setVisibility(View.GONE);
+            //TODO: change activity
+        }
+    }
+
+    private void showLoadingIcon() {
+        mLoadingIcon.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingIcon() {
+        mLoadingIcon.setVisibility(View.GONE);
     }
 }

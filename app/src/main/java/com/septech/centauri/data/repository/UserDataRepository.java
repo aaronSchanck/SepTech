@@ -85,8 +85,7 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<User> createAccount(String email, String password, String firstName,
-                                      String lastName, String phoneNumber) {
+    public Single<User> createAccount(String email, String password, String fullName, String phoneNumber) {
         PasswordUtils pwUtils = new PasswordUtils(password);
         String pwHash = pwUtils.hash();
 
@@ -94,7 +93,7 @@ public class UserDataRepository implements UserRepository {
 
         userEntity.setEmail(email);
         userEntity.setPassword(pwHash);
-        userEntity.setFullName(firstName+lastName);
+        userEntity.setFullName(fullName);
         userEntity.setPhoneNumber(phoneNumber);
         userEntity.setPasswordSalt(pwUtils.getSalt());
 

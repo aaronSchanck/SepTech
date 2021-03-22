@@ -12,17 +12,17 @@ public class RegisterFormState {
     @Nullable
     private Integer confirmPasswordError;
     @Nullable
-    private Integer firstNameError;
-    @Nullable
-    private Integer lastNameError;
+    private Integer fullNameError;
+//    @Nullable
+//    private Integer lastNameError;
     @Nullable
     private Integer phoneNumberError;
 
     private boolean emailEdited;
     private boolean passwordEdited;
     private boolean confirmPasswordEdited;
-    private boolean firstNameEdited;
-    private boolean lastNameEdited;
+    private boolean fullNameEdited;
+//    private boolean lastNameEdited;
     private boolean phoneNumberEdited;
 
     private boolean isDataValid;
@@ -30,16 +30,16 @@ public class RegisterFormState {
     RegisterFormState() {
         this.emailError = null;
         this.passwordError = null;
-        this.firstNameError = null;
-        this.lastNameError = null;
+        this.fullNameError = null;
+//        this.lastNameError = null;
         this.phoneNumberError = null;
         this.confirmPasswordError = null;
 
         this.emailEdited = false;
         this.passwordEdited = false;
         this.confirmPasswordEdited = false;
-        this.firstNameEdited = false;
-        this.lastNameEdited = false;
+        this.fullNameEdited = false;
+//        this.lastNameEdited = false;
         this.phoneNumberEdited = false;
 
         this.isDataValid = false;
@@ -56,14 +56,14 @@ public class RegisterFormState {
     }
 
     @Nullable
-    public Integer getFirstNameError() {
-        return firstNameError;
+    public Integer getFullNameError() {
+        return fullNameError;
     }
 
-    @Nullable
-    public Integer getLastNameError() {
-        return lastNameError;
-    }
+//    @Nullable
+//    public Integer getLastNameError() {
+//        return lastNameError;
+//    }
 
     @Nullable
     public Integer getPhoneNumberError() {
@@ -87,13 +87,13 @@ public class RegisterFormState {
         this.confirmPasswordError = confirmPasswordError;
     }
 
-    public void setFirstNameError(@Nullable Integer firstNameError) {
-        this.firstNameError = firstNameError;
+    public void setFullNameError(@Nullable Integer fullNameError) {
+        this.fullNameError = fullNameError;
     }
 
-    public void setLastNameError(@Nullable Integer lastNameError) {
-        this.lastNameError = lastNameError;
-    }
+//    public void setLastNameError(@Nullable Integer lastNameError) {
+//        this.lastNameError = lastNameError;
+//    }
 
     public void setPhoneNumberError(@Nullable Integer phoneNumberError) {
         this.phoneNumberError = phoneNumberError;
@@ -123,21 +123,21 @@ public class RegisterFormState {
         this.confirmPasswordEdited = confirmPasswordEdited;
     }
 
-    public boolean isFirstNameEdited() {
-        return firstNameEdited;
+    public boolean isFullNameEdited() {
+        return fullNameEdited;
     }
 
-    public void setFirstNameEdited(boolean firstNameEdited) {
-        this.firstNameEdited = firstNameEdited;
+    public void setFullNameEdited(boolean fullNameEdited) {
+        this.fullNameEdited = fullNameEdited;
     }
 
-    public boolean isLastNameEdited() {
-        return lastNameEdited;
-    }
+//    public boolean isLastNameEdited() {
+//        return lastNameEdited;
+//    }
 
-    public void setLastNameEdited(boolean lastNameEdited) {
-        this.lastNameEdited = lastNameEdited;
-    }
+//    public void setLastNameEdited(boolean lastNameEdited) {
+//        this.lastNameEdited = lastNameEdited;
+//    }
 
     public boolean isPhoneNumberEdited() {
         return phoneNumberEdited;
@@ -154,14 +154,14 @@ public class RegisterFormState {
 
     public void checkDataValid() {
         if ((emailEdited
-                && firstNameEdited
-                && lastNameEdited
+                && fullNameEdited
+//                && lastNameEdited
                 && confirmPasswordEdited
                 && passwordEdited
                 && phoneNumberEdited)
                 &&
-                (firstNameError == null
-                && lastNameError == null
+                (fullNameError == null
+//                && lastNameError == null
                 && passwordError == null
                 && confirmPasswordError == null
                 && emailError == null
