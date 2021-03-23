@@ -37,7 +37,6 @@ public class ForgotPasswordFormState {
         this.emailEdited = emailEdited;
     }
 
-
     boolean isDataValid() {
         return isDataValid;
     }
