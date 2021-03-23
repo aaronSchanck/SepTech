@@ -18,6 +18,7 @@ public class RegisterViewModel extends ViewModel {
     private static final String TAG = "RegisterViewModel";
 
     private final MutableLiveData<RegisterFormState> mRegisterFormState = new MutableLiveData<>();
+    private final MutableLiveData<RegisterCloudResponse> responseLiveData = new MutableLiveData<>();
 
     private final UserRepository userRepo;
 
@@ -29,14 +30,18 @@ public class RegisterViewModel extends ViewModel {
         mRegisterFormState.setValue(new RegisterFormState());
     }
 
+    public MutableLiveData<RegisterCloudResponse> getResponseLiveData() {
+        return responseLiveData;
+    }
+
+
     @Override
     protected void onCleared() {
         mDisposables.clear();
     }
 
-    public void createAccount(String email, String password, String firstName, String lastName,
-                              String phoneNumber) {
-        mDisposables.add(userRepo.createAccount(email, password, firstName, lastName, phoneNumber)
+    public void createAccount(String email, String password, String fullName, String phoneNumber) {
+        mDisposables.add(userRepo.createAccount(email, password, fullName, phoneNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
@@ -57,37 +62,37 @@ public class RegisterViewModel extends ViewModel {
         return mRegisterFormState;
     }
 
-    public void onUpdateFirstName(String fname) {
+    public void onUpdateFullName(String fname) {
         RegisterFormState registerFormState = mRegisterFormState.getValue();
 
         assert registerFormState != null;
-        registerFormState.setFirstNameEdited(true);
+        registerFormState.setFullNameEdited(true);
 
-        if (!isFirstNameValid(fname)) {
-            registerFormState.setFirstNameError(R.string.register_string_fname_incorrect);
+        if (!isFullNameValid(fname)) {
+            registerFormState.setFullNameError(R.string.register_string_fname_incorrect);
         } else {
-            registerFormState.setFirstNameError(null);
+            registerFormState.setFullNameError(null);
             registerFormState.checkDataValid();
         }
 
         mRegisterFormState.setValue(registerFormState);
     }
 
-    public void onUpdateLastName(String lname) {
-        RegisterFormState registerFormState = mRegisterFormState.getValue();
-
-        assert registerFormState != null;
-        registerFormState.setLastNameEdited(true);
-
-        if (!isLastNameValid(lname)) {
-            registerFormState.setLastNameError(R.string.register_string_lname_incorrect);
-        } else {
-            registerFormState.setLastNameError(null);
-            registerFormState.checkDataValid();
-        }
-
-        mRegisterFormState.setValue(registerFormState);
-    }
+//    public void onUpdateLastName(String lname) {
+//        RegisterFormState registerFormState = mRegisterFormState.getValue();
+//
+//        assert registerFormState != null;
+//        registerFormState.setLastNameEdited(true);
+//
+//        if (!isLastNameValid(lname)) {
+//            registerFormState.setLastNameError(R.string.register_string_lname_incorrect);
+//        } else {
+//            registerFormState.setLastNameError(null);
+//            registerFormState.checkDataValid();
+//        }
+//
+//        mRegisterFormState.setValue(registerFormState);
+//    }
 
     public void onUpdateEmail(String email) {
         RegisterFormState registerFormState = mRegisterFormState.getValue();
@@ -160,13 +165,13 @@ public class RegisterViewModel extends ViewModel {
         mRegisterFormState.setValue(registerFormState);
     }
 
-    public boolean isFirstNameValid(String firstName) {
-        return firstName.length() > 1;
+    public boolean isFullNameValid(String fullName) {
+        return fullName.length() > 1;
     }
 
-    public boolean isLastNameValid(String lastName) {
-        return lastName.length() > 1;
-    }
+//    public boolean isLastNameValid(String lastName) {
+//        return lastName.length() > 1;
+//    }
 
     public boolean isEmailValid(String email) {
         return false;

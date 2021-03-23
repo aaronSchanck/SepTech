@@ -20,8 +20,7 @@ public interface UserRepository {
 
     Observable<List<User>> getAllUsers();
 
-    Single<User> createAccount(String email, String password, String firstName, String lastName,
-                       String phoneNumber);
+    Single<User> createAccount(String email, String password, String fullName, String phoneNumber);
 
     Single<User> getUserByEmail(String email);
 }
