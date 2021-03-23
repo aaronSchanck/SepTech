@@ -16,12 +16,34 @@ Functions:
 
 import logging
 
+from .model import Item
+from app.syzygy.items.categories import CategorySchema
+from marshmallow_sqlalchemy import ModelSchema
+
 from marshmallow import Schema, fields
+import marshmallow as ma
 
 log = logging.getLogger(__name__)
 
 
 class ItemSchema(Schema):
-    itemid = fields.Number(dump_only=True)
-    name = fields.Str(required=True)
-    discriminator = fields.Str(required=True, dump_only=True)
+
+    itemid = fields.Integer(dump_only=True)
+    name = fields.String()
+    quantity = fields.Integer()
+    posted_at = fields.DateTime()
+    seller = fields.Integer()
+    price = fields.Number()
+    can_buy = fields.Bool()
+    can_bid = fields.Bool()
+    highest_bid = fields.Number()
+    highest_bid_user = fields.Integer()
+    bidding_ends = fields.DateTime()
+    quality = fields.String()
+    category_id = fields.Integer()
+    category = fields.Nested(CategorySchema, required=True)
+
+    thumbnail = fields.Integer()
+    item_variants = fields.List(fields.Integer)
+    description = fields.Str()
+    # attributes =

@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/service.py
+"""/web/app/syzygy/items/categories/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,8 +15,8 @@ Functions:
 """
 
 from app import db
-from .model import Item
-from .interface import ItemInterface
+from .model import Category
+from .interface import CategoryInterface
 from flask import Response
 import json
 import logging
@@ -28,7 +28,7 @@ from typing import List
 log = logging.getLogger(__name__)
 
 
-class ItemService:
+class CategoryService:
     @staticmethod
     def get_all():
         """[summary]
@@ -36,10 +36,10 @@ class ItemService:
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.all()
+        return Category.query.all()
 
     @staticmethod
-    def get_by_id(itemid: int) -> Item:
+    def get_by_id(itemid: int) -> Category:
         """[summary]
 
         :param itemid: [description]
@@ -47,79 +47,58 @@ class ItemService:
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.get(itemid)
+        return Category.query.get(itemid)
 
     @staticmethod
-    def get_by_name(item_name: str) -> Item:
+    def update(item: Category, Category_change_updates: CategoryInterface) -> Category:
         """[summary]
 
-        :param item_name: [description]
-        :type item_name: str
-        :return: [description]
-        :rtype: [type]
+        :param item: The Category to update in the database
+        :type item: Category
+        :param Category_change_updates: Dictionary object containing the new changes
+        to update the Category model object with
+        :type Category_change_updates: CategoryInterface
+        :return: The updated Category model object
+        :rtype: Category
         """
-        return Item.query.filter(Item.name == item_name).first()
-
-    @staticmethod
-    def update(item: Item, Item_change_updates: ItemInterface) -> Item:
-        """[summary]
-
-        :param item: The Item to update in the database
-        :type item: Item
-        :param Item_change_updates: Dictionary object containing the new changes
-        to update the Item model object with
-        :type Item_change_updates: ItemInterface
-        :return: The updated Item model object
-        :rtype: Item
-        """
-        item.update(Item_change_updates)
+        item.update(Category_change_updates)
         db.session.commit()
         return item
 
     @staticmethod
-    def delete_by_id(itemid: int) -> List:
+    def delete_by_id(category_id: int) -> List:
         """Deletes a item from the table with the specified itemid
 
-        :param itemid: Item's itemid
+        :param itemid: Category's itemid
         :type itemid: int
         :return: List containing the deleted item, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        item = ItemService.get_by_id(itemid)
+        category = CategoryService.get_by_id(category_id)
         if not item:
             return []
-        db.session.delete(item)
+        db.session.delete(category)
         db.session.commit()
         return [itemid]
 
     @staticmethod
-    def create(new_attrs: ItemInterface) -> Item:
-        """Creates a item object from the ItemInterface TypedDict
+    def create(new_attrs: CategoryInterface) -> Category:
+        """Creates a item object from the CategoryInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a Item model
-        :type new_attrs: ItemInterface
+        :param new_attrs: A dictionary with the input into a Category model
+        :type new_attrs: CategoryInterface
         :return: A new item object based on the input
-        :rtype: Item
+        :rtype: Category
         """
 
-        new_item = Item(
-            name=new_attrs["name"],
-            quantity=new_attrs["quantity"],
-            posted_at=new_attrs["posted_at"],
-            seller=new_attrs["seller"],
-            price=new_attrs["price"],
-            can_buy=new_attrs["can_buy"],
-            can_bid=new_attrs["can_bid"],
-            highest_bid=new_attrs["highest_bid"],
-            highest_bid_user=new_attrs["highest_bid_user"],
-            bidding_ends=new_attrs["bidding_ends"],
-            quality=new_attrs["quality"],
-            category_id=new_attrs["category_id"],
-            thumbnail=new_attrs["thumbnail"],
-            item_variants=new_attrs["item_variants"],
-            description=new_attrs["description"],
+        new_item = Category(
+            category=new_attrs["category"],
+            sub_category1=new_attrs["sub_category1"],
+            sub_category2=new_attrs["sub_category2"],
+            sub_category3=new_attrs["sub_category3"],
+            sub_category4=new_attrs["sub_category4"],
         )
 
         db.session.add(new_item)

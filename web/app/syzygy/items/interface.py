@@ -16,7 +16,7 @@ Functions:
 
 import logging
 
-from typing import TypedDict
+from typing import TypedDict, List
 
 log = logging.getLogger(__name__)
 
@@ -24,4 +24,15 @@ log = logging.getLogger(__name__)
 class ItemInterface(TypedDict, total=False):
     itemid: int
     name: str
-    discriminator: str
+    # quantity: int
+    # posted_at: str
+    # seller: int
+    # price: str
+    # can_buy: bool
+    # can_bid: bool
+    # highest_bid: float
+    # bidding_ends: str
+    # quality: str
+    # thumbnail: int
+    # item_variants: List
+    # description: str

@@ -42,8 +42,11 @@ class User(db.Model):
     date_of_birth = Column(Date)
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
+    # billing_address = Column(ForeignKey)
+    # mailing address = Column(ForeignKey)
     phone_number = Column(String(10))
     password_salt1 = Column(String(63))
+    admin_level = Column(Integer)
 
     def update(self, changes: UserInterface):
         for key, val in changes.items():
