@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.forgotpassword.ForgotPasswordActivity" />
         <activity
             android:name=".ui.view.activities.MainActivity"
             android:theme="@style/Theme.Centauri.NoActionBar" />

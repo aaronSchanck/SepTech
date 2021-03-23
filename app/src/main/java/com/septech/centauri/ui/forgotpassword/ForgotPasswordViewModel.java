@@ -1,4 +1,6 @@
 package com.septech.centauri.ui.forgotpassword;
 
-public class ForgotPasswordViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class ForgotPasswordViewModel extends ViewModel {
 }

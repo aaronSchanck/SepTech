@@ -3,7 +3,7 @@ package com.septech.centauri.ui.forgotpassword;
 import androidx.annotation.Nullable;
 
 public class ForgotPasswordFormState {
-    private static final String TAG = "RegisterFormState";
+    private static final String TAG = "ForgotPasswordFormState";
 
     @Nullable
     private Integer emailError;

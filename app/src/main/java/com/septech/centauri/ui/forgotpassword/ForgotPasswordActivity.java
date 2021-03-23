@@ -22,7 +22,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpw);
 
-        mForgotPasswordViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        mForgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
 
 
     }

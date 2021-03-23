@@ -17,7 +17,7 @@
     <string name="create_an_account">Create An Account</string>
     <string name="continue_as_guest">Continue As Guest</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email"><i>Enter Email Address</i></string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -33,4 +33,5 @@
     <string name="register_string_password_incorrect">Password incorrect</string>
     <string name="register_string_confirm_password_incorrect">Passwords don\'t match</string>
     <string name="register_string_phone_number_incorrect">Phone number incorrect</string>
+    <string name="email">Email</string>
 </resources>
