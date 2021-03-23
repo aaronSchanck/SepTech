@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.septech.centauri.R;
 
+@Deprecated
 public class SecondFragment extends Fragment {
 
     @Override
