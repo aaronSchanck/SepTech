@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
 import com.septech.centauri.ui.view.activities.MainActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
 
@@ -161,7 +162,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         mForgotPasswordBtn.setOnClickListener(v -> {
-            //TODO
+            Intent intent = new Intent(this, ForgotPasswordActivity.class);
+            startActivity(intent);
         });
     }
 
