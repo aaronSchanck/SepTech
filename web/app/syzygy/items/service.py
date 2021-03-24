@@ -16,6 +16,8 @@ Functions:
 
 from app import db
 from .model import Item
+from .categories.model import Category
+from .categories.service import CategoryService
 from .interface import ItemInterface
 from flask import Response
 import json
@@ -104,6 +106,19 @@ class ItemService:
         :rtype: Item
         """
 
+        categories = new_attrs["category"]
+
+        category = CategoryService.create_if_not_exists(categories)
+
+        # items = (
+        #     db.session.query(Category)
+        #     .join(Category.items)
+        #     .filter(Category.category_id == 1)
+        #     .all()
+        # )
+
+        # print(items[0].items)
+
         new_item = Item(
             name=new_attrs["name"],
             quantity=new_attrs["quantity"],
@@ -116,7 +131,7 @@ class ItemService:
             highest_bid_user=new_attrs["highest_bid_user"],
             bidding_ends=new_attrs["bidding_ends"],
             quality=new_attrs["quality"],
-            category_id=new_attrs["category_id"],
+            category_id=category.category_id,
             thumbnail=new_attrs["thumbnail"],
             item_variants=new_attrs["item_variants"],
             description=new_attrs["description"],

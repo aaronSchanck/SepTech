@@ -22,6 +22,9 @@ from .model import Category
 from .schema import CategorySchema
 from .service import CategoryService
 
+from ..model import Item
+from ..schema import ItemSchema
+
 api = Namespace("Category")
 log = logging.getLogger(__name__)
 
@@ -52,6 +55,7 @@ class CategoryResource(Resource):
 
 
 @api.route("/<int:category_id>")
+@api.response(404, "Category not found")
 @api.param("category_id", "Category database ID")
 class CategoryIdResource(Resource):
     @responds(schema=CategorySchema)
@@ -68,3 +72,30 @@ class CategoryIdResource(Resource):
         changes: CategoryInterface = request.parsed_obj
         Category = CategoryService.get_by_id(itemid)
         return CategoryService.update(Category, changes)
+
+
+@api.route("/get_unique_categories")
+class MainCategoryResource(Resource):
+    # @responds(dict("Categories", ))
+    def get(self):
+        """Get a single Category"""
+        distinct = []
+        for category in Category.query.with_entities(Category.category_1).distinct():
+            distinct.append(category[0])
+        return distinct
+
+
+@api.route("/category_1/<category_name>/get_unique_categories")
+@api.param("category_name", "Category name")
+class MainCategoryResource(Resource):
+    # @responds(dict("Categories", ))
+    def get(self, category_name: str):
+        """Get a single Category"""
+        distinct = []
+        for category in (
+            Category.query.with_entities(Category.category_2)
+            .filter(Category.category == category_name)
+            .distinct()
+        ):
+            distinct.append(category[0])
+        return distinct

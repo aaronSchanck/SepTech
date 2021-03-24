@@ -36,13 +36,13 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     category_id = Column(Integer, primary_key=true)
-    category = Column(String(32))
-    sub_category1 = Column(String(32))
-    sub_category2 = Column(String(32))
-    sub_category3 = Column(String(32))
-    sub_category4 = Column(String(32))
+    category_1 = Column(String(32))
+    category_2 = Column(String(32))
+    category_3 = Column(String(32))
+    category_4 = Column(String(32))
+    category_5 = Column(String(32))
 
-    items = db.relationship("Item", uselist=False, backref="category")
+    items = db.relationship("Item", backref="category")
 
     # items = db.relationship("Item", backref="category")
 

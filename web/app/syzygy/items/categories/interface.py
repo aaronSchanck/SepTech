@@ -23,8 +23,8 @@ log = logging.getLogger(__name__)
 
 class CategoryInterface(TypedDict, total=False):
     category_id: int
-    category: str
-    sub_category1: str
-    sub_category2: str
-    sub_category3: str
-    sub_category4: str
+    category_1: str
+    category_2: str
+    category_3: str
+    category_4: str
+    category_5: str

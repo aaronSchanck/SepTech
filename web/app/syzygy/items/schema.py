@@ -40,8 +40,8 @@ class ItemSchema(Schema):
     highest_bid_user = fields.Integer()
     bidding_ends = fields.DateTime()
     quality = fields.String()
-    category_id = fields.Integer()
-    category = fields.Nested(CategorySchema, required=True)
+    category_id = fields.Integer(dump_only=True)
+    category = fields.Nested(CategorySchema)
 
     thumbnail = fields.Integer()
     item_variants = fields.List(fields.Integer)

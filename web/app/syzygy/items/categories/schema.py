@@ -28,8 +28,8 @@ class CategorySchema(Schema):
         model = Category
 
     category_id = fields.Number(dump_only=True)
-    category = fields.Str(required=True)
-    sub_category1 = fields.Str()
-    sub_category2 = fields.Str()
-    sub_category3 = fields.Str()
-    sub_category4 = fields.Str()
+    category_1 = fields.Str(required=True)
+    category_2 = fields.Str()
+    category_3 = fields.Str()
+    category_4 = fields.Str()
+    category_5 = fields.Str()

@@ -94,17 +94,50 @@ class CategoryService:
         """
 
         new_item = Category(
-            category=new_attrs["category"],
-            sub_category1=new_attrs["sub_category1"],
-            sub_category2=new_attrs["sub_category2"],
-            sub_category3=new_attrs["sub_category3"],
-            sub_category4=new_attrs["sub_category4"],
+            category_1=new_attrs["category_1"],
+            category_2=new_attrs["category_2"],
+            category_3=new_attrs["category_3"],
+            category_4=new_attrs["category_4"],
+            category_5=new_attrs["category_5"],
         )
 
         db.session.add(new_item)
         db.session.commit()
 
         return new_item
+
+    @staticmethod
+    def create_if_not_exists(new_attrs: CategoryInterface) -> Category:
+        """Creates a item object from the CategoryInterface TypedDict
+
+        :param new_attrs: A dictionary with the input into a Category model
+        :type new_attrs: CategoryInterface
+        :return: A new item object based on the input
+        :rtype: Category
+        """
+
+        category = (
+            Category.query.filter(Category.category_1 == new_attrs["category_1"])
+            .filter(Category.category_2 == new_attrs["category_2"])
+            .filter(Category.category_3 == new_attrs["category_3"])
+            .filter(Category.category_4 == new_attrs["category_4"])
+            .filter(Category.category_5 == new_attrs["category_5"])
+            .first()
+        )
+
+        if category is None:
+            category = Category(
+                category_1=new_attrs["category_1"],
+                category_2=new_attrs["category_2"],
+                category_3=new_attrs["category_3"],
+                category_4=new_attrs["category_4"],
+                category_5=new_attrs["category_5"],
+            )
+
+            db.session.add(category)
+            db.session.commit()
+
+        return category
 
 
 def NormalResponse(response: dict, status: int) -> Response:
