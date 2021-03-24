@@ -35,6 +35,7 @@ class Address(db.Model):
 
     __tablename__ = "address"
 
+    id = Column(Integer, primary_key=True)
     unit = Column(String(15))
     building = Column(String(15))
     street_name = Column(String(63))
