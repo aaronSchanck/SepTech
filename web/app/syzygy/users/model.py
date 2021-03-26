@@ -46,6 +46,8 @@ class User(db.Model):
     # mailing address = Column(ForeignKey)
     phone_number = Column(String(10))
     password_salt1 = Column(String(63))
+    password_reset_code = Column(String(6))
+    password_reset_timeout = Column(DateTime)
     admin_level = Column(Integer)
 
     def update(self, changes: UserInterface):

@@ -87,13 +87,61 @@ class MainCategoryResource(Resource):
 
 @api.route("/category_1/<category_name>/get_unique_categories")
 @api.param("category_name", "Category name")
-class MainCategoryResource(Resource):
+class CategoryOneResource(Resource):
     # @responds(dict("Categories", ))
     def get(self, category_name: str):
         """Get a single Category"""
         distinct = []
         for category in (
             Category.query.with_entities(Category.category_2)
+            .filter(Category.category == category_name)
+            .distinct()
+        ):
+            distinct.append(category[0])
+        return distinct
+
+
+@api.route("/category_2/<category_name>/get_unique_categories")
+@api.param("category_name", "Category name")
+class CategoryTwoResource(Resource):
+    # @responds(dict("Categories", ))
+    def get(self, category_name: str):
+        """Get a single Category"""
+        distinct = []
+        for category in (
+            Category.query.with_entities(Category.category_3)
+            .filter(Category.category == category_name)
+            .distinct()
+        ):
+            distinct.append(category[0])
+        return distinct
+
+
+@api.route("/category_3/<category_name>/get_unique_categories")
+@api.param("category_name", "Category name")
+class CategoryThreeResource(Resource):
+    # @responds(dict("Categories", ))
+    def get(self, category_name: str):
+        """Get a single Category"""
+        distinct = []
+        for category in (
+            Category.query.with_entities(Category.category_4)
+            .filter(Category.category == category_name)
+            .distinct()
+        ):
+            distinct.append(category[0])
+        return distinct
+
+
+@api.route("/category_4/<category_name>/get_unique_categories")
+@api.param("category_name", "Category name")
+class CategoryFourResource(Resource):
+    # @responds(dict("Categories", ))
+    def get(self, category_name: str):
+        """Get a single Category"""
+        distinct = []
+        for category in (
+            Category.query.with_entities(Category.category_5)
             .filter(Category.category == category_name)
             .distinct()
         ):

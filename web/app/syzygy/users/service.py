@@ -14,18 +14,21 @@ Functions:
 
 """
 
-from app import db
-from .model import User
-from .interface import UserInterface
-from flask import Response
 import json
 import logging
-from utils.auth import encrypt_pw
-import bcrypt
-
 import re
-
+import secrets
+from datetime import datetime, timedelta
 from typing import List
+
+from app.globals import *
+import bcrypt
+from app import db
+from flask import Response
+from utils.auth import encrypt_pw
+
+from .interface import UserInterface
+from .model import User
 
 log = logging.getLogger(__name__)
 
@@ -127,6 +130,8 @@ class UserService:
             modified_at=new_attrs["modified_at"],
             phone_number=new_attrs["phone_number"],
             password_salt1=new_attrs["password_salt1"],
+            password_reset_code=new_attrs["password_reset_code"],
+            password_reset_timeout=new_attrs["password_reset_timeout"],
         )
 
         db.session.add(new_user)
@@ -171,6 +176,54 @@ class UserService:
         # generate JWT token and concatenate
 
         return user
+
+    @staticmethod
+    def reset_password(email: str):
+        user = UserService.get_by_email(email)
+
+        if user is None:
+            return ErrResponse("User does not exist", 400)
+
+        user_changes: UserInterface = {
+            "password_reset_code": UserService.gen_unique_reset_code(),
+            "password_reset_timeout": datetime.now()
+            + timedelta(minutes=PASSWORD_RESET_TIME),
+        }
+
+        UserService.update(user, user_changes)
+
+        # user.password_reset_code = UserService.gen_unique_reset_code()
+        # user.password_reset_timeout = datetime.now() + timedelta(
+        #     minutes=PASSWORD_RESET_TIME
+        # )
+
+        # db.session.commit()
+
+        return NormalResponse("Healthy", 200)
+
+        # user_changes = UserInterface(
+        #     "password_reset_code": UserService.gen_unique_reset_code(),
+        #     "password_reset_timeout": datetime.now(),
+        # )
+
+        # UserService.update(user, user_changes)
+
+    @staticmethod
+    def gen_unique_reset_code():
+        done = False
+        code = secrets.token_hex(nbytes=3)
+
+        while not done:
+            code = secrets.token_hex(nbytes=3)
+            for other_code in User.query.with_entities(
+                User.password_reset_code, User.password_reset_timeout
+            ):
+                if code == other_code[0] and (
+                    other_code[1] and other_code[1] > datetime.now()
+                ):
+                    break
+                done = True
+        return code
 
 
 def NormalResponse(response: dict, status: int) -> Response:

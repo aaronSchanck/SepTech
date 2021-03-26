@@ -31,4 +31,5 @@ class UserInterface(TypedDict, total=False):
     modified_at: str
     phone_number: str
     password_salt1: str
-    password_salt2: str
+    password_reset_code: str
+    password_reset_timeout: str
