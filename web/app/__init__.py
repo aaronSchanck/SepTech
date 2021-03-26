@@ -20,6 +20,9 @@ from flask import Flask, jsonify
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
+from utils.images import setup_image_store
+from app.images import setup_syzygy_image_store
+
 log = logging.getLogger(__name__)
 
 db = SQLAlchemy()
@@ -32,6 +35,10 @@ def create_app(env=None):
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
     api = Api(app, title="Centauri API", version="0.3.0")
+
+    path = setup_image_store()
+
+    setup_syzygy_image_store(path)
 
     register_routes(api, app)
     db.init_app(app)

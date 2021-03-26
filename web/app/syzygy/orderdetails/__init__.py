@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/__init__.py
+"""/web/app/syzygy/orderdetails/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -19,12 +19,12 @@ import logging
 from .model import User
 from .schema import UserSchema
 
-BASE_ROUTE = "users"
+BASE_ROUTE = "orderdetails"
 
 log = logging.getLogger(__name__)
 
 
 def register_routes(api, app, root="api"):
-    from .controller import api as user_api
+    from .controller import api as orderdetails_api
 
-    api.add_namespace(user_api, path=f"/{root}/{BASE_ROUTE}")
+    api.add_namespace(orderdetails_api, path=f"/{root}/{BASE_ROUTE}")

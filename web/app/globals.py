@@ -1,0 +1,1 @@
+PASSWORD_RESET_TIME = 15  # minutes

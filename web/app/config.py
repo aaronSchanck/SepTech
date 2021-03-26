@@ -35,6 +35,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     SQLALCHEMY_DATABASE_URI = (
         os.getenv("DATABASE_URI")
         or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
@@ -50,6 +51,7 @@ class ProductionConfig(BaseConfig):
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     SQLALCHEMY_DATABASE_URI = (
         os.getenv("DATABASE_URI")
         or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
@@ -65,6 +67,7 @@ class TestingConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     SQLALCHEMY_DATABASE_URI = (
         os.getenv("DATABASE_URI")
         or "postgres://postgres:cos420umaine@localhost:5444/syzygy"

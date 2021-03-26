@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/controller.py
+"""/web/app/syzygy/orderdetails/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -8,17 +8,17 @@ rudimentary testing on the browser.
 
 Classes:
 
-    UserResource:
+    OrderDetailResource:
         Extends Resource from flask-restx. Adding a function with name
         "get"/"post"/"delete"/"put" will add the respective route to the API.
 
-    UserIdResource:
+    OrderDetailIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{userid}.
+        aforementioned class. Must be routed to with {baseurl}/{orderdetailid}.
 
-    UserLoginResource:
+    OrderDetailLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
-        in users.
+        in orderdetails.
 
 """
 
@@ -29,17 +29,17 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import UserInterface
-from .model import User
-from .schema import UserSchema
-from .service import UserService
+from .interface import OrderDetailInterface
+from .model import OrderDetail
+from .schema import OrderDetailSchema
+from .service import OrderDetailService
 
-api = Namespace("User")
+api = Namespace("OrderDetail")
 log = logging.getLogger(__name__)
 
 
 @api.route("/")
-class UserResource(Resource):
+class OrderDetailResource(Resource):
     """[summary]
 
     Args:
@@ -49,65 +49,41 @@ class UserResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=UserSchema(many=True))
+    @responds(schema=OrderDetailSchema(many=True))
     def get(self):
-        """Get all Users"""
+        """Get all OrderDetails"""
 
-        return UserService.get_all()
+        return OrderDetailService.get_all()
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    @accepts(schema=OrderDetailSchema, api=api)
+    @responds(schema=OrderDetailSchema)
     def post(self):
-        """Create a Single User"""
+        """Create a Single OrderDetail"""
 
-        return UserService.create(request.parsed_obj)
+        return OrderDetailService.create(request.parsed_obj)
 
 
-@api.route("/<int:userid>")
-@api.param("userid", "User database ID")
-class UserIdResource(Resource):
-    @responds(schema=UserSchema)
-    def get(self, userid: int):
-        """Get Single User"""
+@api.route("/<int:orderdetailid>")
+@api.param("orderdetailid", "Order detail database ID")
+class OrderDetailIdResource(Resource):
+    @responds(schema=OrderDetailSchema)
+    def get(self, orderdetailid: int):
+        """Get Single OrderDetail"""
 
-        return UserService.get_by_id(userid)
+        return OrderDetailService.get_by_id(orderdetailid)
 
-    def delete(self, userid: int):
-        """Delete Single User"""
+    def delete(self, orderdetailid: int):
+        """Delete Single OrderDetail"""
         from flask import jsonify
 
-        id = UserService.delete_by_id(userid)
+        id = OrderDetailService.delete_by_id(orderdetailid)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
-    def put(self, userid: int):
-        """Update Single User"""
+    @accepts(schema=OrderDetailSchema, api=api)
+    @responds(schema=OrderDetailSchema)
+    def put(self, orderdetailid: int):
+        """Update Single OrderDetail"""
 
-        changes: UserInterface = request.parsed_obj
-        User = UserService.get_by_id(userid)
-        return UserService.update(User, changes)
-
-@api.route("/<email>")
-@api.param("email", "User database email")
-class UserEmailResource(Resource):
-    @responds(schema=UserSchema)
-    def get(self, email: int):
-        return UserService.get_by_email(email)
-
-
-@api.route("/login")
-class UserLoginResource(Resource):
-    @accepts(
-        dict(name="email", type=str, help="A user's email"),
-        dict(name="password", type=str, help="A user's password"),
-        api=api,
-    )
-    @responds(schema=UserSchema)
-    def post(self):
-        """Login with user credentials"""
-
-        email = request.parsed_args["email"]
-        password = request.parsed_args["password"]
-
-        return UserService.login(email, password)
+        changes: OrderDetailInterface = request.parsed_obj
+        OrderDetail = OrderDetailService.get_by_id(orderdetailid)
+        return OrderDetailService.update(OrderDetail, changes)

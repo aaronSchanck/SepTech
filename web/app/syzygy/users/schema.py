@@ -16,9 +16,9 @@ Functions:
 
 import logging
 
-import datetime as dt
+from datetime import datetime
 
-from sqlalchemy.dialects import postgresql
+from sqlalchemy.dialects.postgresql import UUID
 
 from marshmallow import Schema, fields
 
@@ -31,7 +31,9 @@ class UserSchema(Schema):
     password = fields.Str(required=True, load_only=True)
     full_name = fields.Str(required=True)
     date_of_birth = fields.Date()
-    created_at = fields.DateTime()
-    modified_at = fields.DateTime()
+    created_at = fields.DateTime(default=datetime.now(), dump_only=True)
+    modified_at = fields.DateTime(default=datetime.now())
     phone_number = fields.String()
     password_salt1 = fields.String(required=True)
+    password_reset_code = fields.String(default="")
+    password_reset_timeout = fields.DateTime(default=datetime.now())
