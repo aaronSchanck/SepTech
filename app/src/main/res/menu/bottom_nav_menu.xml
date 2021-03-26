@@ -4,6 +4,12 @@
         android:id="@+id/person"
         android:title="My Account"
         android:icon="@drawable/ic_person_foreground"/>
+
+    <item
+        android:id="@+id/messages"
+        android:title="Messages"
+        android:icon="@drawable/ic_messages_foreground"/>
+
     <item
         android:id="@+id/cart"
         android:title="Shop"

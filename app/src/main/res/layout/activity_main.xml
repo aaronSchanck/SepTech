@@ -19,7 +19,6 @@
         android:id="@+id/include"
         layout="@layout/content_main" />
 
-
     <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
@@ -41,7 +40,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/centauri_red"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
