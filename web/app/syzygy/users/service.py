@@ -68,6 +68,7 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
+
         user = User.query.filter(User.email == email).first()
 
         if user is None:
@@ -118,6 +119,11 @@ class UserService:
         :return: A new user object based on the input
         :rtype: User
         """
+
+        user = UserService.get_by_email(new_attrs["email"])
+
+        if user is not None:
+            return ErrResponse("User already exists", 400)
 
         encrypted_pw = encrypt_pw(new_attrs["password"])
 
@@ -211,7 +217,6 @@ class UserService:
     @staticmethod
     def gen_unique_reset_code():
         done = False
-        code = secrets.token_hex(nbytes=3)
 
         while not done:
             code = secrets.token_hex(nbytes=3)
