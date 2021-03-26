@@ -40,6 +40,14 @@ public class UserEntity {
     @Expose
     private String modifiedAt;
 
+    @SerializedName("password_reset_code")
+    @Expose
+    private String passwordResetCode;
+
+    @SerializedName("password_reset_timeout")
+    @Expose
+    private String passwordResetTimeout;
+
     public UserEntity() {
         //empty
     }
@@ -118,5 +126,21 @@ public class UserEntity {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public String getPasswordResetCode() {
+        return passwordResetCode;
+    }
+
+    public void setPasswordResetCode(String passwordResetCode) {
+        this.passwordResetCode = passwordResetCode;
+    }
+
+    public String getPasswordResetTimeout() {
+        return passwordResetTimeout;
+    }
+
+    public void setPasswordResetTimeout(String passwordResetTimeout) {
+        this.passwordResetTimeout = passwordResetTimeout;
     }
 }
