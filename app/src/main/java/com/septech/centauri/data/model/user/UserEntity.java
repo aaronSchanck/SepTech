@@ -48,6 +48,10 @@ public class UserEntity {
     @Expose
     private String passwordResetTimeout;
 
+//    @SerializedName("admin_level")
+//    @Expose
+//    private String adminLevel;
+
     public UserEntity() {
         //empty
     }

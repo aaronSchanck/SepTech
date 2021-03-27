@@ -23,7 +23,7 @@ public class RestApiClient {
     private Gson gson;
 
     private RestApiClient() {
-        gson = new GsonBuilder().disableHtmlEscaping().create();
+        gson = new GsonBuilder().disableHtmlEscaping().serializeNulls().create();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
