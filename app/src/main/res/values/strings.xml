@@ -27,10 +27,17 @@
     <string name="login_failed">"Login failed"</string>
     <string name="string_username_incorrect">"Username length must be > 5"</string>
     <string name="string_password_incorrect">"Password length must be > 5"</string>
-    <string name="register_string_fname_incorrect"><![CDATA[\"Full name length must be > 1]]></string>
+    <string name="register_string_fname_incorrect">Full name length must be > 1</string>
     <string name="register_string_email_incorrect">Email incorrect</string>
     <string name="register_string_password_incorrect">Password incorrect</string>
     <string name="register_string_confirm_password_incorrect">Passwords don\'t match</string>
     <string name="register_string_phone_number_incorrect">Phone number incorrect</string>
     <string name="email">Email</string>
+    <string name="registration_password_length">Password not long enough</string>
+    <string name="registration_password_lowercase_char">Password requires one lowercase letter</string>
+    <string name="registration_password_uppercase_char">Password requires one uppercase letter</string>
+    <string name="registration_password_number">Password requires one number</string>
+    <string name="registration_phone_number_resource_a">%1$s</string>
+    <string name="registration_phone_number_resource_b">%1$s-%2$s</string>
+    <string name="registration_phone_number_resource_c">%1$s-%2$s-%3$s</string>
 </resources>

@@ -189,9 +189,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phone_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:inputType="textPassword"
                 android:layout_width="370dp"
                 android:layout_height="64dp"
+                android:inputType="phone|number"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.500"

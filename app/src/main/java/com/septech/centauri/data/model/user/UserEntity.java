@@ -5,8 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserEntity {
 
-    @Expose(serialize = false, deserialize = false)
-    private transient int userid;
+    @SerializedName("userid")
+    @Expose(serialize = false)
+    private int userid;
 
     @SerializedName("email")
     @Expose

@@ -25,7 +25,7 @@ from marshmallow import Schema, fields
 log = logging.getLogger(__name__)
 
 
-class UserSchema(Schema):
+class UserSendSchema(Schema):
     userid = fields.Number(dump_only=True)
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
@@ -37,3 +37,11 @@ class UserSchema(Schema):
     password_salt1 = fields.String(required=True)
     password_reset_code = fields.String(default="")
     password_reset_timeout = fields.DateTime()
+
+
+class UserReceiveSchema(Schema):
+    email = fields.Email(required=True)
+    password = fields.Str(required=True, load_only=True)
+    full_name = fields.Str(required=True)
+    date_of_birth = fields.Date()
+    phone_number = fields.String()

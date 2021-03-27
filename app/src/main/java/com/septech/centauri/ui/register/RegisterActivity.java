@@ -8,6 +8,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -146,22 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        mPhoneNumberEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdatePhoneNumber(mPhoneNumberEditText.getText().toString());
-            }
-        });
+        mPhoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         mCreateAccountBtn = findViewById(R.id.register_create_account_btn);
 
@@ -172,7 +158,6 @@ public class RegisterActivity extends AppCompatActivity {
                         mEmailEditText.getText().toString(),
                         mPasswordEditText.getText().toString(),
                         mFNameEditText.getText().toString(),
-//                        mLNameEditText.getText().toString(),
                         mPhoneNumberEditText.getText().toString());
             }
         });
@@ -191,12 +176,6 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     mFNameEditText.setError(null);
                 }
-
-//                if (registerFormState.isLastNameEdited() && registerFormState.getLastNameError() != null) {
-//                    mLNameEditText.setError(getString(registerFormState.getLastNameError()));
-//                } else {
-//                    mLNameEditText.setError(null);
-//                }
 
                 if (registerFormState.isEmailEdited() && registerFormState.getEmailError() != null) {
                     mEmailEditText.setError(getString(registerFormState.getEmailError()));

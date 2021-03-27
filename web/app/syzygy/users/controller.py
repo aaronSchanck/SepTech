@@ -31,7 +31,7 @@ from flask_restx import Namespace, Resource
 
 from .interface import UserInterface
 from .model import User
-from .schema import UserSchema
+from .schema import UserSendSchema, UserReceiveSchema
 from .service import UserService
 
 api = Namespace("User")
@@ -49,14 +49,14 @@ class UserResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=UserSchema(many=True))
+    @responds(schema=UserSendSchema(many=True))
     def get(self):
         """Get all Users"""
 
         return UserService.get_all()
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    @accepts(schema=UserReceiveSchema, api=api)
+    @responds(schema=UserSendSchema)
     def post(self):
         """Create a Single User"""
 
@@ -95,7 +95,6 @@ class UserEmailResource(Resource):
     @responds(schema=UserSchema)
     def get(self, email: str):
         return UserService.get_by_email(email)
-
 
     def put(self, email: str):
         return UserService.reset_password(email)

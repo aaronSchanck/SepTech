@@ -13,8 +13,6 @@ public class RegisterFormState {
     private Integer confirmPasswordError;
     @Nullable
     private Integer fullNameError;
-//    @Nullable
-//    private Integer lastNameError;
     @Nullable
     private Integer phoneNumberError;
 
@@ -22,7 +20,6 @@ public class RegisterFormState {
     private boolean passwordEdited;
     private boolean confirmPasswordEdited;
     private boolean fullNameEdited;
-//    private boolean lastNameEdited;
     private boolean phoneNumberEdited;
 
     private boolean isDataValid;
@@ -31,7 +28,6 @@ public class RegisterFormState {
         this.emailError = null;
         this.passwordError = null;
         this.fullNameError = null;
-//        this.lastNameError = null;
         this.phoneNumberError = null;
         this.confirmPasswordError = null;
 
@@ -39,7 +35,6 @@ public class RegisterFormState {
         this.passwordEdited = false;
         this.confirmPasswordEdited = false;
         this.fullNameEdited = false;
-//        this.lastNameEdited = false;
         this.phoneNumberEdited = false;
 
         this.isDataValid = false;
@@ -59,11 +54,6 @@ public class RegisterFormState {
     public Integer getFullNameError() {
         return fullNameError;
     }
-
-//    @Nullable
-//    public Integer getLastNameError() {
-//        return lastNameError;
-//    }
 
     @Nullable
     public Integer getPhoneNumberError() {
@@ -90,10 +80,6 @@ public class RegisterFormState {
     public void setFullNameError(@Nullable Integer fullNameError) {
         this.fullNameError = fullNameError;
     }
-
-//    public void setLastNameError(@Nullable Integer lastNameError) {
-//        this.lastNameError = lastNameError;
-//    }
 
     public void setPhoneNumberError(@Nullable Integer phoneNumberError) {
         this.phoneNumberError = phoneNumberError;
@@ -131,14 +117,6 @@ public class RegisterFormState {
         this.fullNameEdited = fullNameEdited;
     }
 
-//    public boolean isLastNameEdited() {
-//        return lastNameEdited;
-//    }
-
-//    public void setLastNameEdited(boolean lastNameEdited) {
-//        this.lastNameEdited = lastNameEdited;
-//    }
-
     public boolean isPhoneNumberEdited() {
         return phoneNumberEdited;
     }
@@ -155,13 +133,11 @@ public class RegisterFormState {
     public void checkDataValid() {
         if ((emailEdited
                 && fullNameEdited
-//                && lastNameEdited
                 && confirmPasswordEdited
                 && passwordEdited
                 && phoneNumberEdited)
                 &&
                 (fullNameError == null
-//                && lastNameError == null
                 && passwordError == null
                 && confirmPasswordError == null
                 && emailError == null

@@ -1,5 +1,7 @@
 package com.septech.centauri.ui.register;
 
+import android.util.Patterns;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -7,6 +9,9 @@ import com.septech.centauri.R;
 import com.septech.centauri.data.repository.UserDataRepository;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -16,6 +21,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RegisterViewModel extends ViewModel {
     private static final String TAG = "RegisterViewModel";
+
+    private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     private final MutableLiveData<RegisterFormState> mRegisterFormState = new MutableLiveData<>();
     private final MutableLiveData<RegisterCloudResponse> responseLiveData = new MutableLiveData<>();
@@ -100,10 +108,12 @@ public class RegisterViewModel extends ViewModel {
         assert registerFormState != null;
         registerFormState.setPasswordEdited(true);
 
-        if (!isPasswordValid(password)) {
-            registerFormState.setPasswordError(R.string.register_string_password_incorrect);
+        PasswordValidator pwVal = new PasswordValidator(password);
+
+        if (!pwVal.isValid()) {
+            registerFormState.setPasswordError(pwVal.getPwError());
         } else {
-            registerFormState.setPasswordError(null);
+            registerFormState.setPasswordError(pwVal.getPwError());
             registerFormState.checkDataValid();
         }
 
@@ -153,16 +163,8 @@ public class RegisterViewModel extends ViewModel {
         return fullName.length() > 1;
     }
 
-//    public boolean isLastNameValid(String lastName) {
-//        return lastName.length() > 1;
-//    }
-
     public boolean isEmailValid(String email) {
-        return false;
-    }
-
-    public boolean isPasswordValid(String password) {
-        return false;
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private boolean isConfirmPasswordValid(String confirmPassword, String password) {
