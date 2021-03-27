@@ -10,7 +10,6 @@ import com.septech.centauri.data.repository.UserDataRepository;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,9 +20,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RegisterViewModel extends ViewModel {
     private static final String TAG = "RegisterViewModel";
-
-    private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     private final MutableLiveData<RegisterFormState> mRegisterFormState = new MutableLiveData<>();
     private final MutableLiveData<RegisterCloudResponse> responseLiveData = new MutableLiveData<>();

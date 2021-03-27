@@ -66,7 +66,7 @@ class UserResource(Resource):
 @api.route("/<int:userid>")
 @api.param("userid", "User database ID")
 class UserIdResource(Resource):
-    @responds(schema=UserSchema)
+    @responds(schema=UserSendSchema)
     def get(self, userid: int):
         """Get Single User"""
 
@@ -79,8 +79,8 @@ class UserIdResource(Resource):
         id = UserService.delete_by_id(userid)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    @accepts(schema=UserReceiveSchema, api=api)
+    @responds(schema=UserSendSchema)
     def put(self, userid: int):
         """Update Single User"""
 
@@ -92,7 +92,7 @@ class UserIdResource(Resource):
 @api.route("/<email>")
 @api.param("email", "User database email")
 class UserEmailResource(Resource):
-    @responds(schema=UserSchema)
+    @responds(schema=UserSendSchema)
     def get(self, email: str):
         return UserService.get_by_email(email)
 
@@ -107,7 +107,7 @@ class UserLoginResource(Resource):
         dict(name="password", type=str, help="A user's password"),
         api=api,
     )
-    @responds(schema=UserSchema)
+    @responds(schema=UserSendSchema)
     def post(self):
         """Login with user credentials"""
 

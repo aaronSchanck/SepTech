@@ -14,21 +14,18 @@ Functions:
 
 """
 
+from app import db
+from .model import User
+from .interface import UserInterface
+from flask import Response
 import json
 import logging
-import re
-import secrets
-from datetime import datetime, timedelta
-from typing import List
-
-from app.globals import *
-import bcrypt
-from app import db
-from flask import Response
 from utils.auth import encrypt_pw
+import bcrypt
 
-from .interface import UserInterface
-from .model import User
+import re
+
+from typing import List
 
 log = logging.getLogger(__name__)
 
@@ -54,8 +51,8 @@ class UserService:
         """
         user = User.query.get(userid)
 
-        # if user is None:
-        #     return ErrResponse("Requested user doesn't exist", 400)
+        if user is None:
+            return ErrResponse("Requested user doesn't exist", 400)
 
         return user
 
@@ -68,8 +65,10 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
-
         user = User.query.filter(User.email == email).first()
+
+        if user is None:
+            return ErrResponse("Requested user doesn't exist", 400)
 
         return user
 
@@ -86,8 +85,6 @@ class UserService:
         :rtype: User
         """
         user.update(User_change_updates)
-        user.modified_at = datetime.now()
-
         db.session.commit()
         return user
 
@@ -119,11 +116,6 @@ class UserService:
         :rtype: User
         """
 
-        user = UserService.get_by_email(new_attrs["email"])
-
-        if user is not None:
-            return ErrResponse("User with email already exists", 400)
-
         encrypted_pw = encrypt_pw(new_attrs["password"])
 
         new_user = User(
@@ -131,12 +123,10 @@ class UserService:
             password=encrypted_pw,
             full_name=new_attrs["full_name"],
             date_of_birth=new_attrs["date_of_birth"],
-            created_at=datetime.now(),
-            modified_at=datetime.now(),
+            created_at=new_attrs["created_at"],
+            modified_at=new_attrs["modified_at"],
             phone_number=new_attrs["phone_number"],
             password_salt1=new_attrs["password_salt1"],
-            # password_reset_code=new_attrs["password_reset_code"],
-            # password_reset_timeout=new_attrs["password_reset_timeout"],
         )
 
         db.session.add(new_user)
@@ -181,46 +171,6 @@ class UserService:
         # generate JWT token and concatenate
 
         return user
-
-    @staticmethod
-    def reset_password(email: str):
-        user = UserService.get_by_email(email)
-
-        if user is None:
-            return ErrResponse("User does not exist", 400)
-
-        user_changes: UserInterface = {
-            "password_reset_code": UserService.gen_unique_reset_code(),
-            "password_reset_timeout": datetime.now()
-            + timedelta(minutes=PASSWORD_RESET_TIME),
-        }
-
-        UserService.update(user, user_changes)
-
-        return NormalResponse("Healthy", 200)
-
-        # user_changes = UserInterface(
-        #     "password_reset_code": UserService.gen_unique_reset_code(),
-        #     "password_reset_timeout": datetime.now(),
-        # )
-
-        # UserService.update(user, user_changes)
-
-    @staticmethod
-    def gen_unique_reset_code():
-        done = False
-
-        while not done:
-            code = secrets.token_hex(nbytes=3)
-            for other_code in User.query.with_entities(
-                User.password_reset_code, User.password_reset_timeout
-            ):
-                if code == other_code[0] and (
-                    other_code[1] and other_code[1] > datetime.now()
-                ):
-                    break
-                done = True
-        return code
 
 
 def NormalResponse(response: dict, status: int) -> Response:

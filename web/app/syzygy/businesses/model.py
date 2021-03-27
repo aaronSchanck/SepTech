@@ -19,12 +19,12 @@ import logging
 from app import db
 from sqlalchemy import *
 
-from .interface import UserInterface
+from .interface import BusinessInterface
 
 log = logging.getLogger(__name__)
 
 
-class User(db.Model):
+class Business(db.Model):
     """[summary]
 
     :param db: [description]
@@ -33,22 +33,11 @@ class User(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "users"
+    __tablename__ = "businesses"
 
-    userid = Column(Integer, primary_key=True)
-    email = Column(String(255), unique=True, nullable=False)
-    password = Column(LargeBinary(127), nullable=False)
-    full_name = Column(String(255))
-    date_of_birth = Column(Date)
-    created_at = Column(DateTime)
-    modified_at = Column(DateTime)
-    # billing_address = Column(ForeignKey)
-    # mailing address = Column(ForeignKey)
-    phone_number = Column(String(10))
-    password_salt1 = Column(String(63))
-    admin_level = Column(Integer)
+    id = Column(Integer, primary_key=True)
 
-    def update(self, changes: UserInterface):
+    def update(self, changes: BusinessInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 

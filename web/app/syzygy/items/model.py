@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 class Item(db.Model):
     __tablename__ = "items"
 
-    itemid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(127))
     quantity = db.Column(db.Integer)
     posted_at = db.Column(db.DateTime)
@@ -38,7 +38,7 @@ class Item(db.Model):
     highest_bid_user = db.Column(db.Integer)  # userid
     bidding_ends = db.Column(db.DateTime)
     quality = db.Column(db.String(63))
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.category_id"))
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
 
     thumbnail = db.Column(db.Integer)
     # images = db.Column(db.A)

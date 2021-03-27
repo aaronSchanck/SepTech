@@ -35,7 +35,7 @@ class Category(db.Model):
 
     __tablename__ = "categories"
 
-    category_id = Column(Integer, primary_key=true)
+    id = Column(Integer, primary_key=true)
     category_1 = Column(String(32))
     category_2 = Column(String(32))
     category_3 = Column(String(32))

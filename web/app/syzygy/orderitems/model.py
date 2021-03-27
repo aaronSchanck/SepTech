@@ -23,7 +23,7 @@ from .interface import UserInterface
 log = logging.getLogger(__name__)
 
 
-class User(db.Model):
+class OrderItem(db.Model):
     """[summary]
 
     :param db: [description]
@@ -32,16 +32,13 @@ class User(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "orders"
+    __tablename__ = "orderitems"
 
     id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer, db.ForeignKey("users.id"))
-
-    date_created = db.Column(db.DateTime)
-    date_shipped = db.Column(db.DateTime)
-    date_delivered = db.Column(db.DateTime)
-
-    total_price = db.Column(db.Numeric(10, 2))
+    quantity = db.Column(db.Integer)
+    price = db.Column(db.Numeric(10, 2))
+    itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
+    orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
 
     def update(self, changes: UserInterface):
         for key, val in changes.items():

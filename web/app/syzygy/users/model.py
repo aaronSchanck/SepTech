@@ -35,7 +35,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    userid = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     email = Column(String(255), unique=True, nullable=False)
     password = Column(LargeBinary(127), nullable=False)
     full_name = Column(String(255))
@@ -48,6 +48,12 @@ class User(db.Model):
     password_salt1 = Column(String(63))
     password_reset_code = Column(String(6))
     password_reset_timeout = Column(DateTime)
+    # last_successful_login = Column(DateTime)
+    # last_unsuccessful_login = Column(DateTime)
+
+    # order
+    orders = db.relationship("Order", backref="user")
+
     admin_level = Column(Integer)
 
     def update(self, changes: UserInterface):
