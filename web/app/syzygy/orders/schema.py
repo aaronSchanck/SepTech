@@ -25,13 +25,5 @@ from marshmallow import Schema, fields
 log = logging.getLogger(__name__)
 
 
-class UserSchema(Schema):
-    userid = fields.Number(dump_only=True)
-    email = fields.Email(required=True)
-    password = fields.Str(required=True, load_only=True)
-    full_name = fields.Str(required=True)
-    date_of_birth = fields.Date()
-    created_at = fields.DateTime()
-    modified_at = fields.DateTime()
-    phone_number = fields.String()
-    password_salt1 = fields.String(required=True)
+class OrderSchema(Schema):
+    id = fields.Number(dump_only=True)

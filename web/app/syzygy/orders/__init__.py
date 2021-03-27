@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/__init__.py
+"""/web/app/syzygy/orders/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -16,15 +16,15 @@ Functions:
 
 import logging
 
-from .model import User
-from .schema import UserSchema
+from .model import Order
+from .schema import OrderSchema
 
-BASE_ROUTE = "users"
+BASE_ROUTE = "orders"
 
 log = logging.getLogger(__name__)
 
 
 def register_routes(api, app, root="api"):
-    from .controller import api as user_api
+    from .controller import api as order_api
 
-    api.add_namespace(user_api, path=f"/{root}/{BASE_ROUTE}")
+    api.add_namespace(order_api, path=f"/{root}/{BASE_ROUTE}")

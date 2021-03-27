@@ -17,7 +17,6 @@ Functions:
 import logging
 
 from app import db
-from sqlalchemy import *
 
 from .interface import UserInterface
 
@@ -35,26 +34,29 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
-    email = Column(String(255), unique=True, nullable=False)
-    password = Column(LargeBinary(127), nullable=False)
-    full_name = Column(String(255))
-    date_of_birth = Column(Date)
-    created_at = Column(DateTime)
-    modified_at = Column(DateTime)
-    # billing_address = Column(ForeignKey)
-    # mailing address = Column(ForeignKey)
-    phone_number = Column(String(10))
-    password_salt1 = Column(String(63))
-    password_reset_code = Column(String(6))
-    password_reset_timeout = Column(DateTime)
-    # last_successful_login = Column(DateTime)
-    # last_unsuccessful_login = Column(DateTime)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.LargeBinary(127), nullable=False)
+    full_name = db.Column(db.String(255))
+    date_of_birth = db.Column(db.Date)
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
+    billing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
+    billing_address = db.relationship("Address", backref="user", uselist=False)
+
+    mailing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
+    mailing_address = db.relationship("Address", backref="user", uselist=False)
+    phone_number = db.Column(db.String(10))
+    password_salt1 = db.Column(db.String(63))
+    password_reset_code = db.Column(db.String(6))
+    password_reset_timeout = db.Column(db.DateTime)
+    last_successful_login = db.Column(db.DateTime)
+    last_unsuccessful_login = db.Column(db.DateTime)
 
     # order
     orders = db.relationship("Order", backref="user")
 
-    admin_level = Column(Integer)
+    admin_level = db.Column(db.Integer)
 
     def update(self, changes: UserInterface):
         for key, val in changes.items():

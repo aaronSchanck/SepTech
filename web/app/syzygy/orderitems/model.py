@@ -18,7 +18,7 @@ import logging
 
 from app import db
 
-from .interface import UserInterface
+from .interface import OrderItemsInterface
 
 log = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class OrderItem(db.Model):
     itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
     orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
 
-    def update(self, changes: UserInterface):
+    def update(self, changes: OrderItemsInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 

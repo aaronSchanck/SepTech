@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/service.py
+"""/web/app/syzygy/orders/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,8 +15,8 @@ Functions:
 """
 
 from app import db
-from .model import User
-from .interface import UserInterface
+from .model import Order
+from .interface import OrderInterface
 from flask import Response
 import json
 import logging
@@ -30,7 +30,7 @@ from typing import List
 log = logging.getLogger(__name__)
 
 
-class UserService:
+class OrderService:
     @staticmethod
     def get_all():
         """[summary]
@@ -38,139 +38,71 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
-        return User.query.all()
+        return Order.query.all()
 
     @staticmethod
-    def get_by_id(userid: int) -> User:
+    def get_by_id(orderid: int) -> Order:
         """[summary]
 
-        :param userid: [description]
-        :type userid: int
+        :param orderid: [description]
+        :type orderid: int
         :return: [description]
         :rtype: [type]
         """
-        user = User.query.get(userid)
+        order = Order.query.get(orderid)
 
-        if user is None:
-            return ErrResponse("Requested user doesn't exist", 400)
-
-        return user
+        return order
 
     @staticmethod
-    def get_by_email(email: str) -> User:
+    def update(order: Order, Order_change_updates: OrderInterface) -> Order:
         """[summary]
 
-        :param email: [description]
-        :type email: str
-        :return: [description]
-        :rtype: [type]
+        :param order: The Order to update in the database
+        :type order: Order
+        :param Order_change_updates: Dictionary object containing the new changes
+        to update the Order model object with
+        :type Order_change_updates: OrderInterface
+        :return: The updated Order model object
+        :rtype: Order
         """
-        user = User.query.filter(User.email == email).first()
-
-        if user is None:
-            return ErrResponse("Requested user doesn't exist", 400)
-
-        return user
-
-    @staticmethod
-    def update(user: User, User_change_updates: UserInterface) -> User:
-        """[summary]
-
-        :param user: The User to update in the database
-        :type user: User
-        :param User_change_updates: Dictionary object containing the new changes
-        to update the User model object with
-        :type User_change_updates: UserInterface
-        :return: The updated User model object
-        :rtype: User
-        """
-        user.update(User_change_updates)
+        order.update(Order_change_updates)
         db.session.commit()
-        return user
+        return order
 
     @staticmethod
-    def delete_by_id(userid: int) -> List:
-        """Deletes a user from the table with the specified userid
+    def delete_by_id(orderid: int) -> List:
+        """Deletes a order from the table with the specified orderid
 
-        :param userid: User's userid
-        :type userid: int
-        :return: List containing the deleted user, if found, otherwise an empty
+        :param orderid: Order's orderid
+        :type orderid: int
+        :return: List containing the deleted order, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        user = UserService.get_by_id(userid)
-        if not user:
+        order = OrderService.get_by_id(orderid)
+        if not order:
             return []
-        db.session.delete(user)
+        db.session.delete(order)
         db.session.commit()
-        return [userid]
+        return [orderid]
 
     @staticmethod
-    def create(new_attrs: UserInterface) -> User:
-        """Creates a user object from the UserInterface TypedDict
+    def create(new_attrs: OrderInterface) -> Order:
+        """Creates a order object from the OrderInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a User model
-        :type new_attrs: UserInterface
-        :return: A new user object based on the input
-        :rtype: User
+        :param new_attrs: A dictionary with the input into a Order model
+        :type new_attrs: OrderInterface
+        :return: A new order object based on the input
+        :rtype: Order
         """
 
-        encrypted_pw = encrypt_pw(new_attrs["password"])
+        new_order = Order()
 
-        new_user = User(
-            email=new_attrs["email"],
-            password=encrypted_pw,
-            full_name=new_attrs["full_name"],
-            date_of_birth=new_attrs["date_of_birth"],
-            created_at=new_attrs["created_at"],
-            modified_at=new_attrs["modified_at"],
-            phone_number=new_attrs["phone_number"],
-            password_salt1=new_attrs["password_salt1"],
-        )
-
-        db.session.add(new_user)
+        db.session.add(new_order)
         db.session.commit()
 
-        return new_user
-
-    @staticmethod
-    def login(email: str, password: str) -> User:
-        """Checks user credentials against database. If a user is found, then
-        send the user information back to the client.
-
-        :param email: User's email
-        :type email: str
-        :param password: User's password
-        :type password: str
-        :return: User model from the table with the specified email and
-        password
-        :rtype: User
-        """
-
-        log.debug(f"email: {email}\tPassword: {password}")
-
-        if not email:
-            return ErrResponse("No email entered", 400)
-
-        if not password:
-            return ErrResponse("No password entered", 400)
-
-        user = UserService.get_by_email(email)
-
-        if user is None:
-            log.info("No user was found for supplied email")
-            return ErrResponse("Incorrect email", 400)
-
-        if not bcrypt.checkpw(password.encode("utf-8"), user.password):
-            log.info("No user was found for supplied password")
-            return ErrResponse("Incorrect password", 400)
-
-        log.info(f"User {user.userid} was found and returned to client")
-
-        # generate JWT token and concatenate
-
-        return user
+        return new_order
 
 
 def NormalResponse(response: dict, status: int) -> Response:

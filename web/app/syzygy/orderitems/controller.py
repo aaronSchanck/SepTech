@@ -8,15 +8,15 @@ rudimentary testing on the browser.
 
 Classes:
 
-    UserResource:
+    OrderItemsResource:
         Extends Resource from flask-restx. Adding a function with name
         "get"/"post"/"delete"/"put" will add the respective route to the API.
 
-    UserIdResource:
+    OrderItemsIdResource:
         Extends Resource from flask-restx. Follows same functionality from
         aforementioned class. Must be routed to with {baseurl}/{userid}.
 
-    UserLoginResource:
+    OrderItemsLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
         in users.
 
@@ -29,17 +29,17 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import UserInterface
-from .model import User
-from .schema import UserSchema
-from .service import UserService
+from .interface import OrderItemsInterface
+from .model import OrderItems
+from .schema import OrderItemsSchema
+from .service import OrderItemsService
 
-api = Namespace("User")
+api = Namespace("OrderItems")
 log = logging.getLogger(__name__)
 
 
 @api.route("/")
-class UserResource(Resource):
+class OrderItemsResource(Resource):
     """[summary]
 
     Args:
@@ -49,65 +49,65 @@ class UserResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=UserSchema(many=True))
+    @responds(schema=OrderItemsSchema(many=True))
     def get(self):
-        """Get all Users"""
+        """Get all OrderItemss"""
 
-        return UserService.get_all()
+        return OrderItemsService.get_all()
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    @accepts(schema=OrderItemsSchema, api=api)
+    @responds(schema=OrderItemsSchema)
     def post(self):
-        """Create a Single User"""
+        """Create a Single OrderItems"""
 
-        return UserService.create(request.parsed_obj)
+        return OrderItemsService.create(request.parsed_obj)
 
 
 @api.route("/<int:userid>")
-@api.param("userid", "User database ID")
-class UserIdResource(Resource):
-    @responds(schema=UserSchema)
+@api.param("userid", "OrderItems database ID")
+class OrderItemsIdResource(Resource):
+    @responds(schema=OrderItemsSchema)
     def get(self, userid: int):
-        """Get Single User"""
+        """Get Single OrderItems"""
 
-        return UserService.get_by_id(userid)
+        return OrderItemsService.get_by_id(userid)
 
     def delete(self, userid: int):
-        """Delete Single User"""
+        """Delete Single OrderItems"""
         from flask import jsonify
 
-        id = UserService.delete_by_id(userid)
+        id = OrderItemsService.delete_by_id(userid)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    @accepts(schema=OrderItemsSchema, api=api)
+    @responds(schema=OrderItemsSchema)
     def put(self, userid: int):
-        """Update Single User"""
+        """Update Single OrderItems"""
 
-        changes: UserInterface = request.parsed_obj
-        User = UserService.get_by_id(userid)
-        return UserService.update(User, changes)
+        changes: OrderItemsInterface = request.parsed_obj
+        OrderItems = OrderItemsService.get_by_id(userid)
+        return OrderItemsService.update(OrderItems, changes)
 
 @api.route("/<email>")
-@api.param("email", "User database email")
-class UserEmailResource(Resource):
-    @responds(schema=UserSchema)
+@api.param("email", "OrderItems database email")
+class OrderItemsEmailResource(Resource):
+    @responds(schema=OrderItemsSchema)
     def get(self, email: int):
-        return UserService.get_by_email(email)
+        return OrderItemsService.get_by_email(email)
 
 
 @api.route("/login")
-class UserLoginResource(Resource):
+class OrderItemsLoginResource(Resource):
     @accepts(
         dict(name="email", type=str, help="A user's email"),
         dict(name="password", type=str, help="A user's password"),
         api=api,
     )
-    @responds(schema=UserSchema)
+    @responds(schema=OrderItemsSchema)
     def post(self):
         """Login with user credentials"""
 
         email = request.parsed_args["email"]
         password = request.parsed_args["password"]
 
-        return UserService.login(email, password)
+        return OrderItemsService.login(email, password)

@@ -21,7 +21,7 @@ from typing import TypedDict
 log = logging.getLogger(__name__)
 
 
-class UserInterface(TypedDict, total=False):
+class OrderItemsInterface(TypedDict, total=False):
     userid: int
     email: str
     password: str

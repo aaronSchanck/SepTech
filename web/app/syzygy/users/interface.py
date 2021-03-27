@@ -33,3 +33,5 @@ class UserInterface(TypedDict, total=False):
     password_salt1: str
     password_reset_code: str
     password_reset_timeout: str
+    last_successful_login: str
+    last_unsuccessful_login: str

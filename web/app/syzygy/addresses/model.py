@@ -46,6 +46,8 @@ class Address(db.Model):
     address_code = Column(String(15))
     postal_code = Column(String(15))
 
+    userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+
     def update(self, changes: AddressInterface):
         for key, val in changes.items():
             setattr(self, key, val)

@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/controller.py
+"""/web/app/syzygy/orders/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -8,17 +8,13 @@ rudimentary testing on the browser.
 
 Classes:
 
-    UserResource:
+    OrderResource:
         Extends Resource from flask-restx. Adding a function with name
         "get"/"post"/"delete"/"put" will add the respective route to the API.
 
-    UserIdResource:
+    OrderIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{userid}.
-
-    UserLoginResource:
-        Extends Resource from flask-restx. Acts as a helper class for logging
-        in users.
+        aforementioned class. Must be routed to with {baseurl}/{orderid}.
 
 """
 
@@ -29,17 +25,17 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import UserInterface
-from .model import User
-from .schema import UserSchema
-from .service import UserService
+from .interface import OrderInterface
+from .model import Order
+from .schema import OrderSchema
+from .service import OrderService
 
-api = Namespace("User")
+api = Namespace("Order")
 log = logging.getLogger(__name__)
 
 
 @api.route("/")
-class UserResource(Resource):
+class OrderResource(Resource):
     """[summary]
 
     Args:
@@ -49,65 +45,41 @@ class UserResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=UserSchema(many=True))
+    @responds(schema=OrderSchema(many=True))
     def get(self):
-        """Get all Users"""
+        """Get all Orders"""
 
-        return UserService.get_all()
+        return OrderService.get_all()
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
+    @accepts(schema=OrderSchema, api=api)
+    @responds(schema=OrderSchema)
     def post(self):
-        """Create a Single User"""
+        """Create a Single Order"""
 
-        return UserService.create(request.parsed_obj)
+        return OrderService.create(request.parsed_obj)
 
 
-@api.route("/<int:userid>")
-@api.param("userid", "User database ID")
-class UserIdResource(Resource):
-    @responds(schema=UserSchema)
-    def get(self, userid: int):
-        """Get Single User"""
+@api.route("/<int:orderid>")
+@api.param("orderid", "Order database ID")
+class OrderIdResource(Resource):
+    @responds(schema=OrderSchema)
+    def get(self, orderid: int):
+        """Get Single Order"""
 
-        return UserService.get_by_id(userid)
+        return OrderService.get_by_id(orderid)
 
-    def delete(self, userid: int):
-        """Delete Single User"""
+    def delete(self, orderid: int):
+        """Delete Single Order"""
         from flask import jsonify
 
-        id = UserService.delete_by_id(userid)
+        id = OrderService.delete_by_id(orderid)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=UserSchema, api=api)
-    @responds(schema=UserSchema)
-    def put(self, userid: int):
-        """Update Single User"""
+    @accepts(schema=OrderSchema, api=api)
+    @responds(schema=OrderSchema)
+    def put(self, orderid: int):
+        """Update Single Order"""
 
-        changes: UserInterface = request.parsed_obj
-        User = UserService.get_by_id(userid)
-        return UserService.update(User, changes)
-
-@api.route("/<email>")
-@api.param("email", "User database email")
-class UserEmailResource(Resource):
-    @responds(schema=UserSchema)
-    def get(self, email: int):
-        return UserService.get_by_email(email)
-
-
-@api.route("/login")
-class UserLoginResource(Resource):
-    @accepts(
-        dict(name="email", type=str, help="A user's email"),
-        dict(name="password", type=str, help="A user's password"),
-        api=api,
-    )
-    @responds(schema=UserSchema)
-    def post(self):
-        """Login with user credentials"""
-
-        email = request.parsed_args["email"]
-        password = request.parsed_args["password"]
-
-        return UserService.login(email, password)
+        changes: OrderInterface = request.parsed_obj
+        Order = OrderService.get_by_id(orderid)
+        return OrderService.update(Order, changes)
