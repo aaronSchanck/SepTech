@@ -78,22 +78,6 @@ public class RegisterViewModel extends ViewModel {
         mRegisterFormState.setValue(registerFormState);
     }
 
-//    public void onUpdateLastName(String lname) {
-//        RegisterFormState registerFormState = mRegisterFormState.getValue();
-//
-//        assert registerFormState != null;
-//        registerFormState.setLastNameEdited(true);
-//
-//        if (!isLastNameValid(lname)) {
-//            registerFormState.setLastNameError(R.string.register_string_lname_incorrect);
-//        } else {
-//            registerFormState.setLastNameError(null);
-//            registerFormState.checkDataValid();
-//        }
-//
-//        mRegisterFormState.setValue(registerFormState);
-//    }
-
     public void onUpdateEmail(String email) {
         RegisterFormState registerFormState = mRegisterFormState.getValue();
 

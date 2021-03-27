@@ -54,8 +54,8 @@ class UserService:
         """
         user = User.query.get(userid)
 
-        if user is None:
-            return ErrResponse("Requested user doesn't exist", 400)
+        # if user is None:
+        #     return ErrResponse("Requested user doesn't exist", 400)
 
         return user
 
@@ -71,8 +71,8 @@ class UserService:
 
         user = User.query.filter(User.email == email).first()
 
-        if user is None:
-            return ErrResponse("Requested user doesn't exist", 400)
+        # if user is None:
+        #     return ErrResponse("Requested user doesn't exist", 400)
 
         return user
 
@@ -121,6 +121,8 @@ class UserService:
         """
 
         user = UserService.get_by_email(new_attrs["email"])
+
+        print(user)
 
         if user is not None:
             return ErrResponse("User already exists", 400)

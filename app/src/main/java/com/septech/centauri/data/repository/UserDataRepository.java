@@ -99,15 +99,15 @@ public class UserDataRepository implements UserRepository {
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         String date = df.format(Calendar.getInstance().getTime());
-
-        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-        String date2 = df2.format(Calendar.getInstance().getTime());
+//
+//        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+//        String date2 = df2.format(Calendar.getInstance().getTime());
 
         Log.i("words", pwHash);
 
         userEntity.setCreatedAt(date);
         userEntity.setModifiedAt(date);
-        userEntity.setDateOfBirth(date2);
+//        userEntity.setDateOfBirth(date2);
 
         return restApiImpl.createUser(userEntity).map(UserEntityDataMapper::transform);
     }
