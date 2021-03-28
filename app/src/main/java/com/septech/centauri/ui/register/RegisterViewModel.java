@@ -37,8 +37,7 @@ public class RegisterViewModel extends ViewModel {
     public MutableLiveData<RegisterCloudResponse> getResponseLiveData() {
         return responseLiveData;
     }
-
-
+    
     @Override
     protected void onCleared() {
         mDisposables.clear();

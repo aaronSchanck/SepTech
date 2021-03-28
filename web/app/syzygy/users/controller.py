@@ -97,6 +97,7 @@ class UserEmailResource(Resource):
         return UserService.get_by_email(email)
 
     def put(self, email: str):
+        """Forgot password API Endpoint"""
         return UserService.reset_password(email)
 
 

@@ -19,7 +19,7 @@ import logging
 from .model import OrderItem
 from .schema import OrderItemSchema
 
-BASE_ROUTE = "users"
+BASE_ROUTE = "orderitems"
 
 log = logging.getLogger(__name__)
 

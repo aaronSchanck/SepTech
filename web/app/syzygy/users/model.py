@@ -41,6 +41,7 @@ class User(db.Model):
     date_of_birth = db.Column(db.Date)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+
     billing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
     billing_address = db.relationship(
         "Address",
