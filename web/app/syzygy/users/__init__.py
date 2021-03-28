@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from .model import User
-from .schema import UserReceiveSchema, UserSendSchema
+from .schema import UserSchema, UserSchema
 
 BASE_ROUTE = "users"
 

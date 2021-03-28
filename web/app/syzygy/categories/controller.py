@@ -22,8 +22,8 @@ from .model import Category
 from .schema import CategorySchema
 from .service import CategoryService
 
-from ..model import Item
-from ..schema import ItemSchema
+from ..items.model import Item
+from ..items.schema import ItemSchema
 
 api = Namespace("Category")
 log = logging.getLogger(__name__)

@@ -42,11 +42,22 @@ class User(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     billing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
-    billing_address = db.relationship("Address", backref="user", uselist=False)
+    billing_address = db.relationship(
+        "Address",
+        foreign_keys=billing_addressid,
+        backref="user_billaddr",
+        uselist=False,
+    )
 
     mailing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
-    mailing_address = db.relationship("Address", backref="user", uselist=False)
-    phone_number = db.Column(db.String(10))
+    mailing_address = db.relationship(
+        "Address",
+        foreign_keys=mailing_addressid,
+        backref="user_mailaddr",
+        uselist=False,
+    )
+
+    phone_number = db.Column(db.String(11))
     password_salt1 = db.Column(db.String(63))
     password_reset_code = db.Column(db.String(6))
     password_reset_timeout = db.Column(db.DateTime)

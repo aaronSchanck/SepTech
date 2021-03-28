@@ -1,4 +1,4 @@
-"""/web/app/syzygy/address/model.py
+"""/web/app/syzygy/addresses/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -33,7 +33,7 @@ class Address(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "address"
+    __tablename__ = "addresses"
 
     id = Column(Integer, primary_key=True)
     unit = Column(String(15))
@@ -46,7 +46,7 @@ class Address(db.Model):
     address_code = Column(String(15))
     postal_code = Column(String(15))
 
-    userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    # userid = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def update(self, changes: AddressInterface):
         for key, val in changes.items():

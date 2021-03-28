@@ -1,4 +1,4 @@
-"""/web/app/syzygy/address/__init__.py
+"""/web/app/syzygy/addresses/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -19,7 +19,7 @@ import logging
 from .model import Address
 from .schema import AddressSchema
 
-BASE_ROUTE = "address"
+BASE_ROUTE = "addresses"
 
 log = logging.getLogger(__name__)
 

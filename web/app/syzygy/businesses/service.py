@@ -102,18 +102,7 @@ class BusinessService:
         :rtype: Business
         """
 
-        encrypted_pw = encrypt_pw(new_attrs["password"])
-
-        new_business = Business(
-            email=new_attrs["email"],
-            password=encrypted_pw,
-            full_name=new_attrs["full_name"],
-            date_of_birth=new_attrs["date_of_birth"],
-            created_at=new_attrs["created_at"],
-            modified_at=new_attrs["modified_at"],
-            phone_number=new_attrs["phone_number"],
-            password_salt1=new_attrs["password_salt1"],
-        )
+        new_business = Business()
 
         db.session.add(new_business)
         db.session.commit()

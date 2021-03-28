@@ -26,4 +26,4 @@ log = logging.getLogger(__name__)
 
 
 class BusinessSchema(Schema):
-    businessid = fields.Number(dump_only=True)
+    id = fields.Number(dump_only=True)

@@ -18,7 +18,7 @@ import logging
 
 from app import db
 
-from .interface import OrderItemsInterface
+from .interface import OrderItemInterface
 
 log = logging.getLogger(__name__)
 
@@ -37,10 +37,14 @@ class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Numeric(10, 2))
-    itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
-    orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
 
-    def update(self, changes: OrderItemsInterface):
+    itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
+    item = db.relationship("Item", backref="orderitems")
+
+    orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
+    order = db.relationship("Order", backref="orderitems")
+
+    def update(self, changes: OrderItemInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 

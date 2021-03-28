@@ -15,8 +15,8 @@ Functions:
 """
 
 from app import db
-from .model import OrderItems
-from .interface import OrderItemsInterface
+from .model import OrderItem
+from .interface import OrderItemInterface
 from flask import Response
 import json
 import logging
@@ -30,7 +30,7 @@ from typing import List
 log = logging.getLogger(__name__)
 
 
-class OrderItemsService:
+class OrderItemService:
     @staticmethod
     def get_all():
         """[summary]
@@ -38,10 +38,10 @@ class OrderItemsService:
         :return: [description]
         :rtype: [type]
         """
-        return OrderItems.query.all()
+        return OrderItem.query.all()
 
     @staticmethod
-    def get_by_id(userid: int) -> OrderItems:
+    def get_by_id(userid: int) -> OrderItem:
         """[summary]
 
         :param userid: [description]
@@ -49,7 +49,7 @@ class OrderItemsService:
         :return: [description]
         :rtype: [type]
         """
-        user = OrderItems.query.get(userid)
+        user = OrderItem.query.get(userid)
 
         if user is None:
             return ErrResponse("Requested user doesn't exist", 400)
@@ -57,7 +57,7 @@ class OrderItemsService:
         return user
 
     @staticmethod
-    def get_by_email(email: str) -> OrderItems:
+    def get_by_email(email: str) -> OrderItem:
         """[summary]
 
         :param email: [description]
@@ -65,7 +65,7 @@ class OrderItemsService:
         :return: [description]
         :rtype: [type]
         """
-        user = OrderItems.query.filter(OrderItems.email == email).first()
+        user = OrderItem.query.filter(OrderItem.email == email).first()
 
         if user is None:
             return ErrResponse("Requested user doesn't exist", 400)
@@ -73,18 +73,18 @@ class OrderItemsService:
         return user
 
     @staticmethod
-    def update(user: OrderItems, OrderItems_change_updates: OrderItemsInterface) -> OrderItems:
+    def update(user: OrderItem, OrderItem_change_updates: OrderItemInterface) -> OrderItem:
         """[summary]
 
-        :param user: The OrderItems to update in the database
-        :type user: OrderItems
-        :param OrderItems_change_updates: Dictionary object containing the new changes
-        to update the OrderItems model object with
-        :type OrderItems_change_updates: OrderItemsInterface
-        :return: The updated OrderItems model object
-        :rtype: OrderItems
+        :param user: The OrderItem to update in the database
+        :type user: OrderItem
+        :param OrderItem_change_updates: Dictionary object containing the new changes
+        to update the OrderItem model object with
+        :type OrderItem_change_updates: OrderItemInterface
+        :return: The updated OrderItem model object
+        :rtype: OrderItem
         """
-        user.update(OrderItems_change_updates)
+        user.update(OrderItem_change_updates)
         db.session.commit()
         return user
 
@@ -92,14 +92,14 @@ class OrderItemsService:
     def delete_by_id(userid: int) -> List:
         """Deletes a user from the table with the specified userid
 
-        :param userid: OrderItems's userid
+        :param userid: OrderItem's userid
         :type userid: int
         :return: List containing the deleted user, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        user = OrderItemsService.get_by_id(userid)
+        user = OrderItemService.get_by_id(userid)
         if not user:
             return []
         db.session.delete(user)
@@ -107,18 +107,18 @@ class OrderItemsService:
         return [userid]
 
     @staticmethod
-    def create(new_attrs: OrderItemsInterface) -> OrderItems:
-        """Creates a user object from the OrderItemsInterface TypedDict
+    def create(new_attrs: OrderItemInterface) -> OrderItem:
+        """Creates a user object from the OrderItemInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a OrderItems model
-        :type new_attrs: OrderItemsInterface
+        :param new_attrs: A dictionary with the input into a OrderItem model
+        :type new_attrs: OrderItemInterface
         :return: A new user object based on the input
-        :rtype: OrderItems
+        :rtype: OrderItem
         """
 
         encrypted_pw = encrypt_pw(new_attrs["password"])
 
-        new_user = OrderItems(
+        new_user = OrderItem(
             email=new_attrs["email"],
             password=encrypted_pw,
             full_name=new_attrs["full_name"],
@@ -135,17 +135,17 @@ class OrderItemsService:
         return new_user
 
     @staticmethod
-    def login(email: str, password: str) -> OrderItems:
+    def login(email: str, password: str) -> OrderItem:
         """Checks user credentials against database. If a user is found, then
         send the user information back to the client.
 
-        :param email: OrderItems's email
+        :param email: OrderItem's email
         :type email: str
-        :param password: OrderItems's password
+        :param password: OrderItem's password
         :type password: str
-        :return: OrderItems model from the table with the specified email and
+        :return: OrderItem model from the table with the specified email and
         password
-        :rtype: OrderItems
+        :rtype: OrderItem
         """
 
         log.debug(f"email: {email}\tPassword: {password}")
@@ -156,7 +156,7 @@ class OrderItemsService:
         if not password:
             return ErrResponse("No password entered", 400)
 
-        user = OrderItemsService.get_by_email(email)
+        user = OrderItemService.get_by_email(email)
 
         if user is None:
             log.info("No user was found for supplied email")
@@ -166,7 +166,7 @@ class OrderItemsService:
             log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
-        log.info(f"OrderItems {user.userid} was found and returned to client")
+        log.info(f"OrderItem {user.userid} was found and returned to client")
 
         # generate JWT token and concatenate
 

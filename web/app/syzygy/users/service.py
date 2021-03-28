@@ -126,6 +126,13 @@ class UserService:
 
         encrypted_pw = encrypt_pw(new_attrs["password"])
 
+        phone_number_reformatted = new_attrs["phone_number"]
+
+        for c in ['(', ')', '-', ' ' ]:
+            if c in new_attrs["phone_number"]:
+                phone_number_reformatted.replace(c, "")
+
+
         new_user = User(
             email=new_attrs["email"],
             password=encrypted_pw,

@@ -16,8 +16,8 @@ Functions:
 
 import logging
 
-from .model import OrderItems
-from .schema import OrderItemsSchema
+from .model import OrderItem
+from .schema import OrderItemSchema
 
 BASE_ROUTE = "users"
 

@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from .model import Item
-from app.syzygy.items.categories import CategorySchema
+from ..categories.schema import CategorySchema
 from marshmallow_sqlalchemy import ModelSchema
 
 from marshmallow import Schema, fields
@@ -27,7 +27,6 @@ log = logging.getLogger(__name__)
 
 
 class ItemSchema(Schema):
-
     itemid = fields.Integer(dump_only=True)
     name = fields.String()
     quantity = fields.Integer()
@@ -44,6 +43,6 @@ class ItemSchema(Schema):
     category = fields.Nested(CategorySchema)
 
     thumbnail = fields.Integer()
-    item_variants = fields.List(fields.Integer)
+    item_variants = fields.List(fields.Integer, dump_only=True)
     description = fields.Str()
-    # attributes =
+    attributes = fields.Dict()  # act as filters

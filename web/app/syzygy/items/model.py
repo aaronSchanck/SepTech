@@ -30,7 +30,8 @@ class Item(db.Model):
     name = db.Column(db.String(127))
     quantity = db.Column(db.Integer)
     posted_at = db.Column(db.DateTime)
-    seller = db.Column(db.Integer)  # businessid
+    sellerid = db.Column(db.Integer, db.ForeignKey("businesses.id"))  # businessid
+    seller = db.relationship("Business", backref="items")
     price = db.Column(db.Numeric(10, 2))
     can_buy = db.Column(db.Boolean)
     can_bid = db.Column(db.Boolean)
@@ -41,10 +42,10 @@ class Item(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
 
     thumbnail = db.Column(db.Integer)
-    # images = db.Column(db.A)
+    images = db.Column(db.ARRAY(db.String))
     item_variants = db.Column(db.ARRAY(db.Integer))  # array of itemid
     description = db.Column(db.Text())
-    # attributes = db.Column(db.JSON)
+    attributes = db.Column(db.JSON)
 
     def update(self, changes: ItemInterface):
         for key, val in changes.items():

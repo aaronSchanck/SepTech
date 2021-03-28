@@ -16,8 +16,8 @@ Functions:
 
 from app import db
 from .model import Item
-from .categories.model import Category
-from .categories.service import CategoryService
+from ..categories.model import Category
+from ..categories.service import CategoryService
 from .interface import ItemInterface
 from flask import Response
 import json

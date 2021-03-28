@@ -25,7 +25,7 @@ from marshmallow import Schema, fields
 log = logging.getLogger(__name__)
 
 
-class OrderItemsSchema(Schema):
+class OrderItemSchema(Schema):
     userid = fields.Number(dump_only=True)
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)

@@ -37,6 +37,11 @@ class Business(db.Model):
 
     id = Column(Integer, primary_key=True)
 
+    name = db.Column(db.String)
+    email = db.Column(db.String, unique=True, nullable=False)
+
+    # products = db.Column(db.)
+
     def update(self, changes: BusinessInterface):
         for key, val in changes.items():
             setattr(self, key, val)

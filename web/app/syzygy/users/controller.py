@@ -31,7 +31,7 @@ from flask_restx import Namespace, Resource
 
 from .interface import UserInterface
 from .model import User
-from .schema import UserSendSchema, UserReceiveSchema
+from .schema import UserSchema, UserSchema
 from .service import UserService
 
 api = Namespace("User")
@@ -49,14 +49,14 @@ class UserResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=UserSendSchema(many=True))
+    @responds(schema=UserSchema(many=True))
     def get(self):
         """Get all Users"""
 
         return UserService.get_all()
 
-    @accepts(schema=UserReceiveSchema, api=api)
-    @responds(schema=UserSendSchema)
+    @accepts(schema=UserSchema, api=api)
+    @responds(schema=UserSchema)
     def post(self):
         """Create a Single User"""
 
@@ -66,7 +66,7 @@ class UserResource(Resource):
 @api.route("/<int:userid>")
 @api.param("userid", "User database ID")
 class UserIdResource(Resource):
-    @responds(schema=UserSendSchema)
+    @responds(schema=UserSchema)
     def get(self, userid: int):
         """Get Single User"""
 
@@ -79,8 +79,8 @@ class UserIdResource(Resource):
         id = UserService.delete_by_id(userid)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=UserReceiveSchema, api=api)
-    @responds(schema=UserSendSchema)
+    @accepts(schema=UserSchema, api=api)
+    @responds(schema=UserSchema)
     def put(self, userid: int):
         """Update Single User"""
 
@@ -92,7 +92,7 @@ class UserIdResource(Resource):
 @api.route("/<email>")
 @api.param("email", "User database email")
 class UserEmailResource(Resource):
-    @responds(schema=UserSendSchema)
+    @responds(schema=UserSchema)
     def get(self, email: str):
         return UserService.get_by_email(email)
 
@@ -107,7 +107,7 @@ class UserLoginResource(Resource):
         dict(name="password", type=str, help="A user's password"),
         api=api,
     )
-    @responds(schema=UserSendSchema)
+    @responds(schema=UserSchema)
     def post(self):
         """Login with user credentials"""
 

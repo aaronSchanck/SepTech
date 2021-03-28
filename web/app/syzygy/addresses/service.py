@@ -1,4 +1,4 @@
-"""/web/app/syzygy/address/service.py
+"""/web/app/syzygy/addresses/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -61,7 +61,7 @@ class AddressService:
         return Address.query.filter(Address.email == email).first()
 
     @staticmethod
-    def update(address: Address, Address_change_updates: AddressInterface) -> Address:
+    def update(address: Address, address_changes: AddressInterface) -> Address:
         """[summary]
 
         :param address: The Address to update in the database
@@ -72,7 +72,7 @@ class AddressService:
         :return: The updated Address model object
         :rtype: Address
         """
-        address.update(Address_change_updates)
+        address.update(address_changes)
         db.session.commit()
         return address
 
@@ -104,70 +104,12 @@ class AddressService:
         :rtype: Address
         """
 
-        new_address = Address(
-            email=new_attrs["email"],
-            password=new_attrs["password"],
-            first_name=new_attrs["first_name"],
-            last_name=new_attrs["last_name"],
-            date_of_birth=new_attrs["date_of_birth"],
-            created_at=new_attrs["created_at"],
-            modified_at=new_attrs["modified_at"],
-        )
+        new_address = Address()
 
         db.session.add(new_address)
         db.session.commit()
 
         return new_address
-
-    @staticmethod
-    def create_address(email, password, salt, first_name, last_name, phone_number):
-        new_address = Address(
-            email=email,
-            password=password,  #hash again
-            first_name=first_name,
-            last_name=last_name,
-            phone_number=phone_number,
-            password_salt1=salt
-            date_of_birth=
-        )
-
-    @staticmethod
-    def login(email: str, password: str) -> Address:
-        """Checks address credentials against database. If a address is found, then
-        send the address information back to the client.
-
-        :param email: Address's email
-        :type email: str
-        :param password: Address's password
-        :type password: str
-        :return: Address model from the table with the specified email and
-        password
-        :rtype: Address
-        """
-
-        log.debug(f"email: {email}\tPassword: {password}")
-
-        if not email:
-            return ErrResponse("No email entered", 400)
-
-        if not password:
-            return ErrResponse("No password entered", 400)
-
-        address = AddressService.get_by_email(email)
-
-        if address is None:
-            log.info("No address was found for supplied email")
-            return ErrResponse("Incorrect email", 400)
-
-        if address.password != password:
-            log.info("No address was found for supplied password")
-            return ErrResponse("Incorrect password", 400)
-
-        log.info(f"Address {address.addressid} was found and returned to client")
-
-        # generate JWT token and concatenate
-
-        return address
 
 
 def NormalResponse(response: dict, status: int) -> Response:

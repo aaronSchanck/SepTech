@@ -1,4 +1,4 @@
-"""/web/app/syzygy/address/controller.py
+"""/web/app/syzygy/addresses/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,10 +15,6 @@ Classes:
     AddressIdResource:
         Extends Resource from flask-restx. Follows same functionality from
         aforementioned class. Must be routed to with {baseurl}/{addressid}.
-
-    AddressLoginResource:
-        Extends Resource from flask-restx. Acts as a helper class for logging
-        in address.
 
 """
 

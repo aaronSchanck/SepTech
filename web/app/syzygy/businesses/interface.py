@@ -22,13 +22,4 @@ log = logging.getLogger(__name__)
 
 
 class BusinessInterface(TypedDict, total=False):
-    userid: int
-    email: str
-    password: str
-    full_name: str
-    date_of_birth: str
-    created_at: str
-    modified_at: str
-    phone_number: str
-    password_salt1: str
-    password_salt2: str
+    id: int
