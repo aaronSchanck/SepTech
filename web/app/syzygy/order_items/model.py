@@ -32,17 +32,17 @@ class OrderItem(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "orderitems"
+    __tablename__ = "order_items"
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer)
     price = db.Column(db.Numeric(10, 2))
 
     itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
-    item = db.relationship("Item", backref="orderitems")
+    item = db.relationship("Item", backref="order_items")
 
     orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
-    order = db.relationship("Order", backref="orderitems")
+    order = db.relationship("Order", backref="order_items")
 
     def update(self, changes: OrderItemInterface):
         for key, val in changes.items():
