@@ -23,7 +23,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
-import com.septech.centauri.ui.view.activities.MainActivity;
+import com.septech.centauri.ui.home.HomeActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
 
 
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void changeActivities() {
         mUsernameTextInput.getEditText().setText("success");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 
