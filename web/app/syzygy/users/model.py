@@ -58,10 +58,17 @@ class User(db.Model):
         uselist=False,
     )
 
+    banned_id = db.Column(db.Integer, db.ForeignKey("banned.id"))
+    banned = db.relationship(
+        "Banned", foreign_keys=banned_id, backref="user", uselist=False
+    )
+
     phone_number = db.Column(db.String(11))
     password_salt1 = db.Column(db.String(63))
+
     password_reset_code = db.Column(db.String(6))
     password_reset_timeout = db.Column(db.DateTime)
+
     last_successful_login = db.Column(db.DateTime)
     last_unsuccessful_login = db.Column(db.DateTime)
 
@@ -75,3 +82,9 @@ class User(db.Model):
             setattr(self, key, val)
 
         return self
+
+    @property
+    def user_banned(self):
+        if self.banned_id is None:
+            return False
+        return False
