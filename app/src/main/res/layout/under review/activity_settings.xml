@@ -129,8 +129,8 @@
 
         <Button
             android:id="@+id/securityBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginStart="55dp"
             android:layout_marginEnd="55dp"
             android:layout_weight="1"
@@ -192,23 +192,27 @@
             android:id="@+id/account_arrow"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/accountBtn"
+            app:layout_constraintTop_toTopOf="@+id/accountBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
-            tools:layout_editor_absoluteY="214dp" />
+            tools:layout_editor_absoluteY="214dp"/>
 
         <ImageView
             android:id="@+id/proxima_arrow"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/proximaBtn"
+            app:layout_constraintTop_toTopOf="@+id/proximaBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
             tools:layout_editor_absoluteY="261dp" />
 
@@ -216,11 +220,13 @@
             android:id="@+id/notifications_arrow"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/notificationsBtn"
+            app:layout_constraintTop_toTopOf="@+id/notificationsBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
             tools:layout_editor_absoluteY="311dp" />
 
@@ -228,11 +234,13 @@
             android:id="@+id/appearence_arrow"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/appearenceBtn"
+            app:layout_constraintTop_toTopOf="@+id/appearenceBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
             tools:layout_editor_absoluteY="361dp" />
 
@@ -240,11 +248,13 @@
             android:id="@+id/privacy_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/securityBtn"
+            app:layout_constraintTop_toTopOf="@+id/securityBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
             tools:layout_editor_absoluteY="411dp" />
 
@@ -252,11 +262,13 @@
             android:id="@+id/help_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/helpBtn"
+            app:layout_constraintTop_toTopOf="@+id/helpBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
             tools:layout_editor_absoluteY="463dp" />
 
@@ -264,11 +276,13 @@
             android:id="@+id/location_arrow"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/locationBtn"
+            app:layout_constraintTop_toTopOf="@+id/locationBtn"
             app:srcCompat="@drawable/ic_right_arrow_black"
             tools:layout_editor_absoluteY="513dp" />
 
@@ -276,15 +290,14 @@
             android:id="@+id/about_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="31dp"
             android:contentDescription="@string/arrow"
             android:translationZ="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/aboutBtn"
-            app:layout_constraintTop_toBottomOf="@+id/location_arrow"
+            app:layout_constraintTop_toTopOf="@+id/aboutBtn"
             app:layout_constraintVertical_bias="0.015"
             app:srcCompat="@drawable/ic_right_arrow_black" />
 
