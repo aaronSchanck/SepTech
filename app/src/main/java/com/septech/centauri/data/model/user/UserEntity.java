@@ -1,74 +1,72 @@
 package com.septech.centauri.data.model.user;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "users")
 public class UserEntity {
 
-    @PrimaryKey
-    private int id;
-
     @SerializedName("userid")
-    private int userId;
-
-    @SerializedName("username")
-    private String username;
+    @Expose(serialize = false)
+    private int userid;
 
     @SerializedName("email")
+    @Expose
     private String email;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @SerializedName("password")
+    @Expose
     private String password;
 
-    @SerializedName("first_name")
-    @ColumnInfo(name = "first_name")
-    private String firstName;
-
-    @SerializedName("last_name")
-    @ColumnInfo(name = "last_name")
-    private String lastName;
+    @SerializedName("full_name")
+    @Expose
+    private String fullName;
 
     @SerializedName("date_of_birth")
-    @ColumnInfo(name = "date_of_birth")
+    @Expose
     private String dateOfBirth;
+
+    @SerializedName("phone_number")
+    @Expose
+    private String phoneNumber;
+
+    @SerializedName("password_salt1")
+    @Expose
+    private String passwordSalt;
+
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+
+    @SerializedName("modified_at")
+    @Expose
+    private String modifiedAt;
+
+    @SerializedName("password_reset_code")
+    @Expose
+    private String passwordResetCode;
+
+    @SerializedName("password_reset_timeout")
+    @Expose
+    private String passwordResetTimeout;
+
+//    @SerializedName("admin_level")
+//    @Expose
+//    private String adminLevel;
 
     public UserEntity() {
         //empty
     }
 
-    public int getId() {
-        return id;
+    public UserEntity(int userid) {
+        this.userid = userid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getUserid() {
+        return userid;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getEmail() {
@@ -79,20 +77,20 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getDateOfBirth() {
@@ -101,5 +99,53 @@ public class UserEntity {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(String modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public String getPasswordResetCode() {
+        return passwordResetCode;
+    }
+
+    public void setPasswordResetCode(String passwordResetCode) {
+        this.passwordResetCode = passwordResetCode;
+    }
+
+    public String getPasswordResetTimeout() {
+        return passwordResetTimeout;
+    }
+
+    public void setPasswordResetTimeout(String passwordResetTimeout) {
+        this.passwordResetTimeout = passwordResetTimeout;
     }
 }

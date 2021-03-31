@@ -22,7 +22,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
-import com.septech.centauri.ui.view.activities.MainActivity;
+import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
+import com.septech.centauri.ui.home.HomeActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
 
 
@@ -101,8 +102,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mLoginButton.setEnabled(loginFormState.isDataValid());
-        if (loginFormState.getUsernameError() != null) {
-            mUsernameTextInput.getEditText().setError(getString(loginFormState.getUsernameError()));
+        if (loginFormState.getEmailError() != null) {
+            mUsernameTextInput.getEditText().setError(getString(loginFormState.getEmailError()));
         }
         if (loginFormState.getPasswordError() != null) {
             mPasswordTextInput.getEditText().setError(getString(loginFormState.getPasswordError()));
@@ -117,11 +118,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void processResponse(LoginResponse response) {
-        if (response == LoginResponse.LOADING) {
+    private void processResponse(LoginCloudResponse response) {
+        if (response == LoginCloudResponse.LOADING) {
             mUsernameTextInput.getEditText().setText("loading");
             showLoadingIcon();
-        } else if (response == LoginResponse.FAILED) {
+        } else if (response == LoginCloudResponse.FAILED) {
             hideLoadingIcon();
             mUsernameTextInput.getEditText().setText("failed");
             onUnsuccessfulLogin();
@@ -141,42 +142,34 @@ public class LoginActivity extends AppCompatActivity {
 
     private void changeActivities() {
         mUsernameTextInput.getEditText().setText("success");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 
     private void bindButtonListeners() {
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideKeyboard();
+        mLoginButton.setOnClickListener(v -> {
+            hideKeyboard();
 
-                String username = mUsernameTextInput.getEditText().getText().toString();
-                String password = mPasswordTextInput.getEditText().getText().toString();
+            String username = mUsernameTextInput.getEditText().getText().toString();
+            String password = mPasswordTextInput.getEditText().getText().toString();
 
-                mLoginViewModel.login(username, password);
-            }
+            mLoginViewModel.login(username, password);
         });
 
-        mCreateAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        mCreateAccountBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
-        mForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
+        mForgotPasswordBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ForgotPasswordActivity.class);
+            startActivity(intent);
         });
     }
 
 
     private void onSuccessfulLogin(User user) {
-        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getUsername()),
+        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFullName()),
                 Toast.LENGTH_LONG).show();
         Intent i = new Intent();
     }

@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/interface.py
+"""/web/app/syzygy/addresses/interface.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -21,7 +21,13 @@ from typing import TypedDict
 log = logging.getLogger(__name__)
 
 
-class ItemInterface(TypedDict, total=False):
-    itemid: int
-    name: str
-    discriminator: str
+class AddressInterface(TypedDict, total=False):
+    unit: str
+    building: str
+    street_name: str
+    street_type: str
+    city: str
+    region: str
+    country: str
+    address_code: str
+    postal_code: str

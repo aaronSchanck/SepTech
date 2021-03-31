@@ -7,8 +7,8 @@
 |**Primary Actor**|     General User.        |
 |**Participants**|     Admin localUser, Premium User, Non-Premium User        |
 |**Goal**|     To successfully add an item to the localUser cart.        |
-|**Following Use Cases**|     None.       |
-|**Invariant**|     No invariant.     |
+|**Following Use Cases**|     Cart Update Save (Add Item part of Update Cart generalization).     |
+|**Invariant**|     User is in cart view.     |
 |**Precondition**|     User is signed into a localUser account.       |
 |**Success Postcondition**|     The system saves the item to the localUsers cart.       |
 
@@ -31,7 +31,7 @@
 |**Primary Actor**|   Admin User   |
 |**Participants**|    Offending User   |
 |**Goal**| Remove localUser account from the system.      |
-|**Following Use Cases**| Provide Reason for Ban       |
+|**Following Use Cases**| Provide Reason for Ban, View Seller Profiles.       |
 |**Invariant**| None   |
 |**Precondition**|  The localUser must have administrative permissions.   |
 |**Success Postcondition**| The account violating terms is barred access to the app.     |
@@ -48,6 +48,7 @@
 | 7.  The system sends a notification to the offending localUser's email inbox indicating they have been banned. |      |
 | 8.  The system displays a message indicating they have been banned upon an attempt to sign in by the offending localUser. |      |
 | 9.  The system locks the account down. |      |
+
 
 ---
 

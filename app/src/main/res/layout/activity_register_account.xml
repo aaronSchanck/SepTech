@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".ui.register.RegisterActivity">
 
+    <ProgressBar
+        android:id="@+id/loading_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/red_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.500"
+        android:elevation="10dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -42,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="3dp"
                 android:orientation="vertical"
-                android:text="First Name"
+                android:text="Full Name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,36 +81,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/lname_text"
-                android:layout_width="370dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="3dp"
-                android:orientation="vertical"
-                android:text="Last Name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fname_text_input" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lname_text_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="370dp"
-                android:layout_height="64dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.500"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lname_text"
-                app:layout_constraintVertical_bias="0.0">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
                 android:id="@+id/email_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
@@ -107,7 +91,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lname_text_input" />
+                app:layout_constraintTop_toBottomOf="@+id/fname_text_input" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_text_input"
@@ -205,9 +189,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phone_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:inputType="textPassword"
                 android:layout_width="370dp"
                 android:layout_height="64dp"
+                android:inputType="phone|number"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.500"
@@ -220,12 +204,40 @@
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/dob_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="3dp"
+                android:orientation="vertical"
+                android:text="Date of Birth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_text_input" />
+
+
+            <DatePicker
+                android:id="@+id/dob_input"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:spinnersShown="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.500"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dob_text"
+                />
+
+
             <Button
-                android:id="@+id/sign_in_btn"
+                android:id="@+id/register_create_account_btn"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="0dp"
                 android:backgroundTint="@color/centauri__teal"
                 android:elevation="5dp"
                 android:text="CREATE YOUR CENTAURI ACCOUNT"
@@ -234,7 +246,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phone_text_input" />
+                app:layout_constraintTop_toBottomOf="@+id/dob_input" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

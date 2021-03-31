@@ -31,7 +31,7 @@ from flask_restx import Namespace, Resource
 
 from .interface import UserInterface
 from .model import User
-from .schema import UserSchema
+from .schema import UserSchema, UserSchema
 from .service import UserService
 
 api = Namespace("User")
@@ -89,10 +89,22 @@ class UserIdResource(Resource):
         return UserService.update(User, changes)
 
 
+@api.route("/<email>")
+@api.param("email", "User database email")
+class UserEmailResource(Resource):
+    @responds(schema=UserSchema)
+    def get(self, email: str):
+        return UserService.get_by_email(email)
+
+    def put(self, email: str):
+        """Forgot password API Endpoint"""
+        return UserService.reset_password(email)
+
+
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(
-        dict(name="username", type=str, help="A user's username/email"),
+        dict(name="email", type=str, help="A user's email"),
         dict(name="password", type=str, help="A user's password"),
         api=api,
     )
@@ -100,7 +112,7 @@ class UserLoginResource(Resource):
     def post(self):
         """Login with user credentials"""
 
-        username = request.parsed_args["username"]
+        email = request.parsed_args["email"]
         password = request.parsed_args["password"]
 
-        return UserService.login(username, password)
+        return UserService.login(email, password)

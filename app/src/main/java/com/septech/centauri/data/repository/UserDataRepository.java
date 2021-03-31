@@ -1,39 +1,44 @@
 package com.septech.centauri.data.repository;
 
 
-import com.septech.centauri.data.datasource.UserDataSource;
+import android.util.Log;
+
+import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.user.mapper.UserEntityDataMapper;
-import com.septech.centauri.data.net.RestApi;
 import com.septech.centauri.data.net.RestApiClient;
+import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
-import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class UserDataRepository implements UserRepository {
+    private static final String TAG = UserDataRepository.class.getSimpleName();
 
     private static UserDataRepository mInstance;
 
     private BetelgeuseDatabase database;
-    private RestApi restApi;
-    private UserEntityDataMapper userEntityDataMapper;
+    private final FileCache fileCache;
+    private final RestApiClient restApiImpl;
+    private final BetelgeuseDatabase localDb;
 
-    private UserDataSource userDataSource;
+    private CompositeDisposable mDisposables = new CompositeDisposable();
 
     private UserDataRepository() {
-        this.userDataSource = new UserDataSource();
+        this.restApiImpl = RestApiClient.getInstance();
+        this.localDb = BetelgeuseDatabase.getDatabase();
+        this.fileCache = new FileCache();
 
-        this.userEntityDataMapper = new UserEntityDataMapper();
-
-//        this.restApi = new RestApiImpl();
-//        this.database = BetelgeuseDatabase.getDatabase();
+        this.mDisposables = new CompositeDisposable();
     }
 
     public static UserDataRepository getInstance() {
@@ -44,36 +49,74 @@ public class UserDataRepository implements UserRepository {
     }
 
 
-    public Observable<User> getSingleUser(int userid) {
-
-        return null;
-    }
-
-    @Override
-    public Single<User> login(final String username, final String password) {
+    public Single<User> getUserById(int userid) {
         try {
-            Single<UserEntity> userEntity = RestApiClient.getInstance().login(username,
-                    password);
-            return userEntity.map(new Function<UserEntity, User>() {
-                        @Override
-                        public User apply(@NonNull UserEntity userEntity) throws Exception {
-                            return UserEntityDataMapper.transform(userEntity);
-                        }
-                    });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            return restApiImpl.getUserById(userid).map(UserEntityDataMapper::transform);
+        } catch (Exception e) {
+            Log.w(TAG, e.toString());
         }
-    }
-
-    @Override
-    public Observable<User> deleteUser(int userid) {
         return null;
     }
 
     @Override
-    public Observable<User> createUser(User user) {
+    public Single<User> login(final String email, final String password, String passwordSalt) {
+        PasswordUtils pwUtils = new PasswordUtils(password, passwordSalt);
+        String pwHash = pwUtils.hash();
+
+        return restApiImpl.login(email, pwHash).map(UserEntityDataMapper::transform);
+    }
+
+    @Override
+    public Single<User> deleteUser(int userid) {
+        return restApiImpl.deleteUser(userid);
+    }
+
+    @Override
+    public void createUser(User user) {
+        restApiImpl.createUser(UserEntityDataMapper.transform(user));
+    }
+
+    @Override
+    public Observable<List<User>> getAllUsers() {
+        //return restApi.getAllUsers().map(UserEntityDataMapper::transform);
+
+        //TODO: return list of users
         return null;
+    }
+
+    @Override
+    public Single<User> createAccount(String email, String password, String fullName, String phoneNumber) {
+        PasswordUtils pwUtils = new PasswordUtils(password);
+        String pwHash = pwUtils.hash();
+
+        UserEntity userEntity = new UserEntity();
+
+        userEntity.setEmail(email);
+        userEntity.setPassword(pwHash);
+        userEntity.setFullName(fullName);
+        userEntity.setPhoneNumber(phoneNumber);
+        userEntity.setPasswordSalt(pwUtils.getSalt());
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        String date = df.format(Calendar.getInstance().getTime());
+
+        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+        String date2 = df2.format(Calendar.getInstance().getTime());
+
+        Log.i("words", pwHash);
+
+        userEntity.setCreatedAt(date);
+        userEntity.setModifiedAt(date);
+        userEntity.setDateOfBirth(date2);
+
+        userEntity.setPasswordResetCode("");
+        userEntity.setPasswordResetTimeout(date);
+
+        return restApiImpl.createUser(userEntity).map(UserEntityDataMapper::transform);
+    }
+
+    @Override
+    public Single<User> getUserByEmail(String email) {
+        return restApiImpl.getUserByEmail(email).map(UserEntityDataMapper::transform);
     }
 }

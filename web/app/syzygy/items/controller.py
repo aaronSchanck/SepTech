@@ -55,12 +55,12 @@ class ItemResource(Resource):
 
         return ItemService.get_all()
 
-    # @accepts(schema=ItemSchema, api=api)
-    # @responds(schema=ItemSchema)
-    # def post(self):
-    #     """Create a Single Item"""
+    @accepts(schema=ItemSchema, api=api)
+    @responds(schema=ItemSchema)
+    def post(self):
+        """Create a Single Item"""
 
-    #     return ItemService.create(request.parsed_obj)
+        return ItemService.create(request.parsed_obj)
 
 
 @api.route("/<int:itemid>")
@@ -72,18 +72,18 @@ class ItemIdResource(Resource):
 
         return ItemService.get_by_id(itemid)
 
-    # def delete(self, itemid: int):
-    #     """Delete Single Item"""
-    #     from flask import jsonify
+    def delete(self, itemid: int):
+        """Delete Single Item"""
+        from flask import jsonify
 
-    #     id = ItemService.delete_by_id(itemid)
-    #     return jsonify(dict(status="Success", id=id))
+        id = ItemService.delete_by_id(itemid)
+        return jsonify(dict(status="Success", id=id))
 
-    # @accepts(schema=ItemSchema, api=api)
-    # @responds(schema=ItemSchema)
-    # def put(self, itemid: int):
-    #     """Update Single Item"""
+    @accepts(schema=ItemSchema, api=api)
+    @responds(schema=ItemSchema)
+    def put(self, itemid: int):
+        """Update Single Item"""
 
-    #     changes: ItemInterface = request.parsed_obj
-    #     Item = ItemService.get_by_id(itemid)
-    #     return ItemService.update(Item, changes)
+        changes: ItemInterface = request.parsed_obj
+        Item = ItemService.get_by_id(itemid)
+        return ItemService.update(Item, changes)

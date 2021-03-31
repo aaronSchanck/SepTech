@@ -7,7 +7,7 @@
 |**Primary Actor**|   Admin User   |
 |**Participants**|    Offending User   |
 |**Goal**| Remove localUser account from the system.      |
-|**Following Use Cases**| Provide Reason for Ban       |
+|**Following Use Cases**| Provide Reason for Ban, View Seller Profiles.       |
 |**Invariant**| None   |
 |**Precondition**|  The localUser must have administrative permissions.   |
 |**Success Postcondition**| The account violating terms is barred access to the app.     |

@@ -9,8 +9,8 @@
 |**Primary Actor**|     General User.        |
 |**Participants**|     Admin localUser, Premium User, Non-Premium User        |
 |**Goal**|     To successfully add an item to the localUser cart.        |
-|**Following Use Cases**|     None.       |
-|**Invariant**|     No invariant.     |
+|**Following Use Cases**|     Cart Update Save (Add Item part of Update Cart generalization).     |
+|**Invariant**|     User is in cart view.     |
 |**Precondition**|     User is signed into a localUser account.       |
 |**Success Postcondition**|     The system saves the item to the localUsers cart.       |
 

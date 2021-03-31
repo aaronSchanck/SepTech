@@ -16,13 +16,14 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class LoginViewModel extends ViewModel {
+    private static final String TAG = "LoginViewModel";
 
     private final UserRepository userRepo;
 
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
     private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
-    private final MutableLiveData<LoginResponse> responseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginCloudResponse> responseLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
@@ -33,7 +34,7 @@ public class LoginViewModel extends ViewModel {
         return userLiveData;
     }
 
-    public MutableLiveData<LoginResponse> getResponseLiveData() {
+    public MutableLiveData<LoginCloudResponse> getResponseLiveData() {
         return responseLiveData;
     }
 
@@ -46,25 +47,43 @@ public class LoginViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void login(String username, String password) {
-        mDisposables.add(userRepo.login(username, password)
+    public void login(String email, String password) {
+        mDisposables.add(userRepo.getUserByEmail(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onStart() {
-                        responseLiveData.setValue(LoginResponse.LOADING);
+                        responseLiveData.setValue(LoginCloudResponse.LOADING);
                     }
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        responseLiveData.setValue(LoginResponse.SUCCESS);
-                        userLiveData.setValue(user);
+                        mDisposables.add(userRepo.login(email, password, user.getPasswordSalt())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeWith(new DisposableSingleObserver<User>() {
+                                    @Override
+                                    public void onStart() {
+                                    }
+
+                                    @Override
+                                    public void onSuccess(@NonNull User user) {
+                                        responseLiveData.setValue(LoginCloudResponse.SUCCESS);
+                                        userLiveData.setValue(user);
+                                    }
+
+                                    @Override
+                                    public void onError(@NonNull Throwable e) {
+                                        responseLiveData.setValue(LoginCloudResponse.FAILED);
+                                    }
+                                })
+                        );
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(LoginResponse.FAILED);
+                        responseLiveData.setValue(LoginCloudResponse.FAILED);
                     }
                 })
         );
@@ -74,7 +93,7 @@ public class LoginViewModel extends ViewModel {
         if (!usernameIsValid(username))
             loginFormStateLiveData.setValue(new LoginFormState(R.string.string_username_incorrect,
                     null));
-        else if(!passwordIsValid(password))
+        else if (!passwordIsValid(password))
             loginFormStateLiveData.setValue(new LoginFormState(null,
                     R.string.string_password_incorrect));
         else
@@ -86,6 +105,6 @@ public class LoginViewModel extends ViewModel {
     }
 
     private boolean passwordIsValid(String password) {
-        return password.length() > 5;
+        return password.length() > 3;
     }
 }

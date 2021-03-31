@@ -16,6 +16,8 @@ Functions:
 
 from app import db
 from .model import Item
+from ..categories.model import Category
+from ..categories.service import CategoryService
 from .interface import ItemInterface
 from flask import Response
 import json
@@ -50,26 +52,15 @@ class ItemService:
         return Item.query.get(itemid)
 
     @staticmethod
-    def get_by_email(email: str) -> Item:
+    def get_by_name(item_name: str) -> Item:
         """[summary]
 
-        :param email: [description]
-        :type email: str
+        :param item_name: [description]
+        :type item_name: str
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.filter(Item.email == email).first()
-
-    @staticmethod
-    def get_by_itemname(itemname: str) -> Item:
-        """[summary]
-
-        :param itemname: [description]
-        :type itemname: str
-        :return: [description]
-        :rtype: [type]
-        """
-        return Item.query.filter(Item.itemname == itemname).first()
+        return Item.query.filter(Item.name == item_name).first()
 
     @staticmethod
     def update(item: Item, Item_change_updates: ItemInterface) -> Item:
@@ -115,14 +106,42 @@ class ItemService:
         :rtype: Item
         """
 
+        categories = new_attrs["category"]
+
+        category = CategoryService.create_if_not_exists(categories)
+
+        # items = (
+        #     db.session.query(Category)
+        #     .join(Category.items)
+        #     .filter(Category.category_id == 1)
+        #     .all()
+        # )
+
+        # print(items[0].items)
+
         new_item = Item(
-            name=new_attrs["name"], discriminator=new_attrs["discriminator"]
+            name=new_attrs["name"],
+            quantity=new_attrs["quantity"],
+            posted_at=new_attrs["posted_at"],
+            seller=new_attrs["seller"],
+            price=new_attrs["price"],
+            can_buy=new_attrs["can_buy"],
+            can_bid=new_attrs["can_bid"],
+            highest_bid=new_attrs["highest_bid"],
+            highest_bid_user=new_attrs["highest_bid_user"],
+            bidding_ends=new_attrs["bidding_ends"],
+            quality=new_attrs["quality"],
+            category_id=category.category_id,
+            thumbnail=new_attrs["thumbnail"],
+            item_variants=new_attrs["item_variants"],
+            description=new_attrs["description"],
         )
 
         db.session.add(new_item)
         db.session.commit()
 
         return new_item
+
 
 def NormalResponse(response: dict, status: int) -> Response:
     """Function to return a normal response (200-299)

@@ -23,6 +23,7 @@ BASE_ROUTE = "addresses"
 
 log = logging.getLogger(__name__)
 
+
 def register_routes(api, app, root="api"):
     from .controller import api as address_api
 

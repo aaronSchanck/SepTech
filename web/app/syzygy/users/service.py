@@ -14,16 +14,21 @@ Functions:
 
 """
 
-from app import db
-from .model import User
-from .interface import UserInterface
-from flask import Response
 import json
 import logging
-
 import re
-
+import secrets
+from datetime import datetime, timedelta
 from typing import List
+
+from app.globals import *
+import bcrypt
+from app import db
+from flask import Response
+from utils.auth import encrypt_pw
+
+from .interface import UserInterface
+from .model import User
 
 log = logging.getLogger(__name__)
 
@@ -47,7 +52,12 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
-        return User.query.get(userid)
+        user = User.query.get(userid)
+
+        # if user is None:
+        #     return ErrResponse("Requested user doesn't exist", 400)
+
+        return user
 
     @staticmethod
     def get_by_email(email: str) -> User:
@@ -58,18 +68,10 @@ class UserService:
         :return: [description]
         :rtype: [type]
         """
-        return User.query.filter(User.email == email).first()
 
-    @staticmethod
-    def get_by_username(username: str) -> User:
-        """[summary]
+        user = User.query.filter(User.email == email).first()
 
-        :param username: [description]
-        :type username: str
-        :return: [description]
-        :rtype: [type]
-        """
-        return User.query.filter(User.username == username).first()
+        return user
 
     @staticmethod
     def update(user: User, User_change_updates: UserInterface) -> User:
@@ -84,6 +86,8 @@ class UserService:
         :rtype: User
         """
         user.update(User_change_updates)
+        user.modified_at = datetime.now()
+
         db.session.commit()
         return user
 
@@ -115,15 +119,31 @@ class UserService:
         :rtype: User
         """
 
+        user = UserService.get_by_email(new_attrs["email"])
+
+        if user is not None:
+            return ErrResponse("User with email already exists", 400)
+
+        encrypted_pw = encrypt_pw(new_attrs["password"])
+
+        phone_number_reformatted = new_attrs["phone_number"]
+
+        for c in ['(', ')', '-', ' ' ]:
+            if c in new_attrs["phone_number"]:
+                phone_number_reformatted.replace(c, "")
+
+
         new_user = User(
-            username=new_attrs["username"],
             email=new_attrs["email"],
-            password=new_attrs["password"],
-            first_name=new_attrs["first_name"],
-            last_name=new_attrs["last_name"],
+            password=encrypted_pw,
+            full_name=new_attrs["full_name"],
             date_of_birth=new_attrs["date_of_birth"],
-            created_at=new_attrs["created_at"],
-            modified_at=new_attrs["modified_at"],
+            created_at=datetime.now(),
+            modified_at=datetime.now(),
+            phone_number=new_attrs["phone_number"],
+            password_salt1=new_attrs["password_salt1"],
+            # password_reset_code=new_attrs["password_reset_code"],
+            # password_reset_timeout=new_attrs["password_reset_timeout"],
         )
 
         db.session.add(new_user)
@@ -132,50 +152,34 @@ class UserService:
         return new_user
 
     @staticmethod
-    def login(username: str, password: str) -> User:
+    def login(email: str, password: str) -> User:
         """Checks user credentials against database. If a user is found, then
         send the user information back to the client.
 
-        :param username: User's username or email, to be figured out in the
-        function
-        :type username: str
+        :param email: User's email
+        :type email: str
         :param password: User's password
         :type password: str
-        :return: User model from the table with the specified username/email and
+        :return: User model from the table with the specified email and
         password
         :rtype: User
         """
 
-        log.debug(f"Username: {username}\tPassword: {password}")
+        log.debug(f"email: {email}\tPassword: {password}")
 
-        if not username:
-            return ErrResponse("No username/email entered", 400)
+        if not email:
+            return ErrResponse("No email entered", 400)
 
         if not password:
             return ErrResponse("No password entered", 400)
 
-        # check to see if the username matches on email. If so, then the user
-        # input a email address in the box instead of a username
-        if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", username):
-            log.info("Input username was thought to be an email address")
-            email = username
-        else:
-            log.info("Input username was thought to be a username")
-            email = ""
-
-        # get user structure from email address or username, whichever was
-        # supplied
-        user = (
-            UserService.get_by_email(email)
-            if email
-            else UserService.get_by_username(username)
-        )
+        user = UserService.get_by_email(email)
 
         if user is None:
-            log.info("No user was found for supplied username/email")
-            return ErrResponse("Incorrect username/email", 400)
+            log.info("No user was found for supplied email")
+            return ErrResponse("Incorrect email", 400)
 
-        if user.password != password:
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password):
             log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
@@ -184,6 +188,46 @@ class UserService:
         # generate JWT token and concatenate
 
         return user
+
+    @staticmethod
+    def reset_password(email: str):
+        user = UserService.get_by_email(email)
+
+        if user is None:
+            return ErrResponse("User does not exist", 400)
+
+        user_changes: UserInterface = {
+            "password_reset_code": UserService.gen_unique_reset_code(),
+            "password_reset_timeout": datetime.now()
+            + timedelta(minutes=PASSWORD_RESET_TIME),
+        }
+
+        UserService.update(user, user_changes)
+
+        return NormalResponse("Healthy", 200)
+
+        # user_changes = UserInterface(
+        #     "password_reset_code": UserService.gen_unique_reset_code(),
+        #     "password_reset_timeout": datetime.now(),
+        # )
+
+        # UserService.update(user, user_changes)
+
+    @staticmethod
+    def gen_unique_reset_code():
+        done = False
+
+        while not done:
+            code = secrets.token_hex(nbytes=3)
+            for other_code in User.query.with_entities(
+                User.password_reset_code, User.password_reset_timeout
+            ):
+                if code == other_code[0] and (
+                    other_code[1] and other_code[1] > datetime.now()
+                ):
+                    break
+                done = True
+        return code
 
 
 def NormalResponse(response: dict, status: int) -> Response:
