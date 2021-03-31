@@ -131,8 +131,11 @@ class CategoryItemTwoResource(Resource):
         """Get all items within category <category_1_name>/<category_2_name>"""
         ids = []
 
-        for category in Category.query.filter(Category.category_1 == category_1_name)
-            .filter(Category.category_2 == category_2_name).all():
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .all()
+        ):
             ids.append(category.category_id)
 
         item_ids = []
@@ -171,9 +174,12 @@ class CategoryItemThreeResource(Resource):
         """Get all items within category <category_1_name>/<category_2_name>/<category_3_name>"""
         ids = []
 
-        for category in Category.query.filter(Category.category_1 == category_1_name)
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
             .filter(Category.category_2 == category_2_name)
-            .filter(Category.category_3 == category_3_name).all():
+            .filter(Category.category_3 == category_3_name)
+            .all()
+        ):
             ids.append(category.category_id)
 
         item_ids = []
@@ -211,14 +217,23 @@ class CategoryThreeResource(Resource):
 @api.param("category_4_name", "Fourth category name")
 class CategoryItemFourResource(Resource):
     # @responds(schema=ItemSchema(many=True))
-    def get(self, category_1_name: str, category_2_name: str, category_3_name: str, cateogry_4_name: str):
+    def get(
+        self,
+        category_1_name: str,
+        category_2_name: str,
+        category_3_name: str,
+        cateogry_4_name: str,
+    ):
         """Get all items within category <category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>"""
         ids = []
 
-        for category in Category.query.filter(Category.category_1 == category_1_name)
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
             .filter(Category.category_2 == category_2_name)
             .filter(Category.category_3 == category_3_name)
-            .filter(Category.category_4 == category_4_name).all():
+            .filter(Category.category_4 == category_4_name)
+            .all()
+        ):
             ids.append(category.category_id)
 
         item_ids = []
@@ -238,7 +253,13 @@ class CategoryItemFourResource(Resource):
 @api.param("category_3_name", "Third category name")
 @api.param("category_4_name", "Fourth category name")
 class CategoryFourResource(Resource):
-    def get(self, category_1_name: str, category_2_name: str, category_3_name: str, cateogry_4_name: str):
+    def get(
+        self,
+        category_1_name: str,
+        category_2_name: str,
+        category_3_name: str,
+        cateogry_4_name: str,
+    ):
         """Get distinct categories in category <category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>"""
         distinct = []
         for category in (
@@ -263,7 +284,14 @@ class CategoryFourResource(Resource):
 @api.param("category_5_name", "Fifth category name")
 class CategoryItemFiveResource(Resource):
     # @responds(schema=ItemSchema(many=True))
-    def get(self, category_1_name: str, category_2_name: str, category_3_name: str, category_4_name: str, category_5_name: str):
+    def get(
+        self,
+        category_1_name: str,
+        category_2_name: str,
+        category_3_name: str,
+        category_4_name: str,
+        category_5_name: str,
+    ):
         """Get distinct categories in category <category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>/<category_5_name>"""
         ids = []
 

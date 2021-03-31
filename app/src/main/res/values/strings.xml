@@ -40,4 +40,11 @@
     <string name="registration_phone_number_resource_a">%1$s</string>
     <string name="registration_phone_number_resource_b">%1$s-%2$s</string>
     <string name="registration_phone_number_resource_c">%1$s-%2$s-%3$s</string>
+    <string name="wish_list"><b>Wish List</b></string>
+    <string name="view_history"><b>View History</b></string>
+    <string name="view_all_items"><b>View All Items</b></string>
+    <string name="cart"><b>Cart</b></string>
+    <string name="orders"><b>Orders</b></string>
+    <string name="need_help"><b>Need Help?</b></string>
+    <string name="home_welcome"><b>Welcome</b></string>
 </resources>

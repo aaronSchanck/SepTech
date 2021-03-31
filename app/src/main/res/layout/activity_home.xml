@@ -5,48 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="415dp"
-        android:layout_height="96dp"
-        android:layout_marginBottom="500dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/homeTextInputField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/homeTextInputField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="384dp"
-                android:layout_height="match_parent"
-                android:hint="Search Keyword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="384dp"
+            android:layout_height="match_parent"
+            android:hint="Search Keyword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/homeWelcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Welcome"
+        android:text="@string/home_welcome"
+        android:textColor="@color/black"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.144" />
 
     <TextView
         android:id="@+id/homeWishListTextView"
@@ -54,7 +42,9 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="vertical"
-        android:text="Wish List"
+        android:text="@string/wish_list"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homeWishListBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -72,7 +62,7 @@
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932"
+        app:layout_constraintVertical_bias="0.9"
         android:background="@drawable/ic_cart_background"
         android:src="@drawable/ic_cart_foreground"/>
 
@@ -80,14 +70,14 @@
         android:id="@+id/homeWishListBtn"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginBottom="32dp"
         android:contentDescription="TODO"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679"
+        app:layout_constraintVertical_bias="0.6"
         android:background="@drawable/ic_cart_background"
         android:src="@drawable/ic_cart_foreground"/>
 
@@ -95,14 +85,13 @@
         android:id="@+id/homeCartBtn"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginBottom="32dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364"
+        app:layout_constraintVertical_bias="0.3"
         android:background="@drawable/ic_cart_background"
         android:src="@drawable/ic_cart_foreground"/>
 
@@ -110,14 +99,13 @@
         android:id="@+id/homeOrdersBtn"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginBottom="32dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.678"
+        app:layout_constraintVertical_bias="0.6"
         android:background="@drawable/ic_cart_background"
         android:src="@drawable/ic_cart_foreground"/>
 
@@ -131,7 +119,7 @@
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93"
+        app:layout_constraintVertical_bias="0.9"
         android:background="@drawable/ic_person_background"
         android:src="@drawable/ic_person_foreground"/>
 
@@ -140,12 +128,13 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:contentDescription="TODO"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342"
+        app:layout_constraintVertical_bias="0.3"
         android:background="@drawable/ic_search_background"
         android:src="@drawable/ic_search_foreground"/>
 
@@ -153,7 +142,9 @@
         android:id="@+id/homeViewHistoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View History"
+        android:text="@string/view_history"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homeViewHistoryBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -166,7 +157,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Need Help?"
+        android:text="@string/need_help"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homeNeedHelpBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -178,7 +171,9 @@
         android:id="@+id/homeOrdersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Orders"
+        android:text="@string/orders"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homeOrdersBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -192,12 +187,14 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="vertical"
-        android:text="View All Items"
+        android:text="@string/view_all_items"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/viewAllItemsBtn"
+        app:layout_constraintEnd_toEndOf="@+id/homeViewAllItemsBtn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/viewAllItemsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/viewAllItemsBtn"
+        app:layout_constraintStart_toStartOf="@+id/homeViewAllItemsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/homeViewAllItemsBtn"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -206,7 +203,9 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="vertical"
-        android:text="Cart"
+        android:text="@string/cart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/homeCartBtn"
         app:layout_constraintHorizontal_bias="0.5"

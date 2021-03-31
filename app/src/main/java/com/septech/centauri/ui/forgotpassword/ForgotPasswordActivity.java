@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
+import com.septech.centauri.ui.forgotpasswordcode.ForgotPasswordCodeActivity;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPasswordActivity";
@@ -102,16 +103,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), text, duration);
                     toast.show();
 
-                    //TODO: need next class to swap to
-                    changeActivities();
+                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+                    startActivity(intent);
                     break;
             }
         });
-    }
-
-    private void changeActivities() {
-//        Intent intent = new Intent(this, ForgotPasswordCode.class);
-//        startActivity(intent);
     }
 
     private void hideKeyboard() {

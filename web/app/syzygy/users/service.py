@@ -18,12 +18,16 @@ import json
 import logging
 import re
 import secrets
+import smtplib
 from datetime import datetime, timedelta
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from typing import List
 
-from app.globals import *
 import bcrypt
 from app import db
+from app.globals import *
 from flask import Response
 from utils.auth import encrypt_pw
 
@@ -128,10 +132,9 @@ class UserService:
 
         phone_number_reformatted = new_attrs["phone_number"]
 
-        for c in ['(', ')', '-', ' ' ]:
+        for c in ["(", ")", "-", " "]:
             if c in new_attrs["phone_number"]:
                 phone_number_reformatted.replace(c, "")
-
 
         new_user = User(
             email=new_attrs["email"],
@@ -202,7 +205,9 @@ class UserService:
             + timedelta(minutes=PASSWORD_RESET_TIME),
         }
 
-        UserService.update(user, user_changes)
+        user = UserService.update(user, user_changes)
+
+        UserService.send_password_code_email(user)
 
         return NormalResponse("Healthy", 200)
 
@@ -228,6 +233,55 @@ class UserService:
                     break
                 done = True
         return code
+
+    @staticmethod
+    def send_password_code_email(recipient: User):
+
+        img_name = "assets/centauri_logo_resized.png"
+
+        mail_content = f"""\
+        Hello,<br><br>
+
+        Your password reset code is {recipient.password_reset_code}. This password reset request will expire in 15 minutes.<br><br>
+
+        If you did not request this password reset, you can safely ignore this email.<br><br><br><br><br><br>
+
+        Centauri Developers @ Septech Inc.<br><br>
+        """
+        # The mail addresses and password
+        sender_address = "septech.centauri@gmail.com"
+        sender_pass = "cos420umaine"
+        receiver_address = recipient.email
+
+        # Setup the MIME
+        msg = MIMEMultipart()
+        msg["From"] = sender_address
+        msg["To"] = receiver_address
+        msg["Subject"] = "Centauri Password Reset Code"
+
+        # The body and the attachments for the mail
+        # message.attach(MIMEText(mail_content, "plain"))
+
+        msgText = MIMEText(
+            '<b>%s</b><br><img src="cid:%s"><br>' % (mail_content, img_name), "html"
+        )
+        msg.attach(msgText)  # Added, and edited the previous line
+
+        fp = open(img_name, "rb")
+        img = MIMEImage(fp.read())
+        fp.close()
+        img.add_header("Content-ID", "<{}>".format(img_name))
+        msg.attach(img)
+
+        # Create SMTP session for sending the mail
+        session = smtplib.SMTP("smtp.gmail.com", 587)  # use gmail with port
+        session.starttls()  # enable security
+        session.login(sender_address, sender_pass)  # login with mail_id and password
+        text = msg.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+
+        print(f"Mail sent to {recipient.email} at {datetime.now()}")
 
 
 def NormalResponse(response: dict, status: int) -> Response:

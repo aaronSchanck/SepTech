@@ -8,68 +8,63 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="409dp"
-        android:layout_height="352dp"
+        android:layout_width="407dp"
+        android:layout_height="397dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="3dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="9dp"
-        app:layout_constraintBottom_toTopOf="@+id/ForgotPasswordVerifyLogo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/CheckEmailHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="59dp"
-            android:layout_marginEnd="210dp"
             android:layout_marginBottom="8dp"
             android:text="Check your email"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/CheckEmailBody"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/CheckEmailBody"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.191" />
 
         <TextView
             android:id="@+id/CheckEmailBody"
             android:layout_width="304dp"
             android:layout_height="40dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="80dp"
-            android:text="You'll recieve a verification code so you can reset your account password."
-            app:layout_constraintBottom_toTopOf="@+id/EnterCodeTextbox"
+            android:text="You'll receive a verification code so you can reset your account password."
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CheckEmailHeader" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.296" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/EnterCodeTextbox"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="300dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginEnd="54dp"
+            android:layout_width="326dp"
+            android:layout_height="74dp"
             android:layout_marginBottom="34dp"
             android:hint="Enter Your Code"
             android:orientation="vertical"
-            app:boxStrokeColor="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/VerifyButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CheckEmailBody">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:layout_height="match_parent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,8 +72,6 @@
             android:id="@+id/VerifyButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="105dp"
-            android:layout_marginEnd="104dp"
             android:layout_weight="1"
             android:backgroundTint="@color/centauri__teal"
             android:text="VERIFY"
@@ -86,23 +79,21 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EnterCodeTextbox" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.925" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/ForgotPasswordVerifyLogo"
-        android:layout_width="289dp"
-        android:layout_height="347dp"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginBottom="6dp"
+        android:layout_width="288dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="35dp"
         android:contentDescription="@string/forgot_your_password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="1.0"
