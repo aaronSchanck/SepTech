@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.SettingsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/SettingsHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="273dp"
+            android:layout_marginBottom="11dp"
+            android:text="@string/action_settings"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/SettingsSearchLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/SettingsSearchLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="124dp"
+            android:text="@string/settings_search_header"
+            app:layout_constraintBottom_toTopOf="@+id/accountBtn"
+            app:layout_constraintStart_toStartOf="@+id/SettingsSearchBar"
+            app:layout_constraintTop_toBottomOf="@+id/SettingsHeaderText" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/SettingsSearchBar"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/accountBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/SettingsHeaderText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_settings" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/accountBtn"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/accountBtn"
+            android:textColor="#000000"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/proximaBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SettingsSearchBar"
+            app:rippleColor="#FFFFFF"
+            app:strokeColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/notificationsBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/notificationsBtn"
+            android:textColor="#000000"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/appearenceBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proximaBtn" />
+
+        <Button
+            android:id="@+id/proximaBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/proximaBtn"
+            android:textColor="#000000"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/notificationsBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountBtn" />
+
+        <Button
+            android:id="@+id/appearenceBtn"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/appearenceBtn"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/securityBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notificationsBtn" />
+
+        <Button
+            android:id="@+id/securityBtn"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/privacy_securityBtn"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/helpBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appearenceBtn" />
+
+        <Button
+            android:id="@+id/helpBtn"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/help_supportBtn"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/locationBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/securityBtn" />
+
+        <Button
+            android:id="@+id/locationBtn"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/locationBtn"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/aboutBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/helpBtn" />
+
+        <Button
+            android:id="@+id/aboutBtn"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="115dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/aboutBtn"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationBtn" />
+
+        <ImageView
+            android:id="@+id/account_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accountBtn"
+            app:layout_constraintTop_toTopOf="@+id/accountBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="214dp"/>
+
+        <ImageView
+            android:id="@+id/proxima_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/proximaBtn"
+            app:layout_constraintTop_toTopOf="@+id/proximaBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="261dp" />
+
+        <ImageView
+            android:id="@+id/notifications_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notificationsBtn"
+            app:layout_constraintTop_toTopOf="@+id/notificationsBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="311dp" />
+
+        <ImageView
+            android:id="@+id/appearence_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appearenceBtn"
+            app:layout_constraintTop_toTopOf="@+id/appearenceBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="361dp" />
+
+        <ImageView
+            android:id="@+id/privacy_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/securityBtn"
+            app:layout_constraintTop_toTopOf="@+id/securityBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="411dp" />
+
+        <ImageView
+            android:id="@+id/help_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/helpBtn"
+            app:layout_constraintTop_toTopOf="@+id/helpBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="463dp" />
+
+        <ImageView
+            android:id="@+id/location_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/locationBtn"
+            app:layout_constraintTop_toTopOf="@+id/locationBtn"
+            app:srcCompat="@drawable/ic_right_arrow_black"
+            tools:layout_editor_absoluteY="513dp" />
+
+        <ImageView
+            android:id="@+id/about_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="31dp"
+            android:contentDescription="@string/arrow"
+            android:translationZ="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/aboutBtn"
+            app:layout_constraintTop_toTopOf="@+id/aboutBtn"
+            app:layout_constraintVertical_bias="0.015"
+            app:srcCompat="@drawable/ic_right_arrow_black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
