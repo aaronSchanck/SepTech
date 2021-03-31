@@ -89,6 +89,14 @@ public class LoginViewModel extends ViewModel {
         );
     }
 
+    public void onUpdateUsername(String username) {
+        //TODO
+    }
+
+    public void onUpdatePassword(String password) {
+        //TODO
+    }
+
     public void onUpdateLoginInfo(String username, String password) {
         if (!usernameIsValid(username))
             loginFormStateLiveData.setValue(new LoginFormState(R.string.string_username_incorrect,

@@ -136,7 +136,7 @@
         android:src="@drawable/ic_person_foreground"/>
 
     <ImageButton
-        android:id="@+id/viewAllItemsBtn"
+        android:id="@+id/homeViewAllItemsBtn"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:contentDescription="TODO"

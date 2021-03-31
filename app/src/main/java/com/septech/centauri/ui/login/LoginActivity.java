@@ -17,10 +17,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.models.GuestUser;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
 import com.septech.centauri.ui.home.HomeActivity;
@@ -37,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button mCreateAccountBtn;
     private Button mForgotPasswordBtn;
 
+    private Toolbar mToolBar;
+
     private ProgressBar mLoadingIcon;
 
     @Override
@@ -45,21 +49,73 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        mLoginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
         mUsernameTextInput = findViewById(R.id.email_text_input);
         mPasswordTextInput = findViewById(R.id.password_text_input);
+
         mLoginButton = findViewById(R.id.sign_in_btn);
         mCreateAccountBtn = findViewById(R.id.create_account_btn);
         mForgotPasswordBtn = findViewById(R.id.forgot_password_btn);
+
         mLoadingIcon = findViewById(R.id.loading_icon);
 
-        mLoginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mToolBar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
 
         mLoadingIcon.setVisibility(View.GONE);
 
-        mLoginViewModel.getUserLiveData().observe(this, this::processUserResponse);
-        mLoginViewModel.getResponseLiveData().observe(this, this::processResponse);
-        mLoginViewModel.getLoginFormStateLiveData().observe(this, this::processLoginChange);
+        createLiveDataObservers();
 
+        createFormTextWatchers();
+
+        createButtonListeners();
+
+        mPasswordTextInput.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                mLoginViewModel.login(mUsernameTextInput.getEditText().getText().toString(),
+                        mPasswordTextInput.getEditText().getText().toString());
+            }
+            return false;
+        });
+    }
+
+    private void createLiveDataObservers() {
+        mLoginViewModel.getUserLiveData().observe(this, user -> {
+            if (user.getUserid() == 0) {
+                onSuccessfulLogin(new GuestUser());
+            } else {
+                onSuccessfulLogin(user);
+            }
+        });
+
+        mLoginViewModel.getResponseLiveData().observe(this, loginCloudResponse -> {
+
+            if (loginCloudResponse == LoginCloudResponse.LOADING) {
+                mLoadingIcon.setVisibility(View.VISIBLE);
+            } else if (loginCloudResponse == LoginCloudResponse.FAILED) {
+                mLoadingIcon.setVisibility(View.GONE);
+            } else {
+                mLoadingIcon.setVisibility(View.GONE);
+            }
+        });
+
+        mLoginViewModel.getLoginFormStateLiveData().observe(this, loginFormState -> {
+            if (loginFormState == null) {
+                return;
+            }
+
+            mLoginButton.setEnabled(loginFormState.isDataValid());
+            if (loginFormState.getEmailError() != null) {
+                mUsernameTextInput.getEditText().setError(getString(loginFormState.getEmailError()));
+            }
+            if (loginFormState.getPasswordError() != null) {
+                mPasswordTextInput.getEditText().setError(getString(loginFormState.getPasswordError()));
+            }
+        });
+    }
+
+    private void createFormTextWatchers() {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -81,72 +137,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mUsernameTextInput.getEditText().addTextChangedListener(textWatcher);
         mPasswordTextInput.getEditText().addTextChangedListener(textWatcher);
-
-        bindButtonListeners();
-
-        mPasswordTextInput.getEditText().setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                mLoginViewModel.login(mUsernameTextInput.getEditText().getText().toString(),
-                        mPasswordTextInput.getEditText().getText().toString());
-            }
-            return false;
-        });
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
-    private void processLoginChange(LoginFormState loginFormState) {
-        if (loginFormState == null) {
-            return;
-        }
-
-        mLoginButton.setEnabled(loginFormState.isDataValid());
-        if (loginFormState.getEmailError() != null) {
-            mUsernameTextInput.getEditText().setError(getString(loginFormState.getEmailError()));
-        }
-        if (loginFormState.getPasswordError() != null) {
-            mPasswordTextInput.getEditText().setError(getString(loginFormState.getPasswordError()));
-        }
-    }
-
-    private void processUserResponse(User user) {
-        if (user.getUserid() == 0) {
-            onGuestLogin(user);
-        } else {
-            onSuccessfulLogin(user);
-        }
-    }
-
-    private void processResponse(LoginCloudResponse response) {
-        if (response == LoginCloudResponse.LOADING) {
-            mUsernameTextInput.getEditText().setText("loading");
-            showLoadingIcon();
-        } else if (response == LoginCloudResponse.FAILED) {
-            hideLoadingIcon();
-            mUsernameTextInput.getEditText().setText("failed");
-            onUnsuccessfulLogin();
-        } else {
-            mLoadingIcon.setVisibility(View.GONE);
-            changeActivities();
-        }
-    }
-
-    private void showLoadingIcon() {
-        mLoadingIcon.setVisibility(View.VISIBLE);
-    }
-
-    private void hideLoadingIcon() {
-        mLoadingIcon.setVisibility(View.GONE);
-    }
-
-    private void changeActivities() {
-        mUsernameTextInput.getEditText().setText("success");
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-    }
-
-    private void bindButtonListeners() {
+    private void createButtonListeners() {
         mLoginButton.setOnClickListener(v -> {
             hideKeyboard();
 
@@ -167,15 +160,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
     private void onSuccessfulLogin(User user) {
         Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFullName()),
                 Toast.LENGTH_LONG).show();
-        Intent i = new Intent();
-    }
 
-    private void onGuestLogin(User user) {
-
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void onUnsuccessfulLogin() {
