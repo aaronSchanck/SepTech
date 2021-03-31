@@ -23,3 +23,6 @@ log = logging.getLogger(__name__)
 
 class SessionInterface(TypedDict, total=False):
     id: int
+    userid: int
+    unique_session_id: str
+    session_expires_at: str

@@ -25,3 +25,8 @@ log = logging.getLogger(__name__)
 
 class SessionSchema(Schema):
     id = fields.Number(dump_only=True)
+    userid = fields.Number()
+
+    unique_session_id = fields.String()
+
+    session_expires_at = fields.Datetime()

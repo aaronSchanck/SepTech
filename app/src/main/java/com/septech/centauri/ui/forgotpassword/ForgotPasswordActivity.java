@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
+import com.septech.centauri.ui.forgotpasswordcode.ForgotPasswordCodeActivity;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPasswordActivity";
@@ -57,70 +58,56 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideKeyboard();
-                mForgotPasswordViewModel.forgotPasswordSubmit(mEmailEditText.getText().toString());
+        mSubmitButton.setOnClickListener(v -> {
+            hideKeyboard();
+            mForgotPasswordViewModel.forgotPasswordSubmit(mEmailEditText.getText().toString());
+        });
+
+        mForgotPasswordViewModel.getFormLiveData().observe(this, forgotPasswordFormState -> {
+            if (forgotPasswordFormState == null) {
+                return;
+            }
+
+            mSubmitButton.setEnabled(true);
+
+            if (forgotPasswordFormState.isEmailEdited() && forgotPasswordFormState.getEmailError() != null) {
+                mEmailEditText.setError(getString(forgotPasswordFormState.getEmailError()));
+            } else {
+                mEmailEditText.setError(null);
             }
         });
 
-        mForgotPasswordViewModel.getFormLiveData().observe(this, new Observer<ForgotPasswordFormState>() {
-            @Override
-            public void onChanged(ForgotPasswordFormState forgotPasswordFormState) {
-                if (forgotPasswordFormState == null) {
-                    return;
-                }
+        mForgotPasswordViewModel.getResponseLiveData().observe(this, forgotPasswordCloudResponse -> {
+            int duration = Toast.LENGTH_SHORT;
 
-                mSubmitButton.setEnabled(true);
+            CharSequence text;
+            Toast toast;
+            switch(forgotPasswordCloudResponse) {
+                case NO_USER_FOUND:
+                    text = "No user found with associated email";
+                    toast = Toast.makeText(getApplicationContext(), text, duration);
+                    toast.show();
+                    break;
+                case NO_INTERNET:
+                    text = "No internet connection";
+                    toast = Toast.makeText(getApplicationContext(), text, duration);
+                    toast.show();
+                    break;
+                case LOADING:
+                    text = "Connecting to server...";
+                    toast = Toast.makeText(getApplicationContext(), text, duration);
+                    toast.show();
+                    break;
+                case USER_FOUND:
+                    text = "User found for email";
+                    toast = Toast.makeText(getApplicationContext(), text, duration);
+                    toast.show();
 
-                if (forgotPasswordFormState.isEmailEdited() && forgotPasswordFormState.getEmailError() != null) {
-                    mEmailEditText.setError(getString(forgotPasswordFormState.getEmailError()));
-                } else {
-                    mEmailEditText.setError(null);
-                }
+                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+                    startActivity(intent);
+                    break;
             }
         });
-
-        mForgotPasswordViewModel.getResponseLiveData().observe(this, new Observer<ForgotPasswordCloudResponse>() {
-            @Override
-            public void onChanged(ForgotPasswordCloudResponse forgotPasswordCloudResponse) {
-                int duration = Toast.LENGTH_SHORT;
-
-                CharSequence text;
-                Toast toast;
-                switch(forgotPasswordCloudResponse) {
-                    case NO_USER_FOUND:
-                        text = "No user found with associated email";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
-                        break;
-                    case NO_INTERNET:
-                        text = "No internet connection";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
-                        break;
-                    case LOADING:
-                        text = "Connecting to server...";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
-                        break;
-                    case USER_FOUND:
-                        text = "User found for email";
-                        toast = Toast.makeText(getApplicationContext(), text, duration);
-                        toast.show();
-
-                        //TODO: need next class to swap to
-                        changeActivities();
-                        break;
-                }
-            }
-        });
-    }
-
-    private void changeActivities() {
-//        Intent intent = new Intent(this, ForgotPasswordCode.class);
-//        startActivity(intent);
     }
 
     private void hideKeyboard() {

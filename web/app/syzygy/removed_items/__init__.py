@@ -16,8 +16,8 @@ Functions:
 
 import logging
 
-from .model import RemovedItems
-from .schema import RemovedItemsSchema, RemovedItemsSchema
+from .model import RemovedItem
+from .schema import RemovedItemSchema
 
 BASE_ROUTE = "removed_items"
 

@@ -42,14 +42,14 @@ class CategoryResource(Resource):
 
     @responds(schema=CategorySchema(many=True))
     def get(self):
-        """Get all ItemCategories"""
+        """Get all Categories"""
 
         return CategoryService.get_all()
 
     @accepts(schema=CategorySchema, api=api)
     @responds(schema=CategorySchema)
     def post(self):
-        """Create a Single Category"""
+        """Create a single Category"""
 
         return CategoryService.create(request.parsed_obj)
 
@@ -67,7 +67,7 @@ class CategoryIdResource(Resource):
     @accepts(schema=CategorySchema, api=api)
     @responds(schema=CategorySchema)
     def put(self, itemid: int):
-        """Update Single Category"""
+        """Update single Category"""
 
         changes: CategoryInterface = request.parsed_obj
         Category = CategoryService.get_by_id(itemid)
@@ -76,74 +76,239 @@ class CategoryIdResource(Resource):
 
 @api.route("/get_unique_categories")
 class MainCategoryResource(Resource):
-    # @responds(dict("Categories", ))
     def get(self):
-        """Get a single Category"""
+        """Get unique top level categories"""
         distinct = []
         for category in Category.query.with_entities(Category.category_1).distinct():
             distinct.append(category[0])
         return distinct
 
 
-@api.route("/category_1/<category_name>/get_unique_categories")
+@api.route("/<category_1_name>/items")
 @api.param("category_name", "Category name")
-class CategoryOneResource(Resource):
-    # @responds(dict("Categories", ))
+class CategoryItemOneResource(Resource):
+    # @responds(schema=ItemSchema(many=True))
     def get(self, category_name: str):
-        """Get a single Category"""
+        """Get all items within <category_1_name>"""
+
+        ids = []
+
+        for category in Category.query.filter(
+            Category.category_1 == category_1_name
+        ).all():
+            ids.append(category.category_id)
+
+        item_ids = []
+
+        for cat_id in ids:
+            for item in Item.query.filter(Item.category_id == cat_id).all():
+                item_ids.append(item.id)
+
+        return item_ids
+
+
+@api.route("/<category_1_name>/categories")
+@api.param("category_1_name", "Category_1 name")
+class CategoryOneResource(Resource):
+    def get(self, category_1_name: str):
+        """Get distinct categories in category <category_1_name>"""
         distinct = []
         for category in (
             Category.query.with_entities(Category.category_2)
-            .filter(Category.category == category_name)
+            .filter(Category.category_1 == category_1_name)
             .distinct()
         ):
             distinct.append(category[0])
         return distinct
 
 
-@api.route("/category_2/<category_name>/get_unique_categories")
-@api.param("category_name", "Category name")
+@api.route("/<category_1_name>/<category_2_name>/items")
+@api.param("category_1_name", "First category name")
+@api.param("category_2_name", "Second category name")
+class CategoryItemTwoResource(Resource):
+    # @responds(schema=ItemSchema(many=True))
+    def get(self, category_1_name: str, category_2_name: str):
+        """Get all items within category <category_1_name>/<category_2_name>"""
+        ids = []
+
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .all()
+        ):
+            ids.append(category.category_id)
+
+        item_ids = []
+
+        for cat_id in ids:
+            for item in Item.query.filter(Item.category_id == cat_id).all():
+                item_ids.append(item.id)
+
+        return item_ids
+
+
+@api.route("/<category_1_name>/<category_2_name>/categories")
+@api.param("category_1_name", "First category name")
+@api.param("category_2_name", "Second category name")
 class CategoryTwoResource(Resource):
-    # @responds(dict("Categories", ))
-    def get(self, category_name: str):
-        """Get a single Category"""
+    def get(self, category_1_name: str, category_2_name: str):
+        """Get distinct categories in category <category_1_name>/<category_2_name>"""
         distinct = []
         for category in (
             Category.query.with_entities(Category.category_3)
-            .filter(Category.category == category_name)
+            .filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
             .distinct()
         ):
             distinct.append(category[0])
         return distinct
 
 
-@api.route("/category_3/<category_name>/get_unique_categories")
+@api.route("/<category_1_name>/<category_2_name>/<category_3_name>/items")
+@api.param("category_1_name", "First category name")
+@api.param("category_2_name", "Second category name")
+@api.param("category_3_name", "Third category name")
+class CategoryItemThreeResource(Resource):
+    # @responds(schema=ItemSchema(many=True))
+    def get(self, category_1_name: str, category_2_name: str, category_3_name: str):
+        """Get all items within category <category_1_name>/<category_2_name>/<category_3_name>"""
+        ids = []
+
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .filter(Category.category_3 == category_3_name)
+            .all()
+        ):
+            ids.append(category.category_id)
+
+        item_ids = []
+
+        for cat_id in ids:
+            for item in Item.query.filter(Item.category_id == cat_id).all():
+                item_ids.append(item.id)
+
+        return item_ids
+
+
+@api.route("/<category_1_name>/<category_2_name>/<category_3_name>/categories")
 @api.param("category_name", "Category name")
 class CategoryThreeResource(Resource):
-    # @responds(dict("Categories", ))
-    def get(self, category_name: str):
+    def get(self, category_1_name: str, category_2_name: str, category_3_name: str):
         """Get a single Category"""
         distinct = []
         for category in (
             Category.query.with_entities(Category.category_4)
-            .filter(Category.category == category_name)
+            .filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .filter(Category.category_3 == category_3_name)
             .distinct()
         ):
             distinct.append(category[0])
         return distinct
 
 
-@api.route("/category_4/<category_name>/get_unique_categories")
-@api.param("category_name", "Category name")
+@api.route(
+    "/<category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>/items"
+)
+@api.param("category_1_name", "First category name")
+@api.param("category_2_name", "Second category name")
+@api.param("category_3_name", "Third category name")
+@api.param("category_4_name", "Fourth category name")
+class CategoryItemFourResource(Resource):
+    # @responds(schema=ItemSchema(many=True))
+    def get(
+        self,
+        category_1_name: str,
+        category_2_name: str,
+        category_3_name: str,
+        cateogry_4_name: str,
+    ):
+        """Get all items within category <category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>"""
+        ids = []
+
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .filter(Category.category_3 == category_3_name)
+            .filter(Category.category_4 == category_4_name)
+            .all()
+        ):
+            ids.append(category.category_id)
+
+        item_ids = []
+
+        for cat_id in ids:
+            for item in Item.query.filter(Item.category_id == cat_id).all():
+                item_ids.append(item.id)
+
+        return item_ids
+
+
+@api.route(
+    "/<category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>/categories"
+)
+@api.param("category_1_name", "First category name")
+@api.param("category_2_name", "Second category name")
+@api.param("category_3_name", "Third category name")
+@api.param("category_4_name", "Fourth category name")
 class CategoryFourResource(Resource):
-    # @responds(dict("Categories", ))
-    def get(self, category_name: str):
-        """Get a single Category"""
+    def get(
+        self,
+        category_1_name: str,
+        category_2_name: str,
+        category_3_name: str,
+        cateogry_4_name: str,
+    ):
+        """Get distinct categories in category <category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>"""
         distinct = []
         for category in (
             Category.query.with_entities(Category.category_5)
-            .filter(Category.category == category_name)
+            .filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .filter(Category.category_3 == category_3_name)
+            .filter(Category.category_4 == category_4_name)
             .distinct()
         ):
             distinct.append(category[0])
         return distinct
+
+
+@api.route(
+    "/<category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>/<category_5_name>/items"
+)
+@api.param("category_1_name", "First category name")
+@api.param("category_2_name", "Second category name")
+@api.param("category_3_name", "Third category name")
+@api.param("category_4_name", "Fourth category name")
+@api.param("category_5_name", "Fifth category name")
+class CategoryItemFiveResource(Resource):
+    # @responds(schema=ItemSchema(many=True))
+    def get(
+        self,
+        category_1_name: str,
+        category_2_name: str,
+        category_3_name: str,
+        category_4_name: str,
+        category_5_name: str,
+    ):
+        """Get distinct categories in category <category_1_name>/<category_2_name>/<category_3_name>/<category_4_name>/<category_5_name>"""
+        ids = []
+
+        for category in (
+            Category.query.filter(Category.category_1 == category_1_name)
+            .filter(Category.category_2 == category_2_name)
+            .filter(Category.category_3 == category_3_name)
+            .filter(Category.category_4 == category_4_name)
+            .filter(Category.category_5 == category_5_name)
+            .all()
+        ):
+            ids.append(category.category_id)
+
+        item_ids = []
+
+        for cat_id in ids:
+            for item in Item.query.filter(Item.category_id == cat_id).all():
+                item_ids.append(item.id)
+
+        return item_ids

@@ -126,16 +126,7 @@ class CategoryService:
         )
 
         if category is None:
-            category = Category(
-                category_1=new_attrs["category_1"],
-                category_2=new_attrs["category_2"],
-                category_3=new_attrs["category_3"],
-                category_4=new_attrs["category_4"],
-                category_5=new_attrs["category_5"],
-            )
-
-            db.session.add(category)
-            db.session.commit()
+            category = CategoryService.create(new_attrs=new_attrs)
 
         return category
 
