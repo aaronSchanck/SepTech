@@ -32,9 +32,16 @@ class Session(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "session"
+    __tablename__ = "sessions"
 
     id = db.Column(db.Integer, primary_key=True)
+
+    userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User", backref="sessions")
+
+    unique_session_id = db.Column(db.String, unique=True)
+
+    session_expires_at = db.Column(db.DateTime)
 
     def update(self, changes: SessionInterface):
         for key, val in changes.items():

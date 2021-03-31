@@ -47,7 +47,7 @@ class SessionResource(Resource):
 
     @responds(schema=SessionSchema(many=True))
     def get(self):
-        """Get all Session"""
+        """Get all Sessions"""
 
         return SessionService.get_all()
 

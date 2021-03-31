@@ -22,7 +22,6 @@ log = logging.getLogger(__name__)
 
 
 class UserInterface(TypedDict, total=False):
-    userid: int
     email: str
     password: str
     full_name: str
