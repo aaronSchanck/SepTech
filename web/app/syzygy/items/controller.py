@@ -63,6 +63,25 @@ class ItemResource(Resource):
         return ItemService.create(request.parsed_obj)
 
 
+@api.route("/search/<search_str>")
+@api.param("search_str", "Item search string")
+class ItemResource(Resource):
+    """[summary]
+
+    Args:
+        Resource ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+
+    @responds(schema=ItemSchema(many=True))
+    def get(self, search_str: str):
+        """Get all Items in search"""
+
+        return ItemService.search(search_str)
+
+
 @api.route("/<int:itemid>")
 @api.param("itemid", "Item database ID")
 class ItemIdResource(Resource):

@@ -142,6 +142,9 @@ class ItemService:
 
         return new_item
 
+    def search(search_str: str):
+        return Item.query.filter(Item.name.ilike("%search_str%")).all()
+
 
 def NormalResponse(response: dict, status: int) -> Response:
     """Function to return a normal response (200-299)

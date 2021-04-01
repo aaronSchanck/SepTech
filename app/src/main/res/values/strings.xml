@@ -13,7 +13,7 @@
     <string name="username_email_address">Username/Email Address</string>
     <string name="password_hint">Password</string>
     <string name="forgot_your_password">Forgot Your Password?</string>
-    <string name="sign_in">Sign In</string>
+    <string name="sign_in">Log In</string>
     <string name="create_an_account">Create An Account</string>
     <string name="continue_as_guest">Continue As Guest</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -58,4 +58,6 @@
     <string name="locationBtn">Location</string>
     <string name="aboutBtn">About</string>
     <string name="arrow">arrow</string>
+    <string name="search_keyword_str"><b>Search Keyword</b></string>
+    <string name="search_cart_amount_str"><b>0</b></string>
 </resources>
