@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:checkable="true"
+    app:checkedIcon="@color/centauri_red">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Listing Name -->
+        <TextView
+            android:id="@+id/listingName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listing Name"
+            android:textSize="18sp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            />
+        <!-- End of Listing Name -->
+
+
+        <!-- Listing Price -->
+        <TextView
+            android:id="@+id/listingPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="$00.00"
+            android:textSize="16sp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            />
+        <!-- End of Listing Price -->
+
+        <!-- Add Button -->
+        <!-- this is where i would put the add button if i had one -->
+        <!-- End of Add Button -->
+
+        <!-- Listing Image -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/ic_image_foreground"
+            android:background="#CCCCCC"
+            android:scaleType="centerCrop"
+            />
+        <!-- End of Listing Image -->
+
+
+        <!-- Listing Description -->
+        <TextView
+            android:id="@+id/listingDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/temp_text"
+            android:textSize="16sp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            />
+        <!-- End of Listing Description -->
+
+        <!-- View More Button -->
+        <Button
+            android:id="@+id/listing_view_more_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/view_more"
+            android:textColor="@color/centauri_red"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            />
+        <!-- End of View More Button -->
+
+        <!-- Item Rating View -->
+        <!-- this is where i would put stars if i had some -->
+        <!-- End of Item Rating View -->
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
