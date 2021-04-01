@@ -60,4 +60,6 @@
     <string name="arrow">arrow</string>
     <string name="search_keyword_str"><b>Search Keyword</b></string>
     <string name="search_cart_amount_str"><b>0</b></string>
+    <string name="temp_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</string>
+    <string name="view_more">View More</string>
 </resources>
