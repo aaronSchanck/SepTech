@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="124dp"
-            android:text="@string/settings_search_header"
+            android:text="@string/searchLabel"
             app:layout_constraintBottom_toTopOf="@+id/accountBtn"
             app:layout_constraintStart_toStartOf="@+id/SettingsSearchBar"
             app:layout_constraintTop_toBottomOf="@+id/SettingsHeaderText" />
@@ -59,7 +59,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/search_settings" />
+                android:hint="@string/settings_search" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -135,7 +135,7 @@
             android:layout_marginEnd="55dp"
             android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
-            android:text="@string/privacy_securityBtn"
+            android:text="@string/privacyBtn"
             android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/helpBtn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +150,7 @@
             android:layout_marginEnd="55dp"
             android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
-            android:text="@string/help_supportBtn"
+            android:text="@string/helpBtn"
             android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/locationBtn"
             app:layout_constraintEnd_toEndOf="parent"

@@ -47,4 +47,15 @@
     <string name="orders"><b>Orders</b></string>
     <string name="need_help"><b>Need Help?</b></string>
     <string name="home_welcome"><b>Welcome</b></string>
+    <string name="settings_search">Settings Search</string>
+    <string name="searchLabel">search</string>
+    <string name="accountBtn">Account</string>
+    <string name="notificationsBtn">Notifications</string>
+    <string name="proximaBtn">Proxima</string>
+    <string name="appearenceBtn">Appearence</string>
+    <string name="privacyBtn"><![CDATA[Privacy & Security]]></string>
+    <string name="helpBtn"><![CDATA[Help & Support]]></string>
+    <string name="locationBtn">Location</string>
+    <string name="aboutBtn">About</string>
+    <string name="arrow">arrow</string>
 </resources>
