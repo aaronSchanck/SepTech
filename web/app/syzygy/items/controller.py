@@ -27,7 +27,7 @@ from typing import List
 
 from flask import request
 from flask_accepts import accepts, responds
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, reqparse
 
 from .interface import ItemInterface
 from .model import Item
