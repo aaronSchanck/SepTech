@@ -60,4 +60,24 @@
     <string name="arrow">arrow</string>
     <string name="search_keyword_str"><b>Search Keyword</b></string>
     <string name="search_cart_amount_str"><b>0</b></string>
+    <string name="addListingHeader">Add Listing</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_quantity">Item Quantity</string>
+    <string name="auctionSwitch">Auction</string>
+    <string name="buyNowSwitch">Buy Now</string>
+    <string name="item_description">Item Description</string>
+    <string name="categories">Categories</string>
+    <string name="price">Price</string>
+    <string name="min_bid">Min Bid</string>
+    <string name="auction_length">Auction Length</string>
+    <string name="starting_bid">Starting Bid</string>
+    <string name="category_2">Category 2</string>
+    <string name="main_category">Main Category</string>
+    <string name="category_3">Category 3</string>
+    <string name="category_5">Category 5</string>
+    <string name="category_4">Category 4</string>
+    <string name="backarrow">backArrow</string>
+    <string name="addimage">addImage</string>
+    <string name="lineimage">lineImage</string>
 </resources>
