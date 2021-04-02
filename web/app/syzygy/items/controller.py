@@ -116,10 +116,14 @@ class ItemImageResource(Resource):
         parse.add_argument(
             "image", type=werkzeug.datastructures.FileStorage, location="files"
         )
+
+        # parse.add_argument(
+        #     "itemEntity"
+        # )
         args = parse.parse_args()
 
         print(args)
-        image_file = args["file"]
+        image_file = args["image"]
 
         print(image_file)
 

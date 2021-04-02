@@ -12,7 +12,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="username_email_address">Username/Email Address</string>
     <string name="password_hint">Password</string>
-    <string name="forgot_your_password">Forgot Your Password?</string>
+    <string name="forgot_your_password"><b>Forgot Your Password?</b></string>
     <string name="sign_in">Log In</string>
     <string name="create_an_account">Create An Account</string>
     <string name="continue_as_guest">Continue As Guest</string>

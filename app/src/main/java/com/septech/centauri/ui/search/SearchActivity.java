@@ -24,7 +24,7 @@ public class SearchActivity extends AppCompatActivity {
         RecyclerView rvCategory = (RecyclerView) findViewById(R.id.rvCategories);
 
         // Initialize contacts
-        categories = Category.createCategories(20);
+        categories = Category.createCategories(100);
         // Create adapter passing in the sample user data
         CategoryAdapter adapter = new CategoryAdapter(categories);
         // Attach the adapter to the recyclerview to populate items

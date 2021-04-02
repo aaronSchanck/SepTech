@@ -68,8 +68,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoadingIcon = findViewById(R.id.loading_icon);
 
-        mToolBar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
+//        mToolBar = findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolBar);
 
         mLoadingIcon.setVisibility(View.GONE);
 

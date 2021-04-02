@@ -251,6 +251,7 @@ class UserService:
         # The mail addresses and password
         sender_address = "septech.centauri@gmail.com"
         sender_pass = "cos420umaine"
+
         receiver_address = recipient.email
 
         # Setup the MIME
