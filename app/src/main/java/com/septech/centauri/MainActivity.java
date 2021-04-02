@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
         }
         byte[] byteArray = stream.toByteArray();
 
-        multipartBodyBuilder.addFormDataPart("image" + 1, "Android_Flask_" + 1 + ".jpg",
+        multipartBodyBuilder.addFormDataPart("file", "Android_Flask_" + 1 + ".jpg",
                 RequestBody.create(byteArray, MediaType.parse("image/*jpg")));
 
         RequestBody postBodyImage = multipartBodyBuilder.build();

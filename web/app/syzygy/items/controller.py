@@ -33,6 +33,7 @@ from .interface import ItemInterface
 from .model import Item
 from .schema import ItemSchema
 from .service import ItemService
+import werkzeug
 
 api = Namespace("Item")
 log = logging.getLogger(__name__)
