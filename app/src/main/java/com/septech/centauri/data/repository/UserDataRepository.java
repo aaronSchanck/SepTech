@@ -19,7 +19,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.disposables.CompositeDisposable;
 
 public class UserDataRepository implements UserRepository {
     private static final String TAG = UserDataRepository.class.getSimpleName();
@@ -31,14 +30,10 @@ public class UserDataRepository implements UserRepository {
     private final RestApiClient restApiImpl;
     private final BetelgeuseDatabase localDb;
 
-    private CompositeDisposable mDisposables = new CompositeDisposable();
-
     private UserDataRepository() {
         this.restApiImpl = RestApiClient.getInstance();
         this.localDb = BetelgeuseDatabase.getDatabase();
         this.fileCache = new FileCache();
-
-        this.mDisposables = new CompositeDisposable();
     }
 
     public static UserDataRepository getInstance() {

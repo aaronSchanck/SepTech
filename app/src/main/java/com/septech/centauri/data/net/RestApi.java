@@ -1,5 +1,6 @@
 package com.septech.centauri.data.net;
 
+import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
@@ -7,16 +8,22 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface RestApi {
+
+    //USERS ENDPOINT
 
     /**
      * POST endpoint interface method for logging in a user to the server. The method takes the
@@ -70,4 +77,13 @@ public interface RestApi {
      */
     @GET("users/{email}")
     Single<UserEntity> getUserByEmail(@Path("email") String email);
+
+
+
+    //ITEMS ENDPOINTS
+
+    @Multipart
+    @POST("items/image_test")
+    Single<ItemEntity> createItem(@Part MultipartBody.Part image,
+                                  @Part("itemEntity") ItemEntity itemEntity);
 }

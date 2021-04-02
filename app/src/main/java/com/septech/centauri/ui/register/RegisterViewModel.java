@@ -10,8 +10,6 @@ import com.septech.centauri.data.repository.UserDataRepository;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
-import java.util.regex.Pattern;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;

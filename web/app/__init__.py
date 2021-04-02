@@ -27,10 +27,14 @@ log = logging.getLogger(__name__)
 
 db = SQLAlchemy()
 
+app = None
+
 
 def create_app(env=None):
     from app.config import config_by_name
     from app.routes import register_routes
+
+    global app
 
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
