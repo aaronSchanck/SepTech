@@ -27,12 +27,13 @@ from typing import List
 
 from flask import request
 from flask_accepts import accepts, responds
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, reqparse
 
 from .interface import ItemInterface
 from .model import Item
 from .schema import ItemSchema
 from .service import ItemService
+import werkzeug
 
 api = Namespace("Item")
 log = logging.getLogger(__name__)
@@ -106,3 +107,17 @@ class ItemIdResource(Resource):
         changes: ItemInterface = request.parsed_obj
         Item = ItemService.get_by_id(itemid)
         return ItemService.update(Item, changes)
+
+
+@api.route("/image_test")
+class ItemImageResource(Resource):
+    def post(self):
+        # check if the post request has the file part
+        parse = reqparse.RequestParser()
+        parse.add_argument(
+            "file", type=werkzeug.datastructures.FileStorage, location="files"
+        )
+        print(parse)
+        args = parse.parse_args()
+        image_file = args["file"]
+        image_file.save("your_file_name.jpg")

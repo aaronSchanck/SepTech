@@ -33,6 +33,9 @@ import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
 import com.septech.centauri.ui.home.HomeActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+
 
 public class LoginActivity extends AppCompatActivity {
     private LoginViewModel mLoginViewModel;
@@ -53,8 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.centauri_logo);
 
         mLoginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 

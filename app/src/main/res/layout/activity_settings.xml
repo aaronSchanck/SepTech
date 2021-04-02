@@ -310,6 +310,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--  Bottom Navigation Bar-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -317,10 +318,12 @@
         app:itemBackground="@color/centauri_red"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+    <!--    End of Bottom Navigation Bar-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
