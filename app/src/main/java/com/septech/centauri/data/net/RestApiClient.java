@@ -2,6 +2,7 @@ package com.septech.centauri.data.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
@@ -10,12 +11,15 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
-    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
+//    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
+    private final String API_BASE_URL = "http://192.168.0.4:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -60,5 +64,9 @@ public class RestApiClient {
 
     public Single<UserEntity> getUserByEmail(String email) {
         return restApi.getUserByEmail(email);
+    }
+
+    public Single<ItemEntity> createItem(MultipartBody.Part image, ItemEntity itemEntity) {
+        return restApi.createItem(image, itemEntity);
     }
 }

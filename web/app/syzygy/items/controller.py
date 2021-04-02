@@ -16,15 +16,15 @@ Classes:
         Extends Resource from flask-restx. Follows same functionality from
         aforementioned class. Must be routed to with {baseurl}/{itemid}.
 
-    ItemLoginResource:
-        Extends Resource from flask-restx. Acts as a helper class for logging
-        in items.
-
 """
 
 import logging
+from pathlib import Path
 from typing import List
 
+from app import app
+
+import werkzeug
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource, reqparse
@@ -33,7 +33,6 @@ from .interface import ItemInterface
 from .model import Item
 from .schema import ItemSchema
 from .service import ItemService
-import werkzeug
 
 api = Namespace("Item")
 log = logging.getLogger(__name__)
@@ -109,15 +108,20 @@ class ItemIdResource(Resource):
         return ItemService.update(Item, changes)
 
 
-@api.route("/image_test")
+@api.route("/create")
 class ItemImageResource(Resource):
     def post(self):
         # check if the post request has the file part
         parse = reqparse.RequestParser()
         parse.add_argument(
-            "file", type=werkzeug.datastructures.FileStorage, location="files"
+            "image", type=werkzeug.datastructures.FileStorage, location="files"
         )
-        print(parse)
         args = parse.parse_args()
+
+        print(args)
         image_file = args["file"]
-        image_file.save("your_file_name.jpg")
+
+        print(image_file)
+
+        image_path = Path(app.config["UPLOAD_FOLDER"] + "/items/file_to_save.jpg")
+        image_file.save(image_path)

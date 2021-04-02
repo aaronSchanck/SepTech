@@ -40,7 +40,7 @@ class DevelopmentConfig(BaseConfig):
         os.getenv("DATABASE_URI")
         or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
     )
-    UPLOAD_FOLDER = "/images"
+    UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 
 
@@ -58,7 +58,7 @@ class ProductionConfig(BaseConfig):
         os.getenv("DATABASE_URI")
         or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
     )
-    UPLOAD_FOLDER = "/images"
+    UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 
 
@@ -76,7 +76,7 @@ class TestingConfig(BaseConfig):
         os.getenv("DATABASE_URI")
         or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
     )
-    UPLOAD_FOLDER = "/images"
+    UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 
 
