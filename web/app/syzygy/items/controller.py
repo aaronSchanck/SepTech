@@ -106,3 +106,17 @@ class ItemIdResource(Resource):
         changes: ItemInterface = request.parsed_obj
         Item = ItemService.get_by_id(itemid)
         return ItemService.update(Item, changes)
+
+
+@api.route("/image_test")
+class ItemImageResource(Resource):
+    def post(self):
+        # check if the post request has the file part
+        parse = reqparse.RequestParser()
+        parse.add_argument(
+            "file", type=werkzeug.datastructures.FileStorage, location="files"
+        )
+        print(parse)
+        args = parse.parse_args()
+        image_file = args["file"]
+        image_file.save("your_file_name.jpg")

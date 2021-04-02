@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserEntity {
 
-    @SerializedName("userid")
+    @SerializedName("id")
     @Expose(serialize = false)
     private int userid;
 
