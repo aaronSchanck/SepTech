@@ -31,15 +31,17 @@ from flask_restx import Namespace, Resource, reqparse
 
 from .interface import ItemInterface
 from .model import Item
-from .schema import ItemSchema
+from .schema import ItemSchema, ImageSchema
 from .service import ItemService
 
 api = Namespace("Item")
 log = logging.getLogger(__name__)
 
+image_schema = ImageSchema()
 
-@api.route("/")
-class ItemResource(Resource):
+
+@api.route("/test")
+class ItemTestingResource(Resource):
     """[summary]
 
     Args:
@@ -109,23 +111,14 @@ class ItemIdResource(Resource):
 
 
 @api.route("/create")
-class ItemImageResource(Resource):
+class ItemCreateResource(Resource):
     def post(self):
-        # check if the post request has the file part
-        parse = reqparse.RequestParser()
-        parse.add_argument(
-            "image", type=werkzeug.datastructures.FileStorage, location="files"
-        )
 
-        # parse.add_argument(
-        #     "itemEntity"
-        # )
-        args = parse.parse_args()
+        image = request.files
 
-        print(args)
-        image_file = args["image"]
+        data = image_schema.load(image.to_dict())
 
-        print(image_file)
+        print(data)
 
-        image_path = Path(app.config["UPLOAD_FOLDER"] + "/items/file_to_save.jpg")
-        image_file.save(image_path)
+        # image_path = Path(app.config["UPLOAD_FOLDER"] + "/items/file_to_save.jpg")
+        # image_file.save(image_path)

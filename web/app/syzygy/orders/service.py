@@ -14,18 +14,15 @@ Functions:
 
 """
 
-from app import db
-from .model import Order
-from .interface import OrderInterface
-from flask import Response
 import json
 import logging
-from utils.auth import encrypt_pw
-import bcrypt
-
-import re
-
 from typing import List
+
+from app import db
+from flask import Response
+
+from .interface import OrderInterface
+from .model import Order
 
 log = logging.getLogger(__name__)
 
@@ -41,15 +38,15 @@ class OrderService:
         return Order.query.all()
 
     @staticmethod
-    def get_by_id(orderid: int) -> Order:
+    def get_by_id(id: int) -> Order:
         """[summary]
 
-        :param orderid: [description]
-        :type orderid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        order = Order.query.get(orderid)
+        order = Order.query.get(id)
 
         return order
 
@@ -70,22 +67,22 @@ class OrderService:
         return order
 
     @staticmethod
-    def delete_by_id(orderid: int) -> List:
-        """Deletes a order from the table with the specified orderid
+    def delete_by_id(id: int) -> List:
+        """Deletes a order from the table with the specified id
 
-        :param orderid: Order's orderid
-        :type orderid: int
+        :param id: Order's id
+        :type id: int
         :return: List containing the deleted order, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        order = OrderService.get_by_id(orderid)
+        order = OrderService.get_by_id(id)
         if not order:
             return []
         db.session.delete(order)
         db.session.commit()
-        return [orderid]
+        return [id]
 
     @staticmethod
     def create(new_attrs: OrderInterface) -> Order:

@@ -2,7 +2,11 @@ import os
 
 import logging
 
+from flask_uploads import UploadSet, IMAGES
+
 log = logging.getLogger(__name__)
+
+IMAGE_SET = UploadSet("images", IMAGES)
 
 
 def setup_image_store():

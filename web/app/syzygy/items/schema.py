@@ -22,7 +22,8 @@ from marshmallow_sqlalchemy import ModelSchema
 
 from marshmallow import Schema, fields
 import marshmallow as ma
-from app.fields.fields import Image as ImageField
+
+from app.fields import FileStorageField
 
 log = logging.getLogger(__name__)
 
@@ -51,3 +52,7 @@ class ItemSchema(Schema):
     item_variants = fields.List(fields.Integer, dump_only=True)
     description = fields.Str()
     # attributes = fields.Dict()  # act as filters
+
+
+class ImageSchema(Schema):
+    image = FileStorageField(required=True, load_only=True)

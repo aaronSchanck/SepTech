@@ -14,18 +14,17 @@ Functions:
 
 """
 
-from app import db
-from .model import OrderItem
-from .interface import OrderItemInterface
-from flask import Response
 import json
 import logging
-from utils.auth import encrypt_pw
-import bcrypt
-
 import re
-
 from typing import List
+
+import bcrypt
+from app import db
+from flask import Response
+
+from .interface import OrderItemInterface
+from .model import OrderItem
 
 log = logging.getLogger(__name__)
 

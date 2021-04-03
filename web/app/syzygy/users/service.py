@@ -29,7 +29,7 @@ import bcrypt
 from app import db
 from app.globals import *
 from flask import Response
-from utils.auth import encrypt_pw
+from libs.auth import encrypt_pw
 
 from .interface import UserInterface
 from .model import User

@@ -19,8 +19,8 @@ import logging
 
 from app import create_app
 
-from utils.logging import setup_logging
-from utils.images import setup_image_store
+from libs.logging import setup_logging
+from libs.images import setup_image_store
 
 env = os.getenv("FLASK_ENV") or "test"
 

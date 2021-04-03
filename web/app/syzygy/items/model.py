@@ -52,3 +52,7 @@ class Item(db.Model):
             setattr(self, key, val)
 
         return self
+
+
+# from werkzeug.utils import secure_filename
+# from werkzeug.datastructures import  FileStorage

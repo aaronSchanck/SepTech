@@ -16,16 +16,13 @@ Functions:
 
 import json
 import logging
-import re
-import secrets
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import List
 
-from app.globals import *
 import bcrypt
 from app import db
+from app.globals import *
 from flask import Response
-from utils.auth import encrypt_pw
 
 from .interface import BannedInterface
 from .model import Banned

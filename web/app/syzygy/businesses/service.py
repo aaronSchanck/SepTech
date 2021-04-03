@@ -20,7 +20,7 @@ from .interface import BusinessInterface
 from flask import Response
 import json
 import logging
-from utils.auth import encrypt_pw
+from libs.auth import encrypt_pw
 import bcrypt
 
 import re

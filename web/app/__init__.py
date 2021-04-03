@@ -20,7 +20,7 @@ from flask import Flask, jsonify
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from utils.images import setup_image_store
+from libs.images import setup_image_store
 from app.images import setup_syzygy_image_store
 
 log = logging.getLogger(__name__)
