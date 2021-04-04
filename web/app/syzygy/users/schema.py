@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 
 class UserSchema(Schema):
-    userid = fields.Number(dump_only=True)
+    id = fields.Number(dump_only=True)
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
     full_name = fields.Str(required=True)

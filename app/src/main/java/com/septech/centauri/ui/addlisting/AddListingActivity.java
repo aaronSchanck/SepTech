@@ -105,10 +105,10 @@ public class AddListingActivity extends AppCompatActivity {
 
         createSwitchListeners();
 
-//        auctionLengthTextInput.setEnabled(false);
-//        startingBidTextInput.setEnabled(false);
-//        minimumBidTextInput.setEnabled(false);
-//        buyoutPriceTextInput.setEnabled(false);
+        auctionLengthTextInput.setEnabled(false);
+        startingBidTextInput.setEnabled(false);
+        minimumBidTextInput.setEnabled(false);
+        buyoutPriceTextInput.setEnabled(false);
     }
 
     private void createTextWatchers() {
