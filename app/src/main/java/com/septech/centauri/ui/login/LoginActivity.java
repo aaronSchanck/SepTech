@@ -27,7 +27,16 @@ import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
 import com.septech.centauri.ui.home.HomeActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
 
-
+/**
+ * An activity representing the login UI/UX for the app end-user. The page consists of fields for
+ * the user to login by entering their email/password. Other possible user interactions and
+ * navigation pathways include:
+ * "Forgot your password?": Takes the user to the ForgotPasswordActivity
+ * "Continue as Guest": Logs in the user as a Guest user, with less functionality on the app than
+ * a standard logged in user.
+ * "Create an Account": Redirects the user to the CreateAccount activity, where they can register
+ * for a new account.
+ */
 public class LoginActivity extends AppCompatActivity {
     private LoginViewModel mLoginViewModel;
 
@@ -80,6 +89,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void createLiveDataObservers() {
+        /*
+        Observer for the MutableLiveData<User> object. Whenever the User model in the ViewModel
+        is updated, this observer is called. Subsequently, the only changes to the User object
+        are when the user successfully logs in, so the two tracks of this observer are to
+        either: log in as a guest, or log in as a real user.
+         */
         mLoginViewModel.getUserLiveData().observe(this, user -> {
             if (user.getId() == 0) {
                 onSuccessfulLogin(new GuestUser());
@@ -88,8 +103,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        Observer for the MutableLiveData<LoginCloudResponse> object. Whenever the
+        LoginCloudResponse object is updated by the ViewModel, this observer will be called. This
+        change will affect the UI as a result.
+         */
         mLoginViewModel.getResponseLiveData().observe(this, loginCloudResponse -> {
-
             if (loginCloudResponse == LoginCloudResponse.LOADING) {
                 mLoadingIcon.setVisibility(View.VISIBLE);
             } else if (loginCloudResponse == LoginCloudResponse.FAILED) {
@@ -99,6 +118,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         Observer for the MutableLiveData<LoginFormState> object. Whenever the LoginFormState
+         object is modified, this observer will be called, and the change will affect the UI.
+         */
         mLoginViewModel.getLoginFormStateLiveData().observe(this, loginFormState -> {
             if (loginFormState == null) {
                 return;
@@ -139,6 +162,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void createButtonListeners() {
+        /*
+        This listener is called when the user clicks the "Log in" button. The email and password
+        are grabbed from the EditTexts and are subsequently passed to the ViewModel to log the
+        user in.
+         */
         mLoginButton.setOnClickListener(v -> {
             hideKeyboard();
 
@@ -148,11 +176,21 @@ public class LoginActivity extends AppCompatActivity {
             mLoginViewModel.login(username, password);
         });
 
+        /*
+        This listener will be called when the "Create an Account" button is clicked. The user
+        will be redirected to a the RegisterActivity, in which they can create a new user account
+        to login to the app.
+         */
         mCreateAccountBtn.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
 
+        /*
+        This listener will be called when the "Forgot your Password" button is clicked. The user
+        will be redirected to the ForgotPasswordActivity afterwards, in which they will be
+        prompted to enter their email address in order to renew their password.
+         */
         mForgotPasswordBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, ForgotPasswordActivity.class);
             startActivity(intent);

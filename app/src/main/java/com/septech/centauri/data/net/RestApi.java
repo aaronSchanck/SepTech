@@ -63,12 +63,14 @@ public interface RestApi {
     Observable<List<UserEntity>> getAllUsers();
 
     /**
-     *
+     * Deletes a user based off of their id. If a user with the specified id exists, then the
+     * function will delete them from the remote API alongside returning back an observable
+     * Single containing the UserEntity model.
      * @param userid
      * @return
      */
     @DELETE("users/{userid}")
-    Single<User> deleteUser(@Path("userid") int userid);
+    Single<UserEntity> deleteUser(@Path("userid") int userid);
 
     /**
      *

@@ -55,7 +55,7 @@ public class RestApiClient {
         return restApi.getUserById(userid);
     }
 
-    public Single<User> deleteUser(int userid) {
+    public Single<UserEntity> deleteUser(int userid) {
         return restApi.deleteUser(userid);
     }
 
