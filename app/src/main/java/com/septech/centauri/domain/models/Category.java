@@ -14,6 +14,14 @@ public class Category {
 
     }
 
+    public Category(String category1, String category2, String category3, String category4, String category5) {
+        this.category1 = category1;
+        this.category2 = category2;
+        this.category3 = category3;
+        this.category4 = category4;
+        this.category5 = category5;
+    }
+
     public String getCategory1() {
         return category1;
     }

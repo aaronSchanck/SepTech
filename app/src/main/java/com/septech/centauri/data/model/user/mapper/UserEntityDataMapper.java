@@ -18,7 +18,7 @@ public class UserEntityDataMapper {
     }
 
     public static UserEntity transform(User user) {
-        UserEntity userEntity = new UserEntity(user.getUserid());
+        UserEntity userEntity = new UserEntity(user.getId());
 
         userEntity.setEmail(user.getEmail());
         userEntity.setPassword(user.getPassword());

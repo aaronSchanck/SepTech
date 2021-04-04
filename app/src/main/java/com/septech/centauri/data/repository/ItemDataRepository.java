@@ -12,6 +12,7 @@ import com.septech.centauri.data.model.user.mapper.UserEntityDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.io.ByteArrayOutputStream;
 
@@ -22,7 +23,7 @@ import okhttp3.RequestBody;
 
 import static com.septech.centauri.data.utils.ImagePath.getPathFromUri;
 
-public class ItemDataRepository {
+public class ItemDataRepository implements ItemRepository {
     private static final String TAG = UserDataRepository.class.getSimpleName();
 
     private static ItemDataRepository mInstance;
@@ -72,5 +73,10 @@ public class ItemDataRepository {
 
 
         return restApiImpl.createItem(image, itemEntity);
+    }
+
+    @Override
+    public Single<Item> createItem(Item item, String[] imagePaths) {
+        return null;
     }
 }

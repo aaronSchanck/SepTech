@@ -40,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         TextInputLayout fullNameTextInput =
                 (TextInputLayout)findViewById(R.id.fname_text_input);
-//        TextInputLayout lastNameTextInput = findViewById(R.id.lname_text_input);
         TextInputLayout emailTextInput = findViewById(R.id.email_text_input);
         TextInputLayout passwordTextInput = findViewById(R.id.password_text_input);
         TextInputLayout confirmPasswordTextInput = findViewById(R.id.confirm_password_text_input);
@@ -147,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        mPhoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        mPhoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher("1"));
 
         mCreateAccountBtn = findViewById(R.id.register_create_account_btn);
 

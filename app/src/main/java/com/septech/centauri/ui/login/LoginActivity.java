@@ -2,10 +2,6 @@ package com.septech.centauri.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,9 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
@@ -32,9 +26,6 @@ import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.forgotpassword.ForgotPasswordActivity;
 import com.septech.centauri.ui.home.HomeActivity;
 import com.septech.centauri.ui.register.RegisterActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -90,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void createLiveDataObservers() {
         mLoginViewModel.getUserLiveData().observe(this, user -> {
-            if (user.getUserid() == 0) {
+            if (user.getId() == 0) {
                 onSuccessfulLogin(new GuestUser());
             } else {
                 onSuccessfulLogin(user);

@@ -1,17 +1,46 @@
 package com.septech.centauri.ui.addlisting;
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.septech.centauri.R;
+import com.septech.centauri.data.model.item.ItemEntity;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.septech.centauri.data.utils.ImagePath.getPathFromUri;
 
 public class AddListingActivity extends AppCompatActivity {
+
+    private AddListingViewModel addListingViewModel;
+
+    private TextInputLayout auctionLengthTextInput;
+    private TextInputLayout startingBidTextInput;
+    private TextInputLayout minimumBidTextInput;
+    private TextInputLayout buyoutPriceTextInput;
 
     private TextInputEditText itemNameEditText;
     private TextInputEditText itemQuantityEditText;
@@ -27,14 +56,26 @@ public class AddListingActivity extends AppCompatActivity {
     private TextInputEditText itemDescriptionEditText;
 
     private Button uploadImageButton;
+    private ImageButton backArrowButton;
+    private Button createItemButton;
+
+    private ImageView itemImageView;
 
     private SwitchCompat bidSwitch;
     private SwitchCompat buySwitch;
 
+    private static final int PICK_IMAGE = 100;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
+
+        addListingViewModel = new ViewModelProvider(this).get(AddListingViewModel.class);
+
+        auctionLengthTextInput = findViewById(R.id.auctionLengthTextbox);
+        startingBidTextInput = findViewById(R.id.startingPriceTextbox);
+        minimumBidTextInput = findViewById(R.id.minBidTextbox);
+        buyoutPriceTextInput = findViewById(R.id.buyPriceTextbox);
 
         itemNameEditText = findViewById(R.id.itemNameEditText);
         itemQuantityEditText = findViewById(R.id.itemQuantityEditText);
@@ -43,15 +84,110 @@ public class AddListingActivity extends AppCompatActivity {
         minimumBidEditText = findViewById(R.id.minimumBidEditText);
         buyoutPriceEditText = findViewById(R.id.buyoutPriceEditText);
         mainCategoryEditText = findViewById(R.id.mainCategoryEditText);
-        categoryTwoEditText = findViewById(R.id.categoryTwoEditText);
+//        categoryTwoEditText = findViewById(R.id.categoryTwoEditText);
         categoryThreeEditText = findViewById(R.id.categoryThreeEditText);
-        categoryFourEditText = findViewById(R.id.categoryFourEditText);
-        categoryFiveEditText = findViewById(R.id.categoryFiveEditText);
+//        categoryFourEditText = findViewById(R.id.categoryFourEditText);
+//        categoryFiveEditText = findViewById(R.id.categoryFiveEditText);
         itemDescriptionEditText = findViewById(R.id.itemDescriptionEditText);
 
         uploadImageButton = findViewById(R.id.uploadImageButton);
+        backArrowButton = findViewById(R.id.backArrow);
+        createItemButton = findViewById(R.id.createItemButton);
+
+        itemImageView = findViewById(R.id.ItemAddImageBox);
 
         bidSwitch = findViewById(R.id.auctionSwitch);
         buySwitch = findViewById(R.id.buyNowSwitch);
+
+        createTextWatchers();
+
+        createButtonListeners();
+
+        createSwitchListeners();
+
+//        auctionLengthTextInput.setEnabled(false);
+//        startingBidTextInput.setEnabled(false);
+//        minimumBidTextInput.setEnabled(false);
+//        buyoutPriceTextInput.setEnabled(false);
+    }
+
+    private void createTextWatchers() {
+
+    }
+
+    private void createButtonListeners() {
+        uploadImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dexter.withContext(AddListingActivity.this)
+                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .withListener(new PermissionListener() {
+                            @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
+                            @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+                            @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                        }).check();
+
+                openGallery();
+            }
+        });
+
+        backArrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+            }
+        });
+
+        createItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = itemNameEditText.getText().toString();
+                int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
+
+                boolean bid = bidSwitch.isChecked();
+                boolean buy = buySwitch.isChecked();
+
+                String auctionLength = auctionLengthEditText.getText().toString();
+                String startingBid = startingBidEditText.getText().toString();
+                String minimumBid = minimumBidEditText.getText().toString();
+                String buyoutPrice = buyoutPriceEditText.getText().toString();
+                String mainCategory = mainCategoryEditText.getText().toString();
+//                String categoryTwo = categoryTwoEditText.getText().toString();
+                String categoryThree = categoryThreeEditText.getText().toString();
+//                String categoryFour = categoryFourEditText.getText().toString();
+//                String categoryFive = categoryFiveEditText.getText().toString();
+                String itemDescription = itemDescriptionEditText.getText().toString();
+
+
+                addListingViewModel.createItem(name, quantity, bid, buy, auctionLength,
+                        startingBid, minimumBid, buyoutPrice, mainCategory, null,
+                        categoryThree, null, null, itemDescription, null);
+            }
+        });
+    }
+
+    private void createSwitchListeners() {
+        bidSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            auctionLengthTextInput.setEnabled(isChecked);
+            startingBidTextInput.setEnabled(isChecked);
+            minimumBidTextInput.setEnabled(isChecked);
+        });
+
+        buySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> buyoutPriceTextInput.setEnabled(isChecked));
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            Uri imageUri = data.getData();
+
+            itemImageView.setImageURI(imageUri);
+
+            String imagePath = getPathFromUri(this, imageUri);
+        }
+    }
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
     }
 }
