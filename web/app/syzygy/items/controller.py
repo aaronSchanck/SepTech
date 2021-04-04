@@ -21,7 +21,7 @@ Classes:
 import logging
 from pathlib import Path
 from typing import List
-
+import json
 from app import app
 
 import werkzeug
@@ -37,6 +37,7 @@ from .service import ItemService
 api = Namespace("Item")
 log = logging.getLogger(__name__)
 
+item_schema = ItemSchema()
 image_schema = ImageSchema()
 
 
@@ -114,11 +115,23 @@ class ItemIdResource(Resource):
 class ItemCreateResource(Resource):
     def post(self):
 
-        image = request.files
+        item_req = request.form
+        image_req = request.files
 
-        data = image_schema.load(image.to_dict())
+        # print(image_req.to_dict())
+        dat = item_req.to_dict()["itemEntity"]
+        print(type(dat))
+        print(dat)
 
-        print(data)
+        obj = json.loads(dat)
+        print(type(obj))
+        print(obj)
+
+        item_data = item_schema.load(obj)
+        image_data = image_schema.load(image_req.to_dict())
+
+        print(item_data)
+        print(image_data)
 
         # image_path = Path(app.config["UPLOAD_FOLDER"] + "/items/file_to_save.jpg")
         # image_file.save(image_path)

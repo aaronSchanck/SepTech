@@ -61,7 +61,7 @@
     <string name="item_description">Item Description</string>
     <string name="categories">Categories</string>
     <string name="price">Price</string>
-    <string name="min_bid">Min Bid</string>
+    <string name="min_bid">Min Bid Incre.</string>
     <string name="auction_length">Auction Length</string>
     <string name="starting_bid">Starting Bid</string>
     <string name="category_2">Category 2</string>

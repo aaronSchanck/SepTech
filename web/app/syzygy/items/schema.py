@@ -42,13 +42,13 @@ class ItemSchema(Schema):
     can_bid = fields.Bool()
     highest_bid = fields.Number(dump_only=True)
     highest_bid_user = fields.Integer(dump_only=True)
-    bidding_ends = fields.DateTime()
+    bidding_ends = fields.DateTime(allow_none=True)
     quality = fields.String()
     category_id = fields.Integer(dump_only=True)
-    category = fields.Nested(CategorySchema)
+    category = fields.Nested(CategorySchema, required=True)
 
     thumbnail = fields.Integer()
-    image = fields.String()
+    image = fields.List(fields.String, dump_only=True)
     item_variants = fields.List(fields.Integer, dump_only=True)
     description = fields.Str()
     # attributes = fields.Dict()  # act as filters

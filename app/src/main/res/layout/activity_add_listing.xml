@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addListingHeader"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,23 +52,28 @@
         app:layout_constraintVertical_bias="0.083"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/addImageLabel"
+    <Button
+        android:id="@+id/uploadImageButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/upload_image"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ItemAddImageBox"
         app:layout_constraintStart_toStartOf="@+id/ItemAddImageBox"
         app:layout_constraintTop_toBottomOf="@+id/ItemAddImageBox"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/itemNameLabel"
-        android:layout_width="78dp"
-        android:layout_height="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/item_name"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/itemNameTextbox"
         app:layout_constraintEnd_toEndOf="@+id/itemNameTextbox"
         app:layout_constraintStart_toStartOf="@+id/itemNameTextbox"
@@ -87,6 +93,7 @@
         app:layout_constraintVertical_bias="0.067">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itemNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -97,6 +104,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:text="@string/item_quantity"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/itemQuantityTextbox"
         app:layout_constraintEnd_toEndOf="@+id/itemQuantityTextbox"
         app:layout_constraintStart_toStartOf="@+id/itemQuantityTextbox"
@@ -116,36 +126,37 @@
         app:layout_constraintVertical_bias="0.2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itemQuantityEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/auctionSwitch"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="@string/auctionSwitch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/addListingHeader"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34" />
+        app:layout_constraintVertical_bias="0.375" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/minBidTextbox"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/startingPriceTextbox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.553">
+        app:layout_constraintVertical_bias="0.575">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/minimumBidEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/min_bid"
@@ -157,15 +168,15 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/auctionSwitch"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.395">
+        app:layout_constraintVertical_bias="0.445">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/auctionLengthEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/auction_length"
@@ -182,42 +193,42 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/auctionLengthTextbox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47">
+        app:layout_constraintVertical_bias="0.51">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/startingBidEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/starting_bid"
             android:textStyle="italic" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/buyNowSwitch"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_height="30dp"
         android:text="@string/buyNowSwitch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buyPriceTextbox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.306" />
+        app:layout_constraintVertical_bias="0.375" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/buyPriceTextbox"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/itemQuantityTextbox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393">
+        app:layout_constraintVertical_bias="0.445">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/buyoutPriceEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/price"
@@ -237,6 +248,7 @@
         app:layout_constraintVertical_bias="0.99">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/itemDescriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -245,8 +257,11 @@
         android:id="@+id/categoriesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="0dp"
         android:text="@string/categories"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -266,6 +281,7 @@
         app:layout_constraintVertical_bias="0.747">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/categoryTwoEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category_2"
@@ -277,15 +293,15 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/minBidTextbox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662">
+        app:layout_constraintTop_toBottomOf="@+id/categoriesLabel"
+        app:layout_constraintVertical_bias="0">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mainCategoryEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/main_category"
@@ -298,6 +314,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:text="@string/item_description"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/descriptionTextbox"
         app:layout_constraintEnd_toEndOf="@+id/descriptionTextbox"
         app:layout_constraintHorizontal_bias="0.0"
@@ -307,14 +326,14 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="15dp"
-        android:layout_height="175dp"
+        android:layout_width="17dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/lineimage"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/minBidTextbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.434"
+        app:layout_constraintTop_toTopOf="@+id/auctionSwitch"
+        app:layout_constraintVertical_bias="0"
         app:srcCompat="@drawable/ic_line" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -326,10 +345,11 @@
         app:layout_constraintEnd_toEndOf="@+id/buyPriceTextbox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.677">
+        app:layout_constraintTop_toBottomOf="@+id/categoriesLabel"
+        app:layout_constraintVertical_bias="0">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/categoryThreeEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category_3"
@@ -349,6 +369,7 @@
         app:layout_constraintVertical_bias="0.815">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/categoryFiveEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category_5"
@@ -360,14 +381,15 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/catFiveTextbox"
         app:layout_constraintEnd_toEndOf="@+id/catThreeTextbox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.745">
+        app:layout_constraintTop_toBottomOf="@+id/catThreeTextbox"
+        app:layout_constraintVertical_bias="0.5">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/categoryFourEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/category_4"
