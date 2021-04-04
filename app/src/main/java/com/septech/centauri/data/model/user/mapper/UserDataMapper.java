@@ -3,7 +3,7 @@ package com.septech.centauri.data.model.user.mapper;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
-public class UserEntityDataMapper {
+public class UserDataMapper {
     public static User transform(UserEntity userEntity) {
         User user = new User(userEntity.getUserid());
 

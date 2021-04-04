@@ -84,6 +84,6 @@ public interface RestApi {
 
     @Multipart
     @POST("items/create")
-    Single<ItemEntity> createItem(@Part MultipartBody.Part image,
+    Single<ItemEntity> createItem(@Part MultipartBody.Part[] images,
                                   @Part("itemEntity") ItemEntity itemEntity);
 }

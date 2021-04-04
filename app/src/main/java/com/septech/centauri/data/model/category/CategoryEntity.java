@@ -11,7 +11,7 @@ public class CategoryEntity {
 
     @SerializedName("category_1")
     @Expose
-    private Integer category1;
+    private String category1;
 
     @SerializedName("category_2")
     @Expose
@@ -19,7 +19,7 @@ public class CategoryEntity {
 
     @SerializedName("category_3")
     @Expose
-    private Integer category3;
+    private String category3;
 
     @SerializedName("category_4")
     @Expose
@@ -27,7 +27,7 @@ public class CategoryEntity {
 
     @SerializedName("category_5")
     @Expose
-    private Integer category5;
+    private String category5;
 
     public CategoryEntity() {
 
@@ -41,11 +41,11 @@ public class CategoryEntity {
         this.id = id;
     }
 
-    public Integer getCategory1() {
+    public String getCategory1() {
         return category1;
     }
 
-    public void setCategory1(Integer category1) {
+    public void setCategory1(String category1) {
         this.category1 = category1;
     }
 
@@ -57,11 +57,11 @@ public class CategoryEntity {
         this.category2 = category2;
     }
 
-    public Integer getCategory3() {
+    public String getCategory3() {
         return category3;
     }
 
-    public void setCategory3(Integer category3) {
+    public void setCategory3(String category3) {
         this.category3 = category3;
     }
 
@@ -73,11 +73,11 @@ public class CategoryEntity {
         this.category4 = category4;
     }
 
-    public Integer getCategory5() {
+    public String getCategory5() {
         return category5;
     }
 
-    public void setCategory5(Integer category5) {
+    public void setCategory5(String category5) {
         this.category5 = category5;
     }
 }

@@ -1,5 +1,7 @@
 package com.septech.centauri.domain.models;
 
+import java.util.List;
+
 public class Item {
     private Integer id;
     private String name;
@@ -17,11 +19,11 @@ public class Item {
     private String minBidIncrement;
 
     private String quality;
-    private String categoryId;
+    private Integer categoryId;
     private Category category;
-    private String[] images;
+    private List<String> images;
     private String itemVariants;
-    private String itemDescription;
+    private String description;
 
     public Item() {
         //left empty
@@ -139,11 +141,11 @@ public class Item {
         this.quality = quality;
     }
 
-    public String getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -155,11 +157,11 @@ public class Item {
         this.category = category;
     }
 
-    public String[] getImage() {
+    public List<String> getImage() {
         return images;
     }
 
-    public void setImage(String[] image) {
+    public void setImage(List<String> image) {
         this.images = image;
     }
 
@@ -171,11 +173,11 @@ public class Item {
         this.itemVariants = itemVariants;
     }
 
-    public String getItemDescription() {
-        return itemDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

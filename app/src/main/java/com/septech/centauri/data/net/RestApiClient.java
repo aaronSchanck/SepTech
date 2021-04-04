@@ -6,6 +6,7 @@ import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -66,7 +67,10 @@ public class RestApiClient {
         return restApi.getUserByEmail(email);
     }
 
-    public Single<ItemEntity> createItem(MultipartBody.Part image, ItemEntity itemEntity) {
-        return restApi.createItem(image, itemEntity);
+    public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
+        MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
+
+        images.toArray(imagesArr);
+        return restApi.createItem(imagesArr, itemEntity);
     }
 }

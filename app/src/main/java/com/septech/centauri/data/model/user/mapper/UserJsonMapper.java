@@ -6,11 +6,11 @@ import com.septech.centauri.data.model.user.UserEntity;
 
 import java.lang.reflect.Type;
 
-public class UserEntityJsonMapper {
+public class UserJsonMapper {
 
     private final Gson gson;
 
-    public UserEntityJsonMapper() {
+    public UserJsonMapper() {
         this.gson = new Gson();
     }
 

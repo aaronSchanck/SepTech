@@ -23,13 +23,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.septech.centauri.R;
-import com.septech.centauri.data.model.item.ItemEntity;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.septech.centauri.data.utils.ImagePath.getPathFromUri;
 
@@ -64,6 +60,8 @@ public class AddListingActivity extends AppCompatActivity {
     private SwitchCompat bidSwitch;
     private SwitchCompat buySwitch;
 
+    private List<String> imagePaths;
+
     private static final int PICK_IMAGE = 100;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +82,10 @@ public class AddListingActivity extends AppCompatActivity {
         minimumBidEditText = findViewById(R.id.minimumBidEditText);
         buyoutPriceEditText = findViewById(R.id.buyoutPriceEditText);
         mainCategoryEditText = findViewById(R.id.mainCategoryEditText);
-//        categoryTwoEditText = findViewById(R.id.categoryTwoEditText);
+        categoryTwoEditText = findViewById(R.id.categoryTwoEditText);
         categoryThreeEditText = findViewById(R.id.categoryThreeEditText);
-//        categoryFourEditText = findViewById(R.id.categoryFourEditText);
-//        categoryFiveEditText = findViewById(R.id.categoryFiveEditText);
+        categoryFourEditText = findViewById(R.id.categoryFourEditText);
+        categoryFiveEditText = findViewById(R.id.categoryFiveEditText);
         itemDescriptionEditText = findViewById(R.id.itemDescriptionEditText);
 
         uploadImageButton = findViewById(R.id.uploadImageButton);
@@ -98,6 +96,8 @@ public class AddListingActivity extends AppCompatActivity {
 
         bidSwitch = findViewById(R.id.auctionSwitch);
         buySwitch = findViewById(R.id.buyNowSwitch);
+
+        imagePaths = new ArrayList<>();
 
         createTextWatchers();
 
@@ -145,23 +145,26 @@ public class AddListingActivity extends AppCompatActivity {
                 int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
 
                 boolean bid = bidSwitch.isChecked();
+
+                String auctionLength = bid ? auctionLengthEditText.getText().toString(): "";
+                String startingBid = bid ? startingBidEditText.getText().toString(): "";
+                String minimumBid = bid ? minimumBidEditText.getText().toString(): "";
+
                 boolean buy = buySwitch.isChecked();
 
-                String auctionLength = auctionLengthEditText.getText().toString();
-                String startingBid = startingBidEditText.getText().toString();
-                String minimumBid = minimumBidEditText.getText().toString();
-                String buyoutPrice = buyoutPriceEditText.getText().toString();
+                String buyoutPrice = buy ? buyoutPriceEditText.getText().toString(): "";
+
                 String mainCategory = mainCategoryEditText.getText().toString();
-//                String categoryTwo = categoryTwoEditText.getText().toString();
+                String categoryTwo = categoryTwoEditText.getText().toString();
                 String categoryThree = categoryThreeEditText.getText().toString();
-//                String categoryFour = categoryFourEditText.getText().toString();
-//                String categoryFive = categoryFiveEditText.getText().toString();
+                String categoryFour = categoryFourEditText.getText().toString();
+                String categoryFive = categoryFiveEditText.getText().toString();
                 String itemDescription = itemDescriptionEditText.getText().toString();
 
 
                 addListingViewModel.createItem(name, quantity, bid, buy, auctionLength,
-                        startingBid, minimumBid, buyoutPrice, mainCategory, null,
-                        categoryThree, null, null, itemDescription, null);
+                        startingBid, minimumBid, buyoutPrice, mainCategory, categoryTwo,
+                        categoryThree, categoryFour, categoryFive, itemDescription, imagePaths);
             }
         });
     }
@@ -183,7 +186,7 @@ public class AddListingActivity extends AppCompatActivity {
 
             itemImageView.setImageURI(imageUri);
 
-            String imagePath = getPathFromUri(this, imageUri);
+            imagePaths.add(getPathFromUri(this, imageUri));
         }
     }
     private void openGallery() {

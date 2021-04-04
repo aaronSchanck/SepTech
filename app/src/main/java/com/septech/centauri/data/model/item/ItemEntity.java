@@ -2,6 +2,7 @@ package com.septech.centauri.data.model.item;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.septech.centauri.data.model.category.CategoryEntity;
 
 public class ItemEntity {
 
@@ -27,15 +28,15 @@ public class ItemEntity {
 
     @SerializedName("price")
     @Expose
-    private String price;
+    private String buyoutPrice;
 
     @SerializedName("can_buy")
     @Expose
-    private String canBuy;
+    private Boolean canBuy;
 
     @SerializedName("can_bid")
     @Expose
-    private String canBid;
+    private Boolean canBid;
 
     @SerializedName("highest_bid")
     @Expose(serialize = false)
@@ -44,6 +45,14 @@ public class ItemEntity {
     @SerializedName("highest_bid_user")
     @Expose(serialize = false)
     private String highestBidUser;
+
+    @SerializedName("starting_bid")
+    @Expose
+    private String startingBid;
+
+    @SerializedName("min_bid_increment")
+    @Expose
+    private String minBidIncrement;
 
     @SerializedName("bidding_ends")
     @Expose
@@ -59,7 +68,7 @@ public class ItemEntity {
 
     @SerializedName("category")
     @Expose
-    private String category;
+    private CategoryEntity category;
 
     @SerializedName("image")
     @Expose
@@ -116,27 +125,27 @@ public class ItemEntity {
         this.sellerId = sellerId;
     }
 
-    public String getPrice() {
-        return price;
+    public String getBuyoutPrice() {
+        return buyoutPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setBuyoutPrice(String buyoutPrice) {
+        this.buyoutPrice = buyoutPrice;
     }
 
-    public String getCanBuy() {
+    public Boolean getCanBuy() {
         return canBuy;
     }
 
-    public void setCanBuy(String canBuy) {
+    public void setCanBuy(Boolean canBuy) {
         this.canBuy = canBuy;
     }
 
-    public String getCanBid() {
+    public Boolean getCanBid() {
         return canBid;
     }
 
-    public void setCanBid(String canBid) {
+    public void setCanBid(Boolean canBid) {
         this.canBid = canBid;
     }
 
@@ -180,11 +189,11 @@ public class ItemEntity {
         this.categoryId = categoryId;
     }
 
-    public String getCategory() {
+    public CategoryEntity getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryEntity category) {
         this.category = category;
     }
 
@@ -210,5 +219,21 @@ public class ItemEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStartingBid() {
+        return startingBid;
+    }
+
+    public void setStartingBid(String startingBid) {
+        this.startingBid = startingBid;
+    }
+
+    public String getMinBidIncrement() {
+        return minBidIncrement;
+    }
+
+    public void setMinBidIncrement(String minBidIncrement) {
+        this.minBidIncrement = minBidIncrement;
     }
 }

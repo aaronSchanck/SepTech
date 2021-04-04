@@ -6,7 +6,7 @@ import android.util.Log;
 import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.data.model.user.UserEntity;
-import com.septech.centauri.data.model.user.mapper.UserEntityDataMapper;
+import com.septech.centauri.data.model.user.mapper.UserDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
@@ -46,7 +46,7 @@ public class UserDataRepository implements UserRepository {
 
     public Single<User> getUserById(int userid) {
         try {
-            return restApiImpl.getUserById(userid).map(UserEntityDataMapper::transform);
+            return restApiImpl.getUserById(userid).map(UserDataMapper::transform);
         } catch (Exception e) {
             Log.w(TAG, e.toString());
         }
@@ -58,7 +58,7 @@ public class UserDataRepository implements UserRepository {
         PasswordUtils pwUtils = new PasswordUtils(password, passwordSalt);
         String pwHash = pwUtils.hash();
 
-        return restApiImpl.login(email, pwHash).map(UserEntityDataMapper::transform);
+        return restApiImpl.login(email, pwHash).map(UserDataMapper::transform);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class UserDataRepository implements UserRepository {
 
     @Override
     public void createUser(User user) {
-        restApiImpl.createUser(UserEntityDataMapper.transform(user));
+        restApiImpl.createUser(UserDataMapper.transform(user));
     }
 
     @Override
@@ -107,11 +107,11 @@ public class UserDataRepository implements UserRepository {
         userEntity.setPasswordResetCode("");
         userEntity.setPasswordResetTimeout(date);
 
-        return restApiImpl.createUser(userEntity).map(UserEntityDataMapper::transform);
+        return restApiImpl.createUser(userEntity).map(UserDataMapper::transform);
     }
 
     @Override
     public Single<User> getUserByEmail(String email) {
-        return restApiImpl.getUserByEmail(email).map(UserEntityDataMapper::transform);
+        return restApiImpl.getUserByEmail(email).map(UserDataMapper::transform);
     }
 }

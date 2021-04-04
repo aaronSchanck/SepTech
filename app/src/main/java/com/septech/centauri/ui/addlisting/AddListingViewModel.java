@@ -8,6 +8,8 @@ import com.septech.centauri.domain.models.Category;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.repository.ItemRepository;
 
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -34,7 +36,7 @@ public class AddListingViewModel extends ViewModel {
                            String auctionLength, String startingBid, String minBidIncrement,
                            String buyoutPrice, String mainCategory, String categoryTwo,
                            String categoryThree, String categoryFour, String categoryFive,
-                           String itemDescription, String[] imagePaths) {
+                           String itemDescription, List<String> imagePaths) {
         Item newItem = new Item();
 
         newItem.setName(name);
@@ -47,7 +49,7 @@ public class AddListingViewModel extends ViewModel {
         newItem.setBuyoutPrice(buyoutPrice);
         newItem.setCategory(new Category(mainCategory, categoryTwo, categoryThree, categoryFour,
                 categoryFive));
-        newItem.setItemDescription(itemDescription);
+        newItem.setDescription(itemDescription);
 
         mDisposables.add(itemRepo.createItem(newItem, imagePaths)
                 .subscribeOn(Schedulers.io())
