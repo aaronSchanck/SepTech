@@ -49,6 +49,9 @@ public class AddListingActivity extends AppCompatActivity {
         categoryFiveEditText = findViewById(R.id.categoryFiveEditText);
         itemDescriptionEditText = findViewById(R.id.itemDescriptionEditText);
 
+        uploadImageButton = findViewById(R.id.uploadImageButton);
 
+        bidSwitch = findViewById(R.id.auctionSwitch);
+        buySwitch = findViewById(R.id.buyNowSwitch);
     }
 }

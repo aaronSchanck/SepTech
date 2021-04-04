@@ -74,4 +74,5 @@
     <string name="lineimage">lineImage</string>
     <string name="temp_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor…</string>
     <string name="view_more">View More</string>
+    <string name="createItemButton">Create Item</string>
 </resources>

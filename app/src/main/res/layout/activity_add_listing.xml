@@ -6,21 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/backArrow"
-        android:layout_width="0dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="14dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:contentDescription="@string/backarrow"
-        app:layout_constraintBottom_toTopOf="@+id/ItemAddImageBox"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/addListingHeader"
         app:layout_constraintEnd_toStartOf="@+id/addListingHeader"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toTopOf="@+id/addListingHeader"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/ic_back_arrow" />
 
     <TextView
@@ -33,8 +30,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias=".0625"
+        app:layout_constraintStart_toStartOf="@+id/ItemAddImageBox"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.008" />
 
@@ -70,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/item_name"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -102,7 +99,7 @@
         android:id="@+id/ItemQuantityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="6dp"
         android:text="@string/item_quantity"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -131,7 +128,7 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/auctionSwitch"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -139,7 +136,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/addListingHeader"
+        app:layout_constraintStart_toStartOf="@+id/ItemAddImageBox"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.375" />
 
@@ -238,12 +235,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/descriptionTextbox"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="359dp"
-        android:layout_height="92dp"
+        android:layout_width="249dp"
+        android:layout_height="91dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/descriptionLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.99">
 
@@ -318,9 +315,9 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/descriptionTextbox"
-        app:layout_constraintEnd_toEndOf="@+id/descriptionTextbox"
+        app:layout_constraintEnd_toEndOf="@+id/atTwoTextbox"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/descriptionTextbox"
+        app:layout_constraintStart_toStartOf="@+id/atTwoTextbox"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -395,5 +392,20 @@
             android:hint="@string/category_4"
             android:textStyle="italic" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/finishButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createItemButton"
+        android:textSize="12sp"
+        android:layout_marginEnd="4dp"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionTextbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@+id/descriptionTextbox"
+        app:layout_constraintTop_toTopOf="@+id/descriptionTextbox"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
