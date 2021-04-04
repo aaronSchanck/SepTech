@@ -20,17 +20,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        // Lookup the recyclerview in activity layout
-        RecyclerView rvCategory = (RecyclerView) findViewById(R.id.rvCategories);
+        RecyclerView rvCategory = findViewById(R.id.rvCategories);
 
-        // Initialize contacts
         categories = Category.createCategories(100);
-        // Create adapter passing in the sample user data
         CategoryAdapter adapter = new CategoryAdapter(categories);
-        // Attach the adapter to the recyclerview to populate items
         rvCategory.setAdapter(adapter);
-        // Set layout manager to position the items
         rvCategory.setLayoutManager(new GridLayoutManager(this, 2));
-        // That's all!
     }
 }

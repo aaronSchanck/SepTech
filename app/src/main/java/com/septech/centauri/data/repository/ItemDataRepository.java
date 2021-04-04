@@ -15,6 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -85,7 +86,7 @@ public class ItemDataRepository implements ItemRepository {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
             try {
-                // Read BitMap by file path.
+                // read BitMap by file path.
                 Bitmap bitmap = BitmapFactory.decodeFile(imagePaths.get(i), options);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             } catch (Exception e) {
@@ -103,5 +104,10 @@ public class ItemDataRepository implements ItemRepository {
         }
 
         return restApiImpl.createItem(body, itemEntity).map(ItemDataMapper::transform);
+    }
+    
+    @Override
+    public Observable<List<Item>> searchItems(String query) {
+        return null;
     }
 }
