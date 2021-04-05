@@ -24,7 +24,7 @@ public class RegisterViewModel extends ViewModel {
 
     private final UserRepository userRepo;
 
-    private CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public RegisterViewModel() {
         userRepo = UserDataRepository.getInstance();
@@ -47,12 +47,19 @@ public class RegisterViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
+                    public void onStart() {
+                        responseLiveData.setValue(RegisterCloudResponse.LOADING);
+                    }
+
+                    @Override
                     public void onSuccess(@NonNull User user) {
+                        responseLiveData.setValue(RegisterCloudResponse.SUCCESS);
                         System.out.println("user = " + user);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        responseLiveData.setValue(RegisterCloudResponse.INFO_INCORRECT);
                         System.out.println("e = " + e);
                     }
                 })

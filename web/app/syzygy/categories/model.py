@@ -17,7 +17,6 @@ Functions:
 import logging
 
 from app import db
-from sqlalchemy import *
 
 from .interface import CategoryInterface
 
@@ -25,7 +24,7 @@ log = logging.getLogger(__name__)
 
 
 class Category(db.Model):
-    """[summary]
+    """SQLAlchemy Model for a Category entry in the database.
 
     :param db: [description]
     :type db: [type]
@@ -35,16 +34,14 @@ class Category(db.Model):
 
     __tablename__ = "categories"
 
-    id = Column(Integer, primary_key=true)
-    category_1 = Column(String(32))
-    category_2 = Column(String(32))
-    category_3 = Column(String(32))
-    category_4 = Column(String(32))
-    category_5 = Column(String(32))
+    id = db.Column(db.Integer, primary_key=true)
+    category_1 = db.Column(db.String(32))
+    category_2 = db.Column(db.String(32))
+    category_3 = db.Column(db.String(32))
+    category_4 = db.Column(db.String(32))
+    category_5 = db.Column(db.String(32))
 
     items = db.relationship("Item", backref="category")
-
-    # items = db.relationship("Item", backref="category")
 
     def update(self, changes: CategoryInterface):
         for key, val in changes.items():

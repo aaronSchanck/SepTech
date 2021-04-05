@@ -101,6 +101,14 @@ class UserEmailResource(Resource):
         return UserService.reset_password(email)
 
 
+@api.route("/<email>/check_exists")
+@api.param("email", "User database email")
+class UserEmailResource(Resource):
+    @responds(schema=UserSchema)
+    def get(self, email: str):
+        return UserService.check_exists(email)
+
+
 @api.route("/login")
 class UserLoginResource(Resource):
     @accepts(

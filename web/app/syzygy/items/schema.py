@@ -23,7 +23,7 @@ from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import Schema, fields
 import marshmallow as ma
 
-from app.fields import FileStorageField
+from app.ma_fields import FileStorageField
 
 log = logging.getLogger(__name__)
 

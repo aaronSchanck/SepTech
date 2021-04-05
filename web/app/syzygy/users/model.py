@@ -64,7 +64,7 @@ class User(db.Model):
     )
 
     phone_number = db.Column(db.String(11))
-    password_salt1 = db.Column(db.String(63))
+    password_salt = db.Column(db.String(63))
 
     password_reset_code = db.Column(db.String(6))
     password_reset_timeout = db.Column(db.DateTime)

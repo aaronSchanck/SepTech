@@ -1,4 +1,4 @@
-"""/web/app/syzygy/banned/interface.py
+"""/web/app/syzygy/user_reports/interface.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -21,5 +21,5 @@ from typing import TypedDict
 log = logging.getLogger(__name__)
 
 
-class BannedInterface(TypedDict, total=False):
+class UserReportInterface(TypedDict, total=False):
     id: int

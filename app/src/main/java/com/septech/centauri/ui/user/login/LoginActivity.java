@@ -108,10 +108,10 @@ public class LoginActivity extends AppCompatActivity {
         LoginCloudResponse object is updated by the ViewModel, this observer will be called. This
         change will affect the UI as a result.
          */
-        mLoginViewModel.getResponseLiveData().observe(this, loginCloudResponse -> {
-            if (loginCloudResponse == LoginCloudResponse.LOADING) {
+        mLoginViewModel.getResponseLiveData().observe(this, loginResponse -> {
+            if (loginResponse == LoginResponse.SEARCHING) {
                 mLoadingIcon.setVisibility(View.VISIBLE);
-            } else if (loginCloudResponse == LoginCloudResponse.FAILED) {
+            } else if (loginResponse == LoginResponse.NO_USER_FOUND_FOR_EMAIL) {
                 mLoadingIcon.setVisibility(View.GONE);
             } else {
                 mLoadingIcon.setVisibility(View.GONE);

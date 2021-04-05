@@ -29,7 +29,7 @@ class UserInterface(TypedDict, total=False):
     created_at: str
     modified_at: str
     phone_number: str
-    password_salt1: str
+    password_salt: str
     password_reset_code: str
     password_reset_timeout: str
     last_successful_login: str

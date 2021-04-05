@@ -18,23 +18,28 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginViewModel extends ViewModel {
     private static final String TAG = "LoginViewModel";
 
+    private final int MAX_LOGIN_TRIES = 5;
+
+    private int loginTries;
+
     private final UserRepository userRepo;
 
-    private CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
-    private final MutableLiveData<LoginCloudResponse> responseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginResponse> responseLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
         this.userRepo = UserDataRepository.getInstance();
+        this.loginTries = 0;
     }
 
     public MutableLiveData<User> getUserLiveData() {
         return userLiveData;
     }
 
-    public MutableLiveData<LoginCloudResponse> getResponseLiveData() {
+    public MutableLiveData<LoginResponse> getResponseLiveData() {
         return responseLiveData;
     }
 
@@ -54,7 +59,7 @@ public class LoginViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onStart() {
-                        responseLiveData.setValue(LoginCloudResponse.LOADING);
+                        responseLiveData.setValue(LoginResponse.SEARCHING);
                     }
 
                     @Override
@@ -64,18 +69,15 @@ public class LoginViewModel extends ViewModel {
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeWith(new DisposableSingleObserver<User>() {
                                     @Override
-                                    public void onStart() {
-                                    }
-
-                                    @Override
                                     public void onSuccess(@NonNull User user) {
-                                        responseLiveData.setValue(LoginCloudResponse.SUCCESS);
+                                        responseLiveData.setValue(LoginResponse.USER_FOUND);
                                         userLiveData.setValue(user);
                                     }
 
                                     @Override
                                     public void onError(@NonNull Throwable e) {
-                                        responseLiveData.setValue(LoginCloudResponse.FAILED);
+                                        responseLiveData.setValue(LoginResponse.PASSWORD_INCORRECT);
+                                        loginTries += 1;
                                     }
                                 })
                         );
@@ -83,7 +85,7 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(LoginCloudResponse.FAILED);
+                        responseLiveData.setValue(LoginResponse.NO_USER_FOUND_FOR_EMAIL);
                     }
                 })
         );

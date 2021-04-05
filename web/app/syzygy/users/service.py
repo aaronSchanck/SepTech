@@ -132,6 +132,7 @@ class UserService:
 
         phone_number_reformatted = new_attrs["phone_number"]
 
+        # reformat phone number to remove extraneous (non-numeric) chars
         for c in ["(", ")", "-", " "]:
             if c in new_attrs["phone_number"]:
                 phone_number_reformatted.replace(c, "")
@@ -143,10 +144,8 @@ class UserService:
             date_of_birth=new_attrs["date_of_birth"],
             created_at=datetime.now(),
             modified_at=datetime.now(),
-            phone_number=new_attrs["phone_number"],
-            password_salt1=new_attrs["password_salt1"],
-            # password_reset_code=new_attrs["password_reset_code"],
-            # password_reset_timeout=new_attrs["password_reset_timeout"],
+            phone_number=phone_number_reformatted,
+            password_salt=new_attrs["password_salt"],
         )
 
         db.session.add(new_user)
@@ -283,6 +282,16 @@ class UserService:
         session.quit()
 
         print(f"Mail sent to {recipient.email} at {datetime.now()}")
+
+    @staticmethod
+    def check_exists(email: str) -> bool:
+        user = UserService.get_by_email(email)
+
+        return (
+            NormalResponse("User does not exist", 200)
+            if user is None
+            else ErrResponse("User exists", 400)
+        )
 
 
 def NormalResponse(response: dict, status: int) -> Response:

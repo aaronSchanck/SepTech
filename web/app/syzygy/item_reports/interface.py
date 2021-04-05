@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/interface.py
+"""/web/app/syzygy/item_reports/interface.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -21,5 +21,5 @@ from typing import TypedDict
 log = logging.getLogger(__name__)
 
 
-class OrderInterface(TypedDict, total=False):
-
+class ItemReportInterface(TypedDict, total=False):
+    id: int

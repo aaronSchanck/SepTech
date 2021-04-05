@@ -1,7 +1,8 @@
 package com.septech.centauri.ui.user.register;
 
 public enum RegisterCloudResponse {
-    FAILED,
+    EMAIL_EXISTS,
+    INFO_INCORRECT,
     LOADING,
     SUCCESS
 }
