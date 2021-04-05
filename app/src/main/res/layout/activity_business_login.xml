@@ -5,27 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.user.login.LoginActivity">
+    tools:context=".ui.business.login.BusinessLoginActivity">
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:id="@+id/appBarLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:theme="@style/Theme.Centauri.AppBarOverlay">-->
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:id="@+id/appBarLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:theme="@style/Theme.Centauri.AppBarOverlay">-->
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:background="?attr/colorPrimary"-->
-<!--            app:popupTheme="@style/Theme.Centauri.PopupOverlay" />-->
+    <!--        <androidx.appcompat.widget.Toolbar-->
+    <!--            android:id="@+id/toolbar"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="?attr/actionBarSize"-->
+    <!--            android:background="?attr/colorPrimary"-->
+    <!--            app:popupTheme="@style/Theme.Centauri.PopupOverlay" />-->
 
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+    <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="374dp"
         android:layout_marginTop="25dp"
         android:orientation="vertical"
         android:padding="0dp"
@@ -81,6 +81,7 @@
             android:id="@+id/loading_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:elevation="10dp"
             android:indeterminate="true"
             android:indeterminateTint="@color/red_700"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -88,8 +89,7 @@
             app:layout_constraintHorizontal_bias="0.500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.595"
-            android:elevation="10dp"/>
+            app:layout_constraintVertical_bias="0.595" />
 
         <Button
             android:id="@+id/sign_in_btn"
@@ -104,10 +104,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/create_account_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forgot_password_btn"
-            app:layout_constraintVertical_bias="0.458" />
+            app:layout_constraintVertical_bias="0.876" />
 
         <Button
             android:id="@+id/create_account_btn"
@@ -122,7 +121,6 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.941" />
@@ -156,18 +154,5 @@
         android:src="@drawable/centauri_logo"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="443dp" />
-
-    <Button
-        android:id="@+id/continue_guest_btn"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="?android:attr/selectableItemBackground"
-        android:elevation="5dp"
-        android:text="@string/continue_as_guest"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="619dp" />
 
 </LinearLayout>

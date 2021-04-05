@@ -36,14 +36,14 @@ class Business(db.Model):
     __tablename__ = "businesses"
 
     id = db.Column(db.Integer, primary_key=True)
+    business_name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.LargeBinary(127), nullable=False)
-    full_name = db.Column(db.String(255))
-    date_of_birth = db.Column(db.Date)
+    owner_full_name = db.Column(db.String(255))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
-    # products = db.Column(db.)
+    profile_picture = db.Column(db.String())
 
     def update(self, changes: BusinessInterface):
         for key, val in changes.items():

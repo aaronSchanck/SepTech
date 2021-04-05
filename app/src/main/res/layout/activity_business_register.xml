@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.user.register.RegisterActivity">
+    tools:context=".ui.business.register.BusinessRegisterActivity">
 
     <ProgressBar
         android:id="@+id/loading_icon"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="15dp"
                 android:orientation="vertical"
-                android:text="CREATE AN ACCOUNT"
+                android:text="CREATE A BUSINESS ACCOUNT"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,16 +51,47 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/fname_text"
+                android:id="@+id/business_name_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="3dp"
                 android:orientation="vertical"
-                android:text="Full Name"
+                android:text="Business Name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_header" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/businessNameTextInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="370dp"
+                android:layout_height="64dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.500"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/business_name_text"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/fname_text"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="3dp"
+                android:orientation="vertical"
+                android:text="Business Owner Full Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/businessNameTextInput" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fname_text_input"
@@ -68,7 +99,6 @@
                 android:layout_width="370dp"
                 android:layout_height="64dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.500"
                 app:layout_constraintStart_toStartOf="parent"
@@ -204,49 +234,23 @@
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/dob_text"
-                android:layout_width="370dp"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="3dp"
-                android:orientation="vertical"
-                android:text="Date of Birth"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phone_text_input" />
-
-
-            <DatePicker
-                android:id="@+id/dob_input"
-                android:layout_width="370dp"
-                android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"
-                android:spinnersShown="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.500"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dob_text"
-                />
-
 
             <Button
                 android:id="@+id/register_create_account_btn"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="16dp"
                 android:backgroundTint="@color/centauri__teal"
                 android:elevation="5dp"
-                android:text="CREATE YOUR CENTAURI ACCOUNT"
+                android:text="CREATE CENTAURI BUSINESS ACCOUNT"
                 android:textColor="@color/gray"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.512"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dob_input" />
+                app:layout_constraintTop_toBottomOf="@+id/phone_text_input" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
