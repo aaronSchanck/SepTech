@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.ui.forgotpasswordcode.ForgotPasswordCodeActivity;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPasswordActivity";
@@ -103,7 +102,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), text, duration);
                     toast.show();
 
-                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+                    Intent intent = new Intent(this, ForgotPasswordActivity.class);
                     startActivity(intent);
                     break;
             }

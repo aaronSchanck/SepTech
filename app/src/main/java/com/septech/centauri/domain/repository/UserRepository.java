@@ -1,6 +1,7 @@
 package com.septech.centauri.domain.repository;
 
 
+import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public interface UserRepository {
      * @param userid The id of the user to be banned.
      * @return An observable Single representing the User model that was deleted.
      */
-    Single<User> deleteUser(int userid);
+    Single<UserEntity> deleteUser(int userid);
 
     /**
      * A function that creates a user object in the remote API based off of an existing User
@@ -84,4 +85,7 @@ public interface UserRepository {
      * @return An observable single with the User object, if it exists.
      */
     Single<User> getUserByEmail(String email);
+
+    Single<UserEntity> getPasswordResetCode(String code);
+
 }

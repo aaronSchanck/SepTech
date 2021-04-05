@@ -62,7 +62,7 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<User> deleteUser(int userid) {
+    public Single<UserEntity> deleteUser(int userid) {
         return restApiImpl.deleteUser(userid);
     }
 
