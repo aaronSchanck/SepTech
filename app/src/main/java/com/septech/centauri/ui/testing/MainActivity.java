@@ -1,4 +1,4 @@
-package com.septech.centauri;
+package com.septech.centauri.ui.testing;
 
 import android.Manifest;
 import android.app.Activity;
@@ -27,6 +27,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.septech.centauri.R;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.repository.ItemDataRepository;
 import com.septech.centauri.domain.models.Item;
@@ -100,28 +101,6 @@ public class MainActivity extends Activity {
 
 
             CompositeDisposable mDisposables = new CompositeDisposable();
-
-            mDisposables.add(itemDataRepository.createItem(imagePath)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new DisposableSingleObserver<ItemEntity>() {
-                        @Override
-                        public void onStart() {
-                            System.out.println("Start");
-                        }
-
-                        @Override
-                        public void onSuccess(@NonNull ItemEntity itemEntity) {
-                            System.out.println("itemEntity = " + itemEntity);
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            System.out.println("e = " + e);
-                        }
-                    })
-            );
-
         }
     }
 
@@ -150,10 +129,6 @@ public class MainActivity extends Activity {
 
         postRequest(postUrl, postBodyImage);
     }
-
-    // get the base 64 string
-//    String imgString = Base64.encodeToString(getBytesFromBitmap(someImg),
-//            Base64.NO_WRAP);
 
     void postRequest(String postUrl, RequestBody postBody) {
 

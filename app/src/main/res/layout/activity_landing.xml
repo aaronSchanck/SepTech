@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.landing.LandingActivity">
+
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:id="@+id/appBarLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:theme="@style/Theme.Centauri.AppBarOverlay">-->
+
+    <!--        <androidx.appcompat.widget.Toolbar-->
+    <!--            android:id="@+id/toolbar"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="?attr/actionBarSize"-->
+    <!--            android:background="?attr/colorPrimary"-->
+    <!--            app:popupTheme="@style/Theme.Centauri.PopupOverlay" />-->
+
+    <!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="575dp"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="20dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/proceedUserBtn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/centauri__teal"
+            android:elevation="5dp"
+            android:text="@string/landing_proceed_user"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/proceedBusinessBtn"
+            app:layout_constraintEnd_toEndOf="@+id/proceedBusinessBtn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/proceedBusinessBtn"
+            app:layout_constraintTop_toBottomOf="@+id/logoImage"
+            app:layout_constraintVertical_bias="0.929" />
+
+        <Button
+            android:id="@+id/proceedBusinessBtn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/centauri__teal"
+            android:elevation="5dp"
+            android:text="@string/landing_proceed_business"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.992" />
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="400dp"
+            android:layout_height="325dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="64dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/centauri_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/continue_guest_btn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="?android:attr/selectableItemBackground"
+        android:elevation="5dp"
+        android:text="@string/continue_as_guest"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="619dp" />
+
+</LinearLayout>

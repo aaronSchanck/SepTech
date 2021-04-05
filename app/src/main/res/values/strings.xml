@@ -166,4 +166,12 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="itemQualityText">Item Quality</string>
+    <string name="title_activity_landing">LandingActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="landing_proceed_user">Proceed as a User</string>
+    <string name="landing_proceed_business">Proceed as a Business</string>
 </resources>

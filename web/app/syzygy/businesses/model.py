@@ -35,10 +35,13 @@ class Business(db.Model):
 
     __tablename__ = "businesses"
 
-    id = Column(Integer, primary_key=True)
-
-    name = db.Column(db.String)
-    email = db.Column(db.String, unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.LargeBinary(127), nullable=False)
+    full_name = db.Column(db.String(255))
+    date_of_birth = db.Column(db.Date)
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
     # products = db.Column(db.)
 

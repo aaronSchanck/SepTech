@@ -50,17 +50,6 @@ class AddressService:
         return Address.query.get(addressid)
 
     @staticmethod
-    def get_by_email(email: str) -> Address:
-        """[summary]
-
-        :param email: [description]
-        :type email: str
-        :return: [description]
-        :rtype: [type]
-        """
-        return Address.query.filter(Address.email == email).first()
-
-    @staticmethod
     def update(address: Address, address_changes: AddressInterface) -> Address:
         """[summary]
 
