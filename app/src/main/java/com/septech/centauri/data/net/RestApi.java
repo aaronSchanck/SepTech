@@ -1,7 +1,9 @@
 package com.septech.centauri.data.net;
 
+import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
+import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.User;
 
 import java.util.List;
@@ -94,4 +96,15 @@ public interface RestApi {
     @POST("items/create")
     Single<ItemEntity> createItem(@Part MultipartBody.Part[] images,
                                   @Part("itemEntity") ItemEntity itemEntity);
+
+    //BUSINESS ENDPOINTS
+
+    @POST("businesses/login")
+    @FormUrlEncoded
+    Single<BusinessEntity> businessLogin(
+            @Field("email") String email,
+            @Field("password") String password);
+
+    @GET("businesses")
+    Single<BusinessEntity> getBusinessByEmail(@Path("email") String email);
 }

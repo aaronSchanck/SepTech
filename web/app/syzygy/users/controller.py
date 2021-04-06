@@ -14,7 +14,7 @@ Classes:
 
     UserIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{userid}.
+        aforementioned class. Must be routed to with {baseurl}/{id}.
 
     UserLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
@@ -63,29 +63,29 @@ class UserResource(Resource):
         return UserService.create(request.parsed_obj)
 
 
-@api.route("/<int:userid>")
-@api.param("userid", "User database ID")
+@api.route("/<int:id>")
+@api.param("id", "User database ID")
 class UserIdResource(Resource):
     @responds(schema=UserSchema)
-    def get(self, userid: int):
+    def get(self, id: int):
         """Get Single User"""
 
-        return UserService.get_by_id(userid)
+        return UserService.get_by_id(id)
 
-    def delete(self, userid: int):
+    def delete(self, id: int):
         """Delete Single User"""
         from flask import jsonify
 
-        id = UserService.delete_by_id(userid)
+        id = UserService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=UserSchema, api=api)
     @responds(schema=UserSchema)
-    def put(self, userid: int):
+    def put(self, id: int):
         """Update Single User"""
 
         changes: UserInterface = request.parsed_obj
-        User = UserService.get_by_id(userid)
+        User = UserService.get_by_id(id)
         return UserService.update(User, changes)
 
 

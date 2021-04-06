@@ -67,16 +67,13 @@ public interface UserRepository {
      */
     Observable<List<User>> getAllUsers();
 
+
     /**
-     * TODO: rewrite required, convert the parameters to a User object, then pass the User object
-     * in the caller of this function as the sole parameter.
-     * @param email
-     * @param password
-     * @param fullName
-     * @param phoneNumber
+     * 
+     * @param user
      * @return
      */
-    Single<User> createAccount(String email, String password, String fullName, String phoneNumber);
+    Single<User> createAccount(User user);
 
     /**
      * An interface function to return a user based on their email address.

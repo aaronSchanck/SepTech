@@ -1,14 +1,23 @@
 package com.septech.centauri.ui.user.register;
 
+import android.util.Log;
 import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
+import com.septech.centauri.data.model.user.UserEntity;
+import com.septech.centauri.data.model.user.mapper.UserDataMapper;
 import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
+import com.septech.centauri.lib.DateTime;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -42,7 +51,22 @@ public class RegisterViewModel extends ViewModel {
     }
 
     public void createAccount(String email, String password, String fullName, String phoneNumber) {
-        mDisposables.add(userRepo.createAccount(email, password, fullName, phoneNumber)
+        PasswordUtils pwUtils = new PasswordUtils(password);
+        String pwHash = pwUtils.hash();
+
+        User user = new User();
+
+        user.setEmail(email);
+        user.setPassword(pwHash);
+        user.setFullName(fullName);
+        user.setPhoneNumber(phoneNumber);
+        user.setPasswordSalt(pwUtils.getSalt());
+
+        user.setCreatedAt(DateTime.nowDateTime());
+        user.setModifiedAt(DateTime.nowDateTime());
+        user.setDateOfBirth(DateTime.nowDate());
+
+        mDisposables.add(userRepo.createAccount(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {

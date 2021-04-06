@@ -1,6 +1,7 @@
 package com.septech.centauri.data.repository;
 
 
+import android.service.autofill.UserData;
 import android.util.Log;
 
 import com.septech.centauri.data.cache.FileCache;
@@ -80,34 +81,8 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<User> createAccount(String email, String password, String fullName, String phoneNumber) {
-        PasswordUtils pwUtils = new PasswordUtils(password);
-        String pwHash = pwUtils.hash();
-
-        UserEntity userEntity = new UserEntity();
-
-        userEntity.setEmail(email);
-        userEntity.setPassword(pwHash);
-        userEntity.setFullName(fullName);
-        userEntity.setPhoneNumber(phoneNumber);
-        userEntity.setPasswordSalt(pwUtils.getSalt());
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        String date = df.format(Calendar.getInstance().getTime());
-
-        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-        String date2 = df2.format(Calendar.getInstance().getTime());
-
-        Log.i("words", pwHash);
-
-        userEntity.setCreatedAt(date);
-        userEntity.setModifiedAt(date);
-        userEntity.setDateOfBirth(date2);
-
-        userEntity.setPasswordResetCode("");
-        userEntity.setPasswordResetTimeout(date);
-
-        return restApiImpl.createUser(userEntity).map(UserDataMapper::transform);
+    public Single<User> createAccount(final User user) {
+        return restApiImpl.createUser(UserDataMapper.transform(user)).map(UserDataMapper::transform);
     }
 
     @Override

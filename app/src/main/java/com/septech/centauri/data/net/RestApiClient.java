@@ -2,6 +2,7 @@ package com.septech.centauri.data.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
@@ -42,7 +43,7 @@ public class RestApiClient {
         }
         return instance;
     }
-
+    //USERS
     public Single<UserEntity> login(@NonNull String username, @NonNull String password) {
         return restApi.login(username, password);
     }
@@ -67,6 +68,12 @@ public class RestApiClient {
         return restApi.getUserByEmail(email);
     }
 
+    public Single<String> checkExists(String email) {
+        return restApi.checkExists(email);
+    }
+
+    //ITEMS
+
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
         MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
 
@@ -74,7 +81,13 @@ public class RestApiClient {
         return restApi.createItem(imagesArr, itemEntity);
     }
 
-    public Single<String> checkExists(String email) {
-        return restApi.checkExists(email);
+    //BUSINESSES
+
+    public Single<BusinessEntity> businessLogin(@NonNull String email, @NonNull String password) {
+        return restApi.businessLogin(email, password);
+    }
+
+    public Single<BusinessEntity> getBusinessByEmail(String email) {
+        return restApi.getBusinessByEmail(email);
     }
 }

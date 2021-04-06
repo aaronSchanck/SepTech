@@ -88,24 +88,26 @@ class BusinessIdResource(Resource):
         Business = BusinessService.get_by_id(id)
         return BusinessService.update(Business, changes)
 
+
 @api.route("/<email>")
 @api.param("email", "Business database email")
 class BusinessEmailResource(Resource):
     @responds(schema=BusinessSchema)
     def get(self, email: int):
+        """Get business by business login email"""
         return BusinessService.get_by_email(email)
 
 
 @api.route("/login")
 class BusinessLoginResource(Resource):
     @accepts(
-        dict(name="email", type=str, help="A user's email"),
-        dict(name="password", type=str, help="A user's password"),
+        dict(name="email", type=str, help="A business's email"),
+        dict(name="password", type=str, help="A business's password"),
         api=api,
     )
     @responds(schema=BusinessSchema)
     def post(self):
-        """Login with user credentials"""
+        """Login with business credentials"""
 
         email = request.parsed_args["email"]
         password = request.parsed_args["password"]

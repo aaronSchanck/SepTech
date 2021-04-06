@@ -1,20 +1,59 @@
-package com.septech.centauri.domain.models;
+package com.septech.centauri.data.model.business;
 
-public class Business {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class BusinessEntity {
+    @SerializedName("id")
+    @Expose(serialize = false)
     private int id;
+
+    @SerializedName("business_name")
+    @Expose
     private String businessName;
+
+    @SerializedName("email")
+    @Expose
     private String email;
+
+    @SerializedName("password")
+    @Expose
     private String password;
+
+    @SerializedName("owner_full_name")
+    @Expose
     private String ownerFullName;
+
+    @SerializedName("phone_number")
+    @Expose
     private String phoneNumber;
+
+    @SerializedName("password_salt")
+    @Expose
     private String passwordSalt;
+
+    @SerializedName("created_at")
+    @Expose
     private String createdAt;
+
+    @SerializedName("modified_at")
+    @Expose
     private String modifiedAt;
+
+    @SerializedName("password_reset_code")
+    @Expose
     private String passwordResetCode;
+
+    @SerializedName("password_reset_timeout")
+    @Expose
     private String passwordResetTimeout;
 
-    public Business() {
-        //left empty
+    public BusinessEntity() {
+        //empty
+    }
+
+    public BusinessEntity(int id) {
+        this.id = id;
     }
 
     public int getId() {

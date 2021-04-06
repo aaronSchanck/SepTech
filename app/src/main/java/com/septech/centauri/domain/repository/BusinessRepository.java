@@ -1,0 +1,11 @@
+package com.septech.centauri.domain.repository;
+
+import com.septech.centauri.domain.models.Business;
+
+import io.reactivex.Single;
+
+public interface BusinessRepository {
+    Single<Business> getBusinessByEmail(String email);
+
+    Single<Business> login(String email, String password, String passwordSalt);
+}

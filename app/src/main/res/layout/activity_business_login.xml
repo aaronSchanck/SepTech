@@ -151,7 +151,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:contentDescription="TODO"
-        android:src="@drawable/centauri_logo"
+        android:src="@drawable/centauri_logo_business"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="443dp" />
 

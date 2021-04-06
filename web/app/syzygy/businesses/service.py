@@ -141,7 +141,7 @@ class BusinessService:
             log.info("No business was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
-        log.info(f"Business {business.businessid} was found and returned to client")
+        log.info(f"Business {business.id} was found and returned to client")
 
         # generate JWT token and concatenate
 

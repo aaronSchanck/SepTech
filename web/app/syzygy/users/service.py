@@ -48,15 +48,15 @@ class UserService:
         return User.query.all()
 
     @staticmethod
-    def get_by_id(userid: int) -> User:
+    def get_by_id(id: int) -> User:
         """[summary]
 
-        :param userid: [description]
-        :type userid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        user = User.query.get(userid)
+        user = User.query.get(id)
 
         # if user is None:
         #     return ErrResponse("Requested user doesn't exist", 400)
@@ -96,22 +96,22 @@ class UserService:
         return user
 
     @staticmethod
-    def delete_by_id(userid: int) -> List:
-        """Deletes a user from the table with the specified userid
+    def delete_by_id(id: int) -> List:
+        """Deletes a user from the table with the specified id
 
-        :param userid: User's userid
-        :type userid: int
+        :param id: User's id
+        :type id: int
         :return: List containing the deleted user, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        user = UserService.get_by_id(userid)
+        user = UserService.get_by_id(id)
         if not user:
             return []
         db.session.delete(user)
         db.session.commit()
-        return [userid]
+        return [id]
 
     @staticmethod
     def create(new_attrs: UserInterface) -> User:
@@ -185,7 +185,7 @@ class UserService:
             log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
-        log.info(f"User {user.userid} was found and returned to client")
+        log.info(f"User {user.id} was found and returned to client")
 
         # generate JWT token and concatenate
 
