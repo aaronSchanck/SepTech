@@ -63,7 +63,7 @@ public class UserDataRepository implements UserRepository {
 
     @Override
     public Single<User> deleteUser(int userid) {
-        return restApiImpl.deleteUser(userid);
+        return restApiImpl.deleteUser(userid).map(UserDataMapper::transform);
     }
 
     @Override
@@ -113,5 +113,10 @@ public class UserDataRepository implements UserRepository {
     @Override
     public Single<User> getUserByEmail(String email) {
         return restApiImpl.getUserByEmail(email).map(UserDataMapper::transform);
+    }
+
+    @Override
+    public Single<String> checkUserExists(String email) {
+        return restApiImpl.checkExists(email);
     }
 }

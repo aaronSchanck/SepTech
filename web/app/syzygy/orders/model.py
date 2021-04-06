@@ -35,7 +35,9 @@ class Order(db.Model):
     __tablename__ = "orders"
 
     id = db.Column(db.Integer, primary_key=True)
+
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User", back_populates="orders")
 
     ordered = db.Column(db.Boolean)
 
@@ -44,6 +46,8 @@ class Order(db.Model):
     date_delivered = db.Column(db.DateTime)
 
     total_price = db.Column(db.Numeric(10, 2))
+
+    order_items = db.relationship("OrderItem", back_populates="order")
 
     def update(self, changes: OrderInterface):
         for key, val in changes.items():

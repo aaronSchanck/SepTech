@@ -39,10 +39,10 @@ class OrderItem(db.Model):
     price = db.Column(db.Numeric(10, 2))
 
     itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
-    item = db.relationship("Item", backref="order_items")
+    item = db.relationship("Item")
 
     orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
-    order = db.relationship("Order", backref="order_items")
+    order = db.relationship("Order", back_populates="order_items")
 
     def update(self, changes: OrderItemInterface):
         for key, val in changes.items():

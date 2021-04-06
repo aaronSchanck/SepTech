@@ -103,10 +103,11 @@ class UserEmailResource(Resource):
 
 @api.route("/<email>/check_exists")
 @api.param("email", "User database email")
-class UserEmailResource(Resource):
+class UserEmailCheckResource(Resource):
     @responds(schema=UserSchema)
     def get(self, email: str):
-        """Used to check whether a user exists at the given email, without actually sending the user object.
+        """Used to check whether a user exists at the given email,
+        without actually sending the user object. When the user
 
         :param email: [description]
         :type email: str
@@ -125,7 +126,13 @@ class UserLoginResource(Resource):
     )
     @responds(schema=UserSchema)
     def post(self):
-        """Login with user credentials"""
+        """Login with user email address and password. If the user exists, then
+        return the user object to the caller.
+
+        :return: The User model with the specified email address and password,
+        if it exists.
+        :rtype:
+        """
 
         email = request.parsed_args["email"]
         password = request.parsed_args["password"]

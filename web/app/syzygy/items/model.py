@@ -42,7 +42,7 @@ class Item(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
 
     thumbnail = db.Column(db.Integer)
-    images = db.String
+    images = db.Column(db.String)
     item_variants = db.Column(db.ARRAY(db.Integer))  # array of itemid
     description = db.Column(db.Text())
     attributes = db.Column(db.JSON)
@@ -52,7 +52,3 @@ class Item(db.Model):
             setattr(self, key, val)
 
         return self
-
-
-# from werkzeug.utils import secure_filename
-# from werkzeug.datastructures import  FileStorage

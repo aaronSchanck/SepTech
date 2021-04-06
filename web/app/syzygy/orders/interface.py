@@ -22,4 +22,4 @@ log = logging.getLogger(__name__)
 
 
 class OrderInterface(TypedDict, total=False):
-
+    id: int

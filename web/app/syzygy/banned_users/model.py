@@ -32,7 +32,7 @@ class BannedUser(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "banned_user_users"
+    __tablename__ = "banned_users"
 
     id = db.Column(db.Integer, primary_key=True)
 

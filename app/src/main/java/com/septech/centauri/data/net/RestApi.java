@@ -80,7 +80,13 @@ public interface RestApi {
     @GET("users/{email}")
     Single<UserEntity> getUserByEmail(@Path("email") String email);
 
-
+    /**
+     *
+     * @param email
+     * @return
+     */
+    @GET("users/{email}/check_exists")
+    Single<String> checkExists(@Path("email") String email);
 
     //ITEMS ENDPOINTS
 

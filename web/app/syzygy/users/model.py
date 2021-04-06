@@ -35,13 +35,16 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
+
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.LargeBinary(127), nullable=False)
     full_name = db.Column(db.String(255))
     date_of_birth = db.Column(db.Date)
+
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
+    # billing address information
     billing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
     billing_address = db.relationship(
         "Address",
@@ -50,6 +53,7 @@ class User(db.Model):
         uselist=False,
     )
 
+    # mailing address information
     mailing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
     mailing_address = db.relationship(
         "Address",
@@ -58,9 +62,10 @@ class User(db.Model):
         uselist=False,
     )
 
-    banned_id = db.Column(db.Integer, db.ForeignKey("banned.id"))
+    # banned information
+    banned_id = db.Column(db.Integer, db.ForeignKey("banned_users.id"))
     banned = db.relationship(
-        "Banned", foreign_keys=banned_id, backref="user", uselist=False
+        "BannedUser", foreign_keys=banned_id, backref="user", uselist=False
     )
 
     phone_number = db.Column(db.String(11))
@@ -73,7 +78,7 @@ class User(db.Model):
     last_unsuccessful_login = db.Column(db.DateTime)
 
     # order
-    orders = db.relationship("Order", backref="user")
+    orders = db.relationship("Order", back_populates="user")
 
     admin_level = db.Column(db.Integer)
 

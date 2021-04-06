@@ -50,3 +50,6 @@ class Business(db.Model):
             setattr(self, key, val)
 
         return self
+
+    def __repr__(self):
+        pass

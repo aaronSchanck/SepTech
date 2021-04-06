@@ -5,6 +5,7 @@ import com.septech.centauri.domain.models.User;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -84,4 +85,6 @@ public interface UserRepository {
      * @return An observable single with the User object, if it exists.
      */
     Single<User> getUserByEmail(String email);
+
+    Single<String> checkUserExists(String email);
 }

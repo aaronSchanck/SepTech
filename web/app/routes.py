@@ -21,9 +21,12 @@ log = logging.getLogger(__name__)
 
 def register_routes(api, app, root="api"):
     from app.syzygy.users import register_routes as attach_users
+    from app.syzygy.banned_users import register_routes as attach_banned_users
+
     from app.syzygy.businesses import register_routes as attach_businesses
+    from app.syzygy.banned_businesses import register_routes as attach_banned_businesses
+
     from app.syzygy.addresses import register_routes as attach_addresses
-    from app.syzygy.banned import register_routes as attach_banned
 
     from app.syzygy.items import register_routes as attach_items
     from app.syzygy.removed_items import register_routes as attach_removed_items
@@ -34,10 +37,12 @@ def register_routes(api, app, root="api"):
 
     # Add routes
     attach_users(api, app)
+    attach_banned_users(api, app)
+
     attach_businesses(api, app)
+    attach_banned_businesses(api, app)
 
     attach_addresses(api, app)
-    attach_banned(api, app)
 
     attach_items(api, app)
     attach_item_categories(api, app)

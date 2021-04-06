@@ -31,4 +31,11 @@ class UserReportSchema(Schema):
     reported_id = fields.Integer(required=True)
 
     report_reason = fields.Str(required=True)
-    report_comment = fields.Str()
+    report_comment = fields.Str(required=False)
+
+    created_at = fields.DateTime(dump_only=True)
+
+    # admin stuff
+    reviewed_by_id = fields.Integer(dump_only=True)
+    reviewed_by_name = fields.String(dump_only=True)
+    reviewed_at = fields.DateTime(dump_only=True)

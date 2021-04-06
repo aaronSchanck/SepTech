@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
 //    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-    private final String API_BASE_URL = "http://192.168.0.10:5000/api/";  // base url for our api
+    private final String API_BASE_URL = "http://192.168.0.4:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -72,5 +72,9 @@ public class RestApiClient {
 
         images.toArray(imagesArr);
         return restApi.createItem(imagesArr, itemEntity);
+    }
+
+    public Single<String> checkExists(String email) {
+        return restApi.checkExists(email);
     }
 }

@@ -41,14 +41,12 @@ class UserReportResource(Resource):
 
         return UserReportService.get_all()
 
-    # @accepts(schema=UserReportSchema, api=api)
-    # @responds(schema=UserReportSchema)
-    # def post(self):
-    #     """Create a Single UserReport"""
-
-    #     return UserReportService.create(request.parsed_obj)
+    @accepts(schema=UserReportSchema, api=api)
+    @responds(schema=UserReportSchema)
     def post(self):
         """Create a Single UserReport"""
+
+        return UserReportService.create(request.parsed_obj)
 
 
 @api.route("/<int:user_reportid>")

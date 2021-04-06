@@ -23,3 +23,15 @@ log = logging.getLogger(__name__)
 
 class UserReportInterface(TypedDict, total=False):
     id: int
+    reporter_user_id: int
+    reported_user_id: int
+
+    report_reason: str
+    report_comment: str
+
+    created_at: str
+
+    # admin stuff
+    reviewed_by_id: int
+    reviewed_by_name: str
+    reviewed_at: str

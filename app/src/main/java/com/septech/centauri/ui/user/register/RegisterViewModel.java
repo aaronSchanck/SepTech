@@ -143,22 +143,6 @@ public class RegisterViewModel extends ViewModel {
         mRegisterFormState.setValue(registerFormState);
     }
 
-    public void onUpdatePhoneNumber(String phoneNumber) {
-        RegisterFormState registerFormState = mRegisterFormState.getValue();
-
-        assert registerFormState != null;
-        registerFormState.setPhoneNumberEdited(true);
-
-        if (!isPhoneNumberValid(phoneNumber)) {
-            registerFormState.setPhoneNumberError(R.string.register_string_phone_number_incorrect);
-        } else {
-            registerFormState.setPhoneNumberError(null);
-            registerFormState.checkDataValid();
-        }
-
-        mRegisterFormState.setValue(registerFormState);
-    }
-
     public boolean isFullNameValid(String fullName) {
         return fullName.length() > 1;
     }
@@ -171,7 +155,23 @@ public class RegisterViewModel extends ViewModel {
         return confirmPassword.equals(password);
     }
 
-    public boolean isPhoneNumberValid(String phoneNumber) {
-        return false;
+    public void checkUserExists(String email) {
+        mDisposables.add(userRepo.checkUserExists(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<String>() {
+                    @Override
+                    public void onSuccess(@NonNull String string) {
+                        responseLiveData.setValue(RegisterResponse.EMAIL_DOES_NOT_EXIST);
+                        System.out.println("user = " + string);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        responseLiveData.setValue(RegisterResponse.EMAIL_EXISTS);
+                        System.out.println("e = " + e);
+                    }
+                })
+        );
     }
 }
