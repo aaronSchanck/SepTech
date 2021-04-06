@@ -20,7 +20,7 @@ public class RegisterViewModel extends ViewModel {
     private static final String TAG = "RegisterViewModel";
 
     private final MutableLiveData<RegisterFormState> mRegisterFormState = new MutableLiveData<>();
-    private final MutableLiveData<RegisterCloudResponse> responseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<RegisterResponse> responseLiveData = new MutableLiveData<>();
 
     private final UserRepository userRepo;
 
@@ -32,7 +32,7 @@ public class RegisterViewModel extends ViewModel {
         mRegisterFormState.setValue(new RegisterFormState());
     }
 
-    public MutableLiveData<RegisterCloudResponse> getResponseLiveData() {
+    public MutableLiveData<RegisterResponse> getResponseLiveData() {
         return responseLiveData;
     }
     
@@ -48,18 +48,18 @@ public class RegisterViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onStart() {
-                        responseLiveData.setValue(RegisterCloudResponse.LOADING);
+                        responseLiveData.setValue(RegisterResponse.LOADING);
                     }
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        responseLiveData.setValue(RegisterCloudResponse.SUCCESS);
+                        responseLiveData.setValue(RegisterResponse.SUCCESS);
                         System.out.println("user = " + user);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(RegisterCloudResponse.INFO_INCORRECT);
+                        responseLiveData.setValue(RegisterResponse.INFO_INCORRECT);
                         System.out.println("e = " + e);
                     }
                 })

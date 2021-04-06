@@ -109,12 +109,20 @@ public class LoginActivity extends AppCompatActivity {
         change will affect the UI as a result.
          */
         mLoginViewModel.getResponseLiveData().observe(this, loginResponse -> {
-            if (loginResponse == LoginResponse.SEARCHING) {
-                mLoadingIcon.setVisibility(View.VISIBLE);
-            } else if (loginResponse == LoginResponse.NO_USER_FOUND_FOR_EMAIL) {
-                mLoadingIcon.setVisibility(View.GONE);
-            } else {
-                mLoadingIcon.setVisibility(View.GONE);
+            switch (loginResponse) {
+                case PASSWORD_INCORRECT:
+                    break;
+                case NO_INTERNET:
+                    break;
+                case SEARCHING:
+                    mLoadingIcon.setVisibility(View.VISIBLE);
+                    break;
+                case NO_USER_FOUND_FOR_EMAIL:
+                    mLoadingIcon.setVisibility(View.GONE);
+                    break;
+                case USER_FOUND:
+                    mLoadingIcon.setVisibility(View.GONE);
+                    break;
             }
         });
 

@@ -106,6 +106,13 @@ class UserEmailResource(Resource):
 class UserEmailResource(Resource):
     @responds(schema=UserSchema)
     def get(self, email: str):
+        """Used to check whether a user exists at the given email, without actually sending the user object.
+
+        :param email: [description]
+        :type email: str
+        :return: [description]
+        :rtype: [type]
+        """
         return UserService.check_exists(email)
 
 

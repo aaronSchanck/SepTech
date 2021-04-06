@@ -52,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterViewModel.getResponseLiveData().observe(this, this::processResponse);
 
         mFNameEditText = fullNameTextInput.getEditText();
-//        mLNameEditText = lastNameTextInput.getEditText();
         mEmailEditText = emailTextInput.getEditText();
         mPasswordEditText = passwordTextInput.getEditText();
         mConfirmPasswordEditText = confirmPasswordTextInput.getEditText();
@@ -60,93 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         //TODO: get birth date from calendar
 
-        mFNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateFullName(mFNameEditText.getText().toString());
-            }
-        });
-
-//        mLNameEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // intentionally left empty
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                // intentionally left empty
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                mRegisterViewModel.onUpdateLastName(mLNameEditText.getText().toString());
-//            }
-//        });
-
-        mEmailEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateEmail(mEmailEditText.getText().toString());
-            }
-        });
-
-        mPasswordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdatePassword(mPasswordEditText.getText().toString(),
-                        mConfirmPasswordEditText.getText().toString());
-            }
-        });
-
-        mConfirmPasswordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // intentionally left empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateConfirmPassword(mConfirmPasswordEditText.getText().toString(), mPasswordEditText.getText().toString());
-            }
-        });
-
-        mPhoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher("1"));
+        createTextWatchers();
 
         mCreateAccountBtn = findViewById(R.id.register_create_account_btn);
 
@@ -204,14 +117,91 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void processResponse(RegisterCloudResponse response) {
-        if (response == RegisterCloudResponse.LOADING) {
-            showLoadingIcon();
-        } else if (response == RegisterCloudResponse.FAILED) {
-            hideLoadingIcon();
-        } else {
-            mLoadingIcon.setVisibility(View.GONE);
-            //TODO: change activity
+    private void createTextWatchers() {
+        mFNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mRegisterViewModel.onUpdateFullName(mFNameEditText.getText().toString());
+            }
+        });
+
+        mEmailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mRegisterViewModel.onUpdateEmail(mEmailEditText.getText().toString());
+            }
+        });
+
+        mPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mRegisterViewModel.onUpdatePassword(mPasswordEditText.getText().toString(),
+                        mConfirmPasswordEditText.getText().toString());
+            }
+        });
+
+        mConfirmPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // intentionally left empty
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mRegisterViewModel.onUpdateConfirmPassword(mConfirmPasswordEditText.getText().toString(), mPasswordEditText.getText().toString());
+            }
+        });
+
+        mPhoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher("1"));
+    }
+
+    private void processResponse(RegisterResponse response) {
+        switch(response) {
+            case EMAIL_EXISTS:
+                break;
+            case INFO_INCORRECT:
+                hideLoadingIcon();
+                break;
+            case LOADING:
+                showLoadingIcon();
+                break;
+            case SUCCESS:
+                break;
         }
     }
 
