@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.register.RegisterActivity">
+    tools:context=".ui.user.register.RegisterActivity">
 
     <ProgressBar
         android:id="@+id/loading_icon"
@@ -87,7 +87,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="3dp"
                 android:orientation="vertical"
-                android:text="Email"
+                android:text="@string/register_email_address"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

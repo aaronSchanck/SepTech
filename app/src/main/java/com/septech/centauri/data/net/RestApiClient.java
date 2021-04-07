@@ -2,6 +2,7 @@ package com.septech.centauri.data.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
@@ -20,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
 //    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-    private final String API_BASE_URL = "http://192.168.0.10:5000/api/";  // base url for our api
+    private final String API_BASE_URL = "http://192.168.0.4:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -42,7 +43,7 @@ public class RestApiClient {
         }
         return instance;
     }
-
+    //USERS
     public Single<UserEntity> login(@NonNull String username, @NonNull String password) {
         return restApi.login(username, password);
     }
@@ -67,10 +68,26 @@ public class RestApiClient {
         return restApi.getUserByEmail(email);
     }
 
+    public Single<String> checkExists(String email) {
+        return restApi.checkExists(email);
+    }
+
+    //ITEMS
+
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
         MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
 
         images.toArray(imagesArr);
         return restApi.createItem(imagesArr, itemEntity);
+    }
+
+    //BUSINESSES
+
+    public Single<BusinessEntity> businessLogin(@NonNull String email, @NonNull String password) {
+        return restApi.businessLogin(email, password);
+    }
+
+    public Single<BusinessEntity> getBusinessByEmail(String email) {
+        return restApi.getBusinessByEmail(email);
     }
 }

@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserEntity {
-
     @SerializedName("id")
     @Expose(serialize = false)
     private int userid;
@@ -29,7 +28,7 @@ public class UserEntity {
     @Expose
     private String phoneNumber;
 
-    @SerializedName("password_salt1")
+    @SerializedName("password_salt")
     @Expose
     private String passwordSalt;
 

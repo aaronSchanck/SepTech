@@ -23,6 +23,8 @@ import logging
 from libs.auth import encrypt_pw
 import bcrypt
 
+from datetime import datetime
+
 import re
 
 from typing import List
@@ -53,6 +55,20 @@ class BusinessService:
 
         if business is None:
             return ErrResponse("Requested business doesn't exist", 400)
+
+        return business
+
+    @staticmethod
+    def get_by_email(email: str) -> Business:
+        """[summary]
+
+        :param email: [description]
+        :type email: str
+        :return: [description]
+        :rtype: [type]
+        """
+
+        business = Business.query.filter(Business.email == email).first()
 
         return business
 
@@ -102,7 +118,30 @@ class BusinessService:
         :rtype: Business
         """
 
-        new_business = Business()
+        business = BusinessService.get_by_email(new_attrs["email"])
+
+        if business is not None:
+            return ErrResponse("Business with email already exists", 400)
+
+        encrypted_pw = encrypt_pw(new_attrs["password"])
+
+        phone_number_reformatted = new_attrs["phone_number"]
+
+        # reformat phone number to remove extraneous (non-numeric) chars
+        for c in ["(", ")", "-", " "]:
+            if c in new_attrs["phone_number"]:
+                phone_number_reformatted.replace(c, "")
+
+        new_business = Business(
+            business_name=new_attrs["business_name"],
+            owner_full_name=new_attrs["owner_full_name"],
+            email=new_attrs["email"],
+            password=encrypted_pw,
+            created_at=datetime.now(),
+            modified_at=datetime.now(),
+            phone_number=phone_number_reformatted,
+            password_salt=new_attrs["password_salt"],
+        )
 
         db.session.add(new_business)
         db.session.commit()
@@ -141,7 +180,7 @@ class BusinessService:
             log.info("No business was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
-        log.info(f"Business {business.businessid} was found and returned to client")
+        log.info(f"Business {business.id} was found and returned to client")
 
         # generate JWT token and concatenate
 

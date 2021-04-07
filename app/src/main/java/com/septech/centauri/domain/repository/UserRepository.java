@@ -1,11 +1,11 @@
 package com.septech.centauri.domain.repository;
 
 
-import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -49,7 +49,7 @@ public interface UserRepository {
      * @param userid The id of the user to be banned.
      * @return An observable Single representing the User model that was deleted.
      */
-    Single<UserEntity> deleteUser(int userid);
+    Single<User> deleteUser(int userid);
 
     /**
      * A function that creates a user object in the remote API based off of an existing User
@@ -67,16 +67,13 @@ public interface UserRepository {
      */
     Observable<List<User>> getAllUsers();
 
+
     /**
-     * TODO: rewrite required, convert the parameters to a User object, then pass the User object
-     * in the caller of this function as the sole parameter.
-     * @param email
-     * @param password
-     * @param fullName
-     * @param phoneNumber
+     * 
+     * @param user
      * @return
      */
-    Single<User> createAccount(String email, String password, String fullName, String phoneNumber);
+    Single<User> createAccount(User user);
 
     /**
      * An interface function to return a user based on their email address.
@@ -86,6 +83,5 @@ public interface UserRepository {
      */
     Single<User> getUserByEmail(String email);
 
-    Single<UserEntity> getPasswordResetCode(String code);
-
+    Single<String> checkUserExists(String email);
 }

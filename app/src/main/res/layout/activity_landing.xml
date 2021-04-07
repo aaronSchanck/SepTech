@@ -74,14 +74,13 @@
 
         <ImageView
             android:id="@+id/logoImage"
-            android:layout_width="400dp"
-            android:layout_height="325dp"
+            android:layout_width="300dp"
+            android:layout_height="245dp"
             android:layout_gravity="center"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="28dp"
             android:contentDescription="TODO"
             android:src="@drawable/centauri_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

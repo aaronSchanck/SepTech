@@ -36,6 +36,9 @@ class Subscription(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    userid = db.Column(db.Integer)
+    user = db.relationship()
+
     def update(self, changes: SubscriptionInterface):
         for key, val in changes.items():
             setattr(self, key, val)

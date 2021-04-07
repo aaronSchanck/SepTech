@@ -14,7 +14,7 @@ Classes:
 
     BusinessIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{userid}.
+        aforementioned class. Must be routed to with {baseurl}/{id}.
 
     BusinessLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
@@ -63,51 +63,54 @@ class BusinessResource(Resource):
         return BusinessService.create(request.parsed_obj)
 
 
-@api.route("/<int:userid>")
-@api.param("userid", "Business database ID")
+@api.route("/<int:id>")
+@api.param("id", "Business database ID")
 class BusinessIdResource(Resource):
     @responds(schema=BusinessSchema)
-    def get(self, userid: int):
+    def get(self, id: int):
         """Get Single Business"""
 
-        return BusinessService.get_by_id(userid)
+        return BusinessService.get_by_id(id)
 
-    def delete(self, userid: int):
+    def delete(self, id: int):
         """Delete Single Business"""
         from flask import jsonify
 
-        id = BusinessService.delete_by_id(userid)
+        id = BusinessService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=BusinessSchema, api=api)
     @responds(schema=BusinessSchema)
-    def put(self, userid: int):
+    def put(self, id: int):
         """Update Single Business"""
 
         changes: BusinessInterface = request.parsed_obj
-        Business = BusinessService.get_by_id(userid)
+        Business = BusinessService.get_by_id(id)
         return BusinessService.update(Business, changes)
+
 
 @api.route("/<email>")
 @api.param("email", "Business database email")
 class BusinessEmailResource(Resource):
     @responds(schema=BusinessSchema)
     def get(self, email: int):
+        """Get business by business login email"""
         return BusinessService.get_by_email(email)
 
 
 @api.route("/login")
 class BusinessLoginResource(Resource):
     @accepts(
-        dict(name="email", type=str, help="A user's email"),
-        dict(name="password", type=str, help="A user's password"),
+        dict(name="email", type=str, help="A business's email"),
+        dict(name="password", type=str, help="A business's password"),
         api=api,
     )
     @responds(schema=BusinessSchema)
     def post(self):
-        """Login with user credentials"""
-
+        """Login with business credentials"""
         email = request.parsed_args["email"]
         password = request.parsed_args["password"]
+
+        print(email, password)
 
         return BusinessService.login(email, password)

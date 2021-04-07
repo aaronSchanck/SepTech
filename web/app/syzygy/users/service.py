@@ -48,15 +48,15 @@ class UserService:
         return User.query.all()
 
     @staticmethod
-    def get_by_id(userid: int) -> User:
+    def get_by_id(id: int) -> User:
         """[summary]
 
-        :param userid: [description]
-        :type userid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        user = User.query.get(userid)
+        user = User.query.get(id)
 
         # if user is None:
         #     return ErrResponse("Requested user doesn't exist", 400)
@@ -96,22 +96,22 @@ class UserService:
         return user
 
     @staticmethod
-    def delete_by_id(userid: int) -> List:
-        """Deletes a user from the table with the specified userid
+    def delete_by_id(id: int) -> List:
+        """Deletes a user from the table with the specified id
 
-        :param userid: User's userid
-        :type userid: int
+        :param id: User's id
+        :type id: int
         :return: List containing the deleted user, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        user = UserService.get_by_id(userid)
+        user = UserService.get_by_id(id)
         if not user:
             return []
         db.session.delete(user)
         db.session.commit()
-        return [userid]
+        return [id]
 
     @staticmethod
     def create(new_attrs: UserInterface) -> User:
@@ -132,6 +132,7 @@ class UserService:
 
         phone_number_reformatted = new_attrs["phone_number"]
 
+        # reformat phone number to remove extraneous (non-numeric) chars
         for c in ["(", ")", "-", " "]:
             if c in new_attrs["phone_number"]:
                 phone_number_reformatted.replace(c, "")
@@ -143,10 +144,8 @@ class UserService:
             date_of_birth=new_attrs["date_of_birth"],
             created_at=datetime.now(),
             modified_at=datetime.now(),
-            phone_number=new_attrs["phone_number"],
-            password_salt1=new_attrs["password_salt1"],
-            # password_reset_code=new_attrs["password_reset_code"],
-            # password_reset_timeout=new_attrs["password_reset_timeout"],
+            phone_number=phone_number_reformatted,
+            password_salt=new_attrs["password_salt"],
         )
 
         db.session.add(new_user)
@@ -186,7 +185,7 @@ class UserService:
             log.info("No user was found for supplied password")
             return ErrResponse("Incorrect password", 400)
 
-        log.info(f"User {user.userid} was found and returned to client")
+        log.info(f"User {user.id} was found and returned to client")
 
         # generate JWT token and concatenate
 
@@ -283,6 +282,16 @@ class UserService:
         session.quit()
 
         print(f"Mail sent to {recipient.email} at {datetime.now()}")
+
+    @staticmethod
+    def check_exists(email: str) -> bool:
+        user = UserService.get_by_email(email)
+
+        return (
+            NormalResponse("User does not exist", 200)
+            if user is None
+            else ErrResponse("User exists", 400)
+        )
 
 
 def NormalResponse(response: dict, status: int) -> Response:
