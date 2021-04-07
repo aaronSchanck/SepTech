@@ -12,9 +12,9 @@ Centauri is currently undergoing development. The application has great amounts 
 
 Before you begin, ensure you have met the following requirements:
 
-* You have installed the latest version of Java 8.
-* You are running the latest version of Android Studio.
-* You have installed the latest version of Gradle.
+* You have installed the latest version of [Java 8](https://www.java.com/en/download/manual.jsp).
+* You are running the latest version of [Android Studio](https://developer.android.com/studio/).
+* You have installed the latest version of [Gradle](https://gradle.org/releases/).
 
 ## Getting Started
 
