@@ -180,4 +180,8 @@
     <string name="starting_bid_amount">Starting Bid Amount</string>
     <string name="buyout_price">Buyout Price</string>
     <string name="selected_images">Selected Images</string>
+    <string name="productsLabel">Products</string>
+    <string name="seller_description_label">Description</string>
+    <string name="seller_name_text">Seller Name</string>
+    <string name="sellerprofileimage">sellerProfileImage</string>
 </resources>
