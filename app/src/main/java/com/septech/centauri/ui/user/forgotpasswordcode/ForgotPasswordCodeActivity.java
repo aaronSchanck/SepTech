@@ -26,6 +26,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
     private Button mVerifyButton;
 
+    private String mEmail = getIntent().getStringExtra("email");
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpw_verify);
@@ -58,7 +60,7 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
         // TODO: fix verify code
         mVerifyButton.setOnClickListener(v -> {
             hideKeyboard();
-            ForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString());
+            mForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(), mEmail);
         });
 
         mForgotPasswordCodeViewModel.getFormLiveData().observe(this, forgotPasswordCodeFormState -> {

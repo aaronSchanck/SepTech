@@ -72,6 +72,14 @@ public class RestApiClient {
         return restApi.checkExists(email);
     }
 
+    public Single<UserEntity> getPasswordResetCode(String email) {
+        return restApi.getUserByEmail(email);
+    }
+    public Single<String> checkCode(String code, String email) {
+        return restApi.checkCode(code, email);
+    }
+
+
     //ITEMS
 
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {

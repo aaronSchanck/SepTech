@@ -7,6 +7,7 @@ import com.septech.centauri.data.repository.UserDataRepository;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -15,6 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ForgotPasswordViewModel extends ViewModel {
     private UserRepository userRepo;
+    private Single<User> user;
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
     private MutableLiveData<ForgotPasswordFormState> formLiveData =

@@ -89,4 +89,9 @@ public class UserDataRepository implements UserRepository {
     public Single<String> checkUserExists(String email) {
         return restApiImpl.checkExists(email);
     }
+
+    @Override
+    public Single<String> getPasswordResetCode(String code, String email) {
+        return restApiImpl.checkCode(code, email);
+    }
 }

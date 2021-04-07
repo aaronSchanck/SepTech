@@ -90,6 +90,14 @@ public interface RestApi {
     @GET("users/{email}/check_exists")
     Single<String> checkExists(@Path("email") String email);
 
+    /**
+     *
+     * @param code
+     * @return
+     */
+    @GET("users/{email}/check_code")
+    Single<String> checkCode(@Path("email") String code, String email);
+
     //ITEMS ENDPOINTS
 
     @Multipart

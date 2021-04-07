@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.forgotpasswordcode;
+package com.septech.centauri.ui.user.forgotpasswordcode;
 
 public enum ForgotPasswordCodeCloudResponse {
     NO_INTERNET,
