@@ -184,4 +184,8 @@
     <string name="seller_description_label">Description</string>
     <string name="seller_name_text">Seller Name</string>
     <string name="sellerprofileimage">sellerProfileImage</string>
+    <string name="add_listing_Btn">Add Listing</string>
+    <string name="my_auctions_Btn">My Auctions</string>
+    <string name="orders_Btn">Orders</string>
+    <string name="icon">icon</string>
 </resources>
