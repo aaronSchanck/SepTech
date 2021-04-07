@@ -284,6 +284,16 @@ class UserService:
         print(f"Mail sent to {recipient.email} at {datetime.now()}")
 
     @staticmethod
+    def check_code(code: str, email: str) -> bool:
+        user = UserService.get_by_email(email)
+
+        return (
+            NormalResponse("Confirmed", 200)
+            if code == user.password_reset_code
+            else ErrResponse("Wrong Code", 400)
+        )
+
+    @staticmethod
     def check_exists(email: str) -> bool:
         user = UserService.get_by_email(email)
 
