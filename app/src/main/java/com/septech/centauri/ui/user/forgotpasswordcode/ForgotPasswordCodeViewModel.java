@@ -1,11 +1,11 @@
 package com.septech.centauri.ui.user.forgotpasswordcode;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.repository.UserDataRepository;
-import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -15,6 +15,8 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ForgotPasswordCodeViewModel extends ViewModel {
+    private static final String TAG = "ForgotPasswordCode_VM";
+
     private UserRepository userRepo;
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
@@ -46,14 +48,15 @@ public class ForgotPasswordCodeViewModel extends ViewModel {
         mDisposables.add(userRepo.getPasswordResetCode(code, email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<User>() {
+                .subscribeWith(new DisposableSingleObserver<String>() {
                     @Override
                     public void onStart() {
                         responseLiveData.setValue(ForgotPasswordCodeCloudResponse.LOADING);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull User o) {
+                    public void onSuccess(@NonNull String o) {
+                        Log.d(TAG, code);
                         responseLiveData.setValue(ForgotPasswordCodeCloudResponse.CODE_FOUND);
                     }
 

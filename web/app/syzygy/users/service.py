@@ -289,7 +289,7 @@ class UserService:
 
         return (
             NormalResponse("Confirmed", 200)
-            if code == user.password_reset_code
+            if code.strip() == user.password_reset_code
             else ErrResponse("Wrong Code", 400)
         )
 
