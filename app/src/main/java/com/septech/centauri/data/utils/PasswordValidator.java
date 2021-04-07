@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.user.register;
+package com.septech.centauri.data.utils;
 
 import androidx.annotation.Nullable;
 

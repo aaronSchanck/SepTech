@@ -157,11 +157,11 @@ public class BusinessLoginActivity extends AppCompatActivity {
     }
 
     private void createButtonListeners() {
-    /*
-    This listener is called when the user clicks the "Log in" button. The email and password
-    are grabbed from the EditTexts and are subsequently passed to the ViewModel to log the
-    user in.
-     */
+        /*
+        This listener is called when the user clicks the "Log in" button. The email and password
+        are grabbed from the EditTexts and are subsequently passed to the ViewModel to log the
+        user in.
+         */
         mLoginButton.setOnClickListener(v -> {
             hideKeyboard();
 

@@ -57,16 +57,28 @@
 
         <Button
             android:id="@+id/uploadImageButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="@string/upload_image"
             android:textSize="12sp"
             android:layout_marginTop="4dp"
+            app:icon="@drawable/ic_baseline_add_24"
             app:layout_constraintEnd_toEndOf="@+id/ItemAddImageBox"
             app:layout_constraintStart_toStartOf="@+id/ItemAddImageBox"
             app:layout_constraintTop_toBottomOf="@+id/ItemAddImageBox"
             app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/selectedImages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/selected_images"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/ItemAddImageBox"
+            app:layout_constraintStart_toStartOf="@+id/ItemAddImageBox"
+            app:layout_constraintTop_toBottomOf="@+id/ItemAddImageBox" />
 
         <TextView
             android:id="@+id/itemNameLabel"

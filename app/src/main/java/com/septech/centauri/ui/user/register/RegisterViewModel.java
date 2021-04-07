@@ -1,23 +1,17 @@
 package com.septech.centauri.ui.user.register;
 
-import android.util.Log;
 import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.model.user.UserEntity;
-import com.septech.centauri.data.model.user.mapper.UserDataMapper;
 import com.septech.centauri.data.repository.UserDataRepository;
 import com.septech.centauri.data.utils.PasswordUtils;
+import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 import com.septech.centauri.lib.DateTime;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
