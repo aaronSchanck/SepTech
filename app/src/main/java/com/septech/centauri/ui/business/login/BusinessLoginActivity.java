@@ -96,17 +96,19 @@ public class BusinessLoginActivity extends AppCompatActivity {
         mLoginViewModel.getResponseLiveData().observe(this, loginResponse -> {
             switch (loginResponse) {
                 case PASSWORD_INCORRECT:
+                case NO_BUSINESS_FOUND_FOR_EMAIL:
+                    mLoadingIcon.setVisibility(View.GONE);
                     break;
                 case NO_INTERNET:
                     break;
                 case SEARCHING:
                     mLoadingIcon.setVisibility(View.VISIBLE);
                     break;
-                case NO_BUSINESS_FOUND_FOR_EMAIL:
-                    mLoadingIcon.setVisibility(View.GONE);
-                    break;
                 case BUSINESS_FOUND:
                     mLoadingIcon.setVisibility(View.GONE);
+                    //TODO need activity to swap to
+//                    Intent intent = new Intent(this, BusinessHomeActivity.class);
+//                    startActivity(intent);
                     break;
             }
         });

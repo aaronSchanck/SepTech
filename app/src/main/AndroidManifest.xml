@@ -13,17 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity"></activity>
+        <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity" />
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
-        <activity android:name=".ui.business.login.BusinessLoginActivity" />
         <activity android:name=".ui.user.settings.SettingsActivity" />
         <activity android:name=".ui.user.register.RegisterActivity" />
         <activity android:name=".ui.user.forgotpassword.ForgotPasswordActivity" />
         <activity android:name=".ui.user.forgotpasswordcode.ForgotPasswordCodeActivity" />
         <activity android:name=".ui.user.home.HomeActivity" />
         <activity
-            android:name=".ui.user.login.LoginActivity"
+            android:name=".ui.business.login.BusinessLoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

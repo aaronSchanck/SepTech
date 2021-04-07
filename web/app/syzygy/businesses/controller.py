@@ -108,8 +108,9 @@ class BusinessLoginResource(Resource):
     @responds(schema=BusinessSchema)
     def post(self):
         """Login with business credentials"""
-
         email = request.parsed_args["email"]
         password = request.parsed_args["password"]
+
+        print(email, password)
 
         return BusinessService.login(email, password)

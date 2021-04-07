@@ -33,11 +33,11 @@ public class BusinessEntity {
     private String passwordSalt;
 
     @SerializedName("created_at")
-    @Expose
+    @Expose(serialize = false)
     private String createdAt;
 
     @SerializedName("modified_at")
-    @Expose
+    @Expose(serialize = false)
     private String modifiedAt;
 
     @SerializedName("password_reset_code")

@@ -105,6 +105,6 @@ public interface RestApi {
             @Field("email") String email,
             @Field("password") String password);
 
-    @GET("businesses")
+    @GET("businesses/{email}")
     Single<BusinessEntity> getBusinessByEmail(@Path("email") String email);
 }

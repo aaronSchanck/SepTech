@@ -1,21 +1,16 @@
 package com.septech.centauri.data.repository;
 
 
-import android.service.autofill.UserData;
 import android.util.Log;
 
 import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
-import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.user.mapper.UserDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Observable;

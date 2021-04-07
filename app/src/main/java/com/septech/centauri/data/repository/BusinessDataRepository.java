@@ -1,24 +1,13 @@
 package com.septech.centauri.data.repository;
 
-import android.util.Log;
-
 import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.data.model.business.mapper.BusinessDataMapper;
-import com.septech.centauri.data.model.user.UserEntity;
-import com.septech.centauri.data.model.user.mapper.UserDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.Business;
-import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.BusinessRepository;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class BusinessDataRepository implements BusinessRepository {

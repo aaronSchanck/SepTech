@@ -40,8 +40,18 @@ class Business(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.LargeBinary(127), nullable=False)
     owner_full_name = db.Column(db.String(255))
+    phone_number = db.Column(db.String(11))
+
+    password_salt = db.Column(db.String(63))
+
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+
+    password_reset_code = db.Column(db.String(6))
+    password_reset_timeout = db.Column(db.DateTime)
+
+    last_successful_login = db.Column(db.DateTime)
+    last_unsuccessful_login = db.Column(db.DateTime)
 
     profile_picture = db.Column(db.String)
 

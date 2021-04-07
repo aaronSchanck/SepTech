@@ -59,6 +59,7 @@ public class BusinessLoginViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<Business>() {
                     @Override
                     public void onStart() {
+
                         responseLiveData.setValue(BusinessLoginResponse.SEARCHING);
                     }
 
@@ -70,12 +71,14 @@ public class BusinessLoginViewModel extends ViewModel {
                                 .subscribeWith(new DisposableSingleObserver<Business>() {
                                     @Override
                                     public void onSuccess(@NonNull Business business) {
+                                        System.out.println("business = " + business);
                                         responseLiveData.setValue(BusinessLoginResponse.BUSINESS_FOUND);
                                         businessLiveData.setValue(business);
                                     }
 
                                     @Override
                                     public void onError(@NonNull Throwable e) {
+                                        System.out.println("e = " + e);
                                         responseLiveData.setValue(BusinessLoginResponse.PASSWORD_INCORRECT);
                                         loginTries += 1;
                                     }

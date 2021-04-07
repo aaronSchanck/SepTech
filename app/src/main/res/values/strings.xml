@@ -175,4 +175,5 @@
     <string name="landing_proceed_user">Proceed as a User</string>
     <string name="landing_proceed_business">Proceed as a Business</string>
     <string name="register_email_address">Email Address</string>
+    <string name="business_email_address">Business Email Address</string>
 </resources>
