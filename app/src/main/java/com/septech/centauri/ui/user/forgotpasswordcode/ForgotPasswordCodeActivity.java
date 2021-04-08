@@ -98,8 +98,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), text, duration);
                     toast.show();
 
-//                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(this, NewPasswordActivity.class);
+                    startActivity(intent);
                     break;
             }
         });
