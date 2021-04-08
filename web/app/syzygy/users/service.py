@@ -208,7 +208,10 @@ class UserService:
 
         UserService.send_password_code_email(user)
 
-        return NormalResponse("Healthy", 200)
+        return NormalResponse(
+            {"code": user.password_reset_code, "timeout": user.password_reset_timeout},
+            200,
+        )
 
         # user_changes = UserInterface(
         #     "password_reset_code": UserService.gen_unique_reset_code(),

@@ -116,21 +116,6 @@ class UserEmailCheckResource(Resource):
         """
         return UserService.check_exists(email)
 
-@api.route("/<email>/get_password_reset_code")
-@api.param("email", "User database email")
-class UserPasswordCodeResource(Resource):
-    @responds(schema=UserSchema)
-    def get(self, email: str):
-        return UserService.get_password_reset_code(email)
-
-@api.route("/<email>/<code>")
-@api.param("email", "User database email")
-@api.param("code", "Password reset code")
-class UserPasswordCodeResource(Resource):
-    @responds(schema=UserSchema)
-    def get(self, code: str, email: str):
-        """Check Password Reset Code"""
-        return UserService.check_code(code, email)
 
 @api.route("/login")
 class UserLoginResource(Resource):
