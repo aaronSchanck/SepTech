@@ -92,11 +92,15 @@ public interface RestApi {
 
     /**
      *
-     * @param code
+     * @param passwordResetCode
+     * @param email
      * @return
      */
-    @GET("users/{email}/check_code")
-    Single<String> checkCode(@Path("email") String code, String email);
+    @GET("users/{email}/{code}")
+    Single<String> checkCode(@Path("code") String passwordResetCode, @Path("email") String email);
+
+    @GET("users/{email}/get_password_reset_code")
+    Single<String> getPasswordResetCode(@Path("email") String email);
 
     //ITEMS ENDPOINTS
 
