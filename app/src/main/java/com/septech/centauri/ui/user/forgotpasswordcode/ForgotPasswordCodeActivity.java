@@ -26,7 +26,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
     private Button mVerifyButton;
 
-    private String mEmail = getIntent().getStringExtra("email");
+    private String userCode;
+    private String userEmail;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,32 +36,16 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
         mForgotPasswordCodeViewModel = new ViewModelProvider(this).get(ForgotPasswordCodeViewModel.class);
 
         TextInputLayout codeInputLayout = findViewById(R.id.EnterCodeTextbox);
+        mCodeEditText = codeInputLayout.getEditText();
 
         mVerifyButton = findViewById(R.id.VerifyButton);
 
-        mCodeEditText = codeInputLayout.getEditText();
-
-        mCodeEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //intentionally left blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //intentionally left blank
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        userEmail = getIntent().getStringExtra("email");
 
         // TODO: fix verify code
         mVerifyButton.setOnClickListener(v -> {
             hideKeyboard();
-            mForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(), mEmail);
+            mForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(), userEmail);
         });
 
         mForgotPasswordCodeViewModel.getFormLiveData().observe(this, forgotPasswordCodeFormState -> {
@@ -104,8 +89,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), text, duration);
                     toast.show();
 
-                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+//                    startActivity(intent);
                     break;
             }
         });

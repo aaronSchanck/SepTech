@@ -20,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -82,6 +83,9 @@ public interface RestApi {
     @GET("users/{email}")
     Single<UserEntity> getUserByEmail(@Path("email") String email);
 
+    @PUT("users/{email}")
+    Single<String> forgotPassword(@Path("email") String email);
+
     /**
      *
      * @param email
@@ -90,17 +94,9 @@ public interface RestApi {
     @GET("users/{email}/check_exists")
     Single<String> checkExists(@Path("email") String email);
 
-    /**
-     *
-     * @param passwordResetCode
-     * @param email
-     * @return
-     */
-    @GET("users/{email}/{code}")
-    Single<String> checkCode(@Path("code") String passwordResetCode, @Path("email") String email);
-
-    @GET("users/{email}/get_password_reset_code")
-    Single<String> getPasswordResetCode(@Path("email") String email);
+    @FormUrlEncoded
+    @POST("users/{email}")
+    Single<String> verifyPasswordCode(@Field("code") String code, @Path("email") String email);
 
     //ITEMS ENDPOINTS
 

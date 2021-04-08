@@ -209,7 +209,7 @@ class UserService:
         UserService.send_password_code_email(user)
 
         return NormalResponse(
-            {"code": user.password_reset_code, "timeout": user.password_reset_timeout},
+            user.password_reset_code,
             200,
         )
 
@@ -293,7 +293,7 @@ class UserService:
         return user.password_reset_code
 
     @staticmethod
-    def check_code(code: str, email: str) -> bool:
+    def verify_code(code: str, email: str) -> bool:
         user = UserService.get_by_email(email)
 
         return (

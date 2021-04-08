@@ -21,6 +21,7 @@
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
         <activity android:name=".ui.user.settings.SettingsActivity" />
         <activity android:name=".ui.user.register.RegisterActivity" />
+        <activity android:name=".ui.user.login.LoginActivity"/>
         <activity android:name=".ui.business.login.BusinessLoginActivity" />
         <activity android:name=".ui.user.forgotpassword.ForgotPasswordActivity" />
         <activity android:name=".ui.user.forgotpasswordcode.ForgotPasswordCodeActivity" />
