@@ -43,6 +43,16 @@ public class BusinessDataRepository implements BusinessRepository {
     }
 
     @Override
+    public Single<Business> createBusinessAccount(Business business) {
+        return restApiImpl.createBusinessAccount(BusinessDataMapper.transform(business)).map(BusinessDataMapper::transform);
+    }
+
+    @Override
+    public Single<Business> getBusinessById(int id) {
+        return restApiImpl.getBusinessById(id).map(BusinessDataMapper::transform);
+    }
+
+    @Override
     public Single<Business> getBusinessByEmail(String email) {
         return restApiImpl.getBusinessByEmail(email).map(BusinessDataMapper::transform);
     }

@@ -102,9 +102,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     toast.show();
                     break;
                 case USER_FOUND:
-//                    text = "User found for email";
-//                    toast = Toast.makeText(getApplicationContext(), text, duration);
-//                    toast.show();
 
                     Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
                     intent.putExtra("email", mEmailEditText.getText().toString());

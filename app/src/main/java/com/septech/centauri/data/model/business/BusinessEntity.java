@@ -41,11 +41,11 @@ public class BusinessEntity {
     private String modifiedAt;
 
     @SerializedName("password_reset_code")
-    @Expose
+    @Expose(serialize = false)
     private String passwordResetCode;
 
     @SerializedName("password_reset_timeout")
-    @Expose
+    @Expose(serialize = false)
     private String passwordResetTimeout;
 
     public BusinessEntity() {

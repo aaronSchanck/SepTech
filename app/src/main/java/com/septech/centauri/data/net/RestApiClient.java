@@ -97,4 +97,12 @@ public class RestApiClient {
     public Single<String> forgotPassword(String email) {
         return restApi.forgotPassword(email);
     }
+
+    public Single<BusinessEntity> getBusinessById(int id) {
+        return restApi.getBusinessById(id);
+    }
+
+    public Single<BusinessEntity> createBusinessAccount(BusinessEntity businessEntity) {
+        return restApi.createBusinessAccount(businessEntity);
+    }
 }
