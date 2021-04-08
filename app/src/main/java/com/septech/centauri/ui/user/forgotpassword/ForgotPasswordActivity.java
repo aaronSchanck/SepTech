@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,6 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_forgotpw);
 
         mForgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
@@ -102,8 +105,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
                     intent.putExtra("email", mEmailEditText.getText().toString());
-
+                    Log.d("INTENT PASSES ", mEmailEditText.getText().toString());
                     startActivity(intent);
+                    break;
             }
         });
     }
