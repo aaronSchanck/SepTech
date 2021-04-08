@@ -72,12 +72,9 @@ public class RestApiClient {
         return restApi.checkExists(email);
     }
 
-    public Single<UserEntity> getPasswordResetCode(String email) {
-        return restApi.getUserByEmail(email);
-    }
-    public Single<String> checkCode(String code, String email) {
-        return restApi.checkCode(code, email);
-    }
+    public Single<String> getPasswordResetCode(String email) { return restApi.getPasswordResetCode(email); }
+
+    public Single<String> checkCode(String code, String email) { return restApi.checkCode(code, email); }
 
 
     //ITEMS
