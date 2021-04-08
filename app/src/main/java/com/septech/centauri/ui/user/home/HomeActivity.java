@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_user_home);
 
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 

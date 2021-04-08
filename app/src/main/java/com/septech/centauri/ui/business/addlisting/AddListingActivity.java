@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,6 +22,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.septech.centauri.R;
+import com.septech.centauri.ui.business.home.BusinessHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +62,17 @@ public class AddListingActivity extends AppCompatActivity {
 
     private List<String> imagePaths;
 
+    private int businessId;
+
     private static final int PICK_IMAGE = 100;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_listing);
+        setContentView(R.layout.activity_business_add_listing);
 
         addListingViewModel = new ViewModelProvider(this).get(AddListingViewModel.class);
+
+        businessId = Integer.parseInt(getIntent().getStringExtra("id"));
 
         auctionLengthTextInput = findViewById(R.id.auctionLengthTextbox);
         startingBidTextInput = findViewById(R.id.startingPriceTextbox);
@@ -116,26 +120,22 @@ public class AddListingActivity extends AppCompatActivity {
     }
 
     private void createButtonListeners() {
-        uploadImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dexter.withContext(AddListingActivity.this)
-                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .withListener(new PermissionListener() {
-                            @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
-                            @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                            @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
-                        }).check();
+        uploadImageButton.setOnClickListener(v -> {
+            Dexter.withContext(AddListingActivity.this)
+                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .withListener(new PermissionListener() {
+                        @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
+                        @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+                        @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                    }).check();
 
-                openGallery();
-            }
+            openGallery();
         });
 
-        backArrowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
+        backArrowButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BusinessHomeActivity.class);
+            intent.putExtra("id", businessId);
+            startActivity(intent);
         });
 
         createItemButton.setOnClickListener(new View.OnClickListener() {

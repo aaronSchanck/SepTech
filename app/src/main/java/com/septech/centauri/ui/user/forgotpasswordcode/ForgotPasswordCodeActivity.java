@@ -3,9 +3,6 @@ package com.septech.centauri.ui.user.forgotpasswordcode;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -37,7 +34,7 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        setContentView(R.layout.activity_forgotpw_verify);
+        setContentView(R.layout.activity_user_forgotpw_verify);
 
         mForgotPasswordCodeViewModel = new ViewModelProvider(this).get(ForgotPasswordCodeViewModel.class);
 

@@ -17,7 +17,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_user_search);
 
         RecyclerView rvCategory = findViewById(R.id.rvCategories);
 

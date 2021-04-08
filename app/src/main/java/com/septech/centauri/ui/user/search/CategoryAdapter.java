@@ -31,7 +31,7 @@ public class CategoryAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.fragment_item, parent, false);
+        View contactView = inflater.inflate(R.layout.fragment_user_search_item_compact, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);

@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.forgotpasswordcode.ForgotPasswordCodeActivity;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setContentView(R.layout.activity_forgotpw);
+        setContentView(R.layout.activity_user_forgotpw);
 
         mForgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
 

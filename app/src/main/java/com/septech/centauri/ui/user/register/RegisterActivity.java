@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_account);
+        setContentView(R.layout.activity_user_register);
 
         mRegisterViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
