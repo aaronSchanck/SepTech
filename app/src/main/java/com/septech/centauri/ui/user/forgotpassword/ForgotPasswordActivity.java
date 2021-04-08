@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,6 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_forgotpw);
 
         mForgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
