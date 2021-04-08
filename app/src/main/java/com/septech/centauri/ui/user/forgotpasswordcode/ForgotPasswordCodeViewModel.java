@@ -45,7 +45,7 @@ public class ForgotPasswordCodeViewModel extends ViewModel {
     }
 
     public void verifyCodeSubmit(String code, String email) {
-        mDisposables.add(userRepo.getPasswordResetCode(code, email)
+        mDisposables.add(userRepo.verifyPasswordCode(code, email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<String>() {

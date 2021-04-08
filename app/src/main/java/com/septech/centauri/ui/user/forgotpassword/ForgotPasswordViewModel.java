@@ -42,17 +42,17 @@ public class ForgotPasswordViewModel extends ViewModel {
     }
 
     public void forgotPasswordSubmit(String email) {
-        mDisposables.add(userRepo.getUserByEmail(email)
+        mDisposables.add(userRepo.forgotPassword(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<User>() {
+                .subscribeWith(new DisposableSingleObserver<String>() {
                     @Override
                     public void onStart() {
                         responseLiveData.setValue(ForgotPasswordCloudResponse.LOADING);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull User o) {
+                    public void onSuccess(@NonNull String string) {
                         responseLiveData.setValue(ForgotPasswordCloudResponse.USER_FOUND);
                     }
 

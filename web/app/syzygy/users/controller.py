@@ -96,6 +96,16 @@ class UserEmailResource(Resource):
     def get(self, email: str):
         return UserService.get_by_email(email)
 
+    @accepts(
+        dict(name="code", type=str, help="User input password reset code"),
+        api=api,
+    )
+    def post(self, email: str):
+        """User input verify password reset code"""
+        code = request.parsed_args["code"]
+
+        return UserService.verify_code(code, email)
+
     def put(self, email: str):
         """Forgot password API Endpoint"""
         return UserService.reset_password(email)

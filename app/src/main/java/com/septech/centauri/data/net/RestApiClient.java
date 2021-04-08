@@ -72,9 +72,7 @@ public class RestApiClient {
         return restApi.checkExists(email);
     }
 
-    public Single<String> getPasswordResetCode(String email) { return restApi.getPasswordResetCode(email); }
-
-    public Single<String> checkCode(String code, String email) { return restApi.checkCode(code, email); }
+    public Single<String> verifyPasswordCode(String code, String email) { return restApi.verifyPasswordCode(code, email); }
 
 
     //ITEMS
@@ -94,5 +92,9 @@ public class RestApiClient {
 
     public Single<BusinessEntity> getBusinessByEmail(String email) {
         return restApi.getBusinessByEmail(email);
+    }
+
+    public Single<String> forgotPassword(String email) {
+        return restApi.forgotPassword(email);
     }
 }

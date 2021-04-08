@@ -30,7 +30,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
     private Button mVerifyButton;
 
-    private String mEmail;
+    private String userCode;
+    private String userEmail;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,36 +47,14 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
         mCodeEditText = codeInputLayout.getEditText();
 
-        if (getIntent().getExtras() == null) {
-            // do nothing
-            // this if statement is only for testing/debugging purposes due to the passing of a null intent
-            // in certain situations without, the app will crash
-        } else {
-            mEmail = getIntent().getStringExtra("email");
-            Log.d("INTENT PASSED ", mEmail);
-        }
+        mVerifyButton = findViewById(R.id.VerifyButton);
 
-        mCodeEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //intentionally left blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //intentionally left blank
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        userEmail = getIntent().getStringExtra("email");
 
         // TODO: fix verify code
         mVerifyButton.setOnClickListener(v -> {
             hideKeyboard();
-            mForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(), mEmail);
+            mForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(), userEmail);
         });
 
         mForgotPasswordCodeViewModel.getFormLiveData().observe(this, forgotPasswordCodeFormState -> {
@@ -119,8 +98,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), text, duration);
                     toast.show();
 
-                    Intent intent = new Intent(this, NewPasswordActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
+//                    startActivity(intent);
                     break;
             }
         });

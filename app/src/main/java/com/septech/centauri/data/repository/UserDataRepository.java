@@ -91,7 +91,12 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<String> getPasswordResetCode(String code, String email) {
-        return restApiImpl.checkCode(code, email);
+    public Single<String> verifyPasswordCode(String code, String email) {
+        return restApiImpl.verifyPasswordCode(code, email);
+    }
+
+    @Override
+    public Single<String> forgotPassword(String email) {
+        return restApiImpl.forgotPassword(email);
     }
 }

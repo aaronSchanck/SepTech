@@ -84,5 +84,7 @@ public interface UserRepository {
 
     Single<String> checkUserExists(String email);
 
-    Single<String> getPasswordResetCode(String code, String email);
+    Single<String> verifyPasswordCode(String code, String email);
+
+    Single<String> forgotPassword(String email);
 }
