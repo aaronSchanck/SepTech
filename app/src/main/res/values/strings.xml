@@ -188,4 +188,6 @@
     <string name="my_auctions_Btn">My Auctions</string>
     <string name="orders_Btn">Orders</string>
     <string name="icon">icon</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
