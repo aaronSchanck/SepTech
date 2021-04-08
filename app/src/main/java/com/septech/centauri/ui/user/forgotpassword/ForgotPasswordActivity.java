@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -105,8 +106,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(this, ForgotPasswordCodeActivity.class);
                     intent.putExtra("email", mEmailEditText.getText().toString());
-
+                    Log.d("INTENT PASSES ", mEmailEditText.getText().toString());
                     startActivity(intent);
+                    break;
             }
         });
     }
