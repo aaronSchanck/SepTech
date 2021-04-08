@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -12,10 +13,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
+
 
 public class ForgotPasswordCodeActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPasswordCodeActivity";
@@ -26,10 +29,12 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
     private Button mVerifyButton;
 
-    private String mEmail = getIntent().getStringExtra("email");
+    private String mEmail;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         setContentView(R.layout.activity_forgotpw_verify);
 
         mForgotPasswordCodeViewModel = new ViewModelProvider(this).get(ForgotPasswordCodeViewModel.class);
@@ -39,6 +44,15 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
         mVerifyButton = findViewById(R.id.VerifyButton);
 
         mCodeEditText = codeInputLayout.getEditText();
+
+        if (getIntent().getExtras() == null) {
+            // do nothing
+            // this if statement is only for testing/debugging purposes due to the passing of a null intent
+            // in certain situations without, the app will crash
+        } else {
+            mEmail = getIntent().getStringExtra("email");
+            Log.d("INTENT PASSED ", mEmail);
+        }
 
         mCodeEditText.addTextChangedListener(new TextWatcher() {
             @Override
