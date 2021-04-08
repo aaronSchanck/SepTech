@@ -23,6 +23,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.GuestUser;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.business.home.BusinessHomeActivity;
 import com.septech.centauri.ui.business.register.BusinessRegisterActivity;
 import com.septech.centauri.ui.user.forgotpassword.ForgotPasswordActivity;
 import com.septech.centauri.ui.user.home.HomeActivity;
@@ -196,7 +197,11 @@ public class BusinessLoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", business.getEmail()),
                 Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, HomeActivity.class);
+        System.out.println("business = " + business);
+
+        Intent intent = new Intent(this, BusinessHomeActivity.class);
+        intent.putExtra("id", String.valueOf(business.getId()));
+
         startActivity(intent);
     }
 

@@ -233,7 +233,7 @@
 
 
             <Button
-                android:id="@+id/register_create_account_btn"
+                android:id="@+id/business_register_create_account_btn"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

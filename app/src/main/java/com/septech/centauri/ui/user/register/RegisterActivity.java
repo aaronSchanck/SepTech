@@ -1,7 +1,6 @@
 package com.septech.centauri.ui.user.register;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity {
     private RegisterViewModel mRegisterViewModel;
 
     private EditText mFNameEditText;
-    private EditText mLNameEditText;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
@@ -75,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         mConfirmPasswordEditText = confirmPasswordTextInput.getEditText();
         mPhoneNumberEditText = phoneTextInput.getEditText();
 
-        mCreateAccountBtn = findViewById(R.id.register_create_account_btn);
+        mCreateAccountBtn = findViewById(R.id.business_register_create_account_btn);
 
         //TODO: get birth date from calendar
 

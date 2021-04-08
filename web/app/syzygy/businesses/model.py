@@ -53,6 +53,8 @@ class Business(db.Model):
     last_successful_login = db.Column(db.DateTime)
     last_unsuccessful_login = db.Column(db.DateTime)
 
+    # description = db.Column(db.String)
+
     profile_picture = db.Column(db.String)
 
     def update(self, changes: BusinessInterface):

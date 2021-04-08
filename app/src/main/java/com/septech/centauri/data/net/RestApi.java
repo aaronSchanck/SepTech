@@ -115,4 +115,15 @@ public interface RestApi {
 
     @GET("businesses/{email}")
     Single<BusinessEntity> getBusinessByEmail(@Path("email") String email);
+
+    @GET("businesses/{id}")
+    Single<BusinessEntity> getBusinessById(@Path("id") int id);
+
+    /**
+     * Creates a user based on a UserEntity object.
+     * @param businessEntity The UserEntity object to create the user.
+     */
+    @Headers("Content-Type: application/json")
+    @POST("businesses/")
+    Single<BusinessEntity> createBusinessAccount(@Body BusinessEntity businessEntity);
 }

@@ -60,6 +60,8 @@ class BusinessResource(Resource):
     def post(self):
         """Create a Single Business"""
 
+        print(request.parsed_obj)
+
         return BusinessService.create(request.parsed_obj)
 
 
@@ -69,6 +71,8 @@ class BusinessIdResource(Resource):
     @responds(schema=BusinessSchema)
     def get(self, id: int):
         """Get Single Business"""
+
+        print(id)
 
         return BusinessService.get_by_id(id)
 

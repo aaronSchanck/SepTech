@@ -287,12 +287,6 @@ class UserService:
         print(f"Mail sent to {recipient.email} at {datetime.now()}")
 
     @staticmethod
-    def get_password_reset_code(email: str) -> bool:
-        user = UserService.get_by_email(email)
-
-        return user.password_reset_code
-
-    @staticmethod
     def verify_code(code: str, email: str) -> bool:
         user = UserService.get_by_email(email)
 
