@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
+
         <!-- User Activities  -->
         <activity android:name=".ui.user.login.LoginActivity"/>
         <activity android:name=".ui.user.register.RegisterActivity" />
