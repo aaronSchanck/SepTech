@@ -17,7 +17,7 @@ public class ItemDataMapper {
         itemEntity.setId(item.getId());
         itemEntity.setName(item.getName());
         itemEntity.setQuantity(item.getQuantity());
-        itemEntity.setPostedAt(item.getPostedAt());
+//        itemEntity.setPostedAt(item.getPostedAt());
         itemEntity.setSellerId(item.getSellerId());
         itemEntity.setBuyoutPrice(item.getBuyoutPrice());
         itemEntity.setCanBuy(item.isCanBuy());

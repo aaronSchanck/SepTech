@@ -16,8 +16,8 @@ Functions:
 
 import logging
 
-from .model import BusinessReport
-from .schema import BusinessReportSchema
+from .model import UserReport
+from .schema import UserReportSchema
 
 BASE_ROUTE = "user_reports"
 

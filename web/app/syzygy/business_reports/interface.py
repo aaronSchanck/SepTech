@@ -22,4 +22,4 @@ log = logging.getLogger(__name__)
 
 
 class BusinessReportInterface(TypedDict, total=False):
-    id: BusinessReportInterface
+    id: int

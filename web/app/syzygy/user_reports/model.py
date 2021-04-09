@@ -45,7 +45,7 @@ class UserReport(db.Model):
 
     # admin stuff
     reviewed_by_id = db.Column(db.Integer, nullable=True)
-    reviewed_by_name = db.Column(db.Str, nullable=True)
+    reviewed_by_name = db.Column(db.String, nullable=True)
     reviewed_at = db.Column(db.DateTime, nullable=True)
 
     def update(self, changes: UserReportInterface):

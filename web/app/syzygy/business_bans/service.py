@@ -22,7 +22,7 @@ from typing import List
 import bcrypt
 from app import db
 from app.globals import *
-from lib import ErrResponse, NormalResponse
+from libs.response import ErrResponse, NormalResponse
 
 from .interface import BusinessBanInterface
 from .model import BusinessBan

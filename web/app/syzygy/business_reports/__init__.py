@@ -16,15 +16,15 @@ Functions:
 
 import logging
 
-from .model import ItemReport
-from .schema import ItemReportSchema
+from .model import BusinessReport
+from .schema import BusinessReportSchema
 
-BASE_ROUTE = "item_reports"
+BASE_ROUTE = "business_reports"
 
 log = logging.getLogger(__name__)
 
 
 def register_routes(api, app, root="api"):
-    from .controller import api as item_report_api
+    from .controller import api as business_report_api
 
-    api.add_namespace(item_report_api, path=f"/{root}/{BASE_ROUTE}")
+    api.add_namespace(business_report_api, path=f"/{root}/{BASE_ROUTE}")

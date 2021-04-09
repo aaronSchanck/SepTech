@@ -29,4 +29,4 @@ class SessionSchema(Schema):
 
     unique_session_id = fields.String()
 
-    session_expires_at = fields.Datetime()
+    session_expires_at = fields.DateTime()

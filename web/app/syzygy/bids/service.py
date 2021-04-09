@@ -19,7 +19,7 @@ from typing import List
 
 import bcrypt
 from app import db
-from lib import ErrResponse, NormalResponse
+from libs.response import ErrResponse, NormalResponse
 from libs.auth import encrypt_pw
 
 from .interface import BidInterface

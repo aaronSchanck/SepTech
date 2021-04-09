@@ -39,7 +39,7 @@ class ItemSchema(Schema):
     quantity = fields.Integer()
 
     created_at = fields.DateTime(dump_only=True)
-    updated_at = fields.Datetime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
 
     sellerId = fields.Integer()
 

@@ -192,6 +192,7 @@ public class AddListingActivity extends AppCompatActivity {
             imagePaths.add(getPathFromUri(this, imageUri));
         }
     }
+
     private void openGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");

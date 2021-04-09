@@ -31,10 +31,10 @@ class BusinessReportSchema(Schema):
     reported_business_id = fields.Integer()
 
     # additional information regarding the report, entered by the reporter
-    report_reason = db.Column(db.String)
-    report_comment = db.Column(db.String)
+    report_reason = fields.Str()
+    report_comment = fields.Str()
 
-    created_at = db.Column(db.DateTime, dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
 
     # admin stuff
     reviewed_by_id = fields.Int(dump_only=True)
