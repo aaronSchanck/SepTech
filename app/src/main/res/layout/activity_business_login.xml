@@ -115,7 +115,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="?android:attr/selectableItemBackground"
-            android:elevation="0dp"
             android:text="@string/forgot_your_password"
             android:textColor="@color/black"
             android:textSize="12sp"

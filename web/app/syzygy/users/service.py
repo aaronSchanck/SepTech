@@ -125,6 +125,8 @@ class UserService:
 
         user = UserService.get_by_email(new_attrs["email"])
 
+        print(user)
+
         if user is not None:
             return ErrResponse("User with email already exists", 400)
 

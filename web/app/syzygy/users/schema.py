@@ -42,4 +42,4 @@ class UserSchema(Schema):
     password_reset_code = fields.String(dump_only=True)
     password_reset_timeout = fields.DateTime(dump_only=True)
 
-    admin_level = fields.String()
+    admin_level = fields.String(dump_only=True)

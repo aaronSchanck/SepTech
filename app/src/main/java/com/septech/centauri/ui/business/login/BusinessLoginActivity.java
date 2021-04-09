@@ -85,7 +85,7 @@ public class BusinessLoginActivity extends AppCompatActivity {
         are when the user successfully logs in, so the two tracks of this observer are to
         either: log in as a guest, or log in as a real user.
          */
-        mLoginViewModel.getUserLiveData().observe(this, business -> {
+        mLoginViewModel.getBusinessLiveData().observe(this, business -> {
             onSuccessfulLogin(business);
         });
 

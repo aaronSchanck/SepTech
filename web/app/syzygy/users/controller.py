@@ -60,6 +60,8 @@ class UserResource(Resource):
     def post(self):
         """Create a Single User"""
 
+        print(request.parsed_obj)
+
         return UserService.create(request.parsed_obj)
 
 
