@@ -66,7 +66,7 @@ class AddressService:
         return address
 
     @staticmethod
-    def delete_by_id(addressid: int) -> List:
+    def delete_by_id(id: int) -> List:
         """Deletes a address from the table with the specified addressid
 
         :param addressid: Address's addressid
@@ -76,12 +76,12 @@ class AddressService:
         :rtype: List
         """
 
-        address = AddressService.get_by_id(addressid)
+        address = AddressService.get_by_id(id)
         if not address:
             return []
         db.session.delete(address)
         db.session.commit()
-        return [addressid]
+        return [id]
 
     @staticmethod
     def create(new_attrs: AddressInterface) -> Address:

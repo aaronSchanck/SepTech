@@ -1,4 +1,4 @@
-"""/web/app/syzygy/banned_users/service.py
+"""/web/app/syzygy/bids/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -14,23 +14,25 @@ Functions:
 
 """
 
+from app import db
+from .model import Bid
+from .interface import BidInterface
+from flask import Response
 import json
 import logging
-from datetime import datetime
-from typing import List
-
+from libs.auth import encrypt_pw
 import bcrypt
-from app import db
-from app.globals import *
-from flask import Response
 
-from .interface import BannedUserInterface
-from .model import BannedUser
+from datetime import datetime
+
+import re
+
+from typing import List
 
 log = logging.getLogger(__name__)
 
 
-class BannedUserService:
+class BidService:
     @staticmethod
     def get_all():
         """[summary]
@@ -38,10 +40,10 @@ class BannedUserService:
         :return: [description]
         :rtype: [type]
         """
-        return BannedUser.query.all()
+        return Bid.query.all()
 
     @staticmethod
-    def get_by_id(id: int) -> BannedUser:
+    def get_by_id(id: int) -> Bid:
         """[summary]
 
         :param id: [description]
@@ -49,64 +51,77 @@ class BannedUserService:
         :return: [description]
         :rtype: [type]
         """
-        banned_user = BannedUser.query.get(id)
+        bid = Bid.query.get(id)
 
-        return banned_user
+        if bid is None:
+            return ErrResponse("Requested bid doesn't exist", 400)
+
+        return bid
 
     @staticmethod
-    def update(
-        banned_user: BannedUser, BannedUser_change_updates: BannedUserInterface
-    ) -> BannedUser:
+    def get_by_email(email: str) -> Bid:
         """[summary]
 
-        :param banned_user: The BannedUser to update in the database
-        :type banned_user: BannedUser
-        :param BannedUser_change_updates: Dictionary object containing the new changes
-        to update the BannedUser model object with
-        :type BannedUser_change_updates: BannedUserInterface
-        :return: The updated BannedUser model object
-        :rtype: BannedUser
+        :param email: [description]
+        :type email: str
+        :return: [description]
+        :rtype: [type]
         """
-        banned_user.update(BannedUser_change_updates)
-        banned_user.modified_at = datetime.now()
 
+        bid = Bid.query.filter(Bid.email == email).first()
+
+        return bid
+
+    @staticmethod
+    def update(bid: Bid, Bid_change_updates: BidInterface) -> Bid:
+        """[summary]
+
+        :param bid: The Bid to update in the database
+        :type bid: Bid
+        :param Bid_change_updates: Dictionary object containing the new changes
+        to update the Bid model object with
+        :type Bid_change_updates: BidInterface
+        :return: The updated Bid model object
+        :rtype: Bid
+        """
+        bid.update(Bid_change_updates)
         db.session.commit()
-        return banned_user
+        return bid
 
     @staticmethod
     def delete_by_id(id: int) -> List:
-        """Deletes a banned_user from the table with the specified id
+        """Deletes a bid from the table with the specified id
 
-        :param id: BannedUser's id
+        :param id: Bid's id
         :type id: int
-        :return: List containing the deleted banned_user, if found, otherwise an empty
+        :return: List containing the deleted bid, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        banned_user = BannedUserService.get_by_id(id)
-        if not banned_user:
+        bid = BidService.get_by_id(id)
+        if not bid:
             return []
-        db.session.delete(banned_user)
+        db.session.delete(bid)
         db.session.commit()
         return [id]
 
     @staticmethod
-    def create(new_attrs: BannedUserInterface) -> BannedUser:
-        """Creates a banned_user object from the BannedUserInterface TypedDict
+    def create(new_attrs: BidInterface) -> Bid:
+        """Creates a bid object from the BidInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a BannedUser model
-        :type new_attrs: BannedUserInterface
-        :return: A new banned_user object based on the input
-        :rtype: BannedUser
+        :param new_attrs: A dictionary with the input into a Bid model
+        :type new_attrs: BidInterface
+        :return: A new bid object based on the input
+        :rtype: Bid
         """
 
-        new_banned_user = BannedUser()
+        new_bid = Bid()
 
-        db.session.add(new_banned_user)
+        db.session.add(new_bid)
         db.session.commit()
 
-        return new_banned_user
+        return new_bid
 
 
 def NormalResponse(response: dict, status: int) -> Response:

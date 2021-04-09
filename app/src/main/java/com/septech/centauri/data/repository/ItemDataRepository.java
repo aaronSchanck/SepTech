@@ -89,7 +89,7 @@ public class ItemDataRepository implements ItemRepository {
             byte[] byteArray = stream.toByteArray();
 
             //naming scheme: images_i where i = 1-images.size()
-            MultipartBody.Part image = MultipartBody.Part.createFormData("image_" + i,
+            MultipartBody.Part image = MultipartBody.Part.createFormData("image",
                     "images_" + i +
                             ".jpg",
                     RequestBody.create(byteArray, MediaType.parse("image/*jpg")));

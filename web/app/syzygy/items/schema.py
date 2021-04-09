@@ -32,14 +32,25 @@ class ItemSchema(Schema):
     class Meta:
         ordered = True
 
-    itemid = fields.Integer(dump_only=True)
+    id = fields.Integer(dump_only=True)
+
     name = fields.String()
+    quality = fields.String()
     quantity = fields.Integer()
-    posted_at = fields.DateTime(dump_only=True)
-    seller = fields.Integer()
-    price = fields.Number()
+
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.Datetime(dump_only=True)
+
+    sellerId = fields.Integer()
+
+    price = fields.Str()
     can_buy = fields.Bool()
+
     can_bid = fields.Bool()
+
+    starting_bid = fields.Str(allow_none=True)
+    min_bid_increment = fields.Str(allow_none=True)
+
     highest_bid = fields.Number(dump_only=True)
     highest_bid_user = fields.Integer(dump_only=True)
     bidding_ends = fields.DateTime(allow_none=True)

@@ -1,4 +1,4 @@
-"""/web/app/syzygy/banned_businesses/model.py
+"""/web/app/syzygy/user_bans/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -18,12 +18,12 @@ import logging
 
 from app import db
 
-from .interface import BannedBusinessInterface
+from .interface import UserBanInterface
 
 log = logging.getLogger(__name__)
 
 
-class BannedBusiness(db.Model):
+class UserBan(db.Model):
     """[summary]
 
     :param db: [description]
@@ -32,11 +32,11 @@ class BannedBusiness(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "banned_businesses"
+    __tablename__ = "banned_users"
 
     id = db.Column(db.Integer, primary_key=True)
 
-    def update(self, changes: BannedBusinessInterface):
+    def update(self, changes: UserBanInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 

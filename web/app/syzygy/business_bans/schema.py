@@ -1,4 +1,4 @@
-"""/web/app/syzygy/banned_businesses/schema.py
+"""/web/app/syzygy/business_bans/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -25,5 +25,5 @@ from marshmallow import Schema, fields
 log = logging.getLogger(__name__)
 
 
-class BannedBusinessSchema(Schema):
+class BusinessBanSchema(Schema):
     id = fields.Number(dump_only=True)

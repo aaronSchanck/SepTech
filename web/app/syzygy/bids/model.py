@@ -1,4 +1,4 @@
-"""/web/app/syzygy/banned_users/model.py
+"""/web/app/syzygy/bids/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,13 +17,14 @@ Functions:
 import logging
 
 from app import db
+from sqlalchemy import *
 
-from .interface import BannedUserInterface
+from .interface import BidInterface
 
 log = logging.getLogger(__name__)
 
 
-class BannedUser(db.Model):
+class Bid(db.Model):
     """[summary]
 
     :param db: [description]
@@ -32,12 +33,15 @@ class BannedUser(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "banned_users"
+    __tablename__ = "bids"
 
     id = db.Column(db.Integer, primary_key=True)
 
-    def update(self, changes: BannedUserInterface):
+    def update(self, changes: BidInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 
         return self
+
+    def __repr__(self):
+        pass

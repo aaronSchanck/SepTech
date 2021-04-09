@@ -1,4 +1,4 @@
-"""/web/app/syzygy/banned_businesses/service.py
+"""/web/app/syzygy/user_bans/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -24,13 +24,13 @@ from app import db
 from app.globals import *
 from flask import Response
 
-from .interface import BannedBusinessInterface
-from .model import BannedBusiness
+from .interface import UserBanInterface
+from .model import UserBan
 
 log = logging.getLogger(__name__)
 
 
-class BannedBusinessService:
+class UserBanService:
     @staticmethod
     def get_all():
         """[summary]
@@ -38,10 +38,10 @@ class BannedBusinessService:
         :return: [description]
         :rtype: [type]
         """
-        return BannedBusiness.query.all()
+        return UserBan.query.all()
 
     @staticmethod
-    def get_by_id(id: int) -> BannedBusiness:
+    def get_by_id(id: int) -> UserBan:
         """[summary]
 
         :param id: [description]
@@ -49,65 +49,62 @@ class BannedBusinessService:
         :return: [description]
         :rtype: [type]
         """
-        banned_business = BannedBusiness.query.get(id)
+        user_ban = UserBan.query.get(id)
 
-        return banned_business
+        return user_ban
 
     @staticmethod
-    def update(
-        banned_business: BannedBusiness,
-        BannedBusiness_change_updates: BannedBusinessInterface,
-    ) -> BannedBusiness:
+    def update(user_ban: UserBan, UserBan_change_updates: UserBanInterface) -> UserBan:
         """[summary]
 
-        :param banned_business: The BannedBusiness to update in the database
-        :type banned_business: BannedBusiness
-        :param BannedBusiness_change_updates: Dictionary object containing the new changes
-        to update the BannedBusiness model object with
-        :type BannedBusiness_change_updates: BannedBusinessInterface
-        :return: The updated BannedBusiness model object
-        :rtype: BannedBusiness
+        :param user_ban: The UserBan to update in the database
+        :type user_ban: UserBan
+        :param UserBan_change_updates: Dictionary object containing the new changes
+        to update the UserBan model object with
+        :type UserBan_change_updates: UserBanInterface
+        :return: The updated UserBan model object
+        :rtype: UserBan
         """
-        banned_business.update(BannedBusiness_change_updates)
-        banned_business.modified_at = datetime.now()
+        user_ban.update(UserBan_change_updates)
+        user_ban.modified_at = datetime.now()
 
         db.session.commit()
-        return banned_business
+        return user_ban
 
     @staticmethod
     def delete_by_id(id: int) -> List:
-        """Deletes a banned_business from the table with the specified id
+        """Deletes a user_ban from the table with the specified id
 
-        :param id: BannedBusiness's id
+        :param id: UserBan's id
         :type id: int
-        :return: List containing the deleted banned_business, if found, otherwise an empty
+        :return: List containing the deleted user_ban, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        banned_business = BannedBusinessService.get_by_id(id)
-        if not banned_business:
+        user_ban = UserBanService.get_by_id(id)
+        if not user_ban:
             return []
-        db.session.delete(banned_business)
+        db.session.delete(user_ban)
         db.session.commit()
         return [id]
 
     @staticmethod
-    def create(new_attrs: BannedBusinessInterface) -> BannedBusiness:
-        """Creates a banned_business object from the BannedBusinessInterface TypedDict
+    def create(new_attrs: UserBanInterface) -> UserBan:
+        """Creates a user_ban object from the UserBanInterface TypedDict
 
-        :param new_attrs: A dictionary with the input into a BannedBusiness model
-        :type new_attrs: BannedBusinessInterface
-        :return: A new banned_business object based on the input
-        :rtype: BannedBusiness
+        :param new_attrs: A dictionary with the input into a UserBan model
+        :type new_attrs: UserBanInterface
+        :return: A new user_ban object based on the input
+        :rtype: UserBan
         """
 
-        new_banned_business = BannedBusiness()
+        new_user_ban = UserBan()
 
-        db.session.add(new_banned_business)
+        db.session.add(new_user_ban)
         db.session.commit()
 
-        return new_banned_business
+        return new_user_ban
 
 
 def NormalResponse(response: dict, status: int) -> Response:

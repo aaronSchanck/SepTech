@@ -39,6 +39,7 @@ public class AddListingActivity extends AppCompatActivity {
     private TextInputLayout buyoutPriceTextInput;
 
     private TextInputEditText itemNameEditText;
+    private TextInputEditText itemQualityEditText;
     private TextInputEditText itemQuantityEditText;
     private TextInputEditText auctionLengthEditText;
     private TextInputEditText startingBidEditText;
@@ -80,6 +81,7 @@ public class AddListingActivity extends AppCompatActivity {
         buyoutPriceTextInput = findViewById(R.id.buyPriceTextbox);
 
         itemNameEditText = findViewById(R.id.itemNameEditText);
+        itemQualityEditText = findViewById(R.id.itemQualityEditText);
         itemQuantityEditText = findViewById(R.id.itemQuantityEditText);
         auctionLengthEditText = findViewById(R.id.auctionLengthEditText);
         startingBidEditText = findViewById(R.id.startingBidEditText);
@@ -142,17 +144,18 @@ public class AddListingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = itemNameEditText.getText().toString();
+                String quality = itemQualityEditText.getText().toString();
                 int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
 
                 boolean bid = bidSwitch.isChecked();
 
-                String auctionLength = bid ? auctionLengthEditText.getText().toString(): "";
-                String startingBid = bid ? startingBidEditText.getText().toString(): "";
-                String minimumBid = bid ? minimumBidEditText.getText().toString(): "";
+                String auctionLength = bid ? auctionLengthEditText.getText().toString(): null;
+                String startingBid = bid ? startingBidEditText.getText().toString(): null;
+                String minimumBid = bid ? minimumBidEditText.getText().toString(): null;
 
                 boolean buy = buySwitch.isChecked();
 
-                String buyoutPrice = buy ? buyoutPriceEditText.getText().toString(): "";
+                String buyoutPrice = buy ? buyoutPriceEditText.getText().toString(): null;
 
                 String mainCategory = mainCategoryEditText.getText().toString();
                 String categoryTwo = categoryTwoEditText.getText().toString();
@@ -162,9 +165,9 @@ public class AddListingActivity extends AppCompatActivity {
                 String itemDescription = itemDescriptionEditText.getText().toString();
 
 
-                addListingViewModel.createItem(name, quantity, bid, buy, auctionLength,
-                        startingBid, minimumBid, buyoutPrice, mainCategory, categoryTwo,
-                        categoryThree, categoryFour, categoryFive, itemDescription, imagePaths);
+                addListingViewModel.createItem(businessId, name, quality, quantity, bid, buy,
+                        auctionLength, startingBid, minimumBid, buyoutPrice, mainCategory,
+                        categoryTwo, categoryThree, categoryFour, categoryFive, itemDescription, imagePaths);
             }
         });
     }

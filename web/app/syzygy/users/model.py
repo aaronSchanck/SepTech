@@ -62,11 +62,10 @@ class User(db.Model):
         uselist=False,
     )
 
-    # banned information
-    banned_id = db.Column(db.Integer, db.ForeignKey("banned_users.id"))
-    banned = db.relationship(
-        "BannedUser", foreign_keys=banned_id, backref="user", uselist=False
-    )
+    # ban information
+    banned = db.Column(db.Boolean)
+    ban_end = db.Column(db.DateTime)
+    past_bans = db.relationship("user_bans")
 
     phone_number = db.Column(db.String(11))
     password_salt = db.Column(db.String(63))
@@ -87,9 +86,3 @@ class User(db.Model):
             setattr(self, key, val)
 
         return self
-
-    @property
-    def user_banned(self):
-        if self.banned_id is None:
-            return False
-        return False

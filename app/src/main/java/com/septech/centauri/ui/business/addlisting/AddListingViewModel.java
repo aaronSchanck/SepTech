@@ -32,14 +32,16 @@ public class AddListingViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void createItem(String name, int quantity, boolean bid, boolean buyout,
-                           String auctionLength, String startingBid, String minBidIncrement,
-                           String buyoutPrice, String mainCategory, String categoryTwo,
-                           String categoryThree, String categoryFour, String categoryFive,
-                           String itemDescription, List<String> imagePaths) {
+    public void createItem(int sellerId, String name, String quality, int quantity, boolean bid,
+                           boolean buyout, String auctionLength, String startingBid,
+                           String minBidIncrement, String buyoutPrice, String mainCategory,
+                           String categoryTwo, String categoryThree, String categoryFour,
+                           String categoryFive, String itemDescription, List<String> imagePaths) {
         Item newItem = new Item();
 
+        newItem.setSellerId(sellerId);
         newItem.setName(name);
+        newItem.setQuality(quality);
         newItem.setQuantity(quantity);
         newItem.setCanBid(bid);
         newItem.setCanBuy(buyout);

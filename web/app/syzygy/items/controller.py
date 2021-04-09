@@ -128,6 +128,7 @@ class ItemCreateResource(Resource):
         print(obj)
 
         item_data = item_schema.load(obj)
+        print(image_req)
         image_data = image_schema.load(image_req.to_dict())
 
         print(item_data)

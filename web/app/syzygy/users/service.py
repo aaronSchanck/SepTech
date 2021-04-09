@@ -58,9 +58,6 @@ class UserService:
         """
         user = User.query.get(id)
 
-        # if user is None:
-        #     return ErrResponse("Requested user doesn't exist", 400)
-
         return user
 
     @staticmethod
@@ -211,7 +208,7 @@ class UserService:
         UserService.send_password_code_email(user)
 
         return NormalResponse(
-            user.password_reset_code,
+            "Healthy",
             200,
         )
 
