@@ -87,30 +87,3 @@ class BidIdResource(Resource):
         changes: BidInterface = request.parsed_obj
         Bid = BidService.get_by_id(id)
         return BidService.update(Bid, changes)
-
-
-@api.route("/<email>")
-@api.param("email", "Bid database email")
-class BidEmailResource(Resource):
-    @responds(schema=BidSchema)
-    def get(self, email: int):
-        """Get bid by bid login email"""
-        return BidService.get_by_email(email)
-
-
-@api.route("/login")
-class BidLoginResource(Resource):
-    @accepts(
-        dict(name="email", type=str, help="A bid's email"),
-        dict(name="password", type=str, help="A bid's password"),
-        api=api,
-    )
-    @responds(schema=BidSchema)
-    def post(self):
-        """Login with bid credentials"""
-        email = request.parsed_args["email"]
-        password = request.parsed_args["password"]
-
-        print(email, password)
-
-        return BidService.login(email, password)

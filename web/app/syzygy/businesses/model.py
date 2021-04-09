@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/model.py
+"""/web/app/syzygy/businesses/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,7 +17,6 @@ Functions:
 import logging
 
 from app import db
-from sqlalchemy import *
 
 from .interface import BusinessInterface
 
@@ -53,7 +52,7 @@ class Business(db.Model):
     last_successful_login = db.Column(db.DateTime)
     last_unsuccessful_login = db.Column(db.DateTime)
 
-    # description = db.Column(db.String)
+    description = db.Column(db.String)
 
     profile_picture = db.Column(db.String)
 

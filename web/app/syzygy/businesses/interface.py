@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/interface.py
+"""/web/app/syzygy/businesses/interface.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -30,8 +30,9 @@ class BusinessInterface(TypedDict, total=False):
     created_at: str
     modified_at: str
     phone_number: str
-    password_salt1: str
+    password_salt: str
     password_reset_code: str
     password_reset_timeout: str
     last_successful_login: str
     last_unsuccessful_login: str
+    description: str

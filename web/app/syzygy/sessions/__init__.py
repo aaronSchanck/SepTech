@@ -1,4 +1,4 @@
-"""/web/app/syzygy/session/__init__.py
+"""/web/app/syzygy/sessions/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -19,7 +19,7 @@ import logging
 from .model import Session
 from .schema import SessionSchema, SessionSchema
 
-BASE_ROUTE = "session"
+BASE_ROUTE = "sessions"
 
 log = logging.getLogger(__name__)
 

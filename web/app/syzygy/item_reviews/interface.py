@@ -1,4 +1,4 @@
-"""/web/app/syzygy/order_items/interface.py
+"""/web/app/syzygy/item_reviews/interface.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,10 +15,11 @@ Functions:
 """
 
 import logging
+
 from typing import TypedDict
 
 log = logging.getLogger(__name__)
 
 
-class OrderItemInterface(TypedDict, total=False):
+class ItemReviewInterface(TypedDict, total=False):
     id: int

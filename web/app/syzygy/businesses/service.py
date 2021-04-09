@@ -14,20 +14,19 @@ Functions:
 
 """
 
-from app import db
-from .model import Business
-from .interface import BusinessInterface
-from flask import Response
 import json
 import logging
-from libs.auth import encrypt_pw
-import bcrypt
-
-from datetime import datetime
-
 import re
-
+from datetime import datetime
 from typing import List
+
+import bcrypt
+from app import db
+from libs.auth import encrypt_pw
+from libs.response import ErrResponse, NormalResponse
+
+from .interface import BusinessInterface
+from .model import Business
 
 log = logging.getLogger(__name__)
 
@@ -141,6 +140,7 @@ class BusinessService:
             modified_at=datetime.now(),
             phone_number=phone_number_reformatted,
             password_salt=new_attrs["password_salt"],
+            description=new_attrs["description"],
         )
 
         db.session.add(new_business)
@@ -185,37 +185,3 @@ class BusinessService:
         # generate JWT token and concatenate
 
         return business
-
-
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
-
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )

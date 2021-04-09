@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/controller.py
+"""/web/app/syzygy/businesses/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -18,7 +18,7 @@ Classes:
 
     BusinessLoginResource:
         Extends Resource from flask-restx. Acts as a helper class for logging
-        in users.
+        in businesses.
 
 """
 

@@ -1,4 +1,4 @@
-"""/web/app/syzygy/order_items/schema.py
+"""/web/app/syzygy/item_reviews/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -16,8 +16,6 @@ Functions:
 
 import logging
 
-import datetime as dt
-
 from sqlalchemy.dialects import postgresql
 
 from marshmallow import Schema, fields
@@ -25,5 +23,5 @@ from marshmallow import Schema, fields
 log = logging.getLogger(__name__)
 
 
-class OrderItemSchema(Schema):
+class ItemReviewSchema(Schema):
     id = fields.Number(dump_only=True)

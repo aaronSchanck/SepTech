@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/controller.py
+"""/web/app/syzygy/order_items/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -15,10 +15,6 @@ Classes:
     OrderItemIdResource:
         Extends Resource from flask-restx. Follows same functionality from
         aforementioned class. Must be routed to with {baseurl}/{userid}.
-
-    OrderItemLoginResource:
-        Extends Resource from flask-restx. Acts as a helper class for logging
-        in users.
 
 """
 
@@ -87,27 +83,3 @@ class OrderItemIdResource(Resource):
         changes: OrderItemInterface = request.parsed_obj
         OrderItem = OrderItemService.get_by_id(userid)
         return OrderItemService.update(OrderItem, changes)
-
-@api.route("/<email>")
-@api.param("email", "OrderItem database email")
-class OrderItemEmailResource(Resource):
-    @responds(schema=OrderItemSchema)
-    def get(self, email: int):
-        return OrderItemService.get_by_email(email)
-
-
-@api.route("/login")
-class OrderItemLoginResource(Resource):
-    @accepts(
-        dict(name="email", type=str, help="A user's email"),
-        dict(name="password", type=str, help="A user's password"),
-        api=api,
-    )
-    @responds(schema=OrderItemSchema)
-    def post(self):
-        """Login with user credentials"""
-
-        email = request.parsed_args["email"]
-        password = request.parsed_args["password"]
-
-        return OrderItemService.login(email, password)

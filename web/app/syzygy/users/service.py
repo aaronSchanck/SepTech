@@ -28,8 +28,8 @@ from typing import List
 import bcrypt
 from app import db
 from app.globals import *
-from flask import Response
 from libs.auth import encrypt_pw
+from libs.response import ErrResponse, NormalResponse
 
 from .interface import UserInterface
 from .model import User

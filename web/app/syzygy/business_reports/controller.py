@@ -41,37 +41,35 @@ class BusinessReportResource(Resource):
 
         return BusinessReportService.get_all()
 
-    # @accepts(schema=BusinessReportSchema, api=api)
-    # @responds(schema=BusinessReportSchema)
-    # def post(self):
-    #     """Create a Single BusinessReport"""
-
-    #     return BusinessReportService.create(request.parsed_obj)
+    @accepts(schema=BusinessReportSchema, api=api)
+    @responds(schema=BusinessReportSchema)
     def post(self):
         """Create a Single BusinessReport"""
 
+        return BusinessReportService.create(request.parsed_obj)
 
-@api.route("/<int:business_reportid>")
-@api.param("business_reportid", "BusinessReport database ID")
+
+@api.route("/<int:id>")
+@api.param("id", "BusinessReport database ID")
 class BusinessReportIdResource(Resource):
     @responds(schema=BusinessReportSchema)
-    def get(self, business_reportid: int):
+    def get(self, id: int):
         """Get Single BusinessReport"""
 
-        return BusinessReportService.get_by_id(business_reportid)
+        return BusinessReportService.get_by_id(id)
 
-    def delete(self, business_reportid: int):
+    def delete(self, id: int):
         """Delete Single BusinessReport"""
         from flask import jsonify
 
-        id = BusinessReportService.delete_by_id(business_reportid)
+        id = BusinessReportService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=BusinessReportSchema, api=api)
     @responds(schema=BusinessReportSchema)
-    def put(self, business_reportid: int):
+    def put(self, id: int):
         """Update Single BusinessReport"""
 
         changes: BusinessReportInterface = request.parsed_obj
-        BusinessReport = BusinessReportService.get_by_id(business_reportid)
+        BusinessReport = BusinessReportService.get_by_id(id)
         return BusinessReportService.update(BusinessReport, changes)

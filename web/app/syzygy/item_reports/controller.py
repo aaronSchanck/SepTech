@@ -41,37 +41,35 @@ class ItemReportResource(Resource):
 
         return ItemReportService.get_all()
 
-    # @accepts(schema=ItemReportSchema, api=api)
-    # @responds(schema=ItemReportSchema)
-    # def post(self):
-    #     """Create a Single ItemReport"""
-
-    #     return ItemReportService.create(request.parsed_obj)
+    @accepts(schema=ItemReportSchema, api=api)
+    @responds(schema=ItemReportSchema)
     def post(self):
         """Create a Single ItemReport"""
 
+        return ItemReportService.create(request.parsed_obj)
 
-@api.route("/<int:item_reportid>")
-@api.param("item_reportid", "ItemReport database ID")
+
+@api.route("/<int:id>")
+@api.param("id", "ItemReport database ID")
 class ItemReportIdResource(Resource):
     @responds(schema=ItemReportSchema)
-    def get(self, item_reportid: int):
+    def get(self, id: int):
         """Get Single ItemReport"""
 
-        return ItemReportService.get_by_id(item_reportid)
+        return ItemReportService.get_by_id(id)
 
-    def delete(self, item_reportid: int):
+    def delete(self, id: int):
         """Delete Single ItemReport"""
         from flask import jsonify
 
-        id = ItemReportService.delete_by_id(item_reportid)
+        id = ItemReportService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=ItemReportSchema, api=api)
     @responds(schema=ItemReportSchema)
-    def put(self, item_reportid: int):
+    def put(self, id: int):
         """Update Single ItemReport"""
 
         changes: ItemReportInterface = request.parsed_obj
-        ItemReport = ItemReportService.get_by_id(item_reportid)
+        ItemReport = ItemReportService.get_by_id(id)
         return ItemReportService.update(ItemReport, changes)

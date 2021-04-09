@@ -19,7 +19,7 @@ from .model import Item
 from ..categories.model import Category
 from ..categories.service import CategoryService
 from .interface import ItemInterface
-from flask import Response
+from libs.response import ErrResponse, NormalResponse
 import json
 import logging
 
@@ -110,15 +110,6 @@ class ItemService:
 
         category = CategoryService.create_if_not_exists(categories)
 
-        # items = (
-        #     db.session.query(Category)
-        #     .join(Category.items)
-        #     .filter(Category.category_id == 1)
-        #     .all()
-        # )
-
-        # print(items[0].items)
-
         new_item = Item(
             name=new_attrs["name"],
             quantity=new_attrs["quantity"],
@@ -144,37 +135,3 @@ class ItemService:
 
     def search(search_str: str):
         return Item.query.filter(Item.name.ilike("%search_str%")).all()
-
-
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
-
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )

@@ -1,4 +1,4 @@
-"""/web/app/syzygy/session/controller.py
+"""/web/app/syzygy/sessions/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

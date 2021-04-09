@@ -25,6 +25,6 @@ log = logging.getLogger(__name__)
 
 
 def register_routes(api, app, root="api"):
-    from .controller import api as item_category_api
+    from .controller import api as category_api
 
-    api.add_namespace(item_category_api, path=f"/{root}/{BASE_ROUTE}")
+    api.add_namespace(category_api, path=f"/{root}/{BASE_ROUTE}")

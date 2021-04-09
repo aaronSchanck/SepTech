@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/model.py
+"""/web/app/syzygy/order_items/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -24,14 +24,6 @@ log = logging.getLogger(__name__)
 
 
 class OrderItem(db.Model):
-    """[summary]
-
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
-    """
-
     __tablename__ = "order_items"
 
     id = db.Column(db.Integer, primary_key=True)

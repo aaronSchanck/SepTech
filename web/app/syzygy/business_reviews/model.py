@@ -1,4 +1,4 @@
-"""/web/app/syzygy/business_bans/model.py
+"""/web/app/syzygy/business_reviews/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -18,26 +18,21 @@ import logging
 
 from app import db
 
-from .interface import BusinessBanInterface
+from .interface import BusinessReviewInterface
 
 log = logging.getLogger(__name__)
 
 
-class BusinessBan(db.Model):
-    """[summary]
-
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
-    """
-
-    __tablename__ = "business_bans"
+class BusinessReview(db.Model):
+    __tablename__ = "business_reviews"
 
     id = db.Column(db.Integer, primary_key=True)
 
-    def update(self, changes: BusinessBanInterface):
+    def update(self, changes: BusinessReviewInterface):
         for key, val in changes.items():
             setattr(self, key, val)
 
         return self
+
+    def __repr__(self):
+        pass

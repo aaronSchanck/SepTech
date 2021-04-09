@@ -14,18 +14,12 @@ Functions:
 
 """
 
-import json
 import logging
-import re
-import secrets
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import List
 
-from app.globals import *
-import bcrypt
 from app import db
-from flask import Response
-from utils.auth import encrypt_pw
+from libs.response import ErrResponse, NormalResponse
 
 from .interface import SessionInterface
 from .model import Session
@@ -54,15 +48,10 @@ class SessionService:
         """
         session = Session.query.get(id)
 
-        # if session is None:
-        #     return ErrResponse("Requested session doesn't exist", 400)
-
         return session
 
     @staticmethod
-    def update(
-        session: Session, Session_change_updates: SessionInterface
-    ) -> Session:
+    def update(session: Session, Session_change_updates: SessionInterface) -> Session:
         """[summary]
 
         :param session: The Session to update in the database
@@ -113,37 +102,3 @@ class SessionService:
         db.session.commit()
 
         return new_session
-
-
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
-
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
