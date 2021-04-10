@@ -25,9 +25,9 @@ log = logging.getLogger(__name__)
 
 class CategorySchema(Schema):
     class Meta:
-        model = Category
+        ordered = True
 
-    category_id = fields.Number(dump_only=True)
+    id = fields.Number(dump_only=True)
     category_1 = fields.Str(required=True)
     category_2 = fields.Str()
     category_3 = fields.Str()

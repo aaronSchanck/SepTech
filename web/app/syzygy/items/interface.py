@@ -24,8 +24,9 @@ class ItemInterface(TypedDict, total=False):
     itemid: int
     name: str
     quantity: int
-    posted_at: str
-    seller: int
+    created_at: str
+    modified_at: str
+    sellerid: int
     price: str
     can_buy: bool
     can_bid: bool
@@ -33,5 +34,4 @@ class ItemInterface(TypedDict, total=False):
     bidding_ends: str
     quality: str
     thumbnail: int
-    item_variants: List
     description: str

@@ -61,6 +61,7 @@ public class BusinessRegisterViewModel extends ViewModel {
         business.setPassword(pwHash);
         business.setPasswordSalt(pwUtils.getSalt());
         business.setPhoneNumber(phoneNumber);
+        business.setDescription("To be filled out later");
 
         mDisposables.add(businessRepo.createBusinessAccount(business)
                 .subscribeOn(Schedulers.io())

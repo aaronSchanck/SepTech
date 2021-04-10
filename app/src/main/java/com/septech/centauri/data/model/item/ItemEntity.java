@@ -26,7 +26,7 @@ public class ItemEntity {
     @Expose(serialize = false)
     private String updatedAt;
 
-    @SerializedName("seller")
+    @SerializedName("sellerid")
     @Expose
     private Integer sellerId;
 

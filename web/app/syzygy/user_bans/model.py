@@ -32,9 +32,12 @@ class UserBan(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "banned_users"
+    __tablename__ = "user_bans"
 
     id = db.Column(db.Integer, primary_key=True)
+
+    userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User")
 
     def update(self, changes: UserBanInterface):
         for key, val in changes.items():

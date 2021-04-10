@@ -24,13 +24,16 @@ log = logging.getLogger(__name__)
 
 
 class Item(db.Model):
+    """An Item model in the Syzygy database"""
+
     __tablename__ = "items"
 
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String(127))
     quantity = db.Column(db.Integer)
-    posted_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
     # business
     sellerid = db.Column(db.Integer, db.ForeignKey("businesses.id"))
@@ -51,7 +54,8 @@ class Item(db.Model):
     bidding_ends = db.Column(db.DateTime)
 
     # top bid user
-    highest_bid_userid = db.Column(db.Integer)
+    highest_bid_userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    highest_bid_user = db.relationship("User")
 
     quality = db.Column(db.String(63))
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))

@@ -114,25 +114,26 @@ class ItemIdResource(Resource):
 @api.route("/create")
 class ItemCreateResource(Resource):
     def post(self):
-
+        # ItemService.parse_images(request.files)
         item_req = request.form
-        image_req = request.files
 
-        # print(image_req.to_dict())
         dat = item_req.to_dict()["itemEntity"]
-        print(type(dat))
-        print(dat)
 
         obj = json.loads(dat)
-        print(type(obj))
-        print(obj)
+
+        item_vali = item_schema.validate(obj)
+
+        print(item_vali)
 
         item_data = item_schema.load(obj)
-        print(image_req)
-        image_data = image_schema.load(image_req.to_dict())
 
         print(item_data)
-        print(image_data)
+
+        item = ItemService.create(item_data)
+
+        print(item)
+
+        return item_schema.dump(item)
 
         # image_path = Path(app.config["UPLOAD_FOLDER"] + "/items/file_to_save.jpg")
         # image_file.save(image_path)

@@ -64,12 +64,12 @@ public class AddListingViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull Item item) {
-                        //TODO
+                        System.out.println("item = " + item);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        //TODO
+                        System.out.println("e = " + e);
                     }
                 })
         );

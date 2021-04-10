@@ -11,7 +11,6 @@ public class Category {
     private String category5;
 
     public Category() {
-
     }
 
     public Category(String category1, String category2, String category3, String category4, String category5) {

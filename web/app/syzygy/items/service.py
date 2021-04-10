@@ -22,6 +22,7 @@ from .interface import ItemInterface
 from libs.response import ErrResponse, NormalResponse
 import json
 import logging
+from datetime import datetime
 
 import re
 
@@ -113,20 +114,19 @@ class ItemService:
         new_item = Item(
             name=new_attrs["name"],
             quantity=new_attrs["quantity"],
-            posted_at=new_attrs["posted_at"],
-            seller=new_attrs["seller"],
+            created_at=datetime.now(),
+            modified_at=datetime.now(),
+            sellerid=new_attrs["sellerid"],
             price=new_attrs["price"],
             can_buy=new_attrs["can_buy"],
             can_bid=new_attrs["can_bid"],
-            highest_bid=new_attrs["highest_bid"],
-            highest_bid_user=new_attrs["highest_bid_user"],
             bidding_ends=new_attrs["bidding_ends"],
             quality=new_attrs["quality"],
-            category_id=category.category_id,
-            thumbnail=new_attrs["thumbnail"],
-            item_variants=new_attrs["item_variants"],
+            category_id=category.id,
             description=new_attrs["description"],
         )
+
+        print(new_item)
 
         db.session.add(new_item)
         db.session.commit()
@@ -135,3 +135,6 @@ class ItemService:
 
     def search(search_str: str):
         return Item.query.filter(Item.name.ilike("%search_str%")).all()
+
+    def parse_images(request_files):
+        image_data = image_schema.load(request_files.to_dict())

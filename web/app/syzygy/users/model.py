@@ -65,7 +65,7 @@ class User(db.Model):
     # ban information
     banned = db.Column(db.Boolean)
     ban_end = db.Column(db.DateTime)
-    past_bans = db.relationship("user_bans")
+    past_bans = db.relationship("UserBan")
 
     phone_number = db.Column(db.String(11))
     password_salt = db.Column(db.String(63))

@@ -39,15 +39,14 @@ class ItemSchema(Schema):
     quantity = fields.Integer()
 
     created_at = fields.DateTime(dump_only=True)
-    updated_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)
 
-    sellerId = fields.Integer()
+    sellerid = fields.Integer()
 
-    price = fields.Str()
     can_buy = fields.Bool()
+    price = fields.Str()
 
     can_bid = fields.Bool()
-
     starting_bid = fields.Str(allow_none=True)
     min_bid_increment = fields.Str(allow_none=True)
 
@@ -55,6 +54,7 @@ class ItemSchema(Schema):
     highest_bid_user = fields.Integer(dump_only=True)
     bidding_ends = fields.DateTime(allow_none=True)
     quality = fields.String()
+
     category_id = fields.Integer(dump_only=True)
     category = fields.Nested(CategorySchema, required=True)
 

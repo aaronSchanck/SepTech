@@ -48,6 +48,10 @@ public class BusinessEntity {
     @Expose(serialize = false)
     private String passwordResetTimeout;
 
+    @SerializedName("description")
+    @Expose
+    private String description;
+
     public BusinessEntity() {
         //empty
     }
@@ -142,5 +146,13 @@ public class BusinessEntity {
 
     public void setPasswordResetTimeout(String passwordResetTimeout) {
         this.passwordResetTimeout = passwordResetTimeout;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

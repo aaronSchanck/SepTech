@@ -164,6 +164,8 @@ public class AddListingActivity extends AppCompatActivity {
                 String categoryFive = categoryFiveEditText.getText().toString();
                 String itemDescription = itemDescriptionEditText.getText().toString();
 
+                System.out.println("v = " + itemDescription);
+
 
                 addListingViewModel.createItem(businessId, name, quality, quantity, bid, buy,
                         auctionLength, startingBid, minimumBid, buyoutPrice, mainCategory,

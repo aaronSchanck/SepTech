@@ -12,6 +12,7 @@ public class Business {
     private String modifiedAt;
     private String passwordResetCode;
     private String passwordResetTimeout;
+    private String description;
 
     public Business() {
         //left empty
@@ -103,5 +104,13 @@ public class Business {
 
     public void setPasswordResetTimeout(String passwordResetTimeout) {
         this.passwordResetTimeout = passwordResetTimeout;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
