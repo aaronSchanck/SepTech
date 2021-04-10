@@ -24,7 +24,6 @@ import bcrypt
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import RemovedItemInterface
 from .model import RemovedItem
 
 log = logging.getLogger(__name__)
@@ -51,9 +50,6 @@ class RemovedItemService:
         """
         removed_item = RemovedItem.query.get(id)
 
-        # if removed_item is None:
-        #     return ErrResponse("Requested removed_item doesn't exist", 400)
-
         return removed_item
 
     @staticmethod
@@ -71,21 +67,18 @@ class RemovedItemService:
         return removed_item
 
     @staticmethod
-    def update(
-        removed_item: RemovedItem, RemovedItem_change_updates: RemovedItemInterface
-    ) -> RemovedItem:
+    def update(removed_item: RemovedItem, updates: dict) -> RemovedItem:
         """[summary]
 
-        :param removed_item: The RemovedItem to update in the database
+        :param removed_item: [description]
         :type removed_item: RemovedItem
-        :param RemovedItem_change_updates: Dictionary object containing the new changes
-        to update the RemovedItem model object with
-        :type RemovedItem_change_updates: RemovedItemInterface
-        :return: The updated RemovedItem model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: RemovedItem
         """
-        removed_item.update(RemovedItem_change_updates)
-        removed_item.modified_at = datetime.now()
+
+        removed_item.update(updates)
 
         db.session.commit()
         return removed_item
@@ -109,12 +102,12 @@ class RemovedItemService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: RemovedItemInterface) -> RemovedItem:
-        """Creates a removed_item object from the RemovedItemInterface TypedDict
+    def create(new_attrs: dict) -> RemovedItem:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a RemovedItem model
-        :type new_attrs: RemovedItemInterface
-        :return: A new removed_item object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: RemovedItem
         """
 

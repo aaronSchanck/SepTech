@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from .model import UserBan
-from .schema import UserBanSchema, UserBanSchema
+from .schema import UserBanSchema
 
 BASE_ROUTE = "user_bans"
 

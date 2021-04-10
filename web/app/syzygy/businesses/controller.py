@@ -29,7 +29,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import BusinessInterface
 from .model import Business
 from .schema import BusinessSchema
 from .service import BusinessService
@@ -88,9 +87,9 @@ class BusinessIdResource(Resource):
     def put(self, id: int):
         """Update Single Business"""
 
-        changes: BusinessInterface = request.parsed_obj
-        Business = BusinessService.get_by_id(id)
-        return BusinessService.update(Business, changes)
+        updates = request.parsed_obj
+        business = BusinessService.get_by_id(id)
+        return BusinessService.update(business, updates)
 
 
 @api.route("/<email>")

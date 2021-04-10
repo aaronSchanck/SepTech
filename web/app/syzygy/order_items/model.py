@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import OrderItemInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -38,7 +36,7 @@ class OrderItem(db.Model):
 
     added_at = db.Column(db.DateTime)
 
-    def update(self, changes: OrderItemInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

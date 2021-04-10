@@ -51,18 +51,18 @@ class OrderService:
         return order
 
     @staticmethod
-    def update(order: Order, Order_change_updates: OrderInterface) -> Order:
+    def update(order: Order, updates: dict) -> Order:
         """[summary]
 
-        :param order: The Order to update in the database
+        :param order: [description]
         :type order: Order
-        :param Order_change_updates: Dictionary object containing the new changes
-        to update the Order model object with
-        :type Order_change_updates: OrderInterface
-        :return: The updated Order model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: Order
         """
-        order.update(Order_change_updates)
+
+        order.update(updates)
         db.session.commit()
         return order
 
@@ -85,12 +85,12 @@ class OrderService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: OrderInterface) -> Order:
-        """Creates a order object from the OrderInterface TypedDict
+    def create(new_attrs: dict) -> Order:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Order model
-        :type new_attrs: OrderInterface
-        :return: A new order object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Order
         """
 

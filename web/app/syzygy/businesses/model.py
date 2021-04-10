@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import BusinessInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -56,7 +54,7 @@ class Business(db.Model):
 
     profile_picture = db.Column(db.String)
 
-    def update(self, changes: BusinessInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

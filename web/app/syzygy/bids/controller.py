@@ -25,7 +25,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import BidInterface
 from .model import Bid
 from .schema import BidSchema
 from .service import BidService
@@ -84,6 +83,6 @@ class BidIdResource(Resource):
     def put(self, id: int):
         """Update Single Bid"""
 
-        changes: BidInterface = request.parsed_obj
-        Bid = BidService.get_by_id(id)
-        return BidService.update(Bid, changes)
+        updates = request.parsed_obj
+        bid = BidService.get_by_id(id)
+        return BidService.update(bid, updates)

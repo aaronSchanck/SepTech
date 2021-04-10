@@ -21,7 +21,6 @@ from typing import List
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import UserBanInterface
 from .model import UserBan
 
 log = logging.getLogger(__name__)
@@ -51,18 +50,17 @@ class UserBanService:
         return user_ban
 
     @staticmethod
-    def update(user_ban: UserBan, UserBan_change_updates: UserBanInterface) -> UserBan:
-        """[summary]
+    def update(user_ban: UserBan, updates: dict) -> UserBan:
+        """Update a specified user_ban entity with the updates dict
 
-        :param user_ban: The UserBan to update in the database
+        :param user_ban: [description]
         :type user_ban: UserBan
-        :param UserBan_change_updates: Dictionary object containing the new changes
-        to update the UserBan model object with
-        :type UserBan_change_updates: UserBanInterface
-        :return: The updated UserBan model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: UserBan
         """
-        user_ban.update(UserBan_change_updates)
+        user_ban.update(updates)
         user_ban.modified_at = datetime.now()
 
         db.session.commit()
@@ -87,7 +85,7 @@ class UserBanService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: UserBanInterface) -> UserBan:
+    def create(new_attrs: dict) -> UserBan:
         """Creates a user_ban object from the UserBanInterface TypedDict
 
         :param new_attrs: A dictionary with the input into a UserBan model

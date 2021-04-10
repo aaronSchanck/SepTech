@@ -27,6 +27,7 @@ log = logging.getLogger(__name__)
 
 class UserReportSchema(Schema):
     id = fields.Integer(dump_only=True)
+
     reporter_id = fields.Integer(required=True)
     reported_id = fields.Integer(required=True)
 

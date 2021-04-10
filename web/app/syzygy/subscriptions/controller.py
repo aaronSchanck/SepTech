@@ -25,9 +25,8 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import SubscriptionInterface
 from .model import Subscription
-from .schema import SubscriptionSchema, SubscriptionSchema
+from .schema import SubscriptionSchema
 from .service import SubscriptionService
 
 api = Namespace("Subscription")
@@ -80,6 +79,6 @@ class SubscriptionIdResource(Resource):
     def put(self, id: int):
         """Update Single Subscription"""
 
-        changes: SubscriptionInterface = request.parsed_obj
-        Subscription = SubscriptionService.get_by_id(id)
-        return SubscriptionService.update(Subscription, changes)
+        updates = request.parsed_obj
+        subscription = SubscriptionService.get_by_id(id)
+        return SubscriptionService.update(subscription, updates)

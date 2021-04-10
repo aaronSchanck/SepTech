@@ -23,7 +23,6 @@ import bcrypt
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import OrderItemInterface
 from .model import OrderItem
 
 log = logging.getLogger(__name__)
@@ -53,20 +52,18 @@ class OrderItemService:
         return order_item
 
     @staticmethod
-    def update(
-        order_item: OrderItem, OrderItem_change_updates: OrderItemInterface
-    ) -> OrderItem:
+    def update(order_item: OrderItem, updates: dict) -> OrderItem:
         """[summary]
 
-        :param order_item: The OrderItem to update in the database
+        :param order_item: [description]
         :type order_item: OrderItem
-        :param OrderItem_change_updates: Dictionary object containing the new changes
-        to update the OrderItem model object with
-        :type OrderItem_change_updates: OrderItemInterface
-        :return: The updated OrderItem model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: OrderItem
         """
-        order_item.update(OrderItem_change_updates)
+
+        order_item.update(updates)
         db.session.commit()
 
         return order_item
@@ -90,12 +87,12 @@ class OrderItemService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: OrderItemInterface) -> OrderItem:
-        """Creates a order_item object from the OrderItemInterface TypedDict
+    def create(new_attrs: dict) -> OrderItem:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a OrderItem model
-        :type new_attrs: OrderItemInterface
-        :return: A new order_item object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: OrderItem
         """
 

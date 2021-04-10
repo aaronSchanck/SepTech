@@ -25,7 +25,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import BusinessBanInterface
 from .model import BusinessBan
 from .schema import BusinessBanSchema, BusinessBanSchema
 from .service import BusinessBanService
@@ -71,6 +70,7 @@ class BusinessBanIdResource(Resource):
     def put(self, id: int):
         """Update single BusinessBan entity"""
 
-        changes: BusinessBanInterface = request.parsed_obj
-        BusinessBan = BusinessBanService.get_by_id(id)
-        return BusinessBanService.update(BusinessBan, changes)
+        updates = request.parsed_obj
+        business_ban = BusinessBanService.get_by_id(id)
+
+        return BusinessBanService.update(business_ban, updates)

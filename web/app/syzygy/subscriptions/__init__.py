@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from .model import Subscription
-from .schema import SubscriptionSchema, SubscriptionSchema
+from .schema import SubscriptionSchema
 
 BASE_ROUTE = "subscriptions"
 

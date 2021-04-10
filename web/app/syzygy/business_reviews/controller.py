@@ -24,7 +24,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import BusinessReviewInterface
 from .model import BusinessReview
 from .schema import BusinessReviewSchema
 from .service import BusinessReviewService
@@ -83,6 +82,7 @@ class BusinessReviewIdResource(Resource):
     def put(self, id: int):
         """Update Single BusinessReview"""
 
-        changes: BusinessReviewInterface = request.parsed_obj
-        BusinessReview = BusinessReviewService.get_by_id(id)
-        return BusinessReviewService.update(BusinessReview, changes)
+        updates = request.parsed_obj
+        business_review = BusinessReviewService.get_by_id(id)
+
+        return BusinessReviewService.update(business_review, updates)

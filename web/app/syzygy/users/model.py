@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import UserInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -81,7 +79,7 @@ class User(db.Model):
 
     admin_level = db.Column(db.Integer)
 
-    def update(self, changes: UserInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

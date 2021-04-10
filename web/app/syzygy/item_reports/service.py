@@ -14,16 +14,15 @@ Functions:
 
 """
 
-from app import db
-from .model import ItemReport
-from .interface import ItemReportInterface
-from libs.response import ErrResponse, NormalResponse
 import json
 import logging
-
 import re
-
 from typing import List
+
+from app import db
+from libs.response import ErrResponse, NormalResponse
+
+from .model import ItemReport
 
 log = logging.getLogger(__name__)
 
@@ -50,20 +49,18 @@ class ItemReportService:
         return ItemReport.query.get(id)
 
     @staticmethod
-    def update(
-        item_report: ItemReport, item_report_changes: ItemReportInterface
-    ) -> ItemReport:
+    def update(item_report: ItemReport, updates: dict) -> ItemReport:
         """[summary]
 
-        :param item_report: The ItemReport to update in the database
+        :param item_report: [description]
         :type item_report: ItemReport
-        :param ItemReport_change_updates: Dictionary object containing the new changes
-        to update the ItemReport model object with
-        :type ItemReport_change_updates: ItemReportInterface
-        :return: The updated ItemReport model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: ItemReport
         """
-        item_report.update(item_report_changes)
+
+        item_report.update(updates)
         db.session.commit()
         return item_report
 
@@ -86,12 +83,12 @@ class ItemReportService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: ItemReportInterface) -> ItemReport:
-        """Creates a item_report object from the ItemReportInterface TypedDict
+    def create(new_attrs: dict) -> ItemReport:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a ItemReport model
-        :type new_attrs: ItemReportInterface
-        :return: A new item_report object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: ItemReport
         """
 

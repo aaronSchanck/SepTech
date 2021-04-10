@@ -22,7 +22,6 @@ from app import db
 from libs.response import ErrResponse, NormalResponse
 from libs.auth import encrypt_pw
 
-from .interface import BidInterface
 from .model import Bid
 
 log = logging.getLogger(__name__)
@@ -55,18 +54,18 @@ class BidService:
         return bid
 
     @staticmethod
-    def update(bid: Bid, Bid_change_updates: BidInterface) -> Bid:
+    def update(bid: Bid, updates: dict) -> Bid:
         """[summary]
 
         :param bid: The Bid to update in the database
         :type bid: Bid
-        :param Bid_change_updates: Dictionary object containing the new changes
+        :param updates: Dictionary object containing the new changes
         to update the Bid model object with
-        :type Bid_change_updates: BidInterface
+        :type updates: dict
         :return: The updated Bid model object
         :rtype: Bid
         """
-        bid.update(Bid_change_updates)
+        bid.update(updates)
         db.session.commit()
         return bid
 
@@ -89,11 +88,11 @@ class BidService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: BidInterface) -> Bid:
-        """Creates a bid object from the BidInterface TypedDict
+    def create(new_attrs: dict) -> Bid:
+        """Creates a bid object from the dict TypedDict
 
         :param new_attrs: A dictionary with the input into a Bid model
-        :type new_attrs: BidInterface
+        :type new_attrs: dict
         :return: A new bid object based on the input
         :rtype: Bid
         """

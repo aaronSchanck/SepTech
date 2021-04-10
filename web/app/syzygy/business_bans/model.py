@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import BusinessBanInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -44,7 +42,7 @@ class BusinessBan(db.Model):
 
     ban_reason = db.Column(db.String)
 
-    def update(self, changes: BusinessBanInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

@@ -25,9 +25,8 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import SessionInterface
 from .model import Session
-from .schema import SessionSchema, SessionSchema
+from .schema import SessionSchema
 from .service import SessionService
 
 api = Namespace("Session")
@@ -80,6 +79,6 @@ class SessionIdResource(Resource):
     def put(self, id: int):
         """Update Single Session"""
 
-        changes: SessionInterface = request.parsed_obj
-        Session = SessionService.get_by_id(id)
-        return SessionService.update(Session, changes)
+        updates = request.parsed_obj
+        session = SessionService.get_by_id(id)
+        return SessionService.update(session, updates)

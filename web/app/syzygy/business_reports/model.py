@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import BusinessReportInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -51,7 +49,7 @@ class BusinessReport(db.Model):
     reviewed_by_name = db.Column(db.String, nullable=True)
     reviewed_at = db.Column(db.DateTime, nullable=True)
 
-    def update(self, changes: BusinessReportInterface):
+    def update(self, changes: dict):
         for key, val in changes.businesss():
             setattr(self, key, val)
 

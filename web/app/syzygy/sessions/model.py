@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import SessionInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -43,7 +41,7 @@ class Session(db.Model):
 
     session_expires_at = db.Column(db.DateTime)
 
-    def update(self, changes: SessionInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

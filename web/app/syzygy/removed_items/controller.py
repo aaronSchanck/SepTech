@@ -25,9 +25,8 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import RemovedItemInterface
 from .model import RemovedItem
-from .schema import RemovedItemSchema, RemovedItemSchema
+from .schema import RemovedItemSchema
 from .service import RemovedItemService
 
 api = Namespace("RemovedItem")
@@ -80,6 +79,6 @@ class RemovedItemIdResource(Resource):
     def put(self, id: int):
         """Update Single RemovedItem"""
 
-        changes: RemovedItemInterface = request.parsed_obj
-        RemovedItem = RemovedItemService.get_by_id(id)
-        return RemovedItemService.update(RemovedItem, changes)
+        updates = request.parsed_obj
+        removed_item = RemovedItemService.get_by_id(id)
+        return RemovedItemService.update(removed_item, updates)

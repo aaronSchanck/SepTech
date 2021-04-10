@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import RemovedItemInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -40,7 +38,7 @@ class RemovedItem(db.Model):
 
     remove_reason = db.Column(db.String)
 
-    def update(self, changes: RemovedItemInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

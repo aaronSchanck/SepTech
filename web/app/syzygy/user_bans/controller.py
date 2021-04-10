@@ -27,7 +27,7 @@ from flask_restx import Namespace, Resource
 
 from .interface import UserBanInterface
 from .model import UserBan
-from .schema import UserBanSchema, UserBanSchema
+from .schema import UserBanSchema
 from .service import UserBanService
 
 api = Namespace("UserBan")

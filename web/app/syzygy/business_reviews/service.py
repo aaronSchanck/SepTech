@@ -21,7 +21,6 @@ from app import db
 from libs.response import ErrResponse, NormalResponse
 from libs.auth import encrypt_pw
 
-from .interface import BusinessReviewInterface
 from .model import BusinessReview
 
 log = logging.getLogger(__name__)
@@ -54,19 +53,17 @@ class BusinessReviewService:
         return business_review
 
     @staticmethod
-    def update(
-        business_review: BusinessReview, updates: BusinessReviewInterface
-    ) -> BusinessReview:
+    def update(business_review: BusinessReview, updates: dict) -> BusinessReview:
         """[summary]
 
-        :param business_review: The BusinessReview to update in the database
+        :param business_review: [description]
         :type business_review: BusinessReview
-        :param BusinessReview_change_updates: Dictionary object containing the new changes
-        to update the BusinessReview model object with
-        :type BusinessReview_change_updates: BusinessReviewInterface
-        :return: The updated BusinessReview model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: BusinessReview
         """
+
         business_review.update(updates)
         db.session.commit()
 
@@ -91,12 +88,12 @@ class BusinessReviewService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: BusinessReviewInterface) -> BusinessReview:
-        """Creates a business_review object from the BusinessReviewInterface TypedDict
+    def create(new_attrs: dict) -> BusinessReview:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a BusinessReview model
-        :type new_attrs: BusinessReviewInterface
-        :return: A new business_review object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: BusinessReview
         """
 

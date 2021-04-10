@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import SubscriptionInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -45,7 +43,7 @@ class Subscription(db.Model):
 
     subscription_ends = db.Column(db.DateTime)
 
-    def update(self, changes: SubscriptionInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

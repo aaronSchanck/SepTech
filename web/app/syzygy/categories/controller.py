@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/categories/controller.py
+"""/web/app/syzygy/categories/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,7 +17,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import CategoryInterface
 from .model import Category
 from .schema import CategorySchema
 from .service import CategoryService
@@ -69,9 +68,9 @@ class CategoryIdResource(Resource):
     def put(self, itemid: int):
         """Update single Category"""
 
-        changes: CategoryInterface = request.parsed_obj
-        Category = CategoryService.get_by_id(itemid)
-        return CategoryService.update(Category, changes)
+        updates = request.parsed_obj
+        category = CategoryService.get_by_id(itemid)
+        return CategoryService.update(category, changes)
 
 
 @api.route("/get_unique_categories")

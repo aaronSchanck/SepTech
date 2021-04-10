@@ -32,7 +32,6 @@ from flask_restx import Namespace, Resource, reqparse
 
 from libs.response import SchemaErrResponse
 
-from .interface import ItemInterface
 from .model import Item
 from .schema import ImageSchema, ItemSchema
 from .service import ItemService
@@ -65,8 +64,6 @@ class ItemResource(Resource):
     @responds(schema=ItemSchema)
     def post(self):
         """Create a Single Item"""
-
-        print(request.parsed_obj)
 
         return ItemService.create(request.parsed_obj)
 
@@ -111,9 +108,7 @@ class ItemIdResource(Resource):
     def put(self, itemid: int):
         """Update Single Item"""
 
-        changes: ItemInterface = request.parsed_obj
-        Item = ItemService.get_by_id(itemid)
-        return ItemService.update(Item, changes)
+        return ItemService.update(item, request.parsed_obj)
 
 
 @api.route("/create")
@@ -135,7 +130,7 @@ class ItemCreateResource(Resource):
 
         # create images dir
         item_images_path = os.path.join(
-            app.config["UPLOAD_FOLDER"], f"items/item_{item.id}"
+            app.config["UPLOAD_FOLDER"], "items", f"item_{item.id}"
         )
 
         try:
@@ -146,5 +141,9 @@ class ItemCreateResource(Resource):
         # parse images from request files object
 
         images = ItemService.parse_images(item_images_path, request.files)
+
+        updates = {"images": images}
+
+        ItemService.update(item, updates)
 
         return item_schema.dump(item)

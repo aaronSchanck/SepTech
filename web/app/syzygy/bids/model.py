@@ -17,9 +17,6 @@ Functions:
 import logging
 
 from app import db
-from sqlalchemy import *
-
-from .interface import BidInterface
 
 log = logging.getLogger(__name__)
 

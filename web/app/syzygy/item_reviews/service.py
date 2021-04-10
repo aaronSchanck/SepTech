@@ -21,7 +21,6 @@ from app import db
 from libs.response import ErrResponse, NormalResponse
 from libs.auth import encrypt_pw
 
-from .interface import ItemReviewInterface
 from .model import ItemReview
 
 log = logging.getLogger(__name__)
@@ -54,17 +53,17 @@ class ItemReviewService:
         return item_review
 
     @staticmethod
-    def update(item_review: ItemReview, updates: ItemReviewInterface) -> ItemReview:
+    def update(item_review: ItemReview, updates: dict) -> ItemReview:
         """[summary]
 
-        :param item_review: The ItemReview to update in the database
+        :param item_review: [description]
         :type item_review: ItemReview
-        :param ItemReview_change_updates: Dictionary object containing the new changes
-        to update the ItemReview model object with
-        :type ItemReview_change_updates: ItemReviewInterface
-        :return: The updated ItemReview model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: ItemReview
         """
+
         item_review.update(updates)
         db.session.commit()
 
@@ -89,12 +88,12 @@ class ItemReviewService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: ItemReviewInterface) -> ItemReview:
-        """Creates a item_review object from the ItemReviewInterface TypedDict
+    def create(new_attrs: dict) -> ItemReview:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a ItemReview model
-        :type new_attrs: ItemReviewInterface
-        :return: A new item_review object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: ItemReview
         """
 

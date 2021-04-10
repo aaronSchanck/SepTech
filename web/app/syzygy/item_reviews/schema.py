@@ -16,8 +16,6 @@ Functions:
 
 import logging
 
-from sqlalchemy.dialects import postgresql
-
 from marshmallow import Schema, fields
 
 log = logging.getLogger(__name__)

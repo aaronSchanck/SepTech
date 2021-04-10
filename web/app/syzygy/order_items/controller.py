@@ -14,7 +14,7 @@ Classes:
 
     OrderItemIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{userid}.
+        aforementioned class. Must be routed to with {baseurl}/{id}.
 
 """
 
@@ -59,27 +59,27 @@ class OrderItemResource(Resource):
         return OrderItemService.create(request.parsed_obj)
 
 
-@api.route("/<int:userid>")
-@api.param("userid", "OrderItem database ID")
+@api.route("/<int:id>")
+@api.param("id", "OrderItem database ID")
 class OrderItemIdResource(Resource):
     @responds(schema=OrderItemSchema)
-    def get(self, userid: int):
+    def get(self, id: int):
         """Get Single OrderItem"""
 
-        return OrderItemService.get_by_id(userid)
+        return OrderItemService.get_by_id(id)
 
-    def delete(self, userid: int):
+    def delete(self, id: int):
         """Delete Single OrderItem"""
         from flask import jsonify
 
-        id = OrderItemService.delete_by_id(userid)
+        id = OrderItemService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=OrderItemSchema, api=api)
     @responds(schema=OrderItemSchema)
-    def put(self, userid: int):
+    def put(self, id: int):
         """Update Single OrderItem"""
 
-        changes: OrderItemInterface = request.parsed_obj
-        OrderItem = OrderItemService.get_by_id(userid)
-        return OrderItemService.update(OrderItem, changes)
+        updates = request.parsed_obj
+        order_item = OrderItemService.get_by_id(id)
+        return OrderItemService.update(order_item, updates)

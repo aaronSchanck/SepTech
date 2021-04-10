@@ -14,24 +14,22 @@ Functions:
 
 """
 
-from app import db
-from .model import Item
-from ..categories.model import Category
-from ..categories.service import CategoryService
-from .interface import ItemInterface
-from libs.response import ErrResponse, NormalResponse
 import json
 import logging
-from datetime import datetime
-import werkzeug
 import os
-from collections import OrderedDict
-
-from .schema import ImageSchema
-
 import re
-
+from collections import OrderedDict
+from datetime import datetime
 from typing import List
+
+import werkzeug
+from app import db
+from libs.response import ErrResponse, NormalResponse
+
+from ..categories.model import Category
+from ..categories.service import CategoryService
+from .model import Item
+from .schema import ImageSchema
 
 log = logging.getLogger(__name__)
 
@@ -47,57 +45,61 @@ class ItemService:
         return Item.query.all()
 
     @staticmethod
-    def get_by_id(itemid: int) -> Item:
+    def get_by_id(id: int) -> Item:
         """[summary]
 
-        :param itemid: [description]
-        :type itemid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.get(itemid)
+        return Item.query.get(id)
 
     @staticmethod
     def update(item: Item, updates: OrderedDict) -> Item:
         """[summary]
 
-        :param item: The Item to update in the database
+        :param item: [description]
         :type item: Item
-        :param Item_change_updates: Dictionary object containing the new changes
-        to update the Item model object with
-        :type Item_change_updates: ItemInterface
-        :return: The updated Item model object
+        :param updates: [description]
+        :type updates: OrderedDict
+        :return: [description]
         :rtype: Item
         """
+
+        ItemService.transform(updates)
+
         item.update(updates)
+        item.modified_at(datetime.now())
+
         db.session.commit()
         return item
 
     @staticmethod
-    def delete_by_id(itemid: int) -> List:
-        """Deletes a item from the table with the specified itemid
+    def delete_by_id(id: int) -> List:
+        """Deletes a item from the table with the specified id
 
-        :param itemid: Item's itemid
-        :type itemid: int
+        :param id: Item's id
+        :type id: int
         :return: List containing the deleted item, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        item = ItemService.get_by_id(itemid)
+        item = ItemService.get_by_id(id)
         if not item:
             return []
         db.session.delete(item)
         db.session.commit()
-        return [itemid]
+        return [id]
 
     @staticmethod
     def create(new_attrs: OrderedDict) -> Item:
-        """Creates a item object from the ItemInterface TypedDict
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Item model
-        :type new_attrs: ItemInterface
-        :return: A new item object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: OrderedDict
+        :return: [description]
         :rtype: Item
         """
 
@@ -138,10 +140,20 @@ class ItemService:
         image_schema = ImageSchema()
         file_ids = list(request_files)
 
+        image_paths = []
+
         for file_id in file_ids:
             imagefile = request_files[file_id]
             filename = werkzeug.utils.secure_filename(imagefile.filename)
 
             path = os.path.join(base_path, filename)
 
+            image_paths.append(path)
+
             imagefile.save(path)
+
+        return image_paths
+
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        return attrs

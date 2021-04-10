@@ -22,7 +22,6 @@ from typing import List
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import BusinessReportInterface
 from .model import BusinessReport
 
 log = logging.getLogger(__name__)
@@ -52,19 +51,19 @@ class BusinessReportService:
     @staticmethod
     def update(
         business_report: BusinessReport,
-        business_report_changes: BusinessReportInterface,
+        updates: dict,
     ) -> BusinessReport:
         """[summary]
 
-        :param business_report: The BusinessReport to update in the database
+        :param business_report: [description]
         :type business_report: BusinessReport
-        :param BusinessReport_change_updates: Dictionary object containing the new changes
-        to update the BusinessReport model object with
-        :type BusinessReport_change_updates: BusinessReportInterface
-        :return: The updated BusinessReport model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: BusinessReport
         """
-        business_report.update(business_report_changes)
+
+        business_report.update(updates)
         db.session.commit()
         return business_report
 
@@ -87,11 +86,11 @@ class BusinessReportService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: BusinessReportInterface) -> BusinessReport:
-        """Creates a business_report object from the BusinessReportInterface TypedDict
+    def create(new_attrs: dict) -> BusinessReport:
+        """Creates a business_report object from the dict TypedDict
 
         :param new_attrs: A dictionary with the input into a BusinessReport model
-        :type new_attrs: BusinessReportInterface
+        :type new_attrs: dict
         :return: A new business_report object based on the input
         :rtype: BusinessReport
         """

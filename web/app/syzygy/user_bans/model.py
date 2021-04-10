@@ -18,19 +18,11 @@ import logging
 
 from app import db
 
-from .interface import UserBanInterface
-
 log = logging.getLogger(__name__)
 
 
 class UserBan(db.Model):
-    """[summary]
-
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
-    """
+    """UserBan model for the user_bans table"""
 
     __tablename__ = "user_bans"
 
@@ -44,7 +36,7 @@ class UserBan(db.Model):
 
     ban_reason = db.Column(db.String)
 
-    def update(self, changes: UserBanInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

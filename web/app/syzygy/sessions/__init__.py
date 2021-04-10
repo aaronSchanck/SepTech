@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from .model import Session
-from .schema import SessionSchema, SessionSchema
+from .schema import SessionSchema
 
 BASE_ROUTE = "sessions"
 

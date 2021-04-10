@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import BusinessReviewInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -40,7 +38,7 @@ class BusinessReview(db.Model):
 
     comment = db.Column(db.String)
 
-    def update(self, changes: BusinessReviewInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

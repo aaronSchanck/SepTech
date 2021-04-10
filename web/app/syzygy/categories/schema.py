@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/categories/schema.py
+"""/web/app/syzygy/categories/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,8 +17,6 @@ Functions:
 import logging
 
 from marshmallow import Schema, fields
-from marshmallow_sqlalchemy import ModelSchema
-from .model import Category
 
 log = logging.getLogger(__name__)
 

@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import ItemReviewInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -28,7 +26,7 @@ class ItemReview(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    def update(self, changes: ItemReviewInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

@@ -16,10 +16,6 @@ Functions:
 
 import logging
 
-from datetime import datetime
-
-from sqlalchemy.dialects.postgresql import UUID
-
 from marshmallow import Schema, fields
 
 log = logging.getLogger(__name__)

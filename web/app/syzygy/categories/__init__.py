@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/categories/__init__.py
+"""/web/app/syzygy/categories/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

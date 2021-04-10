@@ -22,7 +22,6 @@ from typing import List
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import AddressInterface
 from .model import Address
 
 log = logging.getLogger(__name__)
@@ -50,18 +49,18 @@ class AddressService:
         return Address.query.get(addressid)
 
     @staticmethod
-    def update(address: Address, address_changes: AddressInterface) -> Address:
+    def update(address: Address, updates: dict) -> Address:
         """[summary]
 
         :param address: The Address to update in the database
         :type address: Address
         :param Address_change_updates: Dictionary object containing the new changes
         to update the Address model object with
-        :type Address_change_updates: AddressInterface
+        :type Address_change_updates: dict
         :return: The updated Address model object
         :rtype: Address
         """
-        address.update(address_changes)
+        address.update(updates)
         db.session.commit()
         return address
 
@@ -84,11 +83,11 @@ class AddressService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: AddressInterface) -> Address:
-        """Creates a address object from the AddressInterface TypedDict
+    def create(new_attrs: dict) -> Address:
+        """Creates a address object from the dict TypedDict
 
         :param new_attrs: A dictionary with the input into a Address model
-        :type new_attrs: AddressInterface
+        :type new_attrs: dict
         :return: A new address object based on the input
         :rtype: Address
         """

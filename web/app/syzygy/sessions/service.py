@@ -21,7 +21,6 @@ from typing import List
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import SessionInterface
 from .model import Session
 
 log = logging.getLogger(__name__)
@@ -51,19 +50,18 @@ class SessionService:
         return session
 
     @staticmethod
-    def update(session: Session, Session_change_updates: SessionInterface) -> Session:
+    def update(session: Session, updates: dict) -> Session:
         """[summary]
 
-        :param session: The Session to update in the database
+        :param session: [description]
         :type session: Session
-        :param Session_change_updates: Dictionary object containing the new changes
-        to update the Session model object with
-        :type Session_change_updates: SessionInterface
-        :return: The updated Session model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: Session
         """
-        session.update(Session_change_updates)
-        session.modified_at = datetime.now()
+
+        session.update(updates)
 
         db.session.commit()
         return session
@@ -87,12 +85,12 @@ class SessionService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: SessionInterface) -> Session:
-        """Creates a session object from the SessionInterface TypedDict
+    def create(new_attrs: dict) -> Session:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Session model
-        :type new_attrs: SessionInterface
-        :return: A new session object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Session
         """
 

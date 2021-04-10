@@ -15,7 +15,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import ItemReportInterface
 from .model import ItemReport
 from .schema import ItemReportSchema
 from .service import ItemReportService
@@ -70,6 +69,6 @@ class ItemReportIdResource(Resource):
     def put(self, id: int):
         """Update Single ItemReport"""
 
-        changes: ItemReportInterface = request.parsed_obj
-        ItemReport = ItemReportService.get_by_id(id)
-        return ItemReportService.update(ItemReport, changes)
+        updates = request.parsed_obj
+        item_report = ItemReportService.get_by_id(id)
+        return ItemReportService.update(item_report, updates)

@@ -24,7 +24,6 @@ from app import db
 from app.globals import *
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import BusinessBanInterface
 from .model import BusinessBan
 
 log = logging.getLogger(__name__)
@@ -56,7 +55,7 @@ class BusinessBanService:
     @staticmethod
     def update(
         business_ban: BusinessBan,
-        updates: BusinessBanInterface,
+        updates: dict,
     ) -> BusinessBan:
         """[summary]
 
@@ -64,12 +63,11 @@ class BusinessBanService:
         :type business_ban: BusinessBan
         :param BusinessBan_change_updates: Dictionary object containing the new changes
         to update the BusinessBan model object with
-        :type BusinessBan_change_updates: BusinessBanInterface
+        :type BusinessBan_change_updates: dict
         :return: The updated BusinessBan model object
         :rtype: BusinessBan
         """
-        business_ban.update(BusinessBan_change_updates)
-        business_ban.modified_at = datetime.now()
+        business_ban.update(updates)
 
         db.session.commit()
         return business_ban
@@ -93,11 +91,11 @@ class BusinessBanService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: BusinessBanInterface) -> BusinessBan:
-        """Creates a business_ban object from the BusinessBanInterface TypedDict
+    def create(new_attrs: dict) -> BusinessBan:
+        """Creates a business_ban object from the dict TypedDict
 
         :param new_attrs: A dictionary with the input into a BusinessBan model
-        :type new_attrs: BusinessBanInterface
+        :type new_attrs: dict
         :return: A new business_ban object based on the input
         :rtype: BusinessBan
         """

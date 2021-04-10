@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import UserReportInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -48,8 +46,8 @@ class UserReport(db.Model):
     reviewed_by_name = db.Column(db.String, nullable=True)
     reviewed_at = db.Column(db.DateTime, nullable=True)
 
-    def update(self, changes: UserReportInterface):
-        for key, val in changes.users():
+    def update(self, changes: dict):
+        for key, val in changes.items():
             setattr(self, key, val)
 
         return self
