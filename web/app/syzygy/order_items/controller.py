@@ -25,7 +25,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import OrderItemInterface
 from .model import OrderItem
 from .schema import OrderItemSchema
 from .service import OrderItemService

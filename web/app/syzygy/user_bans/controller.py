@@ -25,7 +25,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import UserBanInterface
 from .model import UserBan
 from .schema import UserBanSchema
 from .service import UserBanService

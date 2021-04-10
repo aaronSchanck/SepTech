@@ -41,7 +41,7 @@ class Bid(db.Model):
 
     bid_posted_at = db.Column(db.DateTime)
 
-    def update(self, changes: BidInterface):
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

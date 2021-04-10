@@ -21,7 +21,6 @@ from typing import List
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .interface import OrderInterface
 from .model import Order
 
 log = logging.getLogger(__name__)
