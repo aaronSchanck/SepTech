@@ -29,9 +29,8 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import UserInterface
 from .model import User
-from .schema import UserSchema, UserSchema
+from .schema import UserSchema
 from .service import UserService
 
 api = Namespace("User")
@@ -86,9 +85,10 @@ class UserIdResource(Resource):
     def put(self, id: int):
         """Update Single User"""
 
-        changes: UserInterface = request.parsed_obj
-        User = UserService.get_by_id(id)
-        return UserService.update(User, changes)
+        changes = request.parsed_obj
+
+        user = UserService.get_by_id(id)
+        return UserService.update(user, changes)
 
 
 @api.route("/<email>")

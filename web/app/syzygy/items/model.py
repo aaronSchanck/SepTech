@@ -18,6 +18,8 @@ import logging
 
 from app import db
 
+from sqlalchemy import *
+
 from .interface import ItemInterface
 
 log = logging.getLogger(__name__)
@@ -29,7 +31,7 @@ class Item(db.Model):
     __tablename__ = "items"
 
     id = db.Column(db.Integer, primary_key=True)
-
+    Numeric
     name = db.Column(db.String(127))
     quantity = db.Column(db.Integer)
     created_at = db.Column(db.DateTime)

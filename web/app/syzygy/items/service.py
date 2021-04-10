@@ -23,6 +23,11 @@ from libs.response import ErrResponse, NormalResponse
 import json
 import logging
 from datetime import datetime
+import werkzeug
+import os
+from collections import OrderedDict
+
+from .schema import ImageSchema
 
 import re
 
@@ -53,18 +58,7 @@ class ItemService:
         return Item.query.get(itemid)
 
     @staticmethod
-    def get_by_name(item_name: str) -> Item:
-        """[summary]
-
-        :param item_name: [description]
-        :type item_name: str
-        :return: [description]
-        :rtype: [type]
-        """
-        return Item.query.filter(Item.name == item_name).first()
-
-    @staticmethod
-    def update(item: Item, Item_change_updates: ItemInterface) -> Item:
+    def update(item: Item, updates: OrderedDict) -> Item:
         """[summary]
 
         :param item: The Item to update in the database
@@ -75,7 +69,7 @@ class ItemService:
         :return: The updated Item model object
         :rtype: Item
         """
-        item.update(Item_change_updates)
+        item.update(updates)
         db.session.commit()
         return item
 
@@ -98,7 +92,7 @@ class ItemService:
         return [itemid]
 
     @staticmethod
-    def create(new_attrs: ItemInterface) -> Item:
+    def create(new_attrs: OrderedDict) -> Item:
         """Creates a item object from the ItemInterface TypedDict
 
         :param new_attrs: A dictionary with the input into a Item model
@@ -106,6 +100,8 @@ class ItemService:
         :return: A new item object based on the input
         :rtype: Item
         """
+
+        print(type(new_attrs))
 
         categories = new_attrs["category"]
 
@@ -133,8 +129,19 @@ class ItemService:
 
         return new_item
 
+    @staticmethod
     def search(search_str: str):
         return Item.query.filter(Item.name.ilike("%search_str%")).all()
 
-    def parse_images(request_files):
-        image_data = image_schema.load(request_files.to_dict())
+    @staticmethod
+    def parse_images(base_path, request_files):
+        image_schema = ImageSchema()
+        file_ids = list(request_files)
+
+        for file_id in file_ids:
+            imagefile = request_files[file_id]
+            filename = werkzeug.utils.secure_filename(imagefile.filename)
+
+            path = os.path.join(base_path, filename)
+
+            imagefile.save(path)

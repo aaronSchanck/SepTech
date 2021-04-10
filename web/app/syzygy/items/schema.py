@@ -44,7 +44,7 @@ class ItemSchema(Schema):
     sellerid = fields.Integer()
 
     can_buy = fields.Bool()
-    price = fields.Str()
+    price = fields.Str(allow_none=True)
 
     can_bid = fields.Bool()
     starting_bid = fields.Str(allow_none=True)

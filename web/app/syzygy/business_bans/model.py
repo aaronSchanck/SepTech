@@ -36,6 +36,14 @@ class BusinessBan(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    businessid = db.Column(db.Integer, db.ForeignKey("businesses.id"))
+    business = db.relationship("Business")
+
+    ban_start_date = db.Column(db.DateTime())
+    ban_end_date = db.Column(db.DateTime())
+
+    ban_reason = db.Column(db.String)
+
     def update(self, changes: BusinessBanInterface):
         for key, val in changes.items():
             setattr(self, key, val)

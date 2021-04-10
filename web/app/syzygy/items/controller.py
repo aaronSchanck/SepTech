@@ -22,12 +22,15 @@ import json
 import logging
 from pathlib import Path
 from typing import List
+import os
 
 import werkzeug
 from app import app
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource, reqparse
+
+from libs.response import SchemaErrResponse
 
 from .interface import ItemInterface
 from .model import Item
@@ -41,8 +44,8 @@ item_schema = ItemSchema()
 image_schema = ImageSchema()
 
 
-@api.route("/test")
-class ItemTestingResource(Resource):
+@api.route("/")
+class ItemResource(Resource):
     """[summary]
 
     Args:
@@ -63,12 +66,14 @@ class ItemTestingResource(Resource):
     def post(self):
         """Create a Single Item"""
 
+        print(request.parsed_obj)
+
         return ItemService.create(request.parsed_obj)
 
 
 @api.route("/search/<search_str>")
 @api.param("search_str", "Item search string")
-class ItemResource(Resource):
+class ItemSearchResource(Resource):
     """[summary]
 
     Args:
@@ -114,26 +119,32 @@ class ItemIdResource(Resource):
 @api.route("/create")
 class ItemCreateResource(Resource):
     def post(self):
-        # ItemService.parse_images(request.files)
         item_req = request.form
 
         dat = item_req.to_dict()["itemEntity"]
-
         obj = json.loads(dat)
 
         item_vali = item_schema.validate(obj)
 
-        print(item_vali)
+        if item_vali:
+            return SchemaErrResponse(item_vali, 400)
 
         item_data = item_schema.load(obj)
 
-        print(item_data)
-
         item = ItemService.create(item_data)
 
-        print(item)
+        # create images dir
+        item_images_path = os.path.join(
+            app.config["UPLOAD_FOLDER"], f"items/item_{item.id}"
+        )
+
+        try:
+            os.mkdir(item_images_path)
+        except OSError:
+            pass
+
+        # parse images from request files object
+
+        images = ItemService.parse_images(item_images_path, request.files)
 
         return item_schema.dump(item)
-
-        # image_path = Path(app.config["UPLOAD_FOLDER"] + "/items/file_to_save.jpg")
-        # image_file.save(image_path)

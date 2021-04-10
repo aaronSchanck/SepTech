@@ -21,17 +21,18 @@ log = logging.getLogger(__name__)
 
 
 class ItemInterface(TypedDict, total=False):
-    itemid: int
-    name: str
-    quantity: int
-    created_at: str
-    modified_at: str
-    sellerid: int
-    price: str
-    can_buy: bool
-    can_bid: bool
-    highest_bid: float
-    bidding_ends: str
-    quality: str
-    thumbnail: int
-    description: str
+    pass
+    # id: int
+    # name: str
+    # quantity: int
+    # created_at: str
+    # modified_at: str
+    # sellerid: int
+    # price: str
+    # can_buy: bool
+    # can_bid: bool
+    # highest_bid: float
+    # bidding_ends: str
+    # quality: str
+    # thumbnail: int
+    # description: str

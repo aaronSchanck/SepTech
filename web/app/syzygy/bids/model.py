@@ -37,6 +37,13 @@ class Bid(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    userid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User")
+
+    bid_amount = db.Column(db.Numeric(10, 2))
+
+    bid_posted_at = db.Column(db.DateTime)
+
     def update(self, changes: BidInterface):
         for key, val in changes.items():
             setattr(self, key, val)

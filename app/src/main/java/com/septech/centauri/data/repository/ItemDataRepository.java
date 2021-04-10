@@ -25,6 +25,7 @@ import okhttp3.RequestBody;
  * An implementation of the domain-level ItemRepository. Will pull data from an arbitrary
  * location, mainly depending on whether the information exists within the faster levels of
  * acquisition. The level of checking is expected to be cache -> local database -> remote API.
+ *
  * @author adamg
  * @version 1.0
  * @since 1.0
@@ -47,6 +48,7 @@ public class ItemDataRepository implements ItemRepository {
 
     /**
      * Singleton accessor for the ItemDataRepository class
+     *
      * @return The existing instance of the ItemDataRepository. If the instance doesn't exist, it
      * will return a new instance.
      */
@@ -61,7 +63,8 @@ public class ItemDataRepository implements ItemRepository {
      * Creates an item in the remote database. Converts the incoming Item object with filled in
      * data components into an ItemEntity (remote), then grabs all of the ImagePaths and converts
      * them to corresponding MediaTypes to be sent as FileStorage objects to the Flask API.
-     * @param item Item object to be created
+     *
+     * @param item       Item object to be created
      * @param imagePaths Paths of the images for the corresponding item
      * @return An observable Single of the Item object, returned from the remote API.
      */
@@ -89,11 +92,10 @@ public class ItemDataRepository implements ItemRepository {
             byte[] byteArray = stream.toByteArray();
 
             //naming scheme: images_i where i = 1-images.size()
-            MultipartBody.Part image = MultipartBody.Part.createFormData("image",
+            MultipartBody.Part image = MultipartBody.Part.createFormData("image_" + i,
                     "images_" + i +
                             ".jpg",
                     RequestBody.create(byteArray, MediaType.parse("image/*jpg")));
-
             body.add(image);
         }
 

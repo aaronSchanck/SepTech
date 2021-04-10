@@ -39,6 +39,11 @@ class UserBan(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
     user = db.relationship("User")
 
+    ban_start_date = db.Column(db.DateTime())
+    ban_end_date = db.Column(db.DateTime())
+
+    ban_reason = db.Column(db.String)
+
     def update(self, changes: UserBanInterface):
         for key, val in changes.items():
             setattr(self, key, val)

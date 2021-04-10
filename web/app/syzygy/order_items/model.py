@@ -36,6 +36,8 @@ class OrderItem(db.Model):
     orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
     order = db.relationship("Order", back_populates="order_items")
 
+    added_at = db.Column(db.DateTime)
+
     def update(self, changes: OrderItemInterface):
         for key, val in changes.items():
             setattr(self, key, val)

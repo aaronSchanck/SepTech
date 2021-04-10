@@ -125,3 +125,6 @@ lenv/
 
 # sphinx build folder
 _build/
+
+images/businesses
+images/items

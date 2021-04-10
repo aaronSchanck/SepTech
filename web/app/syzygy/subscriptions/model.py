@@ -39,6 +39,12 @@ class Subscription(db.Model):
     userid = db.Column(db.Integer)
     user = db.relationship()
 
+    tier = db.Column(db.Integer)
+
+    recurring = db.Column(db.Boolean)
+
+    subscription_ends = db.Column(db.DateTime)
+
     def update(self, changes: SubscriptionInterface):
         for key, val in changes.items():
             setattr(self, key, val)

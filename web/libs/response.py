@@ -1,4 +1,5 @@
 from flask import Response
+import json
 
 
 def NormalResponse(response: dict, status: int) -> Response:
@@ -14,6 +15,24 @@ def NormalResponse(response: dict, status: int) -> Response:
 
     return Response(
         mimetype="application/json", response=json.dumps(response), status=status
+    )
+
+
+def SchemaErrResponse(response: dict, status: int) -> Response:
+    """Helper function to create an error response (400-499)
+
+    :param response: String specifying the error message to send
+    :type response: str
+    :param status: Status code along with the response
+    :type status: int
+    :return: Response object with related response and status code
+    :rtype: Response
+    """
+
+    return Response(
+        mimetype="application/json",
+        response=json.dumps(response),
+        status=status,
     )
 
 

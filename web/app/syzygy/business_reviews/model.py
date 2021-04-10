@@ -28,6 +28,18 @@ class BusinessReview(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    businessid = db.Column(db.Integer, db.ForeignKey("businesses.id"))
+    business = db.relationship("Business")
+
+    reviewerid = db.Column(db.Integer, db.ForeignKey("users.id"))
+    reviewer = db.relationship("User")
+
+    created_at = db.Column(db.DateTime())
+
+    rating = db.Column(db.Integer)
+
+    comment = db.Column(db.String)
+
     def update(self, changes: BusinessReviewInterface):
         for key, val in changes.items():
             setattr(self, key, val)

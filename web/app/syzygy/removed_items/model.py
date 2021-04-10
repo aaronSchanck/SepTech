@@ -36,6 +36,10 @@ class RemovedItem(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    remove_date = db.Column(db.DateTime())
+
+    remove_reason = db.Column(db.String)
+
     def update(self, changes: RemovedItemInterface):
         for key, val in changes.items():
             setattr(self, key, val)
