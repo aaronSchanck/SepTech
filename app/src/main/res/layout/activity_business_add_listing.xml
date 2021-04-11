@@ -528,6 +528,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/auction_length"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/auctionLengthTextbox"
                     app:layout_constraintStart_toStartOf="@+id/auctionLengthTextbox" />
 
@@ -536,6 +538,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/starting_bid"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/startingPriceTextbox"
                     app:layout_constraintStart_toStartOf="@+id/startingPriceTextbox" />
 
@@ -544,6 +548,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/min_bid"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/minBidTextbox"
                     app:layout_constraintStart_toStartOf="@+id/minBidTextbox" />
 
@@ -552,6 +558,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/buyout_price"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/buyPriceTextbox"
                     app:layout_constraintEnd_toEndOf="@+id/buyPriceTextbox" />
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -70,7 +70,6 @@ class ItemService:
         ItemService.transform(updates)
 
         item.update(updates)
-        item.modified_at(datetime.now())
 
         db.session.commit()
         return item
@@ -112,8 +111,6 @@ class ItemService:
         new_item = Item(
             name=new_attrs["name"],
             quantity=new_attrs["quantity"],
-            created_at=datetime.now(),
-            modified_at=datetime.now(),
             sellerid=new_attrs["sellerid"],
             price=new_attrs["price"],
             can_buy=new_attrs["can_buy"],
@@ -133,7 +130,7 @@ class ItemService:
 
     @staticmethod
     def search(search_str: str):
-        return Item.query.filter(Item.name.ilike("%search_str%")).all()
+        return Item.query.filter(Item.name.ilike(f"%{search_str}%")).all()
 
     @staticmethod
     def parse_images(base_path, request_files):

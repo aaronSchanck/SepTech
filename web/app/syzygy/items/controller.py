@@ -14,22 +14,23 @@ Classes:
 
     ItemIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{itemid}.
+        aforementioned class. Must be routed to with {baseurl}/{id}.
 
 """
 
 import json
 import logging
+import os
+import io
 from pathlib import Path
 from typing import List
-import os
+import zipfile
 
 import werkzeug
 from app import app
-from flask import request
+from flask import request, send_file
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource, reqparse
-
 from libs.response import SchemaErrResponse
 
 from .model import Item
@@ -68,9 +69,36 @@ class ItemResource(Resource):
         return ItemService.create(request.parsed_obj)
 
 
+@api.route("/search")
+class ItemSearchResource(Resource):
+    """[summary]
+
+    Args:
+        Resource ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+
+    # @responds(schema=ItemSchema(many=True))
+    # def get(self):
+    #     """Get all Items in search"""
+
+    #     return ItemService.search("")
+
+    def get(self):
+        """Get all Items in search"""
+
+        item_schema = ItemSchema(many=True)
+
+        items = ItemService.search("")
+
+        return item_schema.dump(items)
+
+
 @api.route("/search/<search_str>")
 @api.param("search_str", "Item search string")
-class ItemSearchResource(Resource):
+class ItemSearchQueryResource(Resource):
     """[summary]
 
     Args:
@@ -87,25 +115,25 @@ class ItemSearchResource(Resource):
         return ItemService.search(search_str)
 
 
-@api.route("/<int:itemid>")
-@api.param("itemid", "Item database ID")
+@api.route("/<int:id>")
+@api.param("id", "Item database ID")
 class ItemIdResource(Resource):
     @responds(schema=ItemSchema)
-    def get(self, itemid: int):
+    def get(self, id: int):
         """Get Single Item"""
 
-        return ItemService.get_by_id(itemid)
+        return ItemService.get_by_id(id)
 
-    def delete(self, itemid: int):
+    def delete(self, id: int):
         """Delete Single Item"""
         from flask import jsonify
 
-        id = ItemService.delete_by_id(itemid)
+        id = ItemService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=ItemSchema, api=api)
     @responds(schema=ItemSchema)
-    def put(self, itemid: int):
+    def put(self, id: int):
         """Update Single Item"""
 
         return ItemService.update(item, request.parsed_obj)
@@ -147,3 +175,41 @@ class ItemCreateResource(Resource):
         ItemService.update(item, updates)
 
         return item_schema.dump(item)
+
+
+@api.route("/image/<int:id>/<int:imageid>")
+class ItemImageResource(Resource):
+    def get(self, id: int, imageid: int):
+        pass
+
+
+@api.route("/images/<int:id>")
+class ItemImagesResource(Resource):
+    def get(self, id: int):
+        output_dir = os.path.join("output", "image_zips")
+        try:
+            os.makedirs(output_dir)
+        except OSError:
+            pass
+
+        filename = f"item_{id}_images.zip"
+        images_dir = os.path.join("images", "items", f"item_{id}")
+
+        data = io.BytesIO()
+
+        with zipfile.ZipFile(data, mode="w") as z:
+            for file in os.listdir(images_dir):
+                z.write(
+                    os.path.join(images_dir, file), arcname=os.path.join("images", file)
+                )
+
+        data.seek(0)
+
+        print("diag", id)
+
+        return send_file(
+            data,
+            mimetype="application/zip",
+            as_attachment=True,
+            attachment_filename=filename,
+        )

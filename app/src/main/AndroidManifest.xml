@@ -19,6 +19,7 @@
         <!-- User Activities  -->
         <activity android:name=".ui.user.login.LoginActivity"/>
         <activity android:name=".ui.user.register.RegisterActivity" />
+        <activity android:name=".ui.user.search.SearchActivity" />
         <activity android:name=".ui.user.forgotpassword.ForgotPasswordActivity" />
         <activity android:name=".ui.user.forgotpasswordcode.ForgotPasswordCodeActivity" />
         <activity android:name=".ui.user.newpassword.NewPasswordActivity" />

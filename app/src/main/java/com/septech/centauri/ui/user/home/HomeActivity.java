@@ -1,5 +1,6 @@
 package com.septech.centauri.ui.user.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
+import com.septech.centauri.ui.user.search.SearchActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -34,11 +36,14 @@ public class HomeActivity extends AppCompatActivity {
         mViewHistoryBtn = findViewById(R.id.homeViewHistoryBtn);
         mHelpBtn = findViewById(R.id.homeNeedHelpBtn);
 
-        mViewItemsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mViewItemsBtn.setOnClickListener(v -> {
+            System.out.println("savedInstanceState = " + savedInstanceState);
 
-            }
+            Intent intent = new Intent(this, SearchActivity.class);
+
+            intent.putExtra("query", "");
+
+            startActivity(intent);
         });
 
         mCartBtn.setOnClickListener(new View.OnClickListener() {
