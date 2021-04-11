@@ -49,6 +49,9 @@ class BusinessReport(db.Model):
     reviewed_by_name = db.Column(db.String, nullable=True)
     reviewed_at = db.Column(db.DateTime, nullable=True)
 
+    def __init__(self, **kwargs):
+        super(BusinessReport, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.businesss():
             setattr(self, key, val)

@@ -41,6 +41,9 @@ class Category(db.Model):
 
     items = db.relationship("Item", backref="category")
 
+    def __init__(self, **kwargs):
+        super(Category, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

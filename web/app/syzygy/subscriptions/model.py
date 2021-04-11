@@ -43,6 +43,9 @@ class Subscription(db.Model):
 
     subscription_ends = db.Column(db.DateTime)
 
+    def __init__(self, **kwargs):
+        super(Subscription, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

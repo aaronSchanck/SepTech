@@ -45,6 +45,9 @@ class Address(db.Model):
 
     # userid = db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    def __init__(self, **kwargs):
+        super(Address, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

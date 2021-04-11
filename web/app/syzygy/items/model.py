@@ -64,6 +64,9 @@ class Item(db.Model):
     description = db.Column(db.Text())
     attributes = db.Column(db.JSON)
 
+    def __init__(self, **kwargs):
+        super(Item, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

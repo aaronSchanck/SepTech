@@ -54,6 +54,9 @@ class Business(db.Model):
 
     profile_picture = db.Column(db.String)
 
+    def __init__(self, **kwargs):
+        super(Business, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

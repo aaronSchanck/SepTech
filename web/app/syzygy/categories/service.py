@@ -85,11 +85,11 @@ class CategoryService:
 
     @staticmethod
     def create(new_attrs: dict) -> Category:
-        """Creates a category object from the CategoryInterface TypedDict
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Category model
-        :type new_attrs: CategoryInterface
-        :return: A new category object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Category
         """
 
@@ -108,11 +108,11 @@ class CategoryService:
 
     @staticmethod
     def create_if_not_exists(new_attrs: dict) -> Category:
-        """Creates a category object from the CategoryInterface TypedDict
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Category model
-        :type new_attrs: CategoryInterface
-        :return: A new category object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Category
         """
 
@@ -129,3 +129,15 @@ class CategoryService:
             category = CategoryService.create(new_attrs=new_attrs)
 
         return category
+
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
+
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
+
+        pass

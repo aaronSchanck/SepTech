@@ -86,11 +86,11 @@ class UserBanService:
 
     @staticmethod
     def create(new_attrs: dict) -> UserBan:
-        """Creates a user_ban object from the UserBanInterface TypedDict
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a UserBan model
-        :type new_attrs: UserBanInterface
-        :return: A new user_ban object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: UserBan
         """
 
@@ -100,3 +100,15 @@ class UserBanService:
         db.session.commit()
 
         return new_user_ban
+
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
+
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
+
+        pass

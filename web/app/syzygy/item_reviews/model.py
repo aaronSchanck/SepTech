@@ -26,6 +26,9 @@ class ItemReview(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    def __init__(self, **kwargs):
+        super(ItemReview, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

@@ -79,6 +79,6 @@ class UserBanIdResource(Resource):
     def put(self, id: int):
         """Update Single UserBan"""
 
-        changes: UserBanInterface = request.parsed_obj
-        UserBan = UserBanService.get_by_id(id)
-        return UserBanService.update(UserBan, changes)
+        updates = request.parsed_obj
+        user_ban = UserBanService.get_by_id(id)
+        return UserBanService.update(user_ban, updates)

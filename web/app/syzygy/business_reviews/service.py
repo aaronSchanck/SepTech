@@ -103,3 +103,15 @@ class BusinessReviewService:
         db.session.commit()
 
         return new_business_review
+
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
+
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
+
+        pass

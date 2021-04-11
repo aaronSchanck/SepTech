@@ -42,6 +42,9 @@ class BusinessBan(db.Model):
 
     ban_reason = db.Column(db.String)
 
+    def __init__(self, **kwargs):
+        super(BusinessBan, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)

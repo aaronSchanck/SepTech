@@ -18,6 +18,8 @@ import logging
 
 from app import db
 
+from datetime import datetime
+
 log = logging.getLogger(__name__)
 
 
@@ -71,16 +73,27 @@ class User(db.Model):
     password_reset_code = db.Column(db.String(6))
     password_reset_timeout = db.Column(db.DateTime)
 
+    # security data regarding login attempts
     last_successful_login = db.Column(db.DateTime)
     last_unsuccessful_login = db.Column(db.DateTime)
 
-    # order
+    # user orders
     orders = db.relationship("Order", back_populates="user")
 
     admin_level = db.Column(db.Integer)
 
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
+
+        self.admin_level = 0
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
+
+        self.modified_at = datetime.now()
 
         return self

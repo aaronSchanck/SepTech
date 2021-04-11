@@ -134,8 +134,6 @@ class UserService:
             password=new_attrs["password"],
             full_name=new_attrs["full_name"],
             date_of_birth=new_attrs["date_of_birth"],
-            created_at=datetime.now(),
-            modified_at=datetime.now(),
             phone_number=new_attrs["phone_number"],
             password_salt=new_attrs["password_salt"],
         )
@@ -175,11 +173,20 @@ class UserService:
 
         if not bcrypt.checkpw(password.encode("utf-8"), user.password):
             log.info("No user was found for supplied password")
+
+            updates = {"last_unsuccesful_login": datetime.now()}
+
+            UserService.update(user=user, updates=updates)
+
             return ErrResponse("Incorrect password", 400)
 
         log.info(f"User {user.id} was found and returned to client")
 
         # generate JWT token and concatenate
+
+        updates = {"last_succesful_login": datetime.now()}
+
+        UserService.update(user=user, updates=updates)
 
         return user
 

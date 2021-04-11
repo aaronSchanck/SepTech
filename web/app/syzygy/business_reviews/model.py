@@ -38,6 +38,9 @@ class BusinessReview(db.Model):
 
     comment = db.Column(db.String)
 
+    def __init__(self, **kwargs):
+        super(BusinessReview, self).__init__(**kwargs)
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
