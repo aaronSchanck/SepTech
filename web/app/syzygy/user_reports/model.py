@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import UserReportInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -45,11 +43,14 @@ class UserReport(db.Model):
 
     # admin stuff
     reviewed_by_id = db.Column(db.Integer, nullable=True)
-    reviewed_by_name = db.Column(db.Str, nullable=True)
+    reviewed_by_name = db.Column(db.String, nullable=True)
     reviewed_at = db.Column(db.DateTime, nullable=True)
 
-    def update(self, changes: UserReportInterface):
-        for key, val in changes.users():
+    def __init__(self, **kwargs):
+        super(UserReport, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
+        for key, val in changes.items():
             setattr(self, key, val)
 
         return self

@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import SubscriptionInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -39,7 +37,16 @@ class Subscription(db.Model):
     userid = db.Column(db.Integer)
     user = db.relationship()
 
-    def update(self, changes: SubscriptionInterface):
+    tier = db.Column(db.Integer)
+
+    recurring = db.Column(db.Boolean)
+
+    subscription_ends = db.Column(db.DateTime)
+
+    def __init__(self, **kwargs):
+        super(Subscription, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

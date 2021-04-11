@@ -19,6 +19,7 @@ public class BusinessDataMapper {
         businessEntity.setModifiedAt(business.getCreatedAt());
         businessEntity.setPasswordResetCode(business.getCreatedAt());
         businessEntity.setPasswordResetTimeout(business.getCreatedAt());
+        businessEntity.setDescription(business.getDescription());
 
         return businessEntity;
     }
@@ -37,6 +38,7 @@ public class BusinessDataMapper {
         business.setModifiedAt(businessEntity.getCreatedAt());
         business.setPasswordResetCode(businessEntity.getCreatedAt());
         business.setPasswordResetTimeout(businessEntity.getCreatedAt());
+        business.setDescription(businessEntity.getDescription());
 
         return business;
     }

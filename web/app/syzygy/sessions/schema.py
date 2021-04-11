@@ -1,4 +1,4 @@
-"""/web/app/syzygy/session/schema.py
+"""/web/app/syzygy/sessions/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -29,4 +29,4 @@ class SessionSchema(Schema):
 
     unique_session_id = fields.String()
 
-    session_expires_at = fields.Datetime()
+    session_expires_at = fields.DateTime()

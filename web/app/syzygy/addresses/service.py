@@ -14,16 +14,15 @@ Functions:
 
 """
 
-from app import db
-from .model import Address
-from .interface import AddressInterface
-from flask import Response
 import json
 import logging
-
 import re
-
 from typing import List
+
+from app import db
+from libs.response import ErrResponse, NormalResponse
+
+from .model import Address
 
 log = logging.getLogger(__name__)
 
@@ -50,23 +49,23 @@ class AddressService:
         return Address.query.get(addressid)
 
     @staticmethod
-    def update(address: Address, address_changes: AddressInterface) -> Address:
+    def update(address: Address, updates: dict) -> Address:
         """[summary]
 
         :param address: The Address to update in the database
         :type address: Address
         :param Address_change_updates: Dictionary object containing the new changes
         to update the Address model object with
-        :type Address_change_updates: AddressInterface
+        :type Address_change_updates: dict
         :return: The updated Address model object
         :rtype: Address
         """
-        address.update(address_changes)
+        address.update(updates)
         db.session.commit()
         return address
 
     @staticmethod
-    def delete_by_id(addressid: int) -> List:
+    def delete_by_id(id: int) -> List:
         """Deletes a address from the table with the specified addressid
 
         :param addressid: Address's addressid
@@ -76,19 +75,19 @@ class AddressService:
         :rtype: List
         """
 
-        address = AddressService.get_by_id(addressid)
+        address = AddressService.get_by_id(id)
         if not address:
             return []
         db.session.delete(address)
         db.session.commit()
-        return [addressid]
+        return [id]
 
     @staticmethod
-    def create(new_attrs: AddressInterface) -> Address:
-        """Creates a address object from the AddressInterface TypedDict
+    def create(new_attrs: dict) -> Address:
+        """Creates a address object from the dict TypedDict
 
         :param new_attrs: A dictionary with the input into a Address model
-        :type new_attrs: AddressInterface
+        :type new_attrs: dict
         :return: A new address object based on the input
         :rtype: Address
         """
@@ -100,36 +99,14 @@ class AddressService:
 
         return new_address
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

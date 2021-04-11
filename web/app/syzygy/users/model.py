@@ -18,7 +18,7 @@ import logging
 
 from app import db
 
-from .interface import UserInterface
+from datetime import datetime
 
 log = logging.getLogger(__name__)
 
@@ -62,11 +62,10 @@ class User(db.Model):
         uselist=False,
     )
 
-    # banned information
-    banned_id = db.Column(db.Integer, db.ForeignKey("banned_users.id"))
-    banned = db.relationship(
-        "BannedUser", foreign_keys=banned_id, backref="user", uselist=False
-    )
+    # ban information
+    banned = db.Column(db.Boolean)
+    ban_end = db.Column(db.DateTime)
+    past_bans = db.relationship("UserBan")
 
     phone_number = db.Column(db.String(11))
     password_salt = db.Column(db.String(63))
@@ -74,22 +73,27 @@ class User(db.Model):
     password_reset_code = db.Column(db.String(6))
     password_reset_timeout = db.Column(db.DateTime)
 
+    # security data regarding login attempts
     last_successful_login = db.Column(db.DateTime)
     last_unsuccessful_login = db.Column(db.DateTime)
 
-    # order
+    # user orders
     orders = db.relationship("Order", back_populates="user")
 
     admin_level = db.Column(db.Integer)
 
-    def update(self, changes: UserInterface):
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
+
+        self.admin_level = 0
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 
-        return self
+        self.modified_at = datetime.now()
 
-    @property
-    def user_banned(self):
-        if self.banned_id is None:
-            return False
-        return False
+        return self

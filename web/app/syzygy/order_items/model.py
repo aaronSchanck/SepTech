@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/model.py
+"""/web/app/syzygy/order_items/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -18,20 +18,10 @@ import logging
 
 from app import db
 
-from .interface import OrderItemInterface
-
 log = logging.getLogger(__name__)
 
 
 class OrderItem(db.Model):
-    """[summary]
-
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
-    """
-
     __tablename__ = "order_items"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +34,12 @@ class OrderItem(db.Model):
     orderid = db.Column(db.Integer, db.ForeignKey("orders.id"))
     order = db.relationship("Order", back_populates="order_items")
 
-    def update(self, changes: OrderItemInterface):
+    added_at = db.Column(db.DateTime)
+
+    def __init__(self, **kwargs):
+        super(OrderItem, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

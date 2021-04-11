@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/__init__.py
+"""/web/app/syzygy/order_items/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

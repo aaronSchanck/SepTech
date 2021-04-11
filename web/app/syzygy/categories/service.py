@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/categories/service.py
+"""/web/app/syzygy/categories/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -14,16 +14,15 @@ Functions:
 
 """
 
-from app import db
-from .model import Category
-from .interface import CategoryInterface
-from flask import Response
 import json
 import logging
-
 import re
-
 from typing import List
+
+from app import db
+from libs.response import ErrResponse, NormalResponse
+
+from .model import Category
 
 log = logging.getLogger(__name__)
 
@@ -39,61 +38,62 @@ class CategoryService:
         return Category.query.all()
 
     @staticmethod
-    def get_by_id(itemid: int) -> Category:
+    def get_by_id(id: int) -> Category:
         """[summary]
 
-        :param itemid: [description]
-        :type itemid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        return Category.query.get(itemid)
+        return Category.query.get(id)
 
     @staticmethod
-    def update(item: Category, Category_change_updates: CategoryInterface) -> Category:
+    def update(category: Category, updates: dict) -> Category:
         """[summary]
 
-        :param item: The Category to update in the database
-        :type item: Category
-        :param Category_change_updates: Dictionary object containing the new changes
-        to update the Category model object with
-        :type Category_change_updates: CategoryInterface
-        :return: The updated Category model object
+        :param category: [description]
+        :type category: Category
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: Category
         """
-        item.update(Category_change_updates)
+
+        category.update(updates)
+
         db.session.commit()
-        return item
+        return category
 
     @staticmethod
-    def delete_by_id(category_id: int) -> List:
-        """Deletes a item from the table with the specified itemid
+    def delete_by_id(id: int) -> List:
+        """Deletes a category from the table with the specified id
 
-        :param itemid: Category's itemid
-        :type itemid: int
-        :return: List containing the deleted item, if found, otherwise an empty
+        :param id: Category's id
+        :type id: int
+        :return: List containing the deleted category, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        category = CategoryService.get_by_id(category_id)
-        if not item:
+        category = CategoryService.get_by_id(id)
+        if not category:
             return []
         db.session.delete(category)
         db.session.commit()
-        return [itemid]
+        return [id]
 
     @staticmethod
-    def create(new_attrs: CategoryInterface) -> Category:
-        """Creates a item object from the CategoryInterface TypedDict
+    def create(new_attrs: dict) -> Category:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Category model
-        :type new_attrs: CategoryInterface
-        :return: A new item object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Category
         """
 
-        new_item = Category(
+        new_category = Category(
             category_1=new_attrs["category_1"],
             category_2=new_attrs["category_2"],
             category_3=new_attrs["category_3"],
@@ -101,18 +101,18 @@ class CategoryService:
             category_5=new_attrs["category_5"],
         )
 
-        db.session.add(new_item)
+        db.session.add(new_category)
         db.session.commit()
 
-        return new_item
+        return new_category
 
     @staticmethod
-    def create_if_not_exists(new_attrs: CategoryInterface) -> Category:
-        """Creates a item object from the CategoryInterface TypedDict
+    def create_if_not_exists(new_attrs: dict) -> Category:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Category model
-        :type new_attrs: CategoryInterface
-        :return: A new item object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Category
         """
 
@@ -130,36 +130,14 @@ class CategoryService:
 
         return category
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

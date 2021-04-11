@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/controller.py
+"""/web/app/syzygy/order_items/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -14,11 +14,7 @@ Classes:
 
     OrderItemIdResource:
         Extends Resource from flask-restx. Follows same functionality from
-        aforementioned class. Must be routed to with {baseurl}/{userid}.
-
-    OrderItemLoginResource:
-        Extends Resource from flask-restx. Acts as a helper class for logging
-        in users.
+        aforementioned class. Must be routed to with {baseurl}/{id}.
 
 """
 
@@ -29,7 +25,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import OrderItemInterface
 from .model import OrderItem
 from .schema import OrderItemSchema
 from .service import OrderItemService
@@ -63,51 +58,27 @@ class OrderItemResource(Resource):
         return OrderItemService.create(request.parsed_obj)
 
 
-@api.route("/<int:userid>")
-@api.param("userid", "OrderItem database ID")
+@api.route("/<int:id>")
+@api.param("id", "OrderItem database ID")
 class OrderItemIdResource(Resource):
     @responds(schema=OrderItemSchema)
-    def get(self, userid: int):
+    def get(self, id: int):
         """Get Single OrderItem"""
 
-        return OrderItemService.get_by_id(userid)
+        return OrderItemService.get_by_id(id)
 
-    def delete(self, userid: int):
+    def delete(self, id: int):
         """Delete Single OrderItem"""
         from flask import jsonify
 
-        id = OrderItemService.delete_by_id(userid)
+        id = OrderItemService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=OrderItemSchema, api=api)
     @responds(schema=OrderItemSchema)
-    def put(self, userid: int):
+    def put(self, id: int):
         """Update Single OrderItem"""
 
-        changes: OrderItemInterface = request.parsed_obj
-        OrderItem = OrderItemService.get_by_id(userid)
-        return OrderItemService.update(OrderItem, changes)
-
-@api.route("/<email>")
-@api.param("email", "OrderItem database email")
-class OrderItemEmailResource(Resource):
-    @responds(schema=OrderItemSchema)
-    def get(self, email: int):
-        return OrderItemService.get_by_email(email)
-
-
-@api.route("/login")
-class OrderItemLoginResource(Resource):
-    @accepts(
-        dict(name="email", type=str, help="A user's email"),
-        dict(name="password", type=str, help="A user's password"),
-        api=api,
-    )
-    @responds(schema=OrderItemSchema)
-    def post(self):
-        """Login with user credentials"""
-
-        email = request.parsed_args["email"]
-        password = request.parsed_args["password"]
-
-        return OrderItemService.login(email, password)
+        updates = request.parsed_obj
+        order_item = OrderItemService.get_by_id(id)
+        return OrderItemService.update(order_item, updates)

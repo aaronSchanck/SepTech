@@ -35,7 +35,7 @@ public class BusinessLoginViewModel extends ViewModel {
         this.loginTries = 0;
     }
 
-    public MutableLiveData<Business> getUserLiveData() {
+    public MutableLiveData<Business> getBusinessLiveData() {
         return businessLiveData;
     }
 

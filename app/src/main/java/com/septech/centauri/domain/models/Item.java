@@ -6,7 +6,8 @@ public class Item {
     private Integer id;
     private String name;
     private Integer quantity;
-    private String postedAt;
+    private String createdAt;
+    private String modifiedAt;
     private Integer sellerId;
     private String buyoutPrice;
     private boolean canBuy;
@@ -53,12 +54,20 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String getPostedAt() {
-        return postedAt;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setPostedAt(String postedAt) {
-        this.postedAt = postedAt;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(String modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 
     public Integer getSellerId() {

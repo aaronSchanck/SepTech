@@ -33,23 +33,23 @@ public class UserEntity {
     private String passwordSalt;
 
     @SerializedName("created_at")
-    @Expose
+    @Expose(serialize=false)
     private String createdAt;
 
     @SerializedName("modified_at")
-    @Expose
+    @Expose(serialize=false)
     private String modifiedAt;
 
     @SerializedName("password_reset_code")
-    @Expose
+    @Expose(serialize=false)
     private String passwordResetCode;
 
     @SerializedName("password_reset_timeout")
-    @Expose
+    @Expose(serialize=false)
     private String passwordResetTimeout;
 
     @SerializedName("admin_level")
-    @Expose
+    @Expose(serialize=false)
     private String adminLevel;
 
     public UserEntity() {

@@ -1,9 +1,11 @@
 package com.septech.centauri.ui.business.addlisting;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -39,6 +41,7 @@ public class AddListingActivity extends AppCompatActivity {
     private TextInputLayout buyoutPriceTextInput;
 
     private TextInputEditText itemNameEditText;
+    private TextInputEditText itemQualityEditText;
     private TextInputEditText itemQuantityEditText;
     private TextInputEditText auctionLengthEditText;
     private TextInputEditText startingBidEditText;
@@ -64,6 +67,8 @@ public class AddListingActivity extends AppCompatActivity {
 
     private int businessId;
 
+    private boolean imagesSelected;
+
     private static final int PICK_IMAGE = 100;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,8 @@ public class AddListingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_business_add_listing);
 
         addListingViewModel = new ViewModelProvider(this).get(AddListingViewModel.class);
+
+        imagesSelected = false;
 
         businessId = Integer.parseInt(getIntent().getStringExtra("id"));
 
@@ -80,6 +87,7 @@ public class AddListingActivity extends AppCompatActivity {
         buyoutPriceTextInput = findViewById(R.id.buyPriceTextbox);
 
         itemNameEditText = findViewById(R.id.itemNameEditText);
+        itemQualityEditText = findViewById(R.id.itemQualityEditText);
         itemQuantityEditText = findViewById(R.id.itemQuantityEditText);
         auctionLengthEditText = findViewById(R.id.auctionLengthEditText);
         startingBidEditText = findViewById(R.id.startingBidEditText);
@@ -124,9 +132,14 @@ public class AddListingActivity extends AppCompatActivity {
             Dexter.withContext(AddListingActivity.this)
                     .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                     .withListener(new PermissionListener() {
-                        @Override public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
-                        @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                        @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                        @Override
+                        public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
+
+                        @Override
+                        public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
                     }).check();
 
             openGallery();
@@ -142,17 +155,18 @@ public class AddListingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = itemNameEditText.getText().toString();
+                String quality = itemQualityEditText.getText().toString();
                 int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
 
                 boolean bid = bidSwitch.isChecked();
 
-                String auctionLength = bid ? auctionLengthEditText.getText().toString(): "";
-                String startingBid = bid ? startingBidEditText.getText().toString(): "";
-                String minimumBid = bid ? minimumBidEditText.getText().toString(): "";
+                String auctionLength = bid ? auctionLengthEditText.getText().toString() : null;
+                String startingBid = bid ? startingBidEditText.getText().toString() : null;
+                String minimumBid = bid ? minimumBidEditText.getText().toString() : null;
 
                 boolean buy = buySwitch.isChecked();
 
-                String buyoutPrice = buy ? buyoutPriceEditText.getText().toString(): "";
+                String buyoutPrice = buy ? buyoutPriceEditText.getText().toString() : null;
 
                 String mainCategory = mainCategoryEditText.getText().toString();
                 String categoryTwo = categoryTwoEditText.getText().toString();
@@ -161,10 +175,12 @@ public class AddListingActivity extends AppCompatActivity {
                 String categoryFive = categoryFiveEditText.getText().toString();
                 String itemDescription = itemDescriptionEditText.getText().toString();
 
+                System.out.println("v = " + itemDescription);
 
-                addListingViewModel.createItem(name, quantity, bid, buy, auctionLength,
-                        startingBid, minimumBid, buyoutPrice, mainCategory, categoryTwo,
-                        categoryThree, categoryFour, categoryFive, itemDescription, imagePaths);
+
+                addListingViewModel.createItem(businessId, name, quality, quantity, bid, buy,
+                        auctionLength, startingBid, minimumBid, buyoutPrice, mainCategory,
+                        categoryTwo, categoryThree, categoryFour, categoryFive, itemDescription, imagePaths);
             }
         });
     }
@@ -181,19 +197,38 @@ public class AddListingActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            Uri imageUri = data.getData();
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE && null != data) {
+            String currentImagePath;
 
-            itemImageView.setImageURI(imageUri);
+            if (data.getClipData() != null) {
+                ClipData clipData = data.getClipData();
+                for (int i = 0; i < clipData.getItemCount(); i++) {
 
-            imagePaths.add(getPathFromUri(this, imageUri));
+                    ClipData.Item item = clipData.getItemAt(i);
+                    Uri uri = item.getUri();
+
+                    currentImagePath = getPathFromUri(getApplicationContext(), uri);
+                    imagePaths.add(currentImagePath);
+                    Log.d("ImageDetails", "Image URI " + i + " = " + uri);
+                    Log.d("ImageDetails", "Image Path " + i + " = " + currentImagePath);
+                    imagesSelected = true;
+                }
+            } else if (data.getData() != null) {
+                Uri uri = data.getData();
+                currentImagePath = getPathFromUri(getApplicationContext(), uri);
+                Log.d("ImageDetails", "Single Image URI : " + uri);
+                Log.d("ImageDetails", "Single Image Path : " + currentImagePath);
+                imagePaths.add(currentImagePath);
+                imagesSelected = true;
+            }
         }
     }
+
     private void openGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"), PICK_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 }

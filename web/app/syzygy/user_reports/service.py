@@ -14,16 +14,15 @@ Functions:
 
 """
 
-from app import db
-from .model import UserReport
-from .interface import UserReportInterface
-from flask import Response
 import json
 import logging
-
 import re
-
 from typing import List
+
+from app import db
+from libs.response import ErrResponse, NormalResponse
+
+from .model import UserReport
 
 log = logging.getLogger(__name__)
 
@@ -50,20 +49,19 @@ class UserReportService:
         return UserReport.query.get(id)
 
     @staticmethod
-    def update(
-        user_report: UserReport, user_report_changes: UserReportInterface
-    ) -> UserReport:
-        """[summary]
+    def update(user_report: UserReport, updates: dict) -> UserReport:
+        """Update a UserReport entity with new attributes.
 
-        :param user_report: The UserReport to update in the database
+        :param user_report: [description]
         :type user_report: UserReport
-        :param UserReport_change_updates: Dictionary object containing the new changes
-        to update the UserReport model object with
-        :type UserReport_change_updates: UserReportInterface
-        :return: The updated UserReport model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: UserReport
         """
-        user_report.update(user_report_changes)
+
+        user_report.update(updates)
+
         db.session.commit()
         return user_report
 
@@ -86,12 +84,12 @@ class UserReportService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: UserReportInterface) -> UserReport:
-        """Creates a user_report object from the UserReportInterface TypedDict
+    def create(new_attrs: dict) -> UserReport:
+        """Creates a user_report object from the validated marshmallow schema.
 
-        :param new_attrs: A dictionary with the input into a UserReport model
-        :type new_attrs: UserReportInterface
-        :return: A new user_report object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: UserReport
         """
 
@@ -102,36 +100,14 @@ class UserReportService:
 
         return new_user_report
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

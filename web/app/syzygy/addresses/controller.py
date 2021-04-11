@@ -25,7 +25,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import AddressInterface
 from .model import Address
 from .schema import AddressSchema
 from .service import AddressService
@@ -51,14 +50,12 @@ class AddressResource(Resource):
 
         return AddressService.get_all()
 
-    # @accepts(schema=AddressSchema, api=api)
-    # @responds(schema=AddressSchema)
-    # def post(self):
-    #     """Create a Single Address"""
-
-    #     return AddressService.create(request.parsed_obj)
+    @accepts(schema=AddressSchema, api=api)
+    @responds(schema=AddressSchema)
     def post(self):
         """Create a Single Address"""
+
+        return AddressService.create(request.parsed_obj)
 
 
 @api.route("/<int:addressid>")
@@ -82,6 +79,7 @@ class AddressIdResource(Resource):
     def put(self, addressid: int):
         """Update Single Address"""
 
-        changes: AddressInterface = request.parsed_obj
-        Address = AddressService.get_by_id(addressid)
-        return AddressService.update(Address, changes)
+        updates = request.parsed_obj
+        address = AddressService.get_by_id(addressid)
+
+        return AddressService.update(address, updates)

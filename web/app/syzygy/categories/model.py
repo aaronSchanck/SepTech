@@ -1,4 +1,4 @@
-"""/web/app/syzygy/items/categories/model.py
+"""/web/app/syzygy/categories/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,8 +17,6 @@ Functions:
 import logging
 
 from app import db
-
-from .interface import CategoryInterface
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +41,10 @@ class Category(db.Model):
 
     items = db.relationship("Item", backref="category")
 
-    def update(self, changes: CategoryInterface):
+    def __init__(self, **kwargs):
+        super(Category, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

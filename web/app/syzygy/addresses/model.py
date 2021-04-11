@@ -17,9 +17,6 @@ Functions:
 import logging
 
 from app import db
-from sqlalchemy import *
-
-from .interface import AddressInterface
 
 log = logging.getLogger(__name__)
 
@@ -35,20 +32,23 @@ class Address(db.Model):
 
     __tablename__ = "addresses"
 
-    id = Column(Integer, primary_key=True)
-    unit = Column(String(15))
-    building = Column(String(15))
-    street_name = Column(String(63))
-    street_type = Column(String(15))
-    city = Column(String(63))
-    region = Column(String(15))
-    country = Column(String(15))
-    address_code = Column(String(15))
-    postal_code = Column(String(15))
+    id = db.Column(db.Integer, primary_key=True)
+    unit = db.Column(db.String(15))
+    building = db.Column(db.String(15))
+    street_name = db.Column(db.String(63))
+    street_type = db.Column(db.String(15))
+    city = db.Column(db.String(63))
+    region = db.Column(db.String(15))
+    country = db.Column(db.String(15))
+    address_code = db.Column(db.String(15))
+    postal_code = db.Column(db.String(15))
 
     # userid = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    def update(self, changes: AddressInterface):
+    def __init__(self, **kwargs):
+        super(Address, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

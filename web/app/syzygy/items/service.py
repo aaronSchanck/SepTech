@@ -14,18 +14,22 @@ Functions:
 
 """
 
-from app import db
-from .model import Item
-from ..categories.model import Category
-from ..categories.service import CategoryService
-from .interface import ItemInterface
-from flask import Response
 import json
 import logging
-
+import os
 import re
-
+from collections import OrderedDict
+from datetime import datetime
 from typing import List
+
+import werkzeug
+from app import db
+from libs.response import ErrResponse, NormalResponse
+
+from ..categories.model import Category
+from ..categories.service import CategoryService
+from .model import Item
+from .schema import ImageSchema
 
 log = logging.getLogger(__name__)
 
@@ -41,140 +45,123 @@ class ItemService:
         return Item.query.all()
 
     @staticmethod
-    def get_by_id(itemid: int) -> Item:
+    def get_by_id(id: int) -> Item:
         """[summary]
 
-        :param itemid: [description]
-        :type itemid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        return Item.query.get(itemid)
+        return Item.query.get(id)
 
     @staticmethod
-    def get_by_name(item_name: str) -> Item:
+    def update(item: Item, updates: OrderedDict) -> Item:
         """[summary]
 
-        :param item_name: [description]
-        :type item_name: str
-        :return: [description]
-        :rtype: [type]
-        """
-        return Item.query.filter(Item.name == item_name).first()
-
-    @staticmethod
-    def update(item: Item, Item_change_updates: ItemInterface) -> Item:
-        """[summary]
-
-        :param item: The Item to update in the database
+        :param item: [description]
         :type item: Item
-        :param Item_change_updates: Dictionary object containing the new changes
-        to update the Item model object with
-        :type Item_change_updates: ItemInterface
-        :return: The updated Item model object
+        :param updates: [description]
+        :type updates: OrderedDict
+        :return: [description]
         :rtype: Item
         """
-        item.update(Item_change_updates)
+
+        ItemService.transform(updates)
+
+        item.update(updates)
+        item.modified_at(datetime.now())
+
         db.session.commit()
         return item
 
     @staticmethod
-    def delete_by_id(itemid: int) -> List:
-        """Deletes a item from the table with the specified itemid
+    def delete_by_id(id: int) -> List:
+        """Deletes a item from the table with the specified id
 
-        :param itemid: Item's itemid
-        :type itemid: int
+        :param id: Item's id
+        :type id: int
         :return: List containing the deleted item, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        item = ItemService.get_by_id(itemid)
+        item = ItemService.get_by_id(id)
         if not item:
             return []
         db.session.delete(item)
         db.session.commit()
-        return [itemid]
+        return [id]
 
     @staticmethod
-    def create(new_attrs: ItemInterface) -> Item:
-        """Creates a item object from the ItemInterface TypedDict
+    def create(new_attrs: OrderedDict) -> Item:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Item model
-        :type new_attrs: ItemInterface
-        :return: A new item object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: OrderedDict
+        :return: [description]
         :rtype: Item
         """
+
+        print(type(new_attrs))
 
         categories = new_attrs["category"]
 
         category = CategoryService.create_if_not_exists(categories)
 
-        # items = (
-        #     db.session.query(Category)
-        #     .join(Category.items)
-        #     .filter(Category.category_id == 1)
-        #     .all()
-        # )
-
-        # print(items[0].items)
-
         new_item = Item(
             name=new_attrs["name"],
             quantity=new_attrs["quantity"],
-            posted_at=new_attrs["posted_at"],
-            seller=new_attrs["seller"],
+            created_at=datetime.now(),
+            modified_at=datetime.now(),
+            sellerid=new_attrs["sellerid"],
             price=new_attrs["price"],
             can_buy=new_attrs["can_buy"],
             can_bid=new_attrs["can_bid"],
-            highest_bid=new_attrs["highest_bid"],
-            highest_bid_user=new_attrs["highest_bid_user"],
             bidding_ends=new_attrs["bidding_ends"],
             quality=new_attrs["quality"],
-            category_id=category.category_id,
-            thumbnail=new_attrs["thumbnail"],
-            item_variants=new_attrs["item_variants"],
+            category_id=category.id,
             description=new_attrs["description"],
         )
+
+        print(new_item)
 
         db.session.add(new_item)
         db.session.commit()
 
         return new_item
 
+    @staticmethod
     def search(search_str: str):
         return Item.query.filter(Item.name.ilike("%search_str%")).all()
 
+    @staticmethod
+    def parse_images(base_path, request_files):
+        image_schema = ImageSchema()
+        file_ids = list(request_files)
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        image_paths = []
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
+        for file_id in file_ids:
+            imagefile = request_files[file_id]
+            filename = werkzeug.utils.secure_filename(imagefile.filename)
 
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
+            path = os.path.join(base_path, filename)
 
+            image_paths.append(path)
 
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
+            imagefile.save(path)
 
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
+        return image_paths
 
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
+
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
+
+        pass

@@ -32,6 +32,7 @@
         <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity" />
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
+        <activity android:name=".ui.business.home.BusinessHomeActivity"/>
 
         <!-- On Launch  -->
         <activity

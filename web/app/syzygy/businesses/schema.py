@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/schema.py
+"""/web/app/syzygy/businesses/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,8 +17,6 @@ Functions:
 import logging
 
 import datetime as dt
-
-from sqlalchemy.dialects import postgresql
 
 from marshmallow import Schema, fields
 
@@ -43,3 +41,5 @@ class BusinessSchema(Schema):
 
     password_reset_code = fields.String(dump_only=True)
     password_reset_timeout = fields.DateTime(dump_only=True)
+
+    description = fields.Str()

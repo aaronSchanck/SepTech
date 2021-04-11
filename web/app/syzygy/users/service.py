@@ -28,10 +28,10 @@ from typing import List
 import bcrypt
 from app import db
 from app.globals import *
-from flask import Response
 from libs.auth import encrypt_pw
+from libs.response import ErrResponse, NormalResponse
 
-from .interface import UserInterface
+from collections import OrderedDict
 from .model import User
 
 log = logging.getLogger(__name__)
@@ -58,9 +58,6 @@ class UserService:
         """
         user = User.query.get(id)
 
-        # if user is None:
-        #     return ErrResponse("Requested user doesn't exist", 400)
-
         return user
 
     @staticmethod
@@ -78,18 +75,20 @@ class UserService:
         return user
 
     @staticmethod
-    def update(user: User, User_change_updates: UserInterface) -> User:
+    def update(user: User, updates: dict) -> User:
         """[summary]
 
-        :param user: The User to update in the database
+        :param user: [description]
         :type user: User
-        :param User_change_updates: Dictionary object containing the new changes
-        to update the User model object with
-        :type User_change_updates: UserInterface
-        :return: The updated User model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: User
         """
-        user.update(User_change_updates)
+
+        UserService.transform(updates)
+
+        user.update(updates)
         user.modified_at = datetime.now()
 
         db.session.commit()
@@ -114,12 +113,12 @@ class UserService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: UserInterface) -> User:
-        """Creates a user object from the UserInterface TypedDict
+    def create(new_attrs: OrderedDict) -> User:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a User model
-        :type new_attrs: UserInterface
-        :return: A new user object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: OrderedDict
+        :return: [description]
         :rtype: User
         """
 
@@ -128,23 +127,14 @@ class UserService:
         if user is not None:
             return ErrResponse("User with email already exists", 400)
 
-        encrypted_pw = encrypt_pw(new_attrs["password"])
-
-        phone_number_reformatted = new_attrs["phone_number"]
-
-        # reformat phone number to remove extraneous (non-numeric) chars
-        for c in ["(", ")", "-", " "]:
-            if c in new_attrs["phone_number"]:
-                phone_number_reformatted.replace(c, "")
+        UserService.transform(new_attrs)
 
         new_user = User(
             email=new_attrs["email"],
-            password=encrypted_pw,
+            password=new_attrs["password"],
             full_name=new_attrs["full_name"],
             date_of_birth=new_attrs["date_of_birth"],
-            created_at=datetime.now(),
-            modified_at=datetime.now(),
-            phone_number=phone_number_reformatted,
+            phone_number=new_attrs["phone_number"],
             password_salt=new_attrs["password_salt"],
         )
 
@@ -183,11 +173,20 @@ class UserService:
 
         if not bcrypt.checkpw(password.encode("utf-8"), user.password):
             log.info("No user was found for supplied password")
+
+            updates = {"last_unsuccesful_login": datetime.now()}
+
+            UserService.update(user=user, updates=updates)
+
             return ErrResponse("Incorrect password", 400)
 
         log.info(f"User {user.id} was found and returned to client")
 
         # generate JWT token and concatenate
+
+        updates = {"last_succesful_login": datetime.now()}
+
+        UserService.update(user=user, updates=updates)
 
         return user
 
@@ -198,7 +197,7 @@ class UserService:
         if user is None:
             return ErrResponse("User does not exist", 400)
 
-        user_changes: UserInterface = {
+        user_changes = {
             "password_reset_code": UserService.gen_unique_reset_code(),
             "password_reset_timeout": datetime.now()
             + timedelta(minutes=PASSWORD_RESET_TIME),
@@ -209,19 +208,12 @@ class UserService:
         UserService.send_password_code_email(user)
 
         return NormalResponse(
-            user.password_reset_code,
+            "Healthy",
             200,
         )
 
-        # user_changes = UserInterface(
-        #     "password_reset_code": UserService.gen_unique_reset_code(),
-        #     "password_reset_timeout": datetime.now(),
-        # )
-
-        # UserService.update(user, user_changes)
-
     @staticmethod
-    def gen_unique_reset_code():
+    def gen_unique_reset_code() -> str:
         done = False
 
         while not done:
@@ -306,36 +298,29 @@ class UserService:
             else ErrResponse("User exists", 400)
         )
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
+        # re-encrypt the user password when updated
+        if "password" in attrs.keys():
+            encrypted_pw = encrypt_pw(attrs["password"])
+            attrs["password"] = encrypted_pw
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
+        # reformat the user phone number when updated
+        if "phone_number" in attrs.keys():
+            phone_number_reformatted = attrs["phone_number"]
+            for c in ["(", ")", "-", " "]:
+                if c in attrs["phone_number"]:
+                    phone_number_reformatted.replace(c, "")
 
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
+            attrs["phone_number"] = phone_number_reformatted
 
+        log.info(attrs)
 
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        return attrs

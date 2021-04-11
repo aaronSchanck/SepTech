@@ -1,4 +1,4 @@
-"""/web/app/syzygy/users/service.py
+"""/web/app/syzygy/order_items/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -21,9 +21,8 @@ from typing import List
 
 import bcrypt
 from app import db
-from flask import Response
+from libs.response import ErrResponse, NormalResponse
 
-from .interface import OrderItemInterface
 from .model import OrderItem
 
 log = logging.getLogger(__name__)
@@ -40,167 +39,78 @@ class OrderItemService:
         return OrderItem.query.all()
 
     @staticmethod
-    def get_by_id(userid: int) -> OrderItem:
+    def get_by_id(id: int) -> OrderItem:
         """[summary]
 
-        :param userid: [description]
-        :type userid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        user = OrderItem.query.get(userid)
+        order_item = OrderItem.query.get(id)
 
-        if user is None:
-            return ErrResponse("Requested user doesn't exist", 400)
-
-        return user
+        return order_item
 
     @staticmethod
-    def get_by_email(email: str) -> OrderItem:
+    def update(order_item: OrderItem, updates: dict) -> OrderItem:
         """[summary]
 
-        :param email: [description]
-        :type email: str
+        :param order_item: [description]
+        :type order_item: OrderItem
+        :param updates: [description]
+        :type updates: dict
         :return: [description]
-        :rtype: [type]
-        """
-        user = OrderItem.query.filter(OrderItem.email == email).first()
-
-        if user is None:
-            return ErrResponse("Requested user doesn't exist", 400)
-
-        return user
-
-    @staticmethod
-    def update(user: OrderItem, OrderItem_change_updates: OrderItemInterface) -> OrderItem:
-        """[summary]
-
-        :param user: The OrderItem to update in the database
-        :type user: OrderItem
-        :param OrderItem_change_updates: Dictionary object containing the new changes
-        to update the OrderItem model object with
-        :type OrderItem_change_updates: OrderItemInterface
-        :return: The updated OrderItem model object
         :rtype: OrderItem
         """
-        user.update(OrderItem_change_updates)
+
+        order_item.update(updates)
         db.session.commit()
-        return user
+
+        return order_item
 
     @staticmethod
-    def delete_by_id(userid: int) -> List:
-        """Deletes a user from the table with the specified userid
+    def delete_by_id(id: int) -> List:
+        """Deletes a order_item from the table with the specified id
 
-        :param userid: OrderItem's userid
-        :type userid: int
-        :return: List containing the deleted user, if found, otherwise an empty
+        :param id: OrderItem's id
+        :type id: int
+        :return: List containing the deleted order_item, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        user = OrderItemService.get_by_id(userid)
-        if not user:
+        order_item = OrderItemService.get_by_id(id)
+        if not order_item:
             return []
-        db.session.delete(user)
+        db.session.delete(order_item)
         db.session.commit()
-        return [userid]
+        return [id]
 
     @staticmethod
-    def create(new_attrs: OrderItemInterface) -> OrderItem:
-        """Creates a user object from the OrderItemInterface TypedDict
+    def create(new_attrs: dict) -> OrderItem:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a OrderItem model
-        :type new_attrs: OrderItemInterface
-        :return: A new user object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: OrderItem
         """
 
-        encrypted_pw = encrypt_pw(new_attrs["password"])
+        new_order_item = OrderItem()
 
-        new_user = OrderItem(
-            email=new_attrs["email"],
-            password=encrypted_pw,
-            full_name=new_attrs["full_name"],
-            date_of_birth=new_attrs["date_of_birth"],
-            created_at=new_attrs["created_at"],
-            modified_at=new_attrs["modified_at"],
-            phone_number=new_attrs["phone_number"],
-            password_salt1=new_attrs["password_salt1"],
-        )
-
-        db.session.add(new_user)
+        db.session.add(new_order_item)
         db.session.commit()
 
-        return new_user
+        return new_order_item
 
     @staticmethod
-    def login(email: str, password: str) -> OrderItem:
-        """Checks user credentials against database. If a user is found, then
-        send the user information back to the client.
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-        :param email: OrderItem's email
-        :type email: str
-        :param password: OrderItem's password
-        :type password: str
-        :return: OrderItem model from the table with the specified email and
-        password
-        :rtype: OrderItem
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
         """
 
-        log.debug(f"email: {email}\tPassword: {password}")
-
-        if not email:
-            return ErrResponse("No email entered", 400)
-
-        if not password:
-            return ErrResponse("No password entered", 400)
-
-        user = OrderItemService.get_by_email(email)
-
-        if user is None:
-            log.info("No user was found for supplied email")
-            return ErrResponse("Incorrect email", 400)
-
-        if not bcrypt.checkpw(password.encode("utf-8"), user.password):
-            log.info("No user was found for supplied password")
-            return ErrResponse("Incorrect password", 400)
-
-        log.info(f"OrderItem {user.userid} was found and returned to client")
-
-        # generate JWT token and concatenate
-
-        return user
-
-
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
-
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

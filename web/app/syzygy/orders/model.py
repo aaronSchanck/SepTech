@@ -18,8 +18,6 @@ import logging
 
 from app import db
 
-from .interface import OrderInterface
-
 log = logging.getLogger(__name__)
 
 
@@ -49,7 +47,10 @@ class Order(db.Model):
 
     order_items = db.relationship("OrderItem", back_populates="order")
 
-    def update(self, changes: OrderInterface):
+    def __init__(self, **kwargs):
+        super(Order, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

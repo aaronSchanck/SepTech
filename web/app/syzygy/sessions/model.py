@@ -1,4 +1,4 @@
-"""/web/app/syzygy/session/model.py
+"""/web/app/syzygy/sessions/model.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -17,8 +17,6 @@ Functions:
 import logging
 
 from app import db
-
-from .interface import SessionInterface
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +41,10 @@ class Session(db.Model):
 
     session_expires_at = db.Column(db.DateTime)
 
-    def update(self, changes: SessionInterface):
+    def __init__(self, **kwargs):
+        super(Session, self).__init__(**kwargs)
+
+    def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
 

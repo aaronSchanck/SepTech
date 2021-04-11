@@ -15,7 +15,6 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .interface import UserReportInterface
 from .model import UserReport
 from .schema import UserReportSchema
 from .service import UserReportService
@@ -49,27 +48,26 @@ class UserReportResource(Resource):
         return UserReportService.create(request.parsed_obj)
 
 
-@api.route("/<int:user_reportid>")
-@api.param("user_reportid", "UserReport database ID")
+@api.route("/<int:id>")
+@api.param("id", "UserReport database ID")
 class UserReportIdResource(Resource):
     @responds(schema=UserReportSchema)
-    def get(self, user_reportid: int):
+    def get(self, id: int):
         """Get Single UserReport"""
 
-        return UserReportService.get_by_id(user_reportid)
+        return UserReportService.get_by_id(id)
 
-    def delete(self, user_reportid: int):
+    def delete(self, id: int):
         """Delete Single UserReport"""
         from flask import jsonify
 
-        id = UserReportService.delete_by_id(user_reportid)
+        id = UserReportService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
     @accepts(schema=UserReportSchema, api=api)
     @responds(schema=UserReportSchema)
-    def put(self, user_reportid: int):
+    def put(self, id: int):
         """Update Single UserReport"""
+        user_report = UserReportService.get_by_id(id)
 
-        changes: UserReportInterface = request.parsed_obj
-        UserReport = UserReportService.get_by_id(user_reportid)
-        return UserReportService.update(UserReport, changes)
+        return UserReportService.update(user_report, request.parsed_obj)

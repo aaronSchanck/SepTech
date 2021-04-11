@@ -19,9 +19,8 @@ import logging
 from typing import List
 
 from app import db
-from flask import Response
+from libs.response import ErrResponse, NormalResponse
 
-from .interface import OrderInterface
 from .model import Order
 
 log = logging.getLogger(__name__)
@@ -51,18 +50,18 @@ class OrderService:
         return order
 
     @staticmethod
-    def update(order: Order, Order_change_updates: OrderInterface) -> Order:
+    def update(order: Order, updates: dict) -> Order:
         """[summary]
 
-        :param order: The Order to update in the database
+        :param order: [description]
         :type order: Order
-        :param Order_change_updates: Dictionary object containing the new changes
-        to update the Order model object with
-        :type Order_change_updates: OrderInterface
-        :return: The updated Order model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: Order
         """
-        order.update(Order_change_updates)
+
+        order.update(updates)
         db.session.commit()
         return order
 
@@ -85,12 +84,12 @@ class OrderService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: OrderInterface) -> Order:
-        """Creates a order object from the OrderInterface TypedDict
+    def create(new_attrs: dict) -> Order:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Order model
-        :type new_attrs: OrderInterface
-        :return: A new order object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Order
         """
 
@@ -101,36 +100,14 @@ class OrderService:
 
         return new_order
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

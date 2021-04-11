@@ -14,20 +14,18 @@ Functions:
 
 """
 
-from app import db
-from .model import Business
-from .interface import BusinessInterface
-from flask import Response
 import json
 import logging
-from libs.auth import encrypt_pw
-import bcrypt
-
-from datetime import datetime
-
 import re
-
+from datetime import datetime
 from typing import List
+
+import bcrypt
+from app import db
+from libs.auth import encrypt_pw
+from libs.response import ErrResponse, NormalResponse
+
+from .model import Business
 
 log = logging.getLogger(__name__)
 
@@ -43,15 +41,15 @@ class BusinessService:
         return Business.query.all()
 
     @staticmethod
-    def get_by_id(businessid: int) -> Business:
+    def get_by_id(id: int) -> Business:
         """[summary]
 
-        :param businessid: [description]
-        :type businessid: int
+        :param id: [description]
+        :type id: int
         :return: [description]
         :rtype: [type]
         """
-        business = Business.query.get(businessid)
+        business = Business.query.get(id)
 
         if business is None:
             return ErrResponse("Requested business doesn't exist", 400)
@@ -73,48 +71,46 @@ class BusinessService:
         return business
 
     @staticmethod
-    def update(
-        business: Business, Business_change_updates: BusinessInterface
-    ) -> Business:
+    def update(business: Business, updates: dict) -> Business:
         """[summary]
 
-        :param business: The Business to update in the database
+        :param business: [description]
         :type business: Business
-        :param Business_change_updates: Dictionary object containing the new changes
-        to update the Business model object with
-        :type Business_change_updates: BusinessInterface
-        :return: The updated Business model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: Business
         """
-        business.update(Business_change_updates)
+
+        business.update(updates)
         db.session.commit()
         return business
 
     @staticmethod
-    def delete_by_id(businessid: int) -> List:
-        """Deletes a business from the table with the specified businessid
+    def delete_by_id(id: int) -> List:
+        """Deletes a business from the table with the specified id
 
-        :param businessid: Business's businessid
-        :type businessid: int
+        :param id: Business's id
+        :type id: int
         :return: List containing the deleted business, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        business = BusinessService.get_by_id(businessid)
+        business = BusinessService.get_by_id(id)
         if not business:
             return []
         db.session.delete(business)
         db.session.commit()
-        return [businessid]
+        return [id]
 
     @staticmethod
-    def create(new_attrs: BusinessInterface) -> Business:
-        """Creates a business object from the BusinessInterface TypedDict
+    def create(new_attrs: dict) -> Business:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Business model
-        :type new_attrs: BusinessInterface
-        :return: A new business object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Business
         """
 
@@ -141,6 +137,7 @@ class BusinessService:
             modified_at=datetime.now(),
             phone_number=phone_number_reformatted,
             password_salt=new_attrs["password_salt"],
+            description=new_attrs["description"],
         )
 
         db.session.add(new_business)
@@ -186,36 +183,14 @@ class BusinessService:
 
         return business
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

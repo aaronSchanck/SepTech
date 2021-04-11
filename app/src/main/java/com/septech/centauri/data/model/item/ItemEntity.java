@@ -18,11 +18,15 @@ public class ItemEntity {
     @Expose
     private Integer quantity;
 
-    @SerializedName("posted_at")
+    @SerializedName("created_at")
     @Expose(serialize = false)
-    private String postedAt;
+    private String createdAt;
 
-    @SerializedName("seller")
+    @SerializedName("updated_at")
+    @Expose(serialize = false)
+    private String updatedAt;
+
+    @SerializedName("sellerid")
     @Expose
     private Integer sellerId;
 
@@ -71,8 +75,8 @@ public class ItemEntity {
     private CategoryEntity category;
 
     @SerializedName("image")
-    @Expose
-    private String image;
+    @Expose(serialize = false)
+    private String[] images;
 
     @SerializedName("item_variants")
     @Expose(serialize = false)
@@ -109,12 +113,20 @@ public class ItemEntity {
         this.quantity = quantity;
     }
 
-    public String getPostedAt() {
-        return postedAt;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setPostedAt(String postedAt) {
-        this.postedAt = postedAt;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Integer getSellerId() {
@@ -165,6 +177,22 @@ public class ItemEntity {
         this.highestBidUser = highestBidUser;
     }
 
+    public String getStartingBid() {
+        return startingBid;
+    }
+
+    public void setStartingBid(String startingBid) {
+        this.startingBid = startingBid;
+    }
+
+    public String getMinBidIncrement() {
+        return minBidIncrement;
+    }
+
+    public void setMinBidIncrement(String minBidIncrement) {
+        this.minBidIncrement = minBidIncrement;
+    }
+
     public String getBiddingEnds() {
         return biddingEnds;
     }
@@ -197,12 +225,12 @@ public class ItemEntity {
         this.category = category;
     }
 
-    public String getImage() {
-        return image;
+    public String[] getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(String[] images) {
+        this.images = images;
     }
 
     public String getItemVariants() {
@@ -219,21 +247,5 @@ public class ItemEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getStartingBid() {
-        return startingBid;
-    }
-
-    public void setStartingBid(String startingBid) {
-        this.startingBid = startingBid;
-    }
-
-    public String getMinBidIncrement() {
-        return minBidIncrement;
-    }
-
-    public void setMinBidIncrement(String minBidIncrement) {
-        this.minBidIncrement = minBidIncrement;
     }
 }

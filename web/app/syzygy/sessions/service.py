@@ -14,20 +14,13 @@ Functions:
 
 """
 
-import json
 import logging
-import re
-import secrets
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import List
 
-from app.globals import *
-import bcrypt
 from app import db
-from flask import Response
-from utils.auth import encrypt_pw
+from libs.response import ErrResponse, NormalResponse
 
-from .interface import SessionInterface
 from .model import Session
 
 log = logging.getLogger(__name__)
@@ -54,27 +47,21 @@ class SessionService:
         """
         session = Session.query.get(id)
 
-        # if session is None:
-        #     return ErrResponse("Requested session doesn't exist", 400)
-
         return session
 
     @staticmethod
-    def update(
-        session: Session, Session_change_updates: SessionInterface
-    ) -> Session:
+    def update(session: Session, updates: dict) -> Session:
         """[summary]
 
-        :param session: The Session to update in the database
+        :param session: [description]
         :type session: Session
-        :param Session_change_updates: Dictionary object containing the new changes
-        to update the Session model object with
-        :type Session_change_updates: SessionInterface
-        :return: The updated Session model object
+        :param updates: [description]
+        :type updates: dict
+        :return: [description]
         :rtype: Session
         """
-        session.update(Session_change_updates)
-        session.modified_at = datetime.now()
+
+        session.update(updates)
 
         db.session.commit()
         return session
@@ -98,12 +85,12 @@ class SessionService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: SessionInterface) -> Session:
-        """Creates a session object from the SessionInterface TypedDict
+    def create(new_attrs: dict) -> Session:
+        """[summary]
 
-        :param new_attrs: A dictionary with the input into a Session model
-        :type new_attrs: SessionInterface
-        :return: A new session object based on the input
+        :param new_attrs: [description]
+        :type new_attrs: dict
+        :return: [description]
         :rtype: Session
         """
 
@@ -114,36 +101,14 @@ class SessionService:
 
         return new_session
 
+    @staticmethod
+    def transform(attrs: dict) -> dict:
+        """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
-def NormalResponse(response: dict, status: int) -> Response:
-    """Function to return a normal response (200-299)
+        :param attrs: [description]
+        :type attrs: dict
+        :return: [description]
+        :rtype: dict
+        """
 
-    :param response: Dictionary object with the content to be sent in the response
-    :type response: dict
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json", response=json.dumps(response), status=status
-    )
-
-
-def ErrResponse(response: str, status: int) -> Response:
-    """Helper function to create an error response (400-499)
-
-    :param response: String specifying the error message to send
-    :type response: str
-    :param status: Status code along with the response
-    :type status: int
-    :return: Response object with related response and status code
-    :rtype: Response
-    """
-
-    return Response(
-        mimetype="application/json",
-        response=json.dumps({"error": response}),
-        status=status,
-    )
+        pass

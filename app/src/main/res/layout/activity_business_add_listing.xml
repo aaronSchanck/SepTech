@@ -7,10 +7,9 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="wrap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,7 +40,9 @@
                         android:id="@+id/categoryFourEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -85,7 +86,9 @@
                         android:id="@+id/categoryTwoEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +104,6 @@
                         android:id="@+id/categoryFiveEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/category_5"
                         android:textStyle="italic" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -131,7 +133,9 @@
                         android:id="@+id/categoryThreeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -150,7 +154,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/itemDescriptionEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,7 +173,9 @@
                         android:id="@+id/mainCategoryEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -283,7 +289,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/itemQualityEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -328,6 +336,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:maxLines="1"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -356,7 +365,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/itemNameEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -414,7 +425,9 @@
                         android:id="@+id/auctionLengthEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -441,7 +454,9 @@
                         android:id="@+id/buyoutPriceEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -459,7 +474,9 @@
                         android:id="@+id/startingBidEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
@@ -489,7 +506,9 @@
                         android:id="@+id/minimumBidEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:maxLines="1"
+                        android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
