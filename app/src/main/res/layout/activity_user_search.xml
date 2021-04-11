@@ -11,9 +11,9 @@
         android:background="@drawable/customlinearlayoutborder"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rvCategories"
+        app:layout_constraintEnd_toEndOf="@+id/rvItems"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/rvCategories"
+        app:layout_constraintStart_toStartOf="@+id/rvItems"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
@@ -65,7 +65,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCategories"
+        android:id="@+id/rvItems"
         android:layout_width="match_parent"
         android:layout_height="453dp"
         app:layout_constraintBottom_toTopOf="@+id/search_bottom_action_bar_layout"
@@ -81,9 +81,9 @@
         android:background="@drawable/customlinearlayoutborder"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rvCategories"
+        app:layout_constraintEnd_toEndOf="@+id/rvItems"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/rvCategories"
+        app:layout_constraintStart_toStartOf="@+id/rvItems"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 

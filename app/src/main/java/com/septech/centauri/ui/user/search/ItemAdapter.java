@@ -4,13 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.septech.centauri.R;
+import com.septech.centauri.data.repository.ItemDataRepository;
 import com.septech.centauri.domain.models.Item;
+import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.util.List;
 
@@ -43,6 +46,10 @@ public class ItemAdapter extends
 
         TextView textView = holder.nameTextView;
         textView.setText(item.getName());
+    }
+
+    public void setItems(List<Item> mItems) {
+        this.mItems = mItems;
     }
 
     @Override

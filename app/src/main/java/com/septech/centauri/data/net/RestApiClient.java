@@ -7,6 +7,7 @@ import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.User;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,9 +16,14 @@ import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public class RestApiClient {
 //    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
@@ -78,7 +84,6 @@ public class RestApiClient {
 
     public Single<String> verifyPasswordCode(String code, String email) { return restApi.verifyPasswordCode(code, email); }
 
-
     //ITEMS
 
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
@@ -86,6 +91,18 @@ public class RestApiClient {
 
         images.toArray(imagesArr);
         return restApi.createItem(imagesArr, itemEntity);
+    }
+
+    public Observable<List<ItemEntity>> viewAll() {
+        return restApi.viewAll();
+    }
+
+    public Observable<List<ItemEntity>> search(String searchQuery) {
+        return restApi.search(searchQuery);
+    }
+
+    public Single<ResponseBody> getImagesZip(int id) {
+        return restApi.getImagesZip(id);
     }
 
     //BUSINESSES

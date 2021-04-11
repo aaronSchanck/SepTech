@@ -12,6 +12,7 @@ import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,8 @@ import io.reactivex.Single;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 
 /**
  * An implementation of the domain-level ItemRepository. Will pull data from an arbitrary
@@ -91,7 +94,7 @@ public class ItemDataRepository implements ItemRepository {
 
             byte[] byteArray = stream.toByteArray();
 
-            //naming scheme: images_i where i = 1-images.size()
+            //naming scheme: images_i where i = 1- images.size()
             MultipartBody.Part image = MultipartBody.Part.createFormData("image_" + i,
                     "images_" + i +
                             ".jpg",
@@ -104,6 +107,15 @@ public class ItemDataRepository implements ItemRepository {
 
     @Override
     public Observable<List<Item>> searchItems(String query) {
-        return null;
+        if (query.equals("")) {
+            return restApiImpl.viewAll().map(ItemDataMapper::transformItemEntityList);
+        } else {
+            return restApiImpl.search(query).map(ItemDataMapper::transformItemEntityList);
+        }
+    }
+
+    @Override
+    public Single<ResponseBody> getImagesZip(int id) {
+        return restApiImpl.getImagesZip(id);
     }
 }
