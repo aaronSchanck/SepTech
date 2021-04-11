@@ -99,4 +99,9 @@ public class UserDataRepository implements UserRepository {
     public Single<String> forgotPassword(String email) {
         return restApiImpl.forgotPassword(email);
     }
+
+    @Override
+    public Single<User> changePassword(User user, String email) {
+        return restApiImpl.changePassword(UserDataMapper.transform(user), email).map(UserDataMapper::transform);
+    }
 }

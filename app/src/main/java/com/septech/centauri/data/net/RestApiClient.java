@@ -52,6 +52,10 @@ public class RestApiClient {
         return restApi.createUser(userEntity);
     }
 
+    public Single<UserEntity> changePassword(UserEntity userEntity, String email) {
+        return restApi.changePassword(userEntity, email);
+    }
+
     public Single<UserEntity> getUserById(int userid) {
         return restApi.getUserById(userid);
     }

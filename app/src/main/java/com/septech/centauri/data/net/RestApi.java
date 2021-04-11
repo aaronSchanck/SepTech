@@ -86,6 +86,9 @@ public interface RestApi {
     @PUT("users/{email}")
     Single<String> forgotPassword(@Path("email") String email);
 
+    @PUT("users/{email}")
+    Single<UserEntity> changePassword(@Body UserEntity userEntity, @Path("email") String email);
+
     /**
      *
      * @param email

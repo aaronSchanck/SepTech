@@ -87,4 +87,6 @@ public interface UserRepository {
     Single<String> verifyPasswordCode(String code, String email);
 
     Single<String> forgotPassword(String email);
+
+    Single<User> changePassword(User user, String email);
 }

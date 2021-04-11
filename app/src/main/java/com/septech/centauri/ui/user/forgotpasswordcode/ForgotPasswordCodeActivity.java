@@ -44,8 +44,6 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
         mCodeEditText = codeInputLayout.getEditText();
 
-        mVerifyButton = findViewById(R.id.VerifyButton);
-
         userEmail = getIntent().getStringExtra("email");
 
         // TODO: fix verify code
@@ -96,6 +94,7 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
                     toast.show();
 
                     Intent intent = new Intent(this, NewPasswordActivity.class);
+                    intent.putExtra("email", userEmail);
                     startActivity(intent);
                     break;
             }
