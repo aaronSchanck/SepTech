@@ -1,14 +1,17 @@
 package com.septech.centauri.ui.user.search;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Item;
@@ -16,7 +19,8 @@ import com.septech.centauri.domain.models.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements ItemAdapter.OnItemListener {
+    private static final String TAG = "SearchActivity";
 
     private SearchViewModel mViewModel;
 
@@ -24,6 +28,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private ImageButton forwardArrow;
     private ImageButton backArrow;
+
+    private TextView searchAmountTextView;
 
     private EditText searchEditText;
 
@@ -38,19 +44,24 @@ public class SearchActivity extends AppCompatActivity {
 
         String query = getIntent().getStringExtra("query");
 
-        mViewModel.getItems(query, 0);
-
         rvItems = findViewById(R.id.rvItems);
 
-        adapter = new ItemAdapter(new ArrayList<>(), new HashMap<>());
+        adapter = new ItemAdapter(this, new ArrayList<>(), new HashMap<>());
 
-        rvItems.setAdapter(adapter);
+//        rvItems.setAdapter(adapter);
         rvItems.setLayoutManager(new GridLayoutManager(this, 2));
 
         //find buttons and bind listeners to them
 
         forwardArrow = findViewById(R.id.forwardArrow);
         backArrow = findViewById(R.id.backArrow);
+
+        backArrow.setVisibility(View.GONE);
+        backArrow.setActivated(false);
+
+        searchAmountTextView = findViewById(R.id.itemCountTextView);
+
+        mViewModel.newSearch(query);
 
         createButtonListeners();
 
@@ -66,19 +77,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void createButtonListeners() {
-        forwardArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        forwardArrow.setOnClickListener(v -> mViewModel.nextPage());
 
-            }
-        });
-
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        backArrow.setOnClickListener(v -> mViewModel.lastPage());
     }
 
     private void createTextWatchers() {
@@ -86,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void createLiveDataObservers() {
         mViewModel.getItemsLiveData().observe(this, items -> {
-            System.out.println("newitems incoming");
+            Log.i(TAG, "ItemLiveData input");
             adapter.setItems(items);
             int[] itemIds = new int[items.size()];
 
@@ -98,10 +99,26 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         mViewModel.getImagesLiveData().observe(this, images -> {
-            System.out.println("images incoming");
+            Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
             adapter.setImages(images);
 
             rvItems.setAdapter(adapter);
         });
+
+        mViewModel.getSearchAmount().observe(this, integer -> {
+            searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
+                    String.valueOf(integer), "2"));
+
+        });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Log.i(TAG, "onItemClick: " + position);
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        Log.i(TAG, "onItemLongClick: " + position);
     }
 }

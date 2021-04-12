@@ -178,35 +178,7 @@ class ItemService:
         Returns:
             [type]: [description]
         """
-
-        image_dir = os.path.join("images", "items")
-
-        data = io.BytesIO()
-
-        with zipfile.ZipFile(data, mode="w") as z:
-            for id in ids:
-                item = ItemService.get_by_id(id)
-
-                item_image_dir = os.path.join(image_dir, f"item_{id}")
-
-                thumbnail = item.thumbnail or 0
-
-                thumbnail_file = f"images_{thumbnail}.jpg"
-                z.write(
-                    os.path.join(item_image_dir, thumbnail_file),
-                    arcname=os.path.join("thumbnails", f"thumbnail_{id}.jpg"),
-                )
-
-        data.seek(0)
-
-        zip_filename = f"item_{id}_thumbnails.zip"
-
-        return send_file(
-            data,
-            mimetype="application/zip",
-            as_attachment=True,
-            attachment_filename=zip_filename,
-        )
+        pass
 
     @staticmethod
     def transform(attrs: dict) -> dict:

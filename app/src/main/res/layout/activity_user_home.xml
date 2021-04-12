@@ -105,8 +105,8 @@
 
         <ImageButton
             android:id="@+id/homeViewHistoryBtn"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
             android:contentDescription="TODO"
             android:src="@drawable/ic_cart_foreground"
@@ -119,8 +119,8 @@
 
         <ImageButton
             android:id="@+id/homeWishListBtn"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
             android:contentDescription="TODO"
             android:src="@drawable/ic_cart_foreground"
@@ -134,8 +134,8 @@
 
         <ImageButton
             android:id="@+id/homeCartBtn"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
             android:contentDescription="TODO"
             android:src="@drawable/ic_cart_foreground"
@@ -148,8 +148,8 @@
 
         <ImageButton
             android:id="@+id/homeOrdersBtn"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
             android:contentDescription="TODO"
             android:src="@drawable/ic_cart_foreground"
@@ -162,8 +162,8 @@
 
         <ImageButton
             android:id="@+id/homeNeedHelpBtn"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/ic_person_background"
             android:contentDescription="TODO"
             android:src="@drawable/ic_person_foreground"
@@ -176,8 +176,8 @@
 
         <ImageButton
             android:id="@+id/homeViewAllItemsBtn"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/ic_search_background"
             android:contentDescription="TODO"
             android:src="@drawable/ic_search_foreground"
@@ -270,15 +270,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemBackground="@color/centauri_red"
+        app:itemIconSize="48dp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1"
         app:menu="@menu/bottom_nav_menu" />
     <!--    End of Bottom Navigation Bar-->
 
