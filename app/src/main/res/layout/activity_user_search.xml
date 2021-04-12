@@ -44,11 +44,12 @@
             app:layout_constraintVertical_bias="0.02">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/search_keyword_str"
-                android:textStyle="italic"
-                android:textColorHint="@color/black" />
+                android:textColorHint="@color/black"
+                android:textStyle="italic" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
@@ -103,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/search_top_action_bar"
         app:layout_constraintVertical_bias="0.15">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/forwardArrow"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -112,9 +113,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            android:scaleType="fitXY"
+            android:background="?selectableItemBackgroundBorderless"
             app:srcCompat="@drawable/ic_right_arrow_black" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/backArrow"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -123,6 +126,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

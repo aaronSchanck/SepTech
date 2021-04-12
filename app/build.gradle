@@ -111,4 +111,7 @@ dependencies {
 
     //dexter - permission handling
     implementation 'com.karumi:dexter:6.2.2'
+
+    //IOutils
+    implementation 'commons-io:commons-io:2.8.0'
 }

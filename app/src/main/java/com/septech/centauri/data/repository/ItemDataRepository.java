@@ -23,6 +23,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * An implementation of the domain-level ItemRepository. Will pull data from an arbitrary
@@ -106,16 +107,33 @@ public class ItemDataRepository implements ItemRepository {
     }
 
     @Override
-    public Observable<List<Item>> searchItems(String query) {
+    public Observable<List<Item>> searchItems(String query, int page) {
         if (query.equals("")) {
-            return restApiImpl.viewAll().map(ItemDataMapper::transformItemEntityList);
+            return restApiImpl.viewAll(page).map(ItemDataMapper::transformItemEntityList);
         } else {
-            return restApiImpl.search(query).map(ItemDataMapper::transformItemEntityList);
+            return restApiImpl.search(query, page).map(ItemDataMapper::transformItemEntityList);
         }
     }
 
     @Override
-    public Single<ResponseBody> getImagesZip(int id) {
-        return restApiImpl.getImagesZip(id);
+    public Observable<Response<ResponseBody>> getImagesZip(int[] itemIds) {
+        StringBuilder ids = new StringBuilder();
+
+        for (int i = 0; i < itemIds.length; i++) {
+            if (i != 0) ids.append(",");
+
+            ids.append(itemIds[i]);
+        }
+
+        return restApiImpl.getImagesZip(ids.toString());
+    }
+
+    @Override
+    public Single<Integer> getAmountInQuery(String query) {
+        if (query.equals("")) {
+            return restApiImpl.getAmountItems();
+        } else {
+            return restApiImpl.getAmountInQuery(query);
+        }
     }
 }

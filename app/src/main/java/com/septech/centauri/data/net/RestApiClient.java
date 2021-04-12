@@ -18,6 +18,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -89,16 +90,24 @@ public class RestApiClient {
         return restApi.createItem(imagesArr, itemEntity);
     }
 
-    public Observable<List<ItemEntity>> viewAll() {
-        return restApi.viewAll();
+    public Observable<List<ItemEntity>> viewAll(int page) {
+        return restApi.viewAll(page);
     }
 
-    public Observable<List<ItemEntity>> search(String searchQuery) {
-        return restApi.search(searchQuery);
+    public Single<Integer> getAmountItems() {
+        return restApi.getAmountItems();
     }
 
-    public Single<ResponseBody> getImagesZip(int id) {
-        return restApi.getImagesZip(id);
+    public Observable<List<ItemEntity>> search(String searchQuery, int page) {
+        return restApi.search(searchQuery, page);
+    }
+
+    public Single<Integer> getAmountInQuery(String query) {
+        return restApi.getAmountInQuery(query);
+    }
+
+    public Observable<Response<ResponseBody>> getImagesZip(String itemIds) {
+        return restApi.getImagesZip(itemIds);
     }
 
     //BUSINESSES

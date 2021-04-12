@@ -5,10 +5,12 @@ import com.septech.centauri.domain.models.Item;
 import java.io.File;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * A domain-level interface of a repository for the Items table.
@@ -16,7 +18,9 @@ import retrofit2.Call;
 public interface ItemRepository {
     Single<Item> createItem(Item item, List<String> imagePaths);
 
-    Observable<List<Item>> searchItems(String query);
+    Observable<List<Item>> searchItems(String query, int page);
 
-    Single<ResponseBody> getImagesZip(int id);
+    Observable<Response<ResponseBody>> getImagesZip(int[] itemIds);
+
+    Single<Integer> getAmountInQuery(String query);
 }

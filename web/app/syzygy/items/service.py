@@ -21,6 +21,10 @@ import re
 from collections import OrderedDict
 from datetime import datetime
 from typing import List
+import io
+import zipfile
+
+from flask import send_file
 
 import werkzeug
 from app import db
@@ -129,8 +133,21 @@ class ItemService:
         return new_item
 
     @staticmethod
-    def search(search_str: str):
-        return Item.query.filter(Item.name.ilike(f"%{search_str}%")).all()
+    def search(
+        search_str: str, filters: dict, page: int = 0, page_size: int = 20
+    ) -> List:
+        query = Item.query.filter(Item.name.ilike(f"%{search_str}%")).filter_by(
+            **filters
+        )
+
+        query = query.offset(page * page_size)
+
+        query = query.limit(page_size)
+
+        return query.all()
+
+    def search_amount(search_str: str) -> int:
+        return len(Item.query.filter(Item.name.ilike(f"%{search_str}%")).all())
 
     @staticmethod
     def parse_images(base_path, request_files):
@@ -150,6 +167,46 @@ class ItemService:
             imagefile.save(path)
 
         return image_paths
+
+    @staticmethod
+    def get_item_thumbnails(ids: List):
+        """Gets specified image thumbnails from a list of item ids
+
+        Args:
+            ids (List): [description]
+
+        Returns:
+            [type]: [description]
+        """
+
+        image_dir = os.path.join("images", "items")
+
+        data = io.BytesIO()
+
+        with zipfile.ZipFile(data, mode="w") as z:
+            for id in ids:
+                item = ItemService.get_by_id(id)
+
+                item_image_dir = os.path.join(image_dir, f"item_{id}")
+
+                thumbnail = item.thumbnail or 0
+
+                thumbnail_file = f"images_{thumbnail}.jpg"
+                z.write(
+                    os.path.join(item_image_dir, thumbnail_file),
+                    arcname=os.path.join("thumbnails", f"thumbnail_{id}.jpg"),
+                )
+
+        data.seek(0)
+
+        zip_filename = f"item_{id}_thumbnails.zip"
+
+        return send_file(
+            data,
+            mimetype="application/zip",
+            as_attachment=True,
+            attachment_filename=zip_filename,
+        )
 
     @staticmethod
     def transform(attrs: dict) -> dict:
