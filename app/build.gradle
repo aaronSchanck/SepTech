@@ -111,4 +111,13 @@ dependencies {
 
     //dexter - permission handling
     implementation 'com.karumi:dexter:6.2.2'
+
+    // Smack API
+    def smackVersion = '4.4.2'
+    implementation "org.igniterealtime.smack:smack-tcp:$smackVersion"
+    implementation "org.igniterealtime.smack:smack-experimental:$smackVersion"
+    //implementation "org.igniterealtime.smack:smack-android:$smackVersion"
+
+    // ChatKit - ui for chat
+    implementation 'com.github.stfalcon-studio:Chatkit:v0.4.1'
 }
