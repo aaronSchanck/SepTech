@@ -16,9 +16,14 @@
 
     </style>
 
+    <style name="CustomActionBar" parent="android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/CustomActionBarStyle</item>
+    </style>
+
     <style name="Theme.Centauri.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:editTextColor">@android:color/white</item>
     </style>
 
     <style name="Theme.Centauri.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

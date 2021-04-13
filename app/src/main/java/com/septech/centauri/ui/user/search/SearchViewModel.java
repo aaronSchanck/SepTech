@@ -44,9 +44,10 @@ public class SearchViewModel extends ViewModel {
 
     private MutableLiveData<List<Item>> itemsLiveData = new MutableLiveData<>();
     private MutableLiveData<Map<Integer, Uri>> imagesLiveData = new MutableLiveData<>();
-    private Integer currentPage;
     private MutableLiveData<Integer> searchAmount = new MutableLiveData<>();
     private String currentQuery;
+    private Integer pageSize;
+    private Integer currentPage;
 
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
@@ -54,6 +55,7 @@ public class SearchViewModel extends ViewModel {
         itemRepo = ItemDataRepository.getInstance();
 
         currentPage = 0;
+        pageSize = 20;
     }
 
     public void search() {
@@ -252,5 +254,9 @@ public class SearchViewModel extends ViewModel {
 
     public String getCurrentQuery() {
         return currentQuery;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
     }
 }

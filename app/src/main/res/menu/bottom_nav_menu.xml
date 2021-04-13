@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/person"
+        android:id="@+id/bottom_person"
         android:icon="@drawable/ic_person_foreground"
         android:title="My Account" />
 
     <item
-        android:id="@+id/messages"
+        android:id="@+id/bottom_messages"
         android:icon="@drawable/ic_messages_foreground"
         android:title="Messages" />
 
     <item
-        android:id="@+id/cart"
+        android:id="@+id/bottom_cart"
         android:icon="@drawable/ic_cart_foreground"
         android:title="Shop" />
     <item
-        android:id="@+id/notifications"
+        android:id="@+id/bottom_notifications"
         android:icon="@drawable/ic_notification_foreground"
         android:title="Notifications" />
     <item
-        android:id="@+id/search"
+        android:id="@+id/bottom_search"
         android:icon="@drawable/ic_search_foreground"
         android:title="Search" />
 </menu>
