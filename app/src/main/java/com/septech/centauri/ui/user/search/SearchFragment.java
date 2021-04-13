@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.septech.centauri.R;
+import com.septech.centauri.ui.user.home.FilterViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,8 @@ public class SearchFragment extends Fragment implements ItemAdapter.OnItemListen
     private static final String TAG = "SearchFragment";
 
     private SearchViewModel mViewModel;
+
+    private FilterViewModel mFilterViewModel;
 
     private RecyclerView rvItems;
     private ItemAdapter adapter;
@@ -81,6 +84,8 @@ public class SearchFragment extends Fragment implements ItemAdapter.OnItemListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+
+        mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
 
         createButtonListeners();
         createLiveDataObservers();

@@ -193,4 +193,8 @@
     <string name="continue_as_guest_user">Continue as Guest User</string>
     <string name="placeholder">$%1$s</string>
     <string name="item_amount_string">%1$s results found in %2$s seconds.</string>
+    <string name="bottom_cart">Cart</string>
+    <string name="bottom_notifications">Notifications</string>
+    <string name="bottom_my_account">My Account</string>
+    <string name="bottom_messages">Messages</string>
 </resources>

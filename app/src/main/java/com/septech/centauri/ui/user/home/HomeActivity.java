@@ -7,38 +7,55 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.slider.RangeSlider;
 import com.septech.centauri.R;
+
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private HomeViewModel mViewModel;
+    private FilterViewModel mViewModel;
 
     private TextView cartItemsTextView;
     private EditText searchEditText;
 
     private SearchView searchView;
 
+    private DrawerLayout mDrawerLayout;
+    private NavigationView navView;
+    private Toolbar toolbar;
+
+    private RangeSlider slider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(FilterViewModel.class);
 
 //        createTextWatchers();
 //
 //        createButtonListeners();
-
-        MaterialToolbar toolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        mDrawerLayout = findViewById(R.id.drawer);
+        navView = findViewById(R.id.navView);
+        toolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
 
         setSupportActionBar(toolbar);
 
@@ -49,6 +66,50 @@ public class HomeActivity extends AppCompatActivity {
                     .commit();
         }
 
+        setupDrawer();
+
+        slider = findViewById(R.id.rangeSlider);
+
+        slider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(@NonNull RangeSlider slider) {
+                System.out.println("slider = " + slider);
+            }
+
+            @Override
+            public void onStopTrackingTouch(@NonNull RangeSlider slider) {
+                System.out.println("slider = " + slider);
+            }
+        });
+
+        slider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                System.out.println("slider = " + slider + ", value = " + value + ", fromUser = " + fromUser);
+            }
+        });
+
+        slider.setLabelFormatter(value -> {
+            String COUNTRY = "US";
+            String LANGUAGE = "en";
+
+            return NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(value);
+        });
+
+        mViewModel.getSliderLiveData().setValue(slider.getValues().get(0));
+
+        System.out.println("savedInstanceState = " + savedInstanceState);
+    }
+
+    private void setupDrawer() {
+        // Show the burger button on the ActionBar
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
     private void createButtonListeners() {
@@ -123,5 +184,24 @@ public class HomeActivity extends AppCompatActivity {
                 //TODO
             }
         });
+    }
+
+    public void onNavigationButtonClick(View view) {
+        mDrawerLayout.closeDrawer(navView);
+
+        switch (view.getId()) {
+            case R.id.button1:
+                // Do something with button 1
+                break;
+
+            case R.id.button2:
+                // Do something with button 2
+                break;
+
+            case R.id.button3:
+                // Do something with button 3
+                break;
+
+        }
     }
 }

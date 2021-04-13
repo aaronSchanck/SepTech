@@ -128,12 +128,8 @@ public interface RestApi {
     @GET("items/search/{query}/amount")
     Single<Integer> getAmountInQuery(@Path("query") String query);
 
-//    @Headers({
-//            "Content-Type: application/json;charset=utf-8",
-//            "Accept: application/json"
-//    })
+    @Headers({"Connection: close"})
     @Streaming
-    @Headers("Connection: close")
     @GET("items/search/images")
     Observable<Response<ResponseBody>> getImagesZip(@Query("ids") String ids);
 

@@ -10,11 +10,13 @@ import com.septech.centauri.domain.models.User;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -36,8 +38,15 @@ public class RestApiClient {
     private Gson gson;
 
     private RestApiClient() {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .readTimeout(40, TimeUnit.SECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .build();
+
         gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -50,6 +59,7 @@ public class RestApiClient {
         }
         return instance;
     }
+
     //USERS
     public Single<UserEntity> login(@NonNull String username, @NonNull String password) {
         return restApi.login(username, password);
