@@ -79,6 +79,8 @@ class ItemResource(Resource):
 class ItemSearchResource(Resource):
     @use_args(SearchSchema(), location="query")
     def get(self, args):
+        print(args)
+
         items = ItemService.search(
             search_str="", filters={}, page=args["page"], page_size=20
         )
@@ -140,13 +142,15 @@ class ItemImageSearchResource(Resource):
 @api.param("search_str", "Item search string")
 class ItemSearchQueryResource(Resource):
     @use_args(SearchSchema(), location="query")
-    def get(self, search_str: str):
+    def get(self, args, search_str: str):
+        print(args)
+        print(search_str)
 
         items = ItemService.search(
             search_str=search_str, filters={}, page=args["page"], page_size=20
         )
 
-        return ItemService.search(search_str)
+        return item_schema_many.dump(items)
 
 
 @api.route("/search/<search_str>/amount")
@@ -154,6 +158,8 @@ class ItemSearchQueryResource(Resource):
 class ItemSearchQueryAmountResource(Resource):
     def get(self, search_str: str):
         print("Amount query")
+
+        print(search_str)
 
         return ItemService.search_amount(search_str=search_str)
 
@@ -220,33 +226,31 @@ class ItemCreateResource(Resource):
         return item_schema.dump(item)
 
 
-# @api.route("/images/<int:id>")
-# class ItemImagesResource(Resource):
-#     def get(self, id: int):
-#         output_dir = os.path.join("output", "image_zips")
-#         try:
-#             os.makedirs(output_dir)
-#         except OSError:
-#             pass
+@api.route("/search/images/<int:id>")
+@api.param("id", "Item Database ID")
+class ItemImagesResource(Resource):
+    def get(self, id: int):
+        print("Image query")
 
-#         filename = f"item_{id}_images.zip"
-#         images_dir = os.path.join("images", "items", f"item_{id}")
+        images_dir = os.path.join("images", "items", f"item_{id}")
 
-#         data = io.BytesIO()
+        data = io.BytesIO()
 
-#         with zipfile.ZipFile(data, mode="w") as z:
-#             for file in os.listdir(images_dir):
-#                 z.write(
-#                     os.path.join(images_dir, file), arcname=os.path.join("images", file)
-#                 )
+        with zipfile.ZipFile(data, mode="w") as z:
+            for file in os.listdir(images_dir):
+                z.write(
+                    os.path.join(images_dir, file), arcname=os.path.join("images", file)
+                )
 
-#         data.seek(0)
+        data.seek(0)
 
-#         print("diag", id)
+        zip_filename = f"images.zip"
 
-#         return send_file(
-#             data,
-#             mimetype="application/zip",
-#             as_attachment=True,
-#             attachment_filename=filename,
-#         )
+        print("Sending")
+
+        return send_file(
+            data,
+            mimetype="application/zip",
+            as_attachment=True,
+            attachment_filename=zip_filename,
+        )

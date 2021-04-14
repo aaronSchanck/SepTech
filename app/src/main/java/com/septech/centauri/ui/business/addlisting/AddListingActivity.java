@@ -89,15 +89,9 @@ public class AddListingActivity extends AppCompatActivity {
         itemNameEditText = findViewById(R.id.itemNameEditText);
         itemQualityEditText = findViewById(R.id.itemQualityEditText);
         itemQuantityEditText = findViewById(R.id.itemQuantityEditText);
-        auctionLengthEditText = findViewById(R.id.auctionLengthEditText);
         startingBidEditText = findViewById(R.id.startingBidEditText);
         minimumBidEditText = findViewById(R.id.minimumBidEditText);
         buyoutPriceEditText = findViewById(R.id.buyoutPriceEditText);
-        mainCategoryEditText = findViewById(R.id.mainCategoryEditText);
-        categoryTwoEditText = findViewById(R.id.categoryTwoEditText);
-        categoryThreeEditText = findViewById(R.id.categoryThreeEditText);
-        categoryFourEditText = findViewById(R.id.categoryFourEditText);
-        categoryFiveEditText = findViewById(R.id.categoryFiveEditText);
         itemDescriptionEditText = findViewById(R.id.itemDescriptionEditText);
 
         uploadImageButton = findViewById(R.id.uploadImageButton);

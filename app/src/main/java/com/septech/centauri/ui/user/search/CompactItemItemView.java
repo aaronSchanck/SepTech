@@ -7,32 +7,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.repository.ItemDataRepository;
 import com.septech.centauri.domain.models.Item;
-import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.util.List;
 import java.util.Map;
 
 import static com.septech.centauri.persistent.CentauriApp.getAppContext;
 
-public class ItemAdapter extends
-        RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+class CompactItemItemView extends
+        RecyclerView.Adapter<CompactItemItemView.ViewHolder> implements ItemViewConversion {
 
     private List<Item> mItems;
 
     private Map<Integer, Uri> images;
 
-    private OnItemListener onItemListener;
+    private OnSearchItemListener onItemListener;
 
-    public ItemAdapter(OnItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
+    public CompactItemItemView(OnSearchItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
         this.onItemListener = onItemListener;
         this.mItems = mItems;
         this.images = images;
@@ -45,7 +42,7 @@ public class ItemAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View itemView = inflater.inflate(R.layout.fragment_user_search_item_compact, parent, false);
+        View itemView = inflater.inflate(R.layout.user_search_item_fragment_compact, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(itemView, onItemListener);
@@ -85,6 +82,11 @@ public class ItemAdapter extends
         return mItems.size();
     }
 
+    @Override
+    public int get(int position) {
+        return mItems.get(position).getId();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView nameTextView;
         public ImageView itemImageView;
@@ -92,12 +94,12 @@ public class ItemAdapter extends
 
         public ImageView checkMarkImageView;
 
-        OnItemListener onItemListener;
+        private final OnSearchItemListener onSearchItemListener;
 
-        public ViewHolder(View itemView, OnItemListener onItemListener) {
+        public ViewHolder(View itemView, OnSearchItemListener onSearchItemListener) {
             super(itemView);
 
-            this.onItemListener = onItemListener;
+            this.onSearchItemListener = onSearchItemListener;
 
             itemImageView = itemView.findViewById(R.id.itemImage);
             nameTextView = itemView.findViewById(R.id.itemName);
@@ -111,18 +113,13 @@ public class ItemAdapter extends
 
         @Override
         public void onClick(View v) {
-            onItemListener.onItemClick(getBindingAdapterPosition());
+            onSearchItemListener.onItemClick(getBindingAdapterPosition());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            onItemListener.onItemLongClick(getBindingAdapterPosition());
+            onSearchItemListener.onItemLongClick(getBindingAdapterPosition());
             return true;
         }
-    }
-
-    public interface OnItemListener {
-        void onItemClick(int position);
-        void onItemLongClick(int position);
     }
 }
