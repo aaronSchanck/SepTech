@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.forgotpasswordcode.ForgotPasswordCodeViewModel;
 import com.septech.centauri.ui.user.login.LoginActivity;
 import com.septech.centauri.ui.user.register.RegisterViewModel;
@@ -38,6 +41,9 @@ public class NewPasswordActivity extends AppCompatActivity {
 
         TextInputLayout newPasswordTextInput = findViewById(R.id.EnterNewPasswordInput);
         TextInputLayout verifyNewPasswordTextInput = findViewById(R.id.VerifyNewPasswordInput);
+
+        mNewPasswordEditText = newPasswordTextInput.getEditText();
+        mVerifyNewPasswordEditText = verifyNewPasswordTextInput.getEditText();
 
         Button mVerifyButton = findViewById(R.id.VerifyButton);
 
@@ -74,13 +80,20 @@ public class NewPasswordActivity extends AppCompatActivity {
         });
 
         mNewPasswordViewModel.getResponseLiveData().observe(this, response -> {
+            int duration = Toast.LENGTH_SHORT;
+
+            CharSequence text;
+            Toast toast;
             switch (response) {     // TODO: include a case for password being the same as previous
                 case MISMATCH_PASSWORD:
-                    break;
+                    text = "Password does not match";
+                    toast = Toast.makeText(getApplicationContext(), text, duration);
+                    toast.show();
                 case LOADING:
                     break;
                 case SUCCESS:
-                    // TODO: return to login page
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
                     break;
             }
         });

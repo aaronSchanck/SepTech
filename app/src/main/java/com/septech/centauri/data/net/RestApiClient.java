@@ -1,5 +1,7 @@
 package com.septech.centauri.data.net;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
@@ -9,6 +11,7 @@ import com.septech.centauri.domain.models.User;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -59,16 +62,16 @@ public class RestApiClient {
         return restApi.createUser(userEntity);
     }
 
-    public Single<UserEntity> changePassword(UserEntity userEntity, String email) {
-        return restApi.changePassword(userEntity, email);
-    }
-
     public Single<UserEntity> getUserById(int userid) {
         return restApi.getUserById(userid);
     }
 
     public Single<UserEntity> deleteUser(int userid) {
         return restApi.deleteUser(userid);
+    }
+
+    public Single<UserEntity> updateUser(int userid) {
+        return restApi.updateUser(userid);
     }
 
     public Observable<List<UserEntity>> getAllUsers() {

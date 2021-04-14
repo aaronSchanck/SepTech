@@ -11,6 +11,7 @@ import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -63,6 +64,11 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
+    public Single<User> updateUser(int userid) {
+        return restApiImpl.updateUser(userid).map(UserDataMapper::transform);
+    }
+
+    @Override
     public void createUser(User user) {
         restApiImpl.createUser(UserDataMapper.transform(user));
     }
@@ -98,10 +104,5 @@ public class UserDataRepository implements UserRepository {
     @Override
     public Single<String> forgotPassword(String email) {
         return restApiImpl.forgotPassword(email);
-    }
-
-    @Override
-    public Single<User> changePassword(User user, String email) {
-        return restApiImpl.changePassword(UserDataMapper.transform(user), email).map(UserDataMapper::transform);
     }
 }

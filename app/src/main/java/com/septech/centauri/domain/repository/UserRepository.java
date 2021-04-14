@@ -3,6 +3,7 @@ package com.septech.centauri.domain.repository;
 
 import com.septech.centauri.domain.models.User;
 
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -21,6 +22,12 @@ public interface UserRepository {
      * @return
      */
     Single<User> getUserById(int userid);
+
+    /**
+     * @param userid
+     * @return
+     */
+    Single<User> updateUser(int userid);
 
     /**
      * Attempts to log in a user with the specified username, password, and passwordSalt. The
@@ -87,6 +94,4 @@ public interface UserRepository {
     Single<String> verifyPasswordCode(String code, String email);
 
     Single<String> forgotPassword(String email);
-
-    Single<User> changePassword(User user, String email);
 }

@@ -1,7 +1,6 @@
 package com.septech.centauri.ui.user.newpassword;
 
 import android.util.Log;
-import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,9 +11,6 @@ import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
-import com.septech.centauri.lib.DateTime;
-import com.septech.centauri.ui.user.register.RegisterFormState;
-import com.septech.centauri.ui.user.register.RegisterResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -29,6 +25,7 @@ public class NewPasswordViewModel extends ViewModel {
     private final MutableLiveData<NewPasswordCloudResponse> responseLiveData = new MutableLiveData<>();
 
     private final UserRepository userRepo;
+
 
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
@@ -51,12 +48,7 @@ public class NewPasswordViewModel extends ViewModel {
         PasswordUtils pwUtils = new PasswordUtils(password);
         String pwHash = pwUtils.hash();
 
-        User user = new User();
-
-        user.setPassword(pwHash);
-        user.setPasswordSalt(pwUtils.getSalt());
-
-        mDisposables.add(userRepo.changePassword(user, email)
+        mDisposables.add(userRepo.getUserByEmail(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
@@ -67,8 +59,13 @@ public class NewPasswordViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull User user) {
+                        Log.d("PRE ", user.getPasswordSalt());
+                        user.setPassword(pwHash);
+                        user.setPasswordSalt(pwUtils.getSalt());
+                        int userId = user.getId();
+                        userRepo.updateUser(userId);
                         responseLiveData.setValue(NewPasswordCloudResponse.SUCCESS);
-                        System.out.println("user = " + user);
+                        Log.d("POST ", user.getPasswordSalt());
                     }
 
                     @Override

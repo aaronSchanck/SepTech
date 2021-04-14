@@ -86,6 +86,8 @@ class UserIdResource(Resource):
         """Update Single User"""
 
         changes = request.parsed_obj
+        print("Changes:")
+        print(changes)
 
         user = UserService.get_by_id(id)
         return UserService.update(user, changes)

@@ -7,6 +7,7 @@ import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.User;
 
 import java.io.File;
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -59,6 +60,14 @@ public interface RestApi {
     Single<UserEntity> createUser(@Body UserEntity userEntity);
 
     /**
+     * GET endpoint interface method for getting all users from the table.
+     *
+     * @return All user entities y
+     */
+    @GET("users")
+    Observable<List<UserEntity>> getAllUsers();
+
+    /**
      * GET endpoint interface method for getting a user by their userid. Mostly used as a
      * private method for some functionalities.
      *
@@ -67,14 +76,6 @@ public interface RestApi {
      */
     @GET("users/{userid}")
     Single<UserEntity> getUserById(@Path("userid") int userid);
-
-    /**
-     * GET endpoint interface method for getting all users from the table.
-     *
-     * @return All user entities y
-     */
-    @GET("users")
-    Observable<List<UserEntity>> getAllUsers();
 
     /**
      * Deletes a user based off of their id. If a user with the specified id exists, then the
@@ -88,6 +89,15 @@ public interface RestApi {
     Single<UserEntity> deleteUser(@Path("userid") int userid);
 
     /**
+     * Updates a user based off of their id.
+     *
+     * @param userid
+     * @return
+     */
+    @PUT("users/{userid}")
+    Single<UserEntity> updateUser(@Path("userid") int userid);
+
+    /**
      * @param email
      * @return
      */
@@ -96,9 +106,6 @@ public interface RestApi {
 
     @PUT("users/{email}")
     Single<String> forgotPassword(@Path("email") String email);
-
-    @PUT("users/{email}")
-    Single<UserEntity> changePassword(@Body UserEntity userEntity, @Path("email") String email);
 
     /**
      * @param email
