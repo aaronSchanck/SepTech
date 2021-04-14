@@ -1,12 +1,9 @@
 package com.septech.centauri.ui.user.listing;
 
-import androidx.camera.core.impl.LiveDataObservable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,13 +25,12 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
-import static com.septech.centauri.persistent.CentauriApp.getAppContext;
-
-public class ListingFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class ListingFragment extends Fragment {
 
     private ListingViewModel mViewModel;
 
@@ -78,7 +73,6 @@ public class ListingFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onClick(View v) {
                 System.out.println("v = " + v);
-                getActivity().onBackPressed();
             }
         });
 
@@ -87,7 +81,6 @@ public class ListingFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onClick(View v) {
                 System.out.println("v = " + v);
-                getActivity().onBackPressed();
             }
         });
 
@@ -97,7 +90,17 @@ public class ListingFragment extends Fragment implements AdapterView.OnItemSelec
         listingRatingScore = view.findViewById(R.id.listingRatingScore);
 
         listingSpinner = view.findViewById(R.id.listingSpinner);
-        listingSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        listingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                System.out.println("parent = " + parent);
+            }
+        });
 
         List<String> spinnerChoices = new ArrayList<>();
         spinnerChoices.add("Most Recent");
@@ -106,7 +109,7 @@ public class ListingFragment extends Fragment implements AdapterView.OnItemSelec
         spinnerChoices.add("Lowest Rated");
         spinnerChoices.add("Most Helpful");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(requireActivity(),
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(requireActivity(),
                 android.R.layout.simple_list_item_1);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -128,31 +131,33 @@ public class ListingFragment extends Fragment implements AdapterView.OnItemSelec
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
 
-        mViewModel.getItem(savedInstanceState.getInt("id"));
+        mViewModel.getItem(getArguments().getInt("id"));
 
         createLiveDataObservers();
     }
 
     private void createLiveDataObservers() {
-        mViewModel.getItem().observe(getViewLifecycleOwner(), new Observer<Item>() {
+        mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), new Observer<Item>() {
             @Override
             public void onChanged(Item item) {
+                mViewModel.getImages(item);
 
+                listingNameTextView.setText(item.getName());
+
+                String COUNTRY = "US";
+                String LANGUAGE = "en";
+
+                listingPriceTextView.setText(NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(item.getBuyoutPrice()));
+                listingDescTextView.setText(item.getDescription());
+
+                //set rating bar and score
+
+                //add reviews adapter
             }
         });
 
         mViewModel.getReviews().observe(getViewLifecycleOwner(),
                 itemReviews -> System.out.println("itemReviews = " + itemReviews));
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     static class ReviewAdapter extends

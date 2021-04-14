@@ -59,6 +59,11 @@ public class LoginViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
+                    protected void onStart() {
+                        responseLiveData.setValue(LoginResponse.SEARCHING);
+                    }
+
+                    @Override
                     public void onSuccess(@NonNull User user) {
                         responseLiveData.setValue(LoginResponse.USER_FOUND);
                         userLiveData.setValue(user);

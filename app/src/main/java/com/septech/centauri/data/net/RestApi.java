@@ -136,6 +136,11 @@ public interface RestApi {
     @GET("items/search/images")
     Observable<Response<ResponseBody>> getItemThumbnails(@Query("ids") String ids);
 
+    @Headers({"Connection: close"})
+    @Streaming
+    @GET("items/search/images/{id}")
+    Observable<Response<ResponseBody>> getImages(@Path("id") int itemId);
+
     //BUSINESS ENDPOINTS
 
     @POST("businesses/login")

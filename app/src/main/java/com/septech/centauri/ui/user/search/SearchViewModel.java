@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.repository.ItemDataRepository;
+import com.septech.centauri.data.repository.ItemRepositoryImpl;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.repository.ItemRepository;
 import com.septech.centauri.lib.Zip;
@@ -37,7 +37,7 @@ public class SearchViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public SearchViewModel() {
-        itemRepo = ItemDataRepository.getInstance();
+        itemRepo = ItemRepositoryImpl.getInstance();
 
         currentPage = 0;
         pageSize = 20;
@@ -105,7 +105,7 @@ public class SearchViewModel extends ViewModel {
         mDisposables.add(itemRepo.getItemThumbnails(itemIds)
                 .flatMap(Zip.processResponse())
                 .retry(25) //must be used when running the emulator, don't ask. I don't know why
-                .flatMap(Zip.unpackZip())
+                .flatMap(Zip.unpackZipThumbnails())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Map<Integer, Uri>>() {

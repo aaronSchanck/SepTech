@@ -4,6 +4,7 @@ import com.septech.centauri.domain.models.Item;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -25,4 +26,6 @@ public interface ItemRepository {
     Observable<Response<ResponseBody>> getItemThumbnails(int[] itemIds);
 
     Single<Integer> getAmountInQuery(String query);
+
+    Observable<Response<ResponseBody>> getImages(int itemId);
 }

@@ -9,7 +9,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -59,7 +61,7 @@ public class Zip {
         });
     }
 
-    public static Function<File, Observable<Map<Integer, Uri>>> unpackZip() {
+    public static Function<File, Observable<Map<Integer, Uri>>> unpackZipThumbnails() {
         return file -> {
             InputStream is;
             ZipInputStream zis;
@@ -105,6 +107,63 @@ public class Zip {
                             ""));
 
                     uris.put(itemId, Uri.fromFile(fileEntry));
+                }
+
+                zis.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File extractedFile = new File(file.getAbsolutePath().replace(".zip", ""));
+            if (!file.delete()) Log.w("unpackZip", "Failed to delete the zip file.");
+            return Observable.just(uris);
+        };
+    }
+
+    public static Function<File, Observable<List<Uri>>> unpackZipImages() {
+        return file -> {
+            InputStream is;
+            ZipInputStream zis;
+
+            String parentFolder;
+            String filename;
+
+            List<Uri> uris = new ArrayList<>();
+            try {
+                File extractedFile = new File(file.getAbsolutePath().replace(".zip", ""));
+                extractedFile.mkdir();
+
+                parentFolder = file.getParentFile().getPath();
+
+
+                is = new FileInputStream(file.getAbsolutePath());
+                zis = new ZipInputStream(new BufferedInputStream(is));
+                ZipEntry ze;
+                byte[] buffer = new byte[1024];
+                int count;
+
+                while ((ze = zis.getNextEntry()) != null) {
+                    filename = ze.getName();
+
+                    if (ze.isDirectory()) {
+                        File fmd = new File(parentFolder + "/" + filename);
+                        fmd.mkdirs();
+                        continue;
+                    }
+
+                    File fileEntry = new File(parentFolder + "/" + filename);
+
+                    FileOutputStream fout = new FileOutputStream(fileEntry);
+
+                    while ((count = zis.read(buffer)) != -1) {
+                        fout.write(buffer, 0, count);
+                    }
+
+                    fout.close();
+                    zis.closeEntry();
+
+                    uris.add(Uri.fromFile(fileEntry));
                 }
 
                 zis.close();

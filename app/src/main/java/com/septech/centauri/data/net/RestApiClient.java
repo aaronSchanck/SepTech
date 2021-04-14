@@ -137,4 +137,8 @@ public class RestApiClient {
     public Single<BusinessEntity> createBusinessAccount(BusinessEntity businessEntity) {
         return restApi.createBusinessAccount(businessEntity);
     }
+
+    public Observable<Response<ResponseBody>> getImages(int itemId) {
+        return restApi.getImages(itemId);
+    }
 }

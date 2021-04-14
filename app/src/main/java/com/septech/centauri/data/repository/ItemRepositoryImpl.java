@@ -32,17 +32,17 @@ import retrofit2.Response;
  * @version 1.0
  * @since 1.0
  */
-public class ItemDataRepository implements ItemRepository {
+public class ItemRepositoryImpl implements ItemRepository {
     private static final String TAG = UserDataRepository.class.getSimpleName();
 
-    private static ItemDataRepository mInstance;
+    private static ItemRepositoryImpl mInstance;
 
     private BetelgeuseDatabase database;
     private final FileCache fileCache;
     private final RestApiClient restApiImpl;
     private final BetelgeuseDatabase localDb;
 
-    private ItemDataRepository() {
+    private ItemRepositoryImpl() {
         this.restApiImpl = RestApiClient.getInstance();
         this.localDb = BetelgeuseDatabase.getDatabase();
         this.fileCache = new FileCache();
@@ -54,9 +54,9 @@ public class ItemDataRepository implements ItemRepository {
      * @return The existing instance of the ItemDataRepository. If the instance doesn't exist, it
      * will return a new instance.
      */
-    public static ItemDataRepository getInstance() {
+    public static ItemRepositoryImpl getInstance() {
         if (mInstance == null) {
-            mInstance = new ItemDataRepository();
+            mInstance = new ItemRepositoryImpl();
         }
         return mInstance;
     }
@@ -138,5 +138,10 @@ public class ItemDataRepository implements ItemRepository {
         } else {
             return restApiImpl.getAmountInQuery(query);
         }
+    }
+
+    @Override
+    public Observable<Response<ResponseBody>> getImages(int itemId) {
+        return restApiImpl.getImages(itemId);
     }
 }
