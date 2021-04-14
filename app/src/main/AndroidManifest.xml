@@ -16,8 +16,8 @@
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
 
-        <!-- User Activities  -->
-        <activity android:name=".ui.user.login.LoginActivity"/>
+        <!-- User Activities -->
+        <activity android:name=".ui.user.login.LoginActivity" />
         <activity android:name=".ui.user.register.RegisterActivity" />
         <activity android:name=".ui.user.search.SearchActivity" />
         <activity android:name=".ui.user.forgotpassword.ForgotPasswordActivity" />
@@ -26,8 +26,10 @@
         <activity android:name=".ui.user.home.HomeActivity" />
         <activity android:name=".ui.user.cart.UserCartActivity"/>
         <activity android:name=".ui.user.settings.SettingsActivity" />
+        <activity android:name=".ui.user.chat.ChatActivity" />
+        <activity android:name=".ui.user.chat.ContactListActivity" />
 
-        <!-- Business Activities  -->
+        <!-- Business Activities -->
         <activity android:name=".ui.business.addlisting.AddListingActivity" />
         <activity android:name=".ui.business.login.BusinessLoginActivity" />
         <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity" />
@@ -35,7 +37,7 @@
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
         <activity android:name=".ui.business.home.BusinessHomeActivity"/>
 
-        <!-- On Launch  -->
+        <!-- On Launch -->
         <activity
             android:name=".ui.landing.LandingActivity"
             android:label="@string/app_name">

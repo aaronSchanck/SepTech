@@ -21,6 +21,10 @@ import re
 from collections import OrderedDict
 from datetime import datetime
 from typing import List
+import io
+import zipfile
+
+from flask import send_file
 
 import werkzeug
 from app import db
@@ -129,8 +133,21 @@ class ItemService:
         return new_item
 
     @staticmethod
-    def search(search_str: str):
-        return Item.query.filter(Item.name.ilike(f"%{search_str}%")).all()
+    def search(
+        search_str: str, filters: dict, page: int = 0, page_size: int = 20
+    ) -> List:
+        query = Item.query.filter(Item.name.ilike(f"%{search_str}%")).filter_by(
+            **filters
+        )
+
+        query = query.offset(page * page_size)
+
+        query = query.limit(page_size)
+
+        return query.all()
+
+    def search_amount(search_str: str) -> int:
+        return len(Item.query.filter(Item.name.ilike(f"%{search_str}%")).all())
 
     @staticmethod
     def parse_images(base_path, request_files):
@@ -150,6 +167,18 @@ class ItemService:
             imagefile.save(path)
 
         return image_paths
+
+    @staticmethod
+    def get_item_thumbnails(ids: List):
+        """Gets specified image thumbnails from a list of item ids
+
+        Args:
+            ids (List): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        pass
 
     @staticmethod
     def transform(attrs: dict) -> dict:

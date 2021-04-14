@@ -2,24 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/person"
-        android:title="My Account"
-        android:icon="@drawable/ic_person_foreground"/>
+        android:icon="@drawable/ic_person_foreground"
+        android:title="My Account" />
 
     <item
         android:id="@+id/messages"
-        android:title="Messages"
-        android:icon="@drawable/ic_messages_foreground"/>
+        android:icon="@drawable/ic_messages_foreground"
+        android:title="Messages" />
 
     <item
         android:id="@+id/cart"
-        android:title="Shop"
-        android:icon="@drawable/ic_cart_foreground"/>
+        android:icon="@drawable/ic_cart_foreground"
+        android:title="Shop" />
     <item
         android:id="@+id/notifications"
-        android:title="Notifications"
-        android:icon="@drawable/ic_notification_foreground"/>
+        android:icon="@drawable/ic_notification_foreground"
+        android:title="Notifications" />
     <item
         android:id="@+id/search"
-        android:title="Search"
-        android:icon="@drawable/ic_search_foreground"/>
+        android:icon="@drawable/ic_search_foreground"
+        android:title="Search" />
 </menu>

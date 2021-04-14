@@ -192,4 +192,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="continue_as_guest_user">Continue as Guest User</string>
+    <string name="placeholder">$%1$s</string>
+    <string name="item_amount_string">%1$s results found in %2$s seconds.</string>
 </resources>

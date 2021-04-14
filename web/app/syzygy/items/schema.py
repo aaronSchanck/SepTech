@@ -66,3 +66,7 @@ class ItemSchema(Schema):
 
 class ImageSchema(Schema):
     image = FileStorageField(required=True, load_only=True)
+
+
+class SearchSchema(Schema):
+    page = fields.Str()

@@ -67,6 +67,8 @@ class Item(db.Model):
     def __init__(self, **kwargs):
         super(Item, self).__init__(**kwargs)
 
+        self.thumbnail = 0 if len(self.images) > 0 else -1
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
