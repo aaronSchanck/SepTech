@@ -26,16 +26,17 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
-                android:backgroundTint="@color/text_black"
+                android:backgroundTint="@color/transparent"
                 android:scaleType="center"
-                android:scaleX="1"
-                android:scaleY="1"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:clickable="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_back_arrow" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/listingFAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -47,7 +48,7 @@
                 app:srcCompat="@drawable/ic_baseline_add_24" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/listingNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -59,17 +60,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/listingPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="TextView"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                app:layout_constraintStart_toStartOf="@+id/listingNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/listingNameTextView" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/listingImageView"
                 android:layout_width="0dp"
                 android:layout_height="276dp"
                 android:layout_marginStart="16dp"
@@ -77,48 +78,48 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView"
                 app:srcCompat="@drawable/centauri_logo" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imageBackBtn"
                 android:layout_width="65dp"
                 android:layout_height="0dp"
                 android:backgroundTint="@android:color/transparent"
                 android:scaleX="2"
                 android:scaleY="2"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
+                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintTop_toTopOf="@+id/listingImageView"
                 app:layout_constraintVertical_bias="0.497"
                 app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/imageForwardBtn"
                 android:layout_width="65dp"
                 android:layout_height="0dp"
                 android:backgroundTint="@android:color/transparent"
                 android:scaleX="2"
                 android:scaleY="2"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
+                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
+                app:layout_constraintTop_toTopOf="@+id/listingImageView"
                 app:srcCompat="@drawable/ic_right_arrow_black" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/listingDescTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="TextView"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
 
             <TextView
-                android:id="@+id/textView25"
+                android:id="@+id/itemRatingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="56dp"
@@ -126,8 +127,8 @@
                 android:textAllCaps="true"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
-                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                app:layout_constraintStart_toStartOf="@+id/listingDescTextView"
+                app:layout_constraintTop_toBottomOf="@+id/listingDescTextView" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -138,11 +139,11 @@
                 android:textAllCaps="true"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                app:layout_constraintStart_toStartOf="@+id/itemRatingTextView"
+                app:layout_constraintTop_toBottomOf="@+id/itemRatingTextView" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/listingSpinner"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="48dp"
@@ -156,23 +157,23 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/listingRatingBar"
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
-                app:layout_constraintBottom_toBottomOf="@+id/textView25"
-                app:layout_constraintStart_toStartOf="@+id/spinner2"
-                app:layout_constraintTop_toTopOf="@+id/textView25"
+                app:layout_constraintBottom_toBottomOf="@+id/itemRatingTextView"
+                app:layout_constraintStart_toStartOf="@+id/listingSpinner"
+                app:layout_constraintTop_toTopOf="@+id/itemRatingTextView"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/textView27"
+                android:id="@+id/listingRatingScore"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="3.5 out of 5"
-                app:layout_constraintStart_toStartOf="@+id/ratingBar"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                app:layout_constraintStart_toStartOf="@+id/listingRatingBar"
+                app:layout_constraintTop_toBottomOf="@+id/listingRatingBar" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -183,6 +184,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView26">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listingRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"

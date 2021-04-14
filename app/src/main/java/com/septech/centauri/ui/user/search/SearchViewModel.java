@@ -102,7 +102,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void getImages(int[] itemIds) {
-        mDisposables.add(itemRepo.getImagesZip(itemIds)
+        mDisposables.add(itemRepo.getItemThumbnails(itemIds)
                 .flatMap(Zip.processResponse())
                 .retry(25) //must be used when running the emulator, don't ask. I don't know why
                 .flatMap(Zip.unpackZip())

@@ -5,10 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
-import com.septech.centauri.domain.models.User;
 
-import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -17,16 +14,11 @@ import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public class RestApiClient {
 //    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
@@ -93,6 +85,10 @@ public class RestApiClient {
 
     //ITEMS
 
+    public Single<ItemEntity> getItemById(int id) {
+        return restApi.getItemById(id);
+    }
+
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
         MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
 
@@ -116,8 +112,8 @@ public class RestApiClient {
         return restApi.getAmountInQuery(query);
     }
 
-    public Observable<Response<ResponseBody>> getImagesZip(String itemIds) {
-        return restApi.getImagesZip(itemIds);
+    public Observable<Response<ResponseBody>> getItemThumbnails(String itemIds) {
+        return restApi.getItemThumbnails(itemIds);
     }
 
     //BUSINESSES

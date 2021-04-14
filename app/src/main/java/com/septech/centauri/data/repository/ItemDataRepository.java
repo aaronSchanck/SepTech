@@ -12,7 +12,6 @@ import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 
 /**
@@ -61,6 +59,11 @@ public class ItemDataRepository implements ItemRepository {
             mInstance = new ItemDataRepository();
         }
         return mInstance;
+    }
+
+    @Override
+    public Single<Item> getItemById(int id) {
+        return restApiImpl.getItemById(id).map(ItemDataMapper::transform);
     }
 
     /**
@@ -116,7 +119,7 @@ public class ItemDataRepository implements ItemRepository {
     }
 
     @Override
-    public Observable<Response<ResponseBody>> getImagesZip(int[] itemIds) {
+    public Observable<Response<ResponseBody>> getItemThumbnails(int[] itemIds) {
         StringBuilder ids = new StringBuilder();
 
         for (int i = 0; i < itemIds.length; i++) {
@@ -125,7 +128,7 @@ public class ItemDataRepository implements ItemRepository {
             ids.append(itemIds[i]);
         }
 
-        return restApiImpl.getImagesZip(ids.toString());
+        return restApiImpl.getItemThumbnails(ids.toString());
     }
 
     @Override
