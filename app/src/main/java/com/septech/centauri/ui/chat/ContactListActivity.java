@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.user.chat;
+package com.septech.centauri.ui.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.septech.centauri.R;
+import com.septech.centauri.ui.chat.models.Contact;
+import com.septech.centauri.ui.chat.models.ContactModel;
 
 import java.util.List;
 

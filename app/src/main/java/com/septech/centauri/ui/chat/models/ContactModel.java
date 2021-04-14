@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.user.chat;
+package com.septech.centauri.ui.chat.models;
 
 import android.content.Context;
 

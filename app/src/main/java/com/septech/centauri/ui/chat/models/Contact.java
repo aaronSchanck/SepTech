@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.user.chat;
+package com.septech.centauri.ui.chat.models;
 
 public class Contact {
     private String jid;

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
-
+        <!-- <activity android:name=".ui.user.chat.ChatLoginActivity"></activity> -->
         <!-- User Activities -->
         <activity android:name=".ui.user.login.LoginActivity" />
         <activity android:name=".ui.user.register.RegisterActivity" />
@@ -24,22 +24,20 @@
         <activity android:name=".ui.user.forgotpasswordcode.ForgotPasswordCodeActivity" />
         <activity android:name=".ui.user.newpassword.NewPasswordActivity" />
         <activity android:name=".ui.user.home.HomeActivity" />
-        <activity android:name=".ui.user.cart.UserCartActivity"/>
+        <activity android:name=".ui.user.cart.UserCartActivity" />
         <activity android:name=".ui.user.settings.SettingsActivity" />
-        <activity android:name=".ui.user.chat.ChatActivity" />
-        <activity android:name=".ui.user.chat.ContactListActivity" />
-
+        <activity android:name=".ui.chat.MessagesListActivity" />
+        <activity android:name=".ui.chat.ContactListActivity" />
         <!-- Business Activities -->
         <activity android:name=".ui.business.addlisting.AddListingActivity" />
         <activity android:name=".ui.business.login.BusinessLoginActivity" />
         <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity" />
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
-        <activity android:name=".ui.business.home.BusinessHomeActivity"/>
-
+        <activity android:name=".ui.business.home.BusinessHomeActivity" />
         <!-- On Launch -->
         <activity
-            android:name=".ui.landing.LandingActivity"
+            android:name=".ui.chat.ChatLoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,6 +45,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Chat Service -->
+        <service android:name=".ui.chat.ChatConnectionService" />
     </application>
 
 </manifest>

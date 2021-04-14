@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.chat.ChatActivity">
+    tools:context=".ui.chat.MessagesListActivity">
+
+    <com.stfalcon.chatkit.dialogs.DialogsList
+        android:id="@+id/dialogsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
