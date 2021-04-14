@@ -8,7 +8,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:clickable="true"
                 android:contentDescription="TODO"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="TextView"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -172,7 +173,7 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="500dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,12 +181,12 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
+                    android:nestedScrollingEnabled="false"
                     android:scrollbars="vertical" />
             </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

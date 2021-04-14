@@ -121,12 +121,12 @@ public interface RestApi {
     @GET("items/search/amount")
     Single<Integer> getAmountItems();
 
-    @GET("items/search/{query}")
-    Observable<List<ItemEntity>> search(@Path("query") String query,
+    @GET("items/search/{search_str}")
+    Observable<List<ItemEntity>> search(@Path("search_str") String query,
                                         @Query("page") int page);
 
-    @GET("items/search/{query}/amount")
-    Single<Integer> getAmountInQuery(@Path("query") String query);
+    @GET("items/search/{search_str}/amount")
+    Single<Integer> getAmountInQuery(@Path("search_str") String query);
 
     @Headers({"Connection: close"})
     @Streaming

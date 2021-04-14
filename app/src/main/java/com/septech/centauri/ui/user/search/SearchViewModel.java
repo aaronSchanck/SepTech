@@ -29,6 +29,7 @@ public class SearchViewModel extends ViewModel {
     private MutableLiveData<List<Item>> itemsLiveData = new MutableLiveData<>();
     private MutableLiveData<Map<Integer, Uri>> imagesLiveData = new MutableLiveData<>();
     private MutableLiveData<Integer> searchAmount = new MutableLiveData<>();
+
     private String currentQuery;
     private Integer pageSize;
     private Integer currentPage;
@@ -39,27 +40,10 @@ public class SearchViewModel extends ViewModel {
         itemRepo = ItemDataRepository.getInstance();
 
         currentPage = 0;
-        pageSize = 20;
+        pageSize = 5;
     }
 
     public void search() {
-        mDisposables.add(itemRepo.getAmountInQuery(currentQuery)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<Integer>() {
-                    @Override
-                    public void onSuccess(@NonNull Integer integer) {
-                        Log.i(TAG, "Search amount: " + integer);
-
-                        searchAmount.setValue(integer);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: " + e);
-                    }
-                }));
-
         mDisposables.add(itemRepo.searchItems(currentQuery, currentPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -84,6 +68,23 @@ public class SearchViewModel extends ViewModel {
     public void newSearch(String query) {
         currentPage = 0;
         currentQuery = query;
+
+        mDisposables.add(itemRepo.getAmountInQuery(currentQuery)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        Log.i(TAG, "Search amount: " + integer);
+
+                        searchAmount.setValue(integer);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e);
+                    }
+                }));
 
         search();
     }

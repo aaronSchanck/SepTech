@@ -79,8 +79,10 @@ class ItemResource(Resource):
 class ItemSearchResource(Resource):
     @use_args(SearchSchema(), location="query")
     def get(self, args):
+        print(args)
+
         items = ItemService.search(
-            search_str="", filters={}, page=args["page"], page_size=20
+            search_str="", filters={}, page=args["page"], page_size=5
         )
 
         return item_schema_many.dump(items)
@@ -140,13 +142,15 @@ class ItemImageSearchResource(Resource):
 @api.param("search_str", "Item search string")
 class ItemSearchQueryResource(Resource):
     @use_args(SearchSchema(), location="query")
-    def get(self, search_str: str):
+    def get(self, args, search_str: str):
+        print(args)
+        print(search_str)
 
         items = ItemService.search(
-            search_str=search_str, filters={}, page=args["page"], page_size=20
+            search_str=search_str, filters={}, page=args["page"], page_size=5
         )
 
-        return ItemService.search(search_str)
+        return item_schema_many.dump(items)
 
 
 @api.route("/search/<search_str>/amount")
@@ -154,6 +158,8 @@ class ItemSearchQueryResource(Resource):
 class ItemSearchQueryAmountResource(Resource):
     def get(self, search_str: str):
         print("Amount query")
+
+        print(search_str)
 
         return ItemService.search_amount(search_str=search_str)
 

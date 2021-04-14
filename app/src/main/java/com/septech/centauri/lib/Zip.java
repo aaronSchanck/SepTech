@@ -42,12 +42,10 @@ public class Zip {
 
                 path.mkdir();
 
-                System.out.println(path);
                 File file = new File(path, filename);
 
                 BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
 
-                System.out.println(response);
                 bufferedSink.writeAll(response.body().source());
                 bufferedSink.close();
 

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.cart.CartFragment;
+import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.settings.SettingsFragment;
 
 import java.text.NumberFormat;
@@ -38,6 +40,7 @@ import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements CallBackListener {
 
+    //viewmodels
 
     private HomeViewModel mViewModel;
     private FilterViewModel mFilterViewModel; //used to store filter settings when searching
@@ -81,6 +84,10 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
     private BottomNavigationView bottomNavigation;
 
+    //loading icon
+
+    private ProgressBar loadingIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +109,9 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         setupDrawer();
 
         setupBottomNavigation();
+
+        loadingIcon = findViewById(R.id.homeLoadingIcon);
+        loadingIcon.setVisibility(View.GONE);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -261,6 +271,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         bottomNavigation = findViewById(R.id.bottomMenu);
 
         bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            hideLoadingIcon();
+
             int itemId = item.getItemId();
             if (itemId == R.id.bottom_person) {
                 getSupportFragmentManager().beginTransaction()
@@ -301,12 +313,24 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                     searchView.setIconified(true);
                 }
                 myActionMenuItem.collapseActionView();
+
+                SearchFragment fragment = SearchFragment.newInstance();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("query", query);
+
+                fragment.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentfragment, fragment)
+                        .addToBackStack("search_latest")
+                        .commit();
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.i("TAG", "SearchOnQueryTextChanged: " + s);
                 return false;
             }
         });
@@ -316,6 +340,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        hideLoadingIcon();
+
         int itemId = item.getItemId();
 
         if (itemId == R.id.settings) {
@@ -348,6 +374,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
     @Override
     public void onBackPressed() {
+        hideLoadingIcon(); //in case left a search activity
+
         FragmentManager fm = getFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");
@@ -365,5 +393,15 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
     @Override
     public void OnCallBack(Class fragmentClass, Bundle bundle) {
 
+    }
+
+    @Override
+    public void showLoadingIcon() {
+        loadingIcon.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoadingIcon() {
+        loadingIcon.setVisibility(View.GONE);
     }
 }

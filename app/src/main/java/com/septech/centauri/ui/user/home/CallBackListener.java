@@ -11,4 +11,8 @@ public interface CallBackListener {
      * @param fragmentClass
      */
     void OnCallBack(Class fragmentClass, Bundle bundle);
+
+    void showLoadingIcon();
+
+    void hideLoadingIcon();
 }

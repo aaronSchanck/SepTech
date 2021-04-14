@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.septech.centauri.R;
+import com.septech.centauri.ui.user.home.CallBackListener;
 import com.septech.centauri.ui.user.home.FilterViewModel;
 import com.septech.centauri.ui.user.listing.ListingFragment;
 
@@ -46,6 +47,9 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     private long searchStartTime;
     private long searchEndtime;
 
+    //callback listener
+    private CallBackListener callBackListener;
+
     public static SearchFragment newInstance() {
         return new SearchFragment();
     }
@@ -53,6 +57,12 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
+        try {
+            callBackListener = (CallBackListener)context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
     }
 
     @Override
@@ -78,6 +88,8 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         forwardArrow = view.findViewById(R.id.forwardArrow);
         backArrow = view.findViewById(R.id.backArrow);
 
+        callBackListener.showLoadingIcon();
+
         return view;
     }
 
@@ -97,11 +109,19 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
 
     private void createButtonListeners() {
         forwardArrow.setOnClickListener(v -> {
+            rvItems.setVisibility(View.GONE);
+            callBackListener.showLoadingIcon();
+            adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
+
             mViewModel.nextPage();
             updatePageArrows();
         });
 
         backArrow.setOnClickListener(v -> {
+            rvItems.setVisibility(View.GONE);
+            callBackListener.showLoadingIcon();
+            adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
+
             mViewModel.lastPage();
             updatePageArrows();
         });
@@ -127,6 +147,16 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     }
 
     private void createLiveDataObservers() {
+        mViewModel.getSearchAmount().observe(getViewLifecycleOwner(), integer -> {
+            updatePageArrows();
+            searchEndtime = System.currentTimeMillis();
+
+            double timeElapsed = (searchEndtime - searchStartTime) / 1000.0;
+
+            searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
+                    String.valueOf(integer), String.valueOf(timeElapsed)));
+        });
+
         mViewModel.getItemsLiveData().observe(getViewLifecycleOwner(), items -> {
             Log.i(TAG, "ItemLiveData input");
             adapter.setItems(items);
@@ -136,24 +166,23 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                 itemIds[i] = items.get(i).getId();
             }
 
-            mViewModel.getImages(itemIds);
+            if(itemIds.length > 0) {
+                mViewModel.getImages(itemIds);
+            } else {
+                rvItems.setVisibility(View.VISIBLE);
+                rvItems.setAdapter(adapter);
+                callBackListener.hideLoadingIcon();
+            }
         });
 
         mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
+            callBackListener.hideLoadingIcon();
             Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
             adapter.setImages(images);
 
             rvItems.setAdapter(adapter);
-        });
 
-        mViewModel.getSearchAmount().observe(getViewLifecycleOwner(), integer -> {
-            updatePageArrows();
-            searchEndtime = System.currentTimeMillis();
-
-            double timeElapsed = (searchEndtime - searchStartTime) / 1000.0;
-
-            searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
-                    String.valueOf(integer), String.valueOf(timeElapsed)));
+            rvItems.setVisibility(View.VISIBLE);
         });
     }
 
