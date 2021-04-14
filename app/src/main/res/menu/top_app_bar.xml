@@ -16,8 +16,20 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/switchAccounts"
+        android:title="Switch Accounts"
+        android:contentDescription="More"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/settings"
         android:title="Settings"
+        android:contentDescription="More"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
         android:contentDescription="More"
         app:showAsAction="never" />
 

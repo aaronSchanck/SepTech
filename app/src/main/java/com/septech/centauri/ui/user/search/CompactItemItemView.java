@@ -20,16 +20,16 @@ import java.util.Map;
 
 import static com.septech.centauri.persistent.CentauriApp.getAppContext;
 
-class ItemAdapter extends
-        RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+class CompactItemItemView extends
+        RecyclerView.Adapter<CompactItemItemView.ViewHolder> implements ItemViewConversion {
 
     private List<Item> mItems;
 
     private Map<Integer, Uri> images;
 
-    private OnItemListener onItemListener;
+    private OnSearchItemListener onItemListener;
 
-    public ItemAdapter(OnItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
+    public CompactItemItemView(OnSearchItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
         this.onItemListener = onItemListener;
         this.mItems = mItems;
         this.images = images;
@@ -82,6 +82,11 @@ class ItemAdapter extends
         return mItems.size();
     }
 
+    @Override
+    public int get(int position) {
+        return mItems.get(position).getId();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView nameTextView;
         public ImageView itemImageView;
@@ -89,12 +94,12 @@ class ItemAdapter extends
 
         public ImageView checkMarkImageView;
 
-        OnItemListener onItemListener;
+        private final OnSearchItemListener onSearchItemListener;
 
-        public ViewHolder(View itemView, OnItemListener onItemListener) {
+        public ViewHolder(View itemView, OnSearchItemListener onSearchItemListener) {
             super(itemView);
 
-            this.onItemListener = onItemListener;
+            this.onSearchItemListener = onSearchItemListener;
 
             itemImageView = itemView.findViewById(R.id.itemImage);
             nameTextView = itemView.findViewById(R.id.itemName);
@@ -108,18 +113,13 @@ class ItemAdapter extends
 
         @Override
         public void onClick(View v) {
-            onItemListener.onItemClick(getBindingAdapterPosition());
+            onSearchItemListener.onItemClick(getBindingAdapterPosition());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            onItemListener.onItemLongClick(getBindingAdapterPosition());
+            onSearchItemListener.onItemLongClick(getBindingAdapterPosition());
             return true;
         }
-    }
-
-    public interface OnItemListener {
-        void onItemClick(int position);
-        void onItemLongClick(int position);
     }
 }

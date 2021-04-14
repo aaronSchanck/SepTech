@@ -17,7 +17,7 @@ import com.septech.centauri.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CartFragment extends Fragment implements CartItemAdapter.OnItemListener {
+public class CartFragment extends Fragment implements CartItemAdapter.OnCartItemListener {
 
     private CartViewModel mViewModel;
 

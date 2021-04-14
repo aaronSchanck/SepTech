@@ -1,7 +1,6 @@
-package com.septech.centauri.ui.user.cart;
+package com.septech.centauri.ui.user.search;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +17,18 @@ import com.septech.centauri.domain.models.Item;
 import java.util.List;
 import java.util.Map;
 
-import static com.septech.centauri.persistent.CentauriApp.getAppContext;
-
-class CartItemAdapter extends
-        RecyclerView.Adapter<CartItemAdapter.ViewHolder> {
+class DefaultItemItemView extends
+        RecyclerView.Adapter<DefaultItemItemView.ViewHolder> implements ItemViewConversion {
 
     private List<Item> mItems;
 
     private Map<Integer, Uri> images;
 
-    private OnCartItemListener onItemListener;
+    private OnSearchItemListener onSearchItemListener;
 
-    public CartItemAdapter(OnCartItemListener onItemListener, List<Item> mItems,
-                           Map<Integer, Uri> images) {
-        this.onItemListener = onItemListener;
+    public DefaultItemItemView(OnSearchItemListener onSearchItemListener, List<Item> mItems,
+                               Map<Integer, Uri> images) {
+        this.onSearchItemListener = onSearchItemListener;
         this.mItems = mItems;
         this.images = images;
     }
@@ -43,10 +40,10 @@ class CartItemAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View itemView = inflater.inflate(R.layout.user_cart_item_fragment, parent, false);
+        View itemView = inflater.inflate(R.layout.user_search_item_fragment_default, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(itemView, onItemListener);
+        ViewHolder viewHolder = new ViewHolder(itemView, onSearchItemListener);
         return viewHolder;
     }
 
@@ -54,20 +51,7 @@ class CartItemAdapter extends
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = mItems.get(position);
 
-        ImageView imageView = holder.itemImageView;
 
-        imageView.setImageURI(images.get(item.getId()));
-
-        TextView nameTextView = holder.nameTextView;
-        nameTextView.setText(item.getName());
-
-        TextView priceTextView = holder.priceTextView;
-
-        ImageView checkMarkImage = holder.checkMarkImageView;
-        checkMarkImage.setVisibility(View.GONE);
-
-        Resources res = getAppContext().getResources();
-        priceTextView.setText(res.getString(R.string.placeholder, item.getBuyoutPrice()));
     }
 
     public void setItems(List<Item> mItems) {
@@ -83,6 +67,11 @@ class CartItemAdapter extends
         return mItems.size();
     }
 
+    @Override
+    public int get(int position) {
+        return mItems.get(position).getId();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView nameTextView;
         public ImageView itemImageView;
@@ -90,18 +79,12 @@ class CartItemAdapter extends
 
         public ImageView checkMarkImageView;
 
-        private OnCartItemListener onItemListener;
+        OnSearchItemListener onSearchItemListener;
 
-        public ViewHolder(View itemView, OnCartItemListener onItemListener) {
+        public ViewHolder(View itemView, OnSearchItemListener onSearchItemListener) {
             super(itemView);
 
-            this.onItemListener = onItemListener;
-
-            itemImageView = itemView.findViewById(R.id.itemImage);
-            nameTextView = itemView.findViewById(R.id.itemName);
-            priceTextView = itemView.findViewById(R.id.priceTextView);
-
-            checkMarkImageView = itemView.findViewById(R.id.checkMarkImageView);
+            this.onSearchItemListener = onSearchItemListener;
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -109,18 +92,13 @@ class CartItemAdapter extends
 
         @Override
         public void onClick(View v) {
-            onItemListener.onItemClick(getBindingAdapterPosition());
+            onSearchItemListener.onItemClick(getBindingAdapterPosition());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            onItemListener.onItemLongClick(getBindingAdapterPosition());
+            onSearchItemListener.onItemLongClick(getBindingAdapterPosition());
             return true;
         }
-    }
-
-    public interface OnCartItemListener {
-        void onItemClick(int position);
-        void onItemLongClick(int position);
     }
 }

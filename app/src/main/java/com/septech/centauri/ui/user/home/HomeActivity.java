@@ -1,6 +1,8 @@
 package com.septech.centauri.ui.user.home;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -33,7 +36,7 @@ import com.septech.centauri.ui.user.settings.SettingsFragment;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements CallBackListener {
 
 
     private HomeViewModel mViewModel;
@@ -313,21 +316,34 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        System.out.println("item = " + item);
-        switch (item.getItemId()) {
-            case R.id.settings:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contentfragment, settingsFragment)
-                        .addToBackStack(null)
-                        .commit();
-                return true;
-            case R.id.favorite:
-                return true;
-            case R.id.search_top_action_bar:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.settings) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentfragment, settingsFragment)
+                    .addToBackStack(null)
+                    .commit();
+            return true;
+        } else if (itemId == R.id.favorite) {
+            return true;
+        } else if (itemId == R.id.switchAccounts) {
+            return true;
+        } else if (itemId == R.id.logout) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Logout this session or all sessions?")
+                    .setPositiveButton("All Sessions", (dialog, which) -> {
+
+                    })
+                    .setNeutralButton("Cancel", null)
+                    .setNegativeButton("This Session", (dialog, which) -> {
+
+                    })
+                    .setIcon(R.drawable.ic_baseline_warning_24)
+                    .show();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -344,5 +360,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void createTextWatchers() {
+    }
+
+    @Override
+    public void OnCallBack(Class fragmentClass, Bundle bundle) {
+
     }
 }

@@ -3,21 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.user.settings.SettingsActivity">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottomMenu">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/SettingsHeaderText"
@@ -53,12 +51,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/SettingsSearchBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintHorizontal_bias="0.0">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SettingsSearchBar"
+            app:layout_constraintVertical_bias="0.0">
 
             <Button
                 android:id="@+id/accountBtn"
@@ -92,7 +90,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.125"/>
+                app:layout_constraintVertical_bias="0.125" />
 
             <Button
                 android:id="@+id/notificationsBtn"
@@ -108,7 +106,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.25"/>
+                app:layout_constraintVertical_bias="0.25" />
 
             <Button
                 android:id="@+id/appearenceBtn"
@@ -123,7 +121,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.375"/>
+                app:layout_constraintVertical_bias="0.375" />
 
             <Button
                 android:id="@+id/securityBtn"
@@ -138,7 +136,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"/>
+                app:layout_constraintVertical_bias="0.5" />
 
             <Button
                 android:id="@+id/helpBtn"
@@ -153,7 +151,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.625"/>
+                app:layout_constraintVertical_bias="0.625" />
 
             <Button
                 android:id="@+id/locationBtn"
@@ -168,7 +166,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75"/>
+                app:layout_constraintVertical_bias="0.75" />
 
             <Button
                 android:id="@+id/aboutBtn"
@@ -183,7 +181,7 @@
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias=".875"/>
+                app:layout_constraintVertical_bias=".875" />
 
             <ImageView
                 android:id="@+id/account_arrow"
@@ -192,12 +190,12 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/accountBtn"
                 app:layout_constraintTop_toTopOf="@+id/accountBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
-                tools:layout_editor_absoluteY="214dp"/>
+                tools:layout_editor_absoluteY="214dp" />
 
             <ImageView
                 android:id="@+id/proxima_arrow"
@@ -206,8 +204,8 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/proximaBtn"
                 app:layout_constraintTop_toTopOf="@+id/proximaBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
@@ -220,8 +218,8 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/notificationsBtn"
                 app:layout_constraintTop_toTopOf="@+id/notificationsBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
@@ -234,8 +232,8 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/appearenceBtn"
                 app:layout_constraintTop_toTopOf="@+id/appearenceBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
@@ -248,8 +246,8 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/securityBtn"
                 app:layout_constraintTop_toTopOf="@+id/securityBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
@@ -262,8 +260,8 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/helpBtn"
                 app:layout_constraintTop_toTopOf="@+id/helpBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
@@ -276,8 +274,8 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/locationBtn"
                 app:layout_constraintTop_toTopOf="@+id/locationBtn"
                 app:srcCompat="@drawable/ic_right_arrow_black"
@@ -290,9 +288,9 @@
                 android:layout_marginTop="12dp"
                 android:contentDescription="@string/arrow"
                 android:translationZ="90dp"
-                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toEndOf="@+id/aboutBtn"
                 app:layout_constraintTop_toTopOf="@+id/aboutBtn"
                 app:layout_constraintVertical_bias="0.015"
@@ -301,21 +299,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--  Bottom Navigation Bar-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@color/centauri_red"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
-    <!--    End of Bottom Navigation Bar-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

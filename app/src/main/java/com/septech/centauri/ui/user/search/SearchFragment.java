@@ -20,11 +20,12 @@ import android.widget.TextView;
 
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.home.FilterViewModel;
+import com.septech.centauri.ui.user.listing.ListingFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SearchFragment extends Fragment implements ItemAdapter.OnItemListener {
+public class SearchFragment extends Fragment implements OnSearchItemListener {
     private static final String TAG = "SearchFragment";
 
     private SearchViewModel mViewModel;
@@ -32,7 +33,7 @@ public class SearchFragment extends Fragment implements ItemAdapter.OnItemListen
     private FilterViewModel mFilterViewModel;
 
     private RecyclerView rvItems;
-    private ItemAdapter adapter;
+    private CompactItemItemView adapter;
 
     private ImageButton forwardArrow;
     private ImageButton backArrow;
@@ -69,7 +70,7 @@ public class SearchFragment extends Fragment implements ItemAdapter.OnItemListen
 
         rvItems = view.findViewById(R.id.rvItems);
 
-        adapter = new ItemAdapter(this, new ArrayList<>(), new HashMap<>());
+        adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
         rvItems.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         searchAmountTextView = view.findViewById(R.id.itemCountTextView);
@@ -158,7 +159,19 @@ public class SearchFragment extends Fragment implements ItemAdapter.OnItemListen
 
     @Override
     public void onItemClick(int position) {
-        Log.i(TAG, "onItemClick: " + position);
+        ListingFragment fragment = ListingFragment.newInstance();
+
+        int itemId = adapter.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", itemId);
+
+        fragment.setArguments(bundle);
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentfragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
