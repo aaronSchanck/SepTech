@@ -133,16 +133,26 @@ class ItemService:
         return new_item
 
     @staticmethod
-    def search(
-        search_str: str, filters: dict, page: int = 0, page_size: int = 20
-    ) -> List:
+    def search(search_str: str, filters: dict, page_size: int, page: int) -> List:
         query = Item.query.filter(Item.name.ilike(f"%{search_str}%")).filter_by(
             **filters
         )
 
+        print(query.all())
+
+        offset = page * page_size
+
+        print(type(page), type(page_size))
+
         query = query.offset(page * page_size)
 
+        print(query.all())
+
         query = query.limit(page_size)
+
+        print(query.all())
+
+        print(page_size, page, search_str)
 
         return query.all()
 

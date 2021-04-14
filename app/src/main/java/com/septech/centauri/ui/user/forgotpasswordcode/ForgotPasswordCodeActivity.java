@@ -44,11 +44,8 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
 
         mCodeEditText = codeInputLayout.getEditText();
 
-        mVerifyButton = findViewById(R.id.VerifyButton);
-
         userEmail = getIntent().getStringExtra("email");
 
-        // TODO: fix verify code
         mVerifyButton.setOnClickListener(v -> {
             hideKeyboard();
             mForgotPasswordCodeViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(), userEmail);

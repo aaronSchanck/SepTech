@@ -69,4 +69,4 @@ class ImageSchema(Schema):
 
 
 class SearchSchema(Schema):
-    page = fields.Str()
+    page = fields.Int()

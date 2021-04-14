@@ -12,7 +12,6 @@ import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 
 /**
@@ -34,17 +32,17 @@ import retrofit2.Response;
  * @version 1.0
  * @since 1.0
  */
-public class ItemDataRepository implements ItemRepository {
+public class ItemRepositoryImpl implements ItemRepository {
     private static final String TAG = UserDataRepository.class.getSimpleName();
 
-    private static ItemDataRepository mInstance;
+    private static ItemRepositoryImpl mInstance;
 
     private BetelgeuseDatabase database;
     private final FileCache fileCache;
     private final RestApiClient restApiImpl;
     private final BetelgeuseDatabase localDb;
 
-    private ItemDataRepository() {
+    private ItemRepositoryImpl() {
         this.restApiImpl = RestApiClient.getInstance();
         this.localDb = BetelgeuseDatabase.getDatabase();
         this.fileCache = new FileCache();
@@ -56,11 +54,16 @@ public class ItemDataRepository implements ItemRepository {
      * @return The existing instance of the ItemDataRepository. If the instance doesn't exist, it
      * will return a new instance.
      */
-    public static ItemDataRepository getInstance() {
+    public static ItemRepositoryImpl getInstance() {
         if (mInstance == null) {
-            mInstance = new ItemDataRepository();
+            mInstance = new ItemRepositoryImpl();
         }
         return mInstance;
+    }
+
+    @Override
+    public Single<Item> getItemById(int id) {
+        return restApiImpl.getItemById(id).map(ItemDataMapper::transform);
     }
 
     /**
@@ -116,7 +119,7 @@ public class ItemDataRepository implements ItemRepository {
     }
 
     @Override
-    public Observable<Response<ResponseBody>> getImagesZip(int[] itemIds) {
+    public Observable<Response<ResponseBody>> getItemThumbnails(int[] itemIds) {
         StringBuilder ids = new StringBuilder();
 
         for (int i = 0; i < itemIds.length; i++) {
@@ -125,7 +128,7 @@ public class ItemDataRepository implements ItemRepository {
             ids.append(itemIds[i]);
         }
 
-        return restApiImpl.getImagesZip(ids.toString());
+        return restApiImpl.getItemThumbnails(ids.toString());
     }
 
     @Override
@@ -135,5 +138,10 @@ public class ItemDataRepository implements ItemRepository {
         } else {
             return restApiImpl.getAmountInQuery(query);
         }
+    }
+
+    @Override
+    public Observable<Response<ResponseBody>> getImages(int itemId) {
+        return restApiImpl.getImages(itemId);
     }
 }

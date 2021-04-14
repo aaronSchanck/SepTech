@@ -2,7 +2,7 @@ package com.septech.centauri.ui.business.addlisting;
 
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.repository.ItemDataRepository;
+import com.septech.centauri.data.repository.ItemRepositoryImpl;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.Category;
 import com.septech.centauri.domain.models.Item;
@@ -24,7 +24,7 @@ public class AddListingViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public AddListingViewModel() {
-        itemRepo = ItemDataRepository.getInstance();
+        itemRepo = ItemRepositoryImpl.getInstance();
     }
 
     @Override
