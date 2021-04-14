@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -21,22 +20,32 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
+import com.septech.centauri.ui.user.cart.CartFragment;
+import com.septech.centauri.ui.user.settings.SettingsFragment;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private FilterViewModel mViewModel;
 
-    private TextView cartItemsTextView;
-    private EditText searchEditText;
+    private HomeViewModel mViewModel;
+    private FilterViewModel mFilterViewModel; //used to store filter settings when searching
+
+    //fragments
+
+    HomeFragment homeFragment;
+    SettingsFragment settingsFragment;
+    CartFragment cartFragment;
+
+    //top toolbar stuff
 
     private SearchView searchView;
     private Toolbar toolbar;
@@ -65,12 +74,21 @@ public class HomeActivity extends AppCompatActivity {
     private Button applyFiltersBtn;
     private Button applyFiltersContinueBtn;
 
+    //bottom navigation
+
+    private BottomNavigationView bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
-        mViewModel = new ViewModelProvider(this).get(FilterViewModel.class);
+        mFilterViewModel = new ViewModelProvider(this).get(FilterViewModel.class);
+
+        //create fragments
+        homeFragment = HomeFragment.newInstance();
+        settingsFragment = SettingsFragment.newInstance();
+        cartFragment = CartFragment.newInstance();
 
         createTextWatchers();
 
@@ -80,14 +98,16 @@ public class HomeActivity extends AppCompatActivity {
 
         setupDrawer();
 
+        setupBottomNavigation();
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentfragment, HomeFragment.newInstance())
+                    .replace(R.id.contentfragment, homeFragment)
                     .addToBackStack(null)
                     .commit();
         }
 
-        mViewModel.getLeftSliderLiveData().setValue(slider.getValues().get(0));
+        mFilterViewModel.getLeftSliderLiveData().setValue(slider.getValues().get(0));
 
         System.out.println("savedInstanceState = " + savedInstanceState);
     }
@@ -234,6 +254,35 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    private void setupBottomNavigation() {
+        bottomNavigation = findViewById(R.id.bottomMenu);
+
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.bottom_person) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentfragment, homeFragment)
+                        .addToBackStack(null)
+                        .commit();
+                System.out.println("item = " + item);
+                return true;
+            } else if (itemId == R.id.bottom_notifications) {
+                System.out.println();
+                return true;
+            } else if (itemId == R.id.bottom_cart) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentfragment, cartFragment)
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            } else if (itemId == R.id.bottom_messages) {
+                System.out.println("item =  " + item);
+                return true;
+            }
+            return false;
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
@@ -264,7 +313,18 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        System.out.println("item = " + item);
         switch (item.getItemId()) {
+            case R.id.settings:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentfragment, settingsFragment)
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            case R.id.favorite:
+                return true;
+            case R.id.search_top_action_bar:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -284,25 +344,5 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void createTextWatchers() {
-    }
-
-    public void onNavigationButtonClick(View view) {
-        mDrawerLayout.closeDrawer(navView);
-
-        System.out.println("view = " + view);
-        switch (view.getId()) {
-            case R.id.button1:
-                // Do something with button 1
-                break;
-
-            case R.id.button2:
-                // Do something with button 2
-                break;
-
-            case R.id.button3:
-                // Do something with button 3
-                break;
-
-        }
     }
 }

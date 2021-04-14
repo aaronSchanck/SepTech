@@ -20,13 +20,13 @@
             android:id="@+id/listingName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Listing Name"
-            android:textSize="18sp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:textStyle="bold"
+            android:text="Listing Name"
             android:textAllCaps="true"
-            />
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
         <!-- End of Listing Name -->
 
 
@@ -35,11 +35,11 @@
             android:id="@+id/listingPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$00.00"
-            android:textSize="16sp"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
-            />
+            android:text="$00.00"
+            android:textColor="#000000"
+            android:textSize="16sp" />
         <!-- End of Listing Price -->
 
         <!-- Add Button -->
@@ -62,11 +62,11 @@
             android:id="@+id/listingDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/temp_text"
-            android:textSize="16sp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            />
+            android:text="@string/temp_text"
+            android:textColor="#000000"
+            android:textSize="16sp" />
         <!-- End of Listing Description -->
 
         <!-- View More Button -->

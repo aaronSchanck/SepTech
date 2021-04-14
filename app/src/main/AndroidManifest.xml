@@ -29,8 +29,6 @@
         <activity android:name=".ui.user.newpassword.NewPasswordActivity" />
         <activity android:name=".ui.user.home.HomeActivity"
             android:theme="@style/Theme.Centauri.NoActionBar"/>
-        <activity android:name=".ui.user.cart.UserCartActivity" />
-        <activity android:name=".ui.user.settings.SettingsActivity" />
         <activity android:name=".ui.user.chat.ChatActivity" />
         <activity android:name=".ui.user.chat.ContactListActivity" />
 

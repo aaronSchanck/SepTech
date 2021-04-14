@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.user.search;
+package com.septech.centauri.ui.user.cart;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,8 +20,8 @@ import java.util.Map;
 
 import static com.septech.centauri.persistent.CentauriApp.getAppContext;
 
-class ItemAdapter extends
-        RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+class CartItemAdapter extends
+        RecyclerView.Adapter<CartItemAdapter.ViewHolder> {
 
     private List<Item> mItems;
 
@@ -29,7 +29,7 @@ class ItemAdapter extends
 
     private OnItemListener onItemListener;
 
-    public ItemAdapter(OnItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
+    public CartItemAdapter(OnItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
         this.onItemListener = onItemListener;
         this.mItems = mItems;
         this.images = images;
@@ -42,7 +42,7 @@ class ItemAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View itemView = inflater.inflate(R.layout.user_search_item_fragment_compact, parent, false);
+        View itemView = inflater.inflate(R.layout.user_cart_item_fragment, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(itemView, onItemListener);
@@ -89,7 +89,7 @@ class ItemAdapter extends
 
         public ImageView checkMarkImageView;
 
-        OnItemListener onItemListener;
+        private OnItemListener onItemListener;
 
         public ViewHolder(View itemView, OnItemListener onItemListener) {
             super(itemView);
