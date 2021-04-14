@@ -30,8 +30,9 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     private static final String TAG = "SearchFragment";
 
     private SearchViewModel mViewModel;
-
     private FilterViewModel mFilterViewModel;
+
+    private boolean mAlreadyLoaded;
 
     private RecyclerView rvItems;
     private CompactItemItemView adapter;
@@ -69,6 +70,14 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mAlreadyLoaded = false;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAlreadyLoaded = true;
     }
 
     @Override
@@ -83,6 +92,8 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
         rvItems.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
+        rvItems.setAdapter(adapter);
+
         searchAmountTextView = view.findViewById(R.id.itemCountTextView);
 
         forwardArrow = view.findViewById(R.id.forwardArrow);
@@ -96,6 +107,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
         mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
@@ -104,7 +116,11 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         createLiveDataObservers();
 
         searchStartTime = System.currentTimeMillis();
-        mViewModel.newSearch(query);
+
+        System.out.println(mAlreadyLoaded);
+        if(!mAlreadyLoaded)  {
+            mViewModel.newSearch(query);
+        }
     }
 
     private void createButtonListeners() {

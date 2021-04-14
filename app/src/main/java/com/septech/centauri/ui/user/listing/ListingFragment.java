@@ -11,12 +11,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.septech.centauri.R;
 
 public class ListingFragment extends Fragment {
 
     private ListingViewModel mViewModel;
+
+    private ImageButton backBtn;
 
     public static ListingFragment newInstance() {
         return new ListingFragment();
@@ -25,7 +28,18 @@ public class ListingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_listing_fragment, container, false);
+        View view = inflater.inflate(R.layout.user_listing_fragment, container, false);
+
+        backBtn = view.findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("v = " + v);
+                getActivity().onBackPressed();
+            }
+        });
+
+        return view;
     }
 
     @Override

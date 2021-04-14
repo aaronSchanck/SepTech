@@ -82,7 +82,7 @@ class ItemSearchResource(Resource):
         print(args)
 
         items = ItemService.search(
-            search_str="", filters={}, page=args["page"], page_size=5
+            search_str="", filters={}, page=args["page"], page_size=20
         )
 
         return item_schema_many.dump(items)
@@ -147,7 +147,7 @@ class ItemSearchQueryResource(Resource):
         print(search_str)
 
         items = ItemService.search(
-            search_str=search_str, filters={}, page=args["page"], page_size=5
+            search_str=search_str, filters={}, page=args["page"], page_size=20
         )
 
         return item_schema_many.dump(items)

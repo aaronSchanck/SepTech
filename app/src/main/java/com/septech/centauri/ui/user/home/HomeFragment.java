@@ -68,6 +68,8 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
+
+        //TODO change button
         mCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

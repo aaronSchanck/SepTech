@@ -40,7 +40,7 @@ public class SearchViewModel extends ViewModel {
         itemRepo = ItemDataRepository.getInstance();
 
         currentPage = 0;
-        pageSize = 5;
+        pageSize = 20;
     }
 
     public void search() {
