@@ -33,7 +33,7 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_cart_fragment, container, false);
 
-        rvItems = view.findViewById(R.id.rvItems);
+        rvItems = view.findViewById(R.id.recyclerView);
 
         itemAdapter = new CartItemAdapter(this, new ArrayList<>(), new HashMap<>());
         rvItems.setLayoutManager(new GridLayoutManager(getActivity(), 2));

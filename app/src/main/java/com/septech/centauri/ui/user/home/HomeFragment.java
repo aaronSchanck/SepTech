@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import com.google.android.material.navigation.NavigationView;
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.search.SearchFragment;
+import com.septech.centauri.ui.user.cart.CartFragment;
+
 
 public class HomeFragment extends Fragment {
 
@@ -70,11 +72,13 @@ public class HomeFragment extends Fragment {
 
 
         //TODO change button
-        mCartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("v = " + v);
-            }
+        mCartBtn.setOnClickListener(v -> {
+            CartFragment fragment = CartFragment.newInstance();
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentfragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         mWishListBtn.setOnClickListener(new View.OnClickListener() {
