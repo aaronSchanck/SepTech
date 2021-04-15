@@ -2,8 +2,11 @@ package com.septech.centauri.ui.chat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -31,6 +34,10 @@ public class ChatLoginActivity extends AppCompatActivity
     // UI references.
     private TextView mJidView;
     private EditText mPasswordView;
+
+    private View mLoginFormView;
+    private BroadcastReceiver mBroadcastReceiver;
+    private Context mContext;
 
     private static final String TAG = "Chat Login Activity";
 
@@ -124,4 +131,32 @@ public class ChatLoginActivity extends AppCompatActivity
         startService(il);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                mContext = context;
+                switch (action) {
+                    case ChatConnectionService.UI_AUTHENTICATED:
+                        Log.d(TAG, "Broadcast shows main app window");
+                        // Show main app window
+                        Intent i2 = new Intent(mContext, ContactListActivity.class);
+                        startActivity(i2);
+                        finish();
+                        break;
+                }
+            }
+        };
+        IntentFilter filter = new IntentFilter(ChatConnectionService.UI_AUTHENTICATED);
+        this.registerReceiver(mBroadcastReceiver, filter);
+    }
 }

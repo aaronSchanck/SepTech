@@ -114,10 +114,15 @@ dependencies {
 
     // Smack API
     def smackVersion = '4.4.2'
-    implementation "org.igniterealtime.smack:smack-tcp:$smackVersion"
-    implementation "org.igniterealtime.smack:smack-experimental:$smackVersion"
-    implementation "org.igniterealtime.smack:smack-core:$smackVersion"
-    implementation "org.igniterealtime.smack:smack-xmlparser:$smackVersion"
+    implementation("org.igniterealtime.smack:smack-tcp:$smackVersion") {
+        exclude module: 'xpp3'
+    }
+    implementation("org.igniterealtime.smack:smack-experimental:$smackVersion") {
+        exclude module: 'xpp3'
+    }
+    implementation("org.igniterealtime.smack:smack-android-extensions:$smackVersion") {
+        exclude module: 'xpp3'
+    }
 
     // ChatKit - ui for chat
     implementation 'com.github.stfalcon-studio:Chatkit:v0.4.1'

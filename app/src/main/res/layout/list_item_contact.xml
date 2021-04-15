@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="user@example.com"
-        android:textSize="35dp">
+        android:textSize="20dp">
 
     </TextView>
 

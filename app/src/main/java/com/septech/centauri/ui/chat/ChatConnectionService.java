@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class ChatConnectionService extends Service {
     private static final String TAG = "Chat Service";
+    public static final String UI_AUTHENTICATED = "com.septech.centauri.ui.chat.uiauthenticated";
 
     public static ChatConnection.ConnectionState sConnectionState;
     public static ChatConnection.LoggedInState sLoggedInState;
@@ -41,6 +42,20 @@ public class ChatConnectionService extends Service {
         Log.d(TAG, "onCreate()");
     }
 
+    private void initConnection(){
+        Log.d(TAG, "initConnection()");
+        if (mConnection == null){
+            mConnection = new ChatConnection(this);
+        }
+        try {
+            mConnection.connect();
+        } catch (IOException | SmackException | XMPPException | InterruptedException e){
+            Log.d(TAG, "Error while connecting. Retry");
+            e.printStackTrace();
+            stopSelf();
+        }
+    }
+
     public void start() {
         Log.d(TAG, "Service start()");
         if (!mActive){
@@ -61,7 +76,7 @@ public class ChatConnectionService extends Service {
         Log.d(TAG, "stop()");
         mActive = false;
         mTHandler.post(() -> {
-            if (mConnection != null){
+            if (mConnection != null) {
                 mConnection.disconnect();
             }
         });
@@ -93,20 +108,6 @@ public class ChatConnectionService extends Service {
             return ChatConnection.LoggedInState.LOGGED_OUT;
         }
         return sLoggedInState;
-    }
-
-    private void initConnection(){
-        Log.d(TAG, "initConnection()");
-        if (mConnection == null){
-            mConnection = new ChatConnection(this);
-        }
-        try {
-            mConnection.connect();
-        } catch (IOException | SmackException | XMPPException | InterruptedException e){
-            Log.d(TAG, "Error while connecting. Retry");
-            e.printStackTrace();
-            stopSelf();
-        }
     }
 
 }

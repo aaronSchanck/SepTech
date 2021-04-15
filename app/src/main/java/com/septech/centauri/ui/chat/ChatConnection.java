@@ -1,6 +1,7 @@
 package com.septech.centauri.ui.chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -86,6 +87,7 @@ public class ChatConnection implements ConnectionListener{
     public void authenticated(XMPPConnection connection, boolean resumed) {
         ChatConnectionService.sConnectionState = ConnectionState.CONNECTED;
         Log.d(TAG, "Authenticated Successfully");
+        showContactListActivityWhenAuthenticated();
     }
 
     @Override
@@ -104,5 +106,12 @@ public class ChatConnection implements ConnectionListener{
     public void connectionClosedOnError(Exception e) {
         ChatConnectionService.sConnectionState = ConnectionState.DISCONNECTED;
         Log.d(TAG, "connectionClosedOnError, error " + e.toString());
+    }
+
+    private void showContactListActivityWhenAuthenticated() {
+        Intent i = new Intent(ChatConnectionService.UI_AUTHENTICATED);
+        i.setPackage(mApplicationContext.getPackageName());
+        mApplicationContext.sendBroadcast(i);
+        Log.d(TAG, "Sent the broadcast that it was authenticated");
     }
 }
