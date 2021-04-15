@@ -11,6 +11,7 @@ import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -60,6 +61,11 @@ public class UserDataRepository implements UserRepository {
     @Override
     public Single<User> deleteUser(int userid) {
         return restApiImpl.deleteUser(userid).map(UserDataMapper::transform);
+    }
+
+    @Override
+    public Single<User> update(int userid, User user) {
+        return restApiImpl.updateUser(userid, UserDataMapper.transform(user)).map(UserDataMapper::transform);
     }
 
     @Override

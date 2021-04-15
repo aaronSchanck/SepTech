@@ -93,6 +93,7 @@ public class ForgotPasswordCodeActivity extends AppCompatActivity {
                     toast.show();
 
                     Intent intent = new Intent(this, NewPasswordActivity.class);
+                    intent.putExtra("email", userEmail);
                     startActivity(intent);
                     break;
             }
