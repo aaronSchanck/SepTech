@@ -16,25 +16,25 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class UserDataRepository implements UserRepository {
-    private static final String TAG = UserDataRepository.class.getSimpleName();
+public class UserRepositoryImpl implements UserRepository {
+    private static final String TAG = UserRepositoryImpl.class.getSimpleName();
 
-    private static UserDataRepository mInstance;
+    private static UserRepositoryImpl mInstance;
 
     private BetelgeuseDatabase database;
     private final FileCache fileCache;
     private final RestApiClient restApiImpl;
     private final BetelgeuseDatabase localDb;
 
-    private UserDataRepository() {
+    private UserRepositoryImpl() {
         this.restApiImpl = RestApiClient.getInstance();
         this.localDb = BetelgeuseDatabase.getDatabase();
         this.fileCache = new FileCache();
     }
 
-    public static UserDataRepository getInstance() {
+    public static UserRepositoryImpl getInstance() {
         if (mInstance == null) {
-            mInstance = new UserDataRepository();
+            mInstance = new UserRepositoryImpl();
         }
         return mInstance;
     }
@@ -60,6 +60,11 @@ public class UserDataRepository implements UserRepository {
     @Override
     public Single<User> deleteUser(int userid) {
         return restApiImpl.deleteUser(userid).map(UserDataMapper::transform);
+    }
+
+    @Override
+    public Single<User> update(int userid, User user) {
+        return restApiImpl.updateUser(userid, UserDataMapper.transform(user)).map(UserDataMapper::transform);
     }
 
     @Override

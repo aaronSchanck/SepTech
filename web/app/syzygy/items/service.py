@@ -138,21 +138,11 @@ class ItemService:
             **filters
         )
 
-        print(query.all())
-
         offset = page * page_size
-
-        print(type(page), type(page_size))
 
         query = query.offset(page * page_size)
 
-        print(query.all())
-
         query = query.limit(page_size)
-
-        print(query.all())
-
-        print(page_size, page, search_str)
 
         return query.all()
 

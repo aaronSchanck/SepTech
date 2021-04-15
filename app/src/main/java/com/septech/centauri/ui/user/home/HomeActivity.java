@@ -93,7 +93,10 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
+        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mFilterViewModel = new ViewModelProvider(this).get(FilterViewModel.class);
+
+        mViewModel.setUserId(getIntent().getIntExtra("id", 0));
 
         //create fragments
         homeFragment = HomeFragment.newInstance();

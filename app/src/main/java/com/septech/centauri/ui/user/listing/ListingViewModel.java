@@ -5,9 +5,12 @@ import android.net.Uri;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.septech.centauri.data.repository.BusinessRepositoryImpl;
 import com.septech.centauri.data.repository.ItemRepositoryImpl;
+import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.domain.repository.BusinessRepository;
 import com.septech.centauri.domain.repository.ItemRepository;
 import com.septech.centauri.lib.Zip;
 
@@ -23,17 +26,23 @@ import io.reactivex.schedulers.Schedulers;
 public class ListingViewModel extends ViewModel {
 
     private ItemRepository itemRepo;
+    private BusinessRepository businessRepo;
 
     private Integer itemId;
 
+    private int currentImage;
+    private int currentQuantity;
+
     private MutableLiveData<Item> itemLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<ItemReview>> reviews = new MutableLiveData<>();
+    private MutableLiveData<Business> businessLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Uri>> imageLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<ItemReview>> reviews = new MutableLiveData<>();
 
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
     public ListingViewModel() {
         itemRepo = ItemRepositoryImpl.getInstance();
+        businessRepo = BusinessRepositoryImpl.getInstance();
     }
 
     @Override
@@ -42,8 +51,12 @@ public class ListingViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void getImages(Item item) {
-        mDisposables.add(itemRepo.getImages(item.getId())
+    public void addToCart(Item item, int currentQuantity) {
+
+    }
+
+    public void getImages(int id) {
+        mDisposables.add(itemRepo.getImages(id)
                 .flatMap(Zip.processResponse())
                 .retry(25)
                 .flatMap(Zip.unpackZipImages())
@@ -88,6 +101,24 @@ public class ListingViewModel extends ViewModel {
                 }));
     }
 
+    public void getBusiness(int id) {
+        mDisposables.add(businessRepo.getBusinessById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Business>() {
+                    @Override
+                    public void onSuccess(@NonNull Business business) {
+                        System.out.println("business = " + business);
+                        businessLiveData.setValue(business);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
     public Integer getItemId() {
         return itemId;
     }
@@ -102,5 +133,29 @@ public class ListingViewModel extends ViewModel {
 
     public MutableLiveData<List<ItemReview>> getReviews() {
         return reviews;
+    }
+
+    public MutableLiveData<List<Uri>> getImageLiveData() {
+        return imageLiveData;
+    }
+
+    public int getCurrentImage() {
+        return currentImage;
+    }
+
+    public void setCurrentImage(int currentImage) {
+        this.currentImage = currentImage;
+    }
+
+    public int getCurrentQuantity() {
+        return currentQuantity;
+    }
+
+    public void setCurrentQuantity(int currentQuantity) {
+        this.currentQuantity = currentQuantity;
+    }
+
+    public MutableLiveData<Business> getBusinessLiveData() {
+        return businessLiveData;
     }
 }

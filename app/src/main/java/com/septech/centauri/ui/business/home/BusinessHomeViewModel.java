@@ -3,7 +3,7 @@ package com.septech.centauri.ui.business.home;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.repository.BusinessDataRepository;
+import com.septech.centauri.data.repository.BusinessRepositoryImpl;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.repository.BusinessRepository;
 
@@ -22,7 +22,7 @@ public class BusinessHomeViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public BusinessHomeViewModel() {
-        businessRepo = BusinessDataRepository.getInstance();
+        businessRepo = BusinessRepositoryImpl.getInstance();
     }
 
     public void setBusiness(int id) {

@@ -1,11 +1,16 @@
 package com.septech.centauri.data.net;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,8 +26,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
-//    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
+    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
+//    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -67,6 +72,10 @@ public class RestApiClient {
 
     public Single<UserEntity> deleteUser(int userid) {
         return restApi.deleteUser(userid);
+    }
+
+    public Single<UserEntity> updateUser(int userid, UserEntity userEntity) {
+        return restApi.updateUser(userid, userEntity);
     }
 
     public Observable<List<UserEntity>> getAllUsers() {

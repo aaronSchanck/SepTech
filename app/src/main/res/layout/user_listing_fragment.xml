@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listing_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,10 +11,10 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fillViewport="true">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,45 +28,77 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:backgroundTint="@color/transparent"
+                android:clickable="true"
                 android:scaleType="center"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                android:clickable="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_back_arrow" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/listingFAB"
-                android:layout_width="wrap_content"
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/wishlistBtn"
+                android:layout_width="208dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:clickable="true"
-                android:contentDescription="TODO"
+                android:text="@string/listing_wishlist_text"
+                app:icon="@drawable/ic_baseline_add_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_add_24" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/cartBtn"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:text="@string/listing_cart_text"
+                android:textColorHighlight="#070000"
+                android:textColorLink="#000000"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:layout_constraintEnd_toEndOf="@+id/quantityEditText"
+                app:layout_constraintEnd_toStartOf="@+id/quantityForwardBtn"
+                app:layout_constraintStart_toEndOf="@+id/quantityBackBtn"
+                app:layout_constraintStart_toStartOf="@+id/quantityEditText"
+                app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
+
+            <Button
+                android:id="@+id/cartBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave a Review"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:textColorHighlight="#070000"
+                android:textColorLink="#000000"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintEnd_toEndOf="@+id/listingSpinner"
+                app:layout_constraintTop_toTopOf="@+id/textView26" />
 
             <TextView
                 android:id="@+id/listingNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="28dp"
                 android:text="TextView"
                 android:textAllCaps="true"
-                android:textSize="24sp"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toStartOf="@+id/wishlistBtn"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/wishlistBtn" />
 
             <TextView
                 android:id="@+id/listingPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="textview"
+                android:layout_marginTop="28dp"
+                android:text="@string/listing_price"
                 android:textColor="#000000"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/listingNameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/listingNameTextView" />
 
@@ -74,9 +107,10 @@
                 android:layout_width="0dp"
                 android:layout_height="276dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="184dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView"
                 app:srcCompat="@drawable/centauri_logo" />
@@ -104,14 +138,14 @@
                 app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
                 app:layout_constraintEnd_toEndOf="@+id/listingImageView"
                 app:layout_constraintTop_toTopOf="@+id/listingImageView"
-                app:srcCompat="@drawable/ic_right_arrow_black" />
+                app:srcCompat="@drawable/ic_right_arrow_black"/>
 
             <TextView
                 android:id="@+id/listingDescTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="TextView"
+                android:text="Some words"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/listingImageView"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -125,7 +159,7 @@
                 android:layout_marginTop="56dp"
                 android:text="Rating"
                 android:textAllCaps="true"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/listingDescTextView"
                 app:layout_constraintTop_toBottomOf="@+id/listingDescTextView" />
@@ -134,26 +168,26 @@
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="88dp"
                 android:text="Reviews"
                 android:textAllCaps="true"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/itemRatingTextView"
                 app:layout_constraintTop_toBottomOf="@+id/itemRatingTextView" />
 
             <Spinner
                 android:id="@+id/listingSpinner"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="48dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="48dp"
                 android:textAllCaps="true"
-                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintBottom_toBottomOf="@+id/textView22"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView26"
-                app:layout_constraintTop_toTopOf="@+id/textView26"
+                app:layout_constraintStart_toEndOf="@+id/textView22"
+                app:layout_constraintTop_toTopOf="@+id/textView22"
                 app:layout_constraintVertical_bias="0.0" />
 
             <RatingBar
@@ -163,7 +197,8 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 app:layout_constraintBottom_toBottomOf="@+id/itemRatingTextView"
-                app:layout_constraintStart_toStartOf="@+id/listingSpinner"
+                app:layout_constraintEnd_toEndOf="@+id/cartBtn2"
+                app:layout_constraintStart_toStartOf="@+id/cartBtn2"
                 app:layout_constraintTop_toTopOf="@+id/itemRatingTextView"
                 app:layout_constraintVertical_bias="1.0" />
 
@@ -171,17 +206,20 @@
                 android:id="@+id/listingRatingScore"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text="3.5 out of 5"
+                android:layout_marginTop="8dp"
+                android:text="%1$f out of 5"
+                app:layout_constraintEnd_toEndOf="@+id/listingRatingBar"
+                app:layout_constraintHorizontal_bias="0.436"
                 app:layout_constraintStart_toStartOf="@+id/listingRatingBar"
                 app:layout_constraintTop_toBottomOf="@+id/listingRatingBar" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView26">
+                app:layout_constraintTop_toBottomOf="@+id/textView22">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listingRV"
@@ -191,6 +229,87 @@
                     android:nestedScrollingEnabled="false"
                     android:scrollbars="vertical" />
             </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/quantityBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:layout_constraintBottom_toBottomOf="@+id/quantityEditText"
+                app:layout_constraintEnd_toStartOf="@+id/quantityEditText"
+                app:layout_constraintTop_toTopOf="@+id/quantityEditText"
+                app:layout_constraintVertical_bias="0.481"
+                app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
+
+            <ImageButton
+                android:id="@+id/quantityForwardBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:layout_constraintBottom_toBottomOf="@+id/quantityEditText"
+                app:layout_constraintStart_toEndOf="@+id/quantityEditText"
+                app:layout_constraintTop_toTopOf="@+id/quantityEditText"
+                app:layout_constraintVertical_bias="0.481"
+                app:srcCompat="@drawable/ic_right_arrow_black" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="48dp"
+                android:text="Purchase Now"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/listingPriceTextView" />
+
+            <Button
+                android:id="@+id/businessProfileBtn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/business_profile_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cartBtn"
+                app:layout_constraintStart_toStartOf="@+id/quantityLeftTextView"
+                app:layout_constraintTop_toTopOf="@+id/cartBtn" />
+
+            <TextView
+                android:id="@+id/quantityLeftTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listingQuantityLeft"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/quantityEditText"
+                app:layout_constraintStart_toStartOf="@+id/listingPriceTextView" />
+
+            <EditText
+                android:id="@+id/quantityEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView25"
+                app:layout_constraintStart_toStartOf="@+id/textView25"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="%1$d reviews found."
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView26"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

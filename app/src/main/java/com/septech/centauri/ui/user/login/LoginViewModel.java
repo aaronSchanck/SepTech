@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
@@ -31,7 +31,7 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
-        this.userRepo = UserDataRepository.getInstance();
+        this.userRepo = UserRepositoryImpl.getInstance();
         this.loginTries = 0;
     }
 

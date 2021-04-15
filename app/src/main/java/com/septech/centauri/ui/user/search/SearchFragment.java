@@ -42,11 +42,9 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
 
     private TextView searchAmountTextView;
 
-    private String query;
-
     //timing variables
-    private long searchStartTime;
-    private long searchEndtime;
+//    private long searchStartTime;
+//    private long searchEndtime;
 
     //callback listener
     private CallBackListener callBackListener;
@@ -85,8 +83,6 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_search_fragment, container, false);
 
-        query = getArguments().getString("query");
-
         rvItems = view.findViewById(R.id.rvItems);
 
         adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
@@ -109,18 +105,17 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        mViewModel.setQuery(getArguments().getString("query"));
 
         mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
 
         createButtonListeners();
         createLiveDataObservers();
 
-        searchStartTime = System.currentTimeMillis();
-
         System.out.println(mAlreadyLoaded);
-        if(!mAlreadyLoaded)  {
-            mViewModel.newSearch(query);
-        }
+//        if(!mAlreadyLoaded)  {
+//            mViewModel.newSearch(query);
+//        }
     }
 
     private void createButtonListeners() {
@@ -145,7 +140,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
 
     private void updatePageArrows() {
         //set forward arrow visilibity
-        if ((mViewModel.getCurrentPage() + 1) * mViewModel.getPageSize() < mViewModel.getSearchAmount().getValue()) {
+        if ((mViewModel.getCurrentPage() + 1) * mViewModel.getPageSize() < mViewModel.getSearchAmountLiveData().getValue()) {
             forwardArrow.setActivated(true);
             forwardArrow.setVisibility(View.VISIBLE);
         } else {
@@ -163,14 +158,11 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     }
 
     private void createLiveDataObservers() {
-        mViewModel.getSearchAmount().observe(getViewLifecycleOwner(), integer -> {
-            updatePageArrows();
-            searchEndtime = System.currentTimeMillis();
 
-            double timeElapsed = (searchEndtime - searchStartTime) / 1000.0;
-
+        mViewModel.getSearchAmountLiveData().observe(getViewLifecycleOwner(), integer -> {
             searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
-                    String.valueOf(integer), String.valueOf(timeElapsed)));
+                    String.valueOf(integer), String.valueOf(0)));
+            updatePageArrows();
         });
 
         mViewModel.getItemsLiveData().observe(getViewLifecycleOwner(), items -> {
@@ -182,23 +174,14 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                 itemIds[i] = items.get(i).getId();
             }
 
-            if(itemIds.length > 0) {
-                mViewModel.getImages(itemIds);
-            } else {
-                rvItems.setVisibility(View.VISIBLE);
+            mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
+                callBackListener.hideLoadingIcon();
+                Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
+                adapter.setImages(images);
                 rvItems.setAdapter(adapter);
 
-                callBackListener.hideLoadingIcon();
-            }
-        });
-
-        mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
-            callBackListener.hideLoadingIcon();
-            Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
-            adapter.setImages(images);
-            rvItems.setAdapter(adapter);
-
-            rvItems.setVisibility(View.VISIBLE);
+                rvItems.setVisibility(View.VISIBLE);
+            });
         });
     }
 

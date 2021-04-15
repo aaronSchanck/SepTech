@@ -33,7 +33,7 @@ import retrofit2.Response;
  * @since 1.0
  */
 public class ItemRepositoryImpl implements ItemRepository {
-    private static final String TAG = UserDataRepository.class.getSimpleName();
+    private static final String TAG = UserRepositoryImpl.class.getSimpleName();
 
     private static ItemRepositoryImpl mInstance;
 

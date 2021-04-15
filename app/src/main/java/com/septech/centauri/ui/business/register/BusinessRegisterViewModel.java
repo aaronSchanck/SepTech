@@ -3,17 +3,10 @@ package com.septech.centauri.ui.business.register;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.model.business.mapper.BusinessDataMapper;
-import com.septech.centauri.data.repository.BusinessDataRepository;
-import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.repository.BusinessRepositoryImpl;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.Business;
-import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.BusinessRepository;
-import com.septech.centauri.domain.repository.UserRepository;
-import com.septech.centauri.lib.DateTime;
-import com.septech.centauri.ui.user.register.RegisterFormState;
-import com.septech.centauri.ui.user.register.RegisterResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -33,7 +26,7 @@ public class BusinessRegisterViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public BusinessRegisterViewModel() {
-        businessRepo = BusinessDataRepository.getInstance();
+        businessRepo = BusinessRepositoryImpl.getInstance();
 
         mRegisterFormState.setValue(new BusinessRegisterFormState());
     }

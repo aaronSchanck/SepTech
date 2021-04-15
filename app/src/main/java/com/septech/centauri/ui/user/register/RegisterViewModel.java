@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
@@ -30,7 +30,7 @@ public class RegisterViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public RegisterViewModel() {
-        userRepo = UserDataRepository.getInstance();
+        userRepo = UserRepositoryImpl.getInstance();
 
         mRegisterFormState.setValue(new RegisterFormState());
     }
