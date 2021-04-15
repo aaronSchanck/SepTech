@@ -207,6 +207,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("id", user.getId());
+
         startActivity(intent);
     }
 

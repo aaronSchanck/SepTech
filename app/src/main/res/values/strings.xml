@@ -202,4 +202,9 @@
     <string name="cart_quantity">QTY %1$d</string>
     <string name="cart_item_number">Item %1$s</string>
     <string name="cart_item_name">%1$s</string>
+    <string name="listingQuantityLeft">%1$d left</string>
+    <string name="listing_price">Price: $%1$s ea.</string>
+    <string name="listing_wishlist_text">Add to WishList</string>
+    <string name="listing_cart_text">Add to Cart</string>
+    <string name="business_profile_text">%1$s Profile</string>
 </resources>

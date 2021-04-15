@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
@@ -32,7 +32,7 @@ public class NewPasswordViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public NewPasswordViewModel() {
-        userRepo = UserDataRepository.getInstance();
+        userRepo = UserRepositoryImpl.getInstance();
 
         mNewPasswordFormState.setValue(new NewPasswordFormState());
     }

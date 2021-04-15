@@ -16,11 +16,6 @@
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
 
-        <!-- Testing Activities -->
-
-        <activity android:name=".ui.testing.MainActivity2"
-            android:theme="@style/Theme.Centauri.NoActionBar"/>
-
         <!-- User Activities -->
         <activity android:name=".ui.user.login.LoginActivity"/>
         <activity android:name=".ui.user.register.RegisterActivity" />

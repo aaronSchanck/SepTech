@@ -26,25 +26,27 @@ public class SearchViewModel extends ViewModel {
 
     private ItemRepository itemRepo;
 
-    private MutableLiveData<List<Item>> itemsLiveData = new MutableLiveData<>();
-    private MutableLiveData<Map<Integer, Uri>> imagesLiveData = new MutableLiveData<>();
-    private MutableLiveData<Integer> searchAmount = new MutableLiveData<>();
+    private MutableLiveData<List<Item>> itemsLiveData;
+    private MutableLiveData<Map<Integer, Uri>> imagesLiveData;
+    private MutableLiveData<Integer> searchAmountLiveData;
 
-    private String currentQuery;
+    private String query;
     private Integer pageSize;
     private Integer currentPage;
 
-    private final CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables;
 
     public SearchViewModel() {
         itemRepo = ItemRepositoryImpl.getInstance();
+
+        mDisposables = new CompositeDisposable();
 
         currentPage = 0;
         pageSize = 20;
     }
 
-    public void search() {
-        mDisposables.add(itemRepo.searchItems(currentQuery, currentPage)
+    public void searchItems() {
+        mDisposables.add(itemRepo.searchItems(query, currentPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<List<Item>>() {
@@ -65,11 +67,8 @@ public class SearchViewModel extends ViewModel {
                 }));
     }
 
-    public void newSearch(String query) {
-        currentPage = 0;
-        currentQuery = query;
-
-        mDisposables.add(itemRepo.getAmountInQuery(currentQuery)
+    public void getSearchAmount() {
+        mDisposables.add(itemRepo.getAmountInQuery(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Integer>() {
@@ -77,7 +76,7 @@ public class SearchViewModel extends ViewModel {
                     public void onSuccess(@NonNull Integer integer) {
                         Log.i(TAG, "Search amount: " + integer);
 
-                        searchAmount.setValue(integer);
+                        searchAmountLiveData.setValue(integer);
                     }
 
                     @Override
@@ -85,20 +84,21 @@ public class SearchViewModel extends ViewModel {
                         Log.i(TAG, "onError: " + e);
                     }
                 }));
-
-        search();
     }
 
     public void lastPage() {
         currentPage -= 1;
 
-        search();
+        searchItems();
     }
 
     public void nextPage() {
         currentPage += 1;
 
-        search();
+        itemsLiveData = new MutableLiveData<>();
+        imagesLiveData = new MutableLiveData<>();
+
+        searchItems();
     }
 
     public void getImages(int[] itemIds) {
@@ -126,24 +126,53 @@ public class SearchViewModel extends ViewModel {
                 }));
     }
 
-    public MutableLiveData<Integer> getSearchAmount() {
-        return searchAmount;
+    public MutableLiveData<Integer> getSearchAmountLiveData() {
+        if (searchAmountLiveData == null) {
+            searchAmountLiveData = new MutableLiveData<>();
+            getSearchAmount();
+        }
+        return searchAmountLiveData;
     }
 
     public MutableLiveData<List<Item>> getItemsLiveData() {
+        if (itemsLiveData == null) {
+            itemsLiveData = new MutableLiveData<>();
+            searchItems();
+        }
         return itemsLiveData;
     }
 
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
+        if (imagesLiveData == null) {
+            imagesLiveData = new MutableLiveData<>();
+
+            getImages(itemLiveDataToIdList());
+        }
         return imagesLiveData;
+    }
+
+    private int[] itemLiveDataToIdList() {
+        List<Item> items = getItemsLiveData().getValue();
+
+        int[] itemIds = new int[items.size()];
+
+        for (int i = 0; i < items.size(); i++) {
+            itemIds[i] = items.get(i).getId();
+        }
+
+        return itemIds;
     }
 
     public Integer getCurrentPage() {
         return currentPage;
     }
 
-    public String getCurrentQuery() {
-        return currentQuery;
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String newQuery) {
+        this.query = newQuery;
     }
 
     public Integer getPageSize() {

@@ -1,9 +1,13 @@
 package com.septech.centauri.ui.user.listing;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,35 +20,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.ui.user.home.HomeViewModel;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class ListingFragment extends Fragment {
-
     private ListingViewModel mViewModel;
+    private HomeViewModel mHomeViewModel;
 
     private RecyclerView listingRV;
     private ReviewAdapter adapter;
 
+    private ConstraintLayout layout;
+
+    private ImageView itemImage;
+
+    private ExtendedFloatingActionButton wishlistBtn;
+    private ExtendedFloatingActionButton cartBtn;
+
     private ImageButton backBtn;
     private ImageButton imageBackBtn;
     private ImageButton imageForwardBtn;
+    private ImageButton quantityBackBtn;
+    private ImageButton quantityForwardBtn;
+
+    private Button businessProfileBtn;
 
     private TextView listingNameTextView;
     private TextView listingPriceTextView;
     private TextView listingDescTextView;
     private TextView listingRatingScore;
+    private TextView quantityLeftTextView;
+
+    private EditText quantityEditText;
 
     private RatingBar listingRatingBar;
 
@@ -59,36 +83,37 @@ public class ListingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_listing_fragment, container, false);
 
+        layout = view.findViewById(R.id.listing_layout);
+        layout.setVisibility(View.GONE);
+
+        itemImage = view.findViewById(R.id.listingImageView);
+
+        wishlistBtn = view.findViewById(R.id.wishlistBtn);
+        cartBtn = view.findViewById(R.id.cartBtn);
+
         backBtn = view.findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("v = " + v);
-                getActivity().onBackPressed();
-            }
+        backBtn.setOnClickListener(v -> {
+            System.out.println("v = " + v);
+            getActivity().onBackPressed();
         });
 
         imageBackBtn = view.findViewById(R.id.imageBackBtn);
-        imageBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("v = " + v);
-            }
-        });
-
         imageForwardBtn = view.findViewById(R.id.imageForwardBtn);
-        imageForwardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("v = " + v);
-            }
-        });
+
+        quantityBackBtn = view.findViewById(R.id.quantityBackBtn);
+        quantityForwardBtn = view.findViewById(R.id.quantityForwardBtn);
+
+        businessProfileBtn = view.findViewById(R.id.businessProfileBtn);
 
         listingNameTextView = view.findViewById(R.id.listingNameTextView);
         listingPriceTextView = view.findViewById(R.id.listingPriceTextView);
         listingDescTextView = view.findViewById(R.id.listingDescTextView);
         listingRatingScore = view.findViewById(R.id.listingRatingScore);
+        quantityLeftTextView = view.findViewById(R.id.quantityLeftTextView);
 
+        quantityEditText = view.findViewById(R.id.quantityEditText);
+
+        //find spinner and set item listener
         listingSpinner = view.findViewById(R.id.listingSpinner);
         listingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -102,15 +127,12 @@ public class ListingFragment extends Fragment {
             }
         });
 
-        List<String> spinnerChoices = new ArrayList<>();
-        spinnerChoices.add("Most Recent");
-        spinnerChoices.add("Least Recent");
-        spinnerChoices.add("Highest Rated");
-        spinnerChoices.add("Lowest Rated");
-        spinnerChoices.add("Most Helpful");
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(requireActivity(),
-                android.R.layout.simple_list_item_1);
+        //create spinner choices
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(
+                requireActivity(),
+                android.R.layout.simple_list_item_1,
+                Arrays.asList("Most Recent", "Least Recent", "Highest Rated", "Lowest Rated",
+                        "Most Helpful"));
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -121,7 +143,6 @@ public class ListingFragment extends Fragment {
         listingRV = view.findViewById(R.id.listingRV);
 
         adapter = new ReviewAdapter(new ArrayList<>());
-        listingRV.setAdapter(adapter);
 
         return view;
     }
@@ -130,34 +151,144 @@ public class ListingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
+        mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
-        mViewModel.getItem(getArguments().getInt("id"));
+        int id = getArguments().getInt("id");
+
+        mViewModel.getItem(id);
+        mViewModel.getImages(id);
 
         createLiveDataObservers();
     }
 
     private void createLiveDataObservers() {
-        mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), new Observer<Item>() {
-            @Override
-            public void onChanged(Item item) {
-                mViewModel.getImages(item);
+        mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
+            Resources res = requireActivity().getResources();
+            //get business
+            mViewModel.getBusiness(item.getSellerId());
 
-                listingNameTextView.setText(item.getName());
+            wishlistBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("v = " + v);
+                }
+            });
 
-                String COUNTRY = "US";
-                String LANGUAGE = "en";
+            cartBtn.setOnClickListener(v -> {
+                int quantity = mViewModel.getCurrentQuantity();
 
-                listingPriceTextView.setText(NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(item.getBuyoutPrice()));
-                listingDescTextView.setText(item.getDescription());
+                if (quantity == 0) {
+                    //TODO show toast message
+                    return;
+                }
 
-                //set rating bar and score
+                mViewModel.addToCart(item, quantity);
+            });
 
-                //add reviews adapter
-            }
+            listingNameTextView.setText(item.getName());
+
+            String COUNTRY = "US";
+            String LANGUAGE = "en";
+
+            listingPriceTextView.setText(res.getString((R.string.listing_price),
+                    item.getBuyoutPrice()));
+            listingDescTextView.setText(item.getDescription());
+
+            mViewModel.setCurrentQuantity(0);
+            quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
+            updateQuantityBtnState(item.getQuantity());
+
+            quantityBackBtn.setOnClickListener(v -> {
+                mViewModel.setCurrentQuantity(mViewModel.getCurrentQuantity() - 1);
+                quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
+                updateQuantityBtnState(item.getQuantity());
+            });
+
+            quantityForwardBtn.setOnClickListener(v -> {
+                mViewModel.setCurrentQuantity(mViewModel.getCurrentQuantity() + 1);
+                quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
+                updateQuantityBtnState(item.getQuantity());
+            });
+
+            quantityLeftTextView.setText(res.getString((R.string.listingQuantityLeft),
+                    item.getQuantity()));
+
+            //set rating bar and score
+
+            //add reviews adapter
+
+            layout.setVisibility(View.VISIBLE);
+        });
+
+        mViewModel.getBusinessLiveData().observe(getViewLifecycleOwner(), business -> {
+            businessProfileBtn.setText(requireActivity().getResources().getString((R.string.business_profile_text),
+                    business.getBusinessName()));
+
+            businessProfileBtn.setOnClickListener(v -> {
+                System.out.println("v = " + v);
+            });
+        });
+
+        mViewModel.getImageLiveData().observe(getViewLifecycleOwner(), uris -> {
+            mViewModel.setCurrentImage(0);
+            itemImage.setImageURI(uris.get(mViewModel.getCurrentImage()));
+
+            updateImageBtnState(uris);
+
+            imageBackBtn.setOnClickListener(v -> {
+                mViewModel.setCurrentImage(mViewModel.getCurrentImage() - 1);
+                itemImage.setImageURI(uris.get(mViewModel.getCurrentImage()));
+
+                updateImageBtnState(uris);
+            });
+
+
+            imageForwardBtn.setOnClickListener(v -> {
+                mViewModel.setCurrentImage(mViewModel.getCurrentImage() + 1);
+                itemImage.setImageURI(uris.get(mViewModel.getCurrentImage()));
+
+                updateImageBtnState(uris);
+            });
         });
 
         mViewModel.getReviews().observe(getViewLifecycleOwner(),
                 itemReviews -> System.out.println("itemReviews = " + itemReviews));
+    }
+
+    private void updateImageBtnState(List<Uri> uris) {
+        if (mViewModel.getCurrentImage() == uris.size() - 1) {
+            imageForwardBtn.setVisibility(View.GONE);
+            imageForwardBtn.setActivated(false);
+        } else {
+            imageForwardBtn.setVisibility(View.VISIBLE);
+            imageForwardBtn.setActivated(true);
+        }
+
+        if (mViewModel.getCurrentImage() == 0) {
+            imageBackBtn.setVisibility(View.GONE);
+            imageBackBtn.setActivated(false);
+        } else {
+            imageBackBtn.setVisibility(View.VISIBLE);
+            imageBackBtn.setActivated(true);
+        }
+    }
+
+    private void updateQuantityBtnState(int quantity) {
+        if (mViewModel.getCurrentQuantity() == quantity) {
+            quantityForwardBtn.setVisibility(View.GONE);
+            quantityForwardBtn.setActivated(false);
+        } else {
+            quantityForwardBtn.setVisibility(View.VISIBLE);
+            quantityForwardBtn.setActivated(true);
+        }
+
+        if (mViewModel.getCurrentQuantity() == 0) {
+            quantityBackBtn.setVisibility(View.GONE);
+            quantityBackBtn.setActivated(false);
+        } else {
+            quantityBackBtn.setVisibility(View.VISIBLE);
+            quantityBackBtn.setActivated(true);
+        }
     }
 
     static class ReviewAdapter extends

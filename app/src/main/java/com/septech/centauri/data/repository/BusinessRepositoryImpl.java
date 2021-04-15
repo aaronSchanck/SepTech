@@ -10,8 +10,8 @@ import com.septech.centauri.domain.repository.BusinessRepository;
 
 import io.reactivex.Single;
 
-public class BusinessDataRepository implements BusinessRepository {
-    private static final String TAG = BusinessDataRepository.class.getSimpleName();
+public class BusinessRepositoryImpl implements BusinessRepository {
+    private static final String TAG = BusinessRepositoryImpl.class.getSimpleName();
 
     private static BusinessRepository mInstance;
 
@@ -21,7 +21,7 @@ public class BusinessDataRepository implements BusinessRepository {
     private final BetelgeuseDatabase localDb;
 
 
-    private BusinessDataRepository() {
+    private BusinessRepositoryImpl() {
         this.restApiImpl = RestApiClient.getInstance();
         this.localDb = BetelgeuseDatabase.getDatabase();
         this.fileCache = new FileCache();
@@ -29,7 +29,7 @@ public class BusinessDataRepository implements BusinessRepository {
 
     public static BusinessRepository getInstance() {
         if (mInstance == null) {
-            mInstance = new BusinessDataRepository();
+            mInstance = new BusinessRepositoryImpl();
         }
         return mInstance;
     }
