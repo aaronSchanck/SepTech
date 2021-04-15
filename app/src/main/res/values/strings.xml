@@ -207,4 +207,12 @@
     <string name="listing_wishlist_text">Add to WishList</string>
     <string name="listing_cart_text">Add to Cart</string>
     <string name="business_profile_text">%1$s Profile</string>
+    <string name="user_full_name">%1$s</string>
+    <string name="user_address">%1$s<br/>%2$s %3$s<br/>%4$s, %5$s %6$s<br/>%7$s</string>
+    <string name="user_phone_number">%1$s</string>
+    <string name="user_payment_method"><b>%1$s</b> ending in %2$d</string>
+    <string name="user_billing_address"><b>Billing Address:</b> %1$s</string>
+    <string name="change">Change</string>
+
+
 </resources>
