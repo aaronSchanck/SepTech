@@ -62,7 +62,7 @@ public interface RestApi {
     /**
      * GET endpoint interface method for getting all users from the table.
      *
-     * @return All user entities y
+     * @return All user entities
      */
     @GET("users")
     Observable<List<UserEntity>> getAllUsers();
@@ -71,11 +71,11 @@ public interface RestApi {
      * GET endpoint interface method for getting a user by their userid. Mostly used as a
      * private method for some functionalities.
      *
-     * @param userid The user's userid in the Users table.
+     * @param id The user's userid in the Users table.
      * @return A UserEntity representing the user object in the table.
      */
-    @GET("users/{userid}")
-    Single<UserEntity> getUserById(@Path("userid") int userid);
+    @GET("users/{id}")
+    Single<UserEntity> getUserById(@Path("id") int id);
 
     /**
      * Deletes a user based off of their id. If a user with the specified id exists, then the
@@ -95,7 +95,7 @@ public interface RestApi {
      * @return
      */
     @PUT("users/{userid}")
-    Single<UserEntity> updateUser(@Path("userid") int userid);
+    Single<UserEntity> updateUser(@Path("userid") int userid, @Body UserEntity userEntity);
 
     /**
      * @param email

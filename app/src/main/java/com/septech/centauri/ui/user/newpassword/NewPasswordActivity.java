@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,16 +17,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.domain.models.User;
-import com.septech.centauri.ui.user.forgotpasswordcode.ForgotPasswordCodeViewModel;
 import com.septech.centauri.ui.user.login.LoginActivity;
-import com.septech.centauri.ui.user.register.RegisterViewModel;
 
 
 public class NewPasswordActivity extends AppCompatActivity {
-    private static final String TAG = "ForgotPassword_NewPassword_Activity";
+    private static final String TAG = "NewPasswordActivity";
 
-    private NewPasswordViewModel mNewPasswordViewModel;
+    private NewPasswordViewModel mViewModel;
 
     private EditText mNewPasswordEditText;
     private EditText mVerifyNewPasswordEditText;
@@ -37,7 +33,10 @@ public class NewPasswordActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_user_forgotpw_newpw);
 
-        mNewPasswordViewModel = new ViewModelProvider(this).get(NewPasswordViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(NewPasswordViewModel.class);
+
+        String email = getIntent().getStringExtra("email");
+        mViewModel.getUser(email);
 
         TextInputLayout newPasswordTextInput = findViewById(R.id.EnterNewPasswordInput);
         TextInputLayout verifyNewPasswordTextInput = findViewById(R.id.VerifyNewPasswordInput);
@@ -47,11 +46,11 @@ public class NewPasswordActivity extends AppCompatActivity {
 
         Button mVerifyButton = findViewById(R.id.VerifyButton);
 
-        String userEmail = getIntent().getStringExtra("email");
+        createTextWatchers();
 
         mVerifyButton.setOnClickListener(v -> {
             hideKeyboard();
-            mNewPasswordViewModel.changePassword(mVerifyNewPasswordEditText.getText().toString(), userEmail);
+            mViewModel.changePassword(mNewPasswordEditText.getText().toString());
         });
     }
 
@@ -74,12 +73,12 @@ public class NewPasswordActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mNewPasswordViewModel.onUpdatePassword(mNewPasswordEditText.getText().toString(),
+                mViewModel.onUpdatePassword(mNewPasswordEditText.getText().toString(),
                         mVerifyNewPasswordEditText.getText().toString());
             }
         });
 
-        mNewPasswordViewModel.getResponseLiveData().observe(this, response -> {
+        mViewModel.getResponseLiveData().observe(this, response -> {
             int duration = Toast.LENGTH_SHORT;
 
             CharSequence text;
@@ -111,7 +110,7 @@ public class NewPasswordActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mNewPasswordViewModel.onUpdateConfirmPassword(mVerifyNewPasswordEditText.getText().toString(), mNewPasswordEditText.getText().toString());
+                mViewModel.onUpdateConfirmPassword(mVerifyNewPasswordEditText.getText().toString(), mNewPasswordEditText.getText().toString());
             }
         });
     }

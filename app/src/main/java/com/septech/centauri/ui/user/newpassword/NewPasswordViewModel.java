@@ -26,6 +26,8 @@ public class NewPasswordViewModel extends ViewModel {
 
     private final UserRepository userRepo;
 
+    private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
+
 
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
@@ -44,11 +46,16 @@ public class NewPasswordViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void changePassword(String password, String email) {
-        PasswordUtils pwUtils = new PasswordUtils(password);
+    public void changePassword(String newPassword) {
+        User user = userLiveData.getValue();
+
+        PasswordUtils pwUtils = new PasswordUtils(newPassword);
         String pwHash = pwUtils.hash();
 
-        mDisposables.add(userRepo.getUserByEmail(email)
+        user.setPassword(pwHash);
+        user.setPasswordSalt(pwUtils.getSalt());
+
+        mDisposables.add(userRepo.update(user.getId(), user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
@@ -59,11 +66,6 @@ public class NewPasswordViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        Log.d("PRE ", user.getPasswordSalt());
-                        user.setPassword(pwHash);
-                        user.setPasswordSalt(pwUtils.getSalt());
-                        int userId = user.getId();
-                        userRepo.updateUser(userId);
                         responseLiveData.setValue(NewPasswordCloudResponse.SUCCESS);
                         Log.d("POST ", user.getPasswordSalt());
                     }
@@ -125,5 +127,28 @@ public class NewPasswordViewModel extends ViewModel {
 
     private boolean isConfirmPasswordValid(String confirmPassword, String password) {
         return confirmPassword.equals(password);
+    }
+
+    public void getUser(String email) {
+        mDisposables.add(userRepo.getUserByEmail(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<User>() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull User user) {
+                        userLiveData.setValue(user);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        //should be unreachable
+                        System.out.println("e = " + e);
+                    }
+                })
+        );
     }
 }

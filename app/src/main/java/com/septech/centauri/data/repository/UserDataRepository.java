@@ -64,8 +64,8 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public Single<User> updateUser(int userid) {
-        return restApiImpl.updateUser(userid).map(UserDataMapper::transform);
+    public Single<User> update(int userid, User user) {
+        return restApiImpl.updateUser(userid, UserDataMapper.transform(user)).map(UserDataMapper::transform);
     }
 
     @Override

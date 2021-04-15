@@ -27,7 +27,7 @@ public interface UserRepository {
      * @param userid
      * @return
      */
-    Single<User> updateUser(int userid);
+    Single<User> update(int userid, User user);
 
     /**
      * Attempts to log in a user with the specified username, password, and passwordSalt. The

@@ -70,8 +70,8 @@ public class RestApiClient {
         return restApi.deleteUser(userid);
     }
 
-    public Single<UserEntity> updateUser(int userid) {
-        return restApi.updateUser(userid);
+    public Single<UserEntity> updateUser(int userid, UserEntity userEntity) {
+        return restApi.updateUser(userid, userEntity);
     }
 
     public Observable<List<UserEntity>> getAllUsers() {
