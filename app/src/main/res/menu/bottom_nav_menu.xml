@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/person"
+        android:id="@+id/bottom_person"
         android:icon="@drawable/ic_person_foreground"
-        android:title="My Account" />
-
+        android:title="@string/bottom_my_account" />
     <item
-        android:id="@+id/messages"
-        android:icon="@drawable/ic_messages_foreground"
-        android:title="Messages" />
-
-    <item
-        android:id="@+id/cart"
-        android:icon="@drawable/ic_cart_foreground"
-        android:title="Shop" />
-    <item
-        android:id="@+id/notifications"
+        android:id="@+id/bottom_notifications"
         android:icon="@drawable/ic_notification_foreground"
-        android:title="Notifications" />
+        android:title="@string/bottom_notifications" />
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_search_foreground"
-        android:title="Search" />
+        android:id="@+id/bottom_cart"
+        android:icon="@drawable/ic_cart_foreground"
+        android:title="@string/bottom_cart" />
+    <item
+        android:id="@+id/bottom_messages"
+        android:icon="@drawable/ic_messages_foreground"
+        android:title="@string/bottom_messages" />
 </menu>

@@ -66,7 +66,7 @@ public interface RestApi {
      */
     @GET("users")
     Observable<List<UserEntity>> getAllUsers();
-
+  
     /**
      * GET endpoint interface method for getting a user by their userid. Mostly used as a
      * private method for some functionalities.
@@ -118,7 +118,10 @@ public interface RestApi {
     @POST("users/{email}")
     Single<String> verifyPasswordCode(@Field("code") String code, @Path("email") String email);
 
-    //ITEMS ENDPOINTS
+    //ITEMS ENDPOINTS]
+
+    @GET("items/{id}")
+    Single<ItemEntity> getItemById(@Path("id") int id);
 
     @Multipart
     @POST("items/create")
@@ -131,21 +134,22 @@ public interface RestApi {
     @GET("items/search/amount")
     Single<Integer> getAmountItems();
 
-    @GET("items/search/{query}")
-    Observable<List<ItemEntity>> search(@Path("query") String query,
+    @GET("items/search/{search_str}")
+    Observable<List<ItemEntity>> search(@Path("search_str") String query,
                                         @Query("page") int page);
 
-    @GET("items/search/{query}/amount")
-    Single<Integer> getAmountInQuery(@Path("query") String query);
+    @GET("items/search/{search_str}/amount")
+    Single<Integer> getAmountInQuery(@Path("search_str") String query);
 
-//    @Headers({
-//            "Content-Type: application/json;charset=utf-8",
-//            "Accept: application/json"
-//    })
+    @Headers({"Connection: close"})
     @Streaming
-    @Headers("Connection: close")
     @GET("items/search/images")
-    Observable<Response<ResponseBody>> getImagesZip(@Query("ids") String ids);
+    Observable<Response<ResponseBody>> getItemThumbnails(@Query("ids") String ids);
+
+    @Headers({"Connection: close"})
+    @Streaming
+    @GET("items/search/images/{id}")
+    Observable<Response<ResponseBody>> getImages(@Path("id") int itemId);
 
     //BUSINESS ENDPOINTS
 

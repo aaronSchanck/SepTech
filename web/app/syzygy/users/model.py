@@ -24,13 +24,7 @@ log = logging.getLogger(__name__)
 
 
 class User(db.Model):
-    """[summary]
-
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
-    """
+    """A User entity in the users table""" 
 
     __tablename__ = "users"
 

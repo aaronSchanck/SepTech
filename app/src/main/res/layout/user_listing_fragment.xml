@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="@color/transparent"
+                android:scaleType="center"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back_arrow" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/listingFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:contentDescription="TODO"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
+
+            <TextView
+                android:id="@+id/listingNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="60dp"
+                android:text="TextView"
+                android:textAllCaps="true"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/listingPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="textview"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="@+id/listingNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/listingNameTextView" />
+
+            <ImageView
+                android:id="@+id/listingImageView"
+                android:layout_width="0dp"
+                android:layout_height="276dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView"
+                app:srcCompat="@drawable/centauri_logo" />
+
+            <ImageButton
+                android:id="@+id/imageBackBtn"
+                android:layout_width="65dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@android:color/transparent"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
+                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintTop_toTopOf="@+id/listingImageView"
+                app:layout_constraintVertical_bias="0.497"
+                app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
+
+            <ImageButton
+                android:id="@+id/imageForwardBtn"
+                android:layout_width="65dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@android:color/transparent"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
+                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
+                app:layout_constraintTop_toTopOf="@+id/listingImageView"
+                app:srcCompat="@drawable/ic_right_arrow_black" />
+
+            <TextView
+                android:id="@+id/listingDescTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="TextView"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
+
+            <TextView
+                android:id="@+id/itemRatingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:text="Rating"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/listingDescTextView"
+                app:layout_constraintTop_toBottomOf="@+id/listingDescTextView" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:text="Reviews"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/itemRatingTextView"
+                app:layout_constraintTop_toBottomOf="@+id/itemRatingTextView" />
+
+            <Spinner
+                android:id="@+id/listingSpinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView26"
+                app:layout_constraintTop_toTopOf="@+id/textView26"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <RatingBar
+                android:id="@+id/listingRatingBar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                app:layout_constraintBottom_toBottomOf="@+id/itemRatingTextView"
+                app:layout_constraintStart_toStartOf="@+id/listingSpinner"
+                app:layout_constraintTop_toTopOf="@+id/itemRatingTextView"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/listingRatingScore"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="3.5 out of 5"
+                app:layout_constraintStart_toStartOf="@+id/listingRatingBar"
+                app:layout_constraintTop_toBottomOf="@+id/listingRatingBar" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView26">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listingRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:nestedScrollingEnabled="false"
+                    android:scrollbars="vertical" />
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

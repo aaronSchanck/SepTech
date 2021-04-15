@@ -31,6 +31,7 @@ import com.septech.centauri.ui.user.register.RegisterActivity;
  * An activity representing the login UI/UX for the app end-user. The page consists of fields for
  * the user to login by entering their email/password. Other possible user interactions and
  * navigation pathways include:
+ *
  * "Forgot your password?": Takes the user to the ForgotPasswordActivity
  * "Continue as Guest": Logs in the user as a Guest user, with less functionality on the app than
  * a standard logged in user.
@@ -67,10 +68,6 @@ public class LoginActivity extends AppCompatActivity {
         mForgotPasswordBtn = findViewById(R.id.forgot_password_btn);
 
         mLoadingIcon = findViewById(R.id.loading_icon);
-
-//        mToolBar = findViewById(R.id.toolbar);
-//        setSupportActionBar(mToolBar);
-
         mLoadingIcon.setVisibility(View.GONE);
 
         createLiveDataObservers();
