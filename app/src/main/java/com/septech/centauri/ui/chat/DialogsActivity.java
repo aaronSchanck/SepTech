@@ -12,9 +12,8 @@ import com.stfalcon.chatkit.commons.models.IDialog;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.stfalcon.chatkit.commons.ImageLoader;
-import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
-import com.septech.centauri.data.model.chat.Dialog;
-import com.septech.centauri.data.utils.ToastUtils;
+import com.septech.centauri.domain.chat.models.Dialog;
+import com.septech.centauri.domain.chat.utils.ToastUtils;
 import com.stfalcon.chatkit.utils.DateFormatter;
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.septech.centauri.data.model.chat;
+package com.septech.centauri.domain.chat.models;
 
 import com.stfalcon.chatkit.commons.models.IUser;
 

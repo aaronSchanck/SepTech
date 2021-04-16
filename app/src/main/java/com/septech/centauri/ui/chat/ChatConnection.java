@@ -7,8 +7,8 @@ import android.content.IntentFilter;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.septech.centauri.data.model.chat.Message;
-import com.septech.centauri.data.model.chat.User;
+import com.septech.centauri.domain.chat.models.Message;
+import com.septech.centauri.domain.chat.models.User;
 
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.ReconnectionManager;
@@ -66,7 +66,7 @@ public class ChatConnection implements ConnectionListener{
         builder.setResource("Centauri");
 
         //Set up the ui thread broadcast message receiver.
-        //setupUiThreadBroadCastMessageReceiver();
+        setupUiThreadBroadcastMessageReceiver();
 
         mConnection = new XMPPTCPConnection(builder.build());
         mConnection.addConnectionListener(this);

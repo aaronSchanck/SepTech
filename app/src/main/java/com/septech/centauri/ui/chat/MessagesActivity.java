@@ -11,18 +11,17 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.model.chat.Message;
-import com.septech.centauri.data.model.chat.User;
+import com.septech.centauri.domain.chat.models.Message;
+import com.septech.centauri.domain.chat.models.User;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.stfalcon.chatkit.utils.DateFormatter;
-import com.septech.centauri.data.utils.ToastUtils;
+import com.septech.centauri.domain.chat.utils.ToastUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 

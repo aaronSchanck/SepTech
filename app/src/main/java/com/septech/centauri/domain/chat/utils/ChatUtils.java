@@ -1,4 +1,4 @@
-package com.septech.centauri.data.utils;
+package com.septech.centauri.domain.chat.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
