@@ -23,3 +23,11 @@ log = logging.getLogger(__name__)
 
 class OrderSchema(Schema):
     id = fields.Number(dump_only=True)
+
+    userid = fields.Number()
+
+    ordered = fields.Boolean()
+
+    date_created = fields.DateTime(dump_only=True)
+    date_shipped = fields.DateTime(dump_only=True)
+    date_delivered = fields.DateTime(dump_only=True)

@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="Search"/>
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="Favorite"
+        android:contentDescription="Favorite"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/switchAccounts"
+        android:title="Switch Accounts"
+        android:contentDescription="More"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:contentDescription="More"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        android:contentDescription="More"
+        app:showAsAction="never" />
+
+</menu>

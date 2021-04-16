@@ -8,17 +8,23 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/centauri__teal</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/lighter_black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnSecondary</item>
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/text_black</item>
 
+    </style>
+
+    <style name="CustomActionBar" parent="android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/CustomActionBarStyle</item>
     </style>
 
     <style name="Theme.Centauri.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:editTextColor">@android:color/white</item>
     </style>
 
     <style name="Theme.Centauri.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

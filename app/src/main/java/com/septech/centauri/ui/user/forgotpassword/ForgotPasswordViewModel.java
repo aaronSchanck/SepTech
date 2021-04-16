@@ -3,8 +3,7 @@ package com.septech.centauri.ui.user.forgotpassword;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.repository.UserDataRepository;
-import com.septech.centauri.domain.models.User;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,7 +22,7 @@ public class ForgotPasswordViewModel extends ViewModel {
 
 
     public ForgotPasswordViewModel() {
-        this.userRepo = UserDataRepository.getInstance();
+        this.userRepo = UserRepositoryImpl.getInstance();
 
         formLiveData.setValue(new ForgotPasswordFormState());
     }

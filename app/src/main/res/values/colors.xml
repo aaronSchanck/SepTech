@@ -4,8 +4,8 @@
     <color name="centauri_red">#870101</color>
     <color name="red_700">#B71C1C</color>
     <color name="centauri__teal">#88FDF6</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#B7000000</color>
+    <color name="teal_700">#71EAEA</color>
+    <color name="black">#000000</color>
     <color name="gray">#6F6F6F</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
@@ -20,4 +20,6 @@
     <color name="gray_dark_transparent">#ae858585</color>
     <color name="gray_light">#e8e8e8</color>
     <color name="gray_dark">#858585</color>
+    <color name="text_black">#000000</color>
+    <color name="lighter_black">#CC000000</color>
 </resources>

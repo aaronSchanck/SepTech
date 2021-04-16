@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
@@ -31,7 +31,7 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
-        this.userRepo = UserDataRepository.getInstance();
+        this.userRepo = UserRepositoryImpl.getInstance();
         this.loginTries = 0;
     }
 
@@ -54,41 +54,27 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String email, String password) {
         mDisposables.add(userRepo.getUserByEmail(email)
+                .flatMap(user -> userRepo.login(email, password, user.getPasswordSalt()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
-                    public void onStart() {
+                    protected void onStart() {
                         responseLiveData.setValue(LoginResponse.SEARCHING);
                     }
 
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        mDisposables.add(userRepo.login(email, password, user.getPasswordSalt())
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribeWith(new DisposableSingleObserver<User>() {
-                                    @Override
-                                    public void onSuccess(@NonNull User user) {
-                                        responseLiveData.setValue(LoginResponse.USER_FOUND);
-                                        userLiveData.setValue(user);
-                                    }
-
-                                    @Override
-                                    public void onError(@NonNull Throwable e) {
-                                        responseLiveData.setValue(LoginResponse.PASSWORD_INCORRECT);
-                                        loginTries += 1;
-                                    }
-                                })
-                        );
+                        responseLiveData.setValue(LoginResponse.USER_FOUND);
+                        userLiveData.setValue(user);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(LoginResponse.NO_USER_FOUND_FOR_EMAIL);
+                        responseLiveData.setValue(LoginResponse.PASSWORD_INCORRECT);
+                        loginTries += 1;
                     }
-                })
-        );
+                }));
     }
 
     public void onUpdateUsername(String username) {

@@ -1,12 +1,16 @@
 package com.septech.centauri.domain.repository;
 
 
+import com.septech.centauri.domain.models.Item;
+import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
 
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 
 /**
  * A domain-level interface to serve the ViewModels with information grabbed regarding the User
@@ -21,6 +25,12 @@ public interface UserRepository {
      * @return
      */
     Single<User> getUserById(int userid);
+
+    /**
+     * @param userid
+     * @return
+     */
+    Single<User> update(int userid, User user);
 
     /**
      * Attempts to log in a user with the specified username, password, and passwordSalt. The
@@ -87,4 +97,6 @@ public interface UserRepository {
     Single<String> verifyPasswordCode(String code, String email);
 
     Single<String> forgotPassword(String email);
+
+    Single<Order> addToCart(User user, Item item, int quantity);
 }

@@ -1,34 +1,35 @@
 package com.septech.centauri.data.net;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
-import com.septech.centauri.domain.models.User;
+import com.septech.centauri.domain.models.Order;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public class RestApiClient {
-//    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-    private final String API_BASE_URL = "http://192.168.0.4:5000/api/";  // base url for our api
+    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
+//    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -36,8 +37,15 @@ public class RestApiClient {
     private Gson gson;
 
     private RestApiClient() {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .readTimeout(40, TimeUnit.SECONDS)
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .build();
+
         gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -50,6 +58,7 @@ public class RestApiClient {
         }
         return instance;
     }
+
     //USERS
     public Single<UserEntity> login(@NonNull String username, @NonNull String password) {
         return restApi.login(username, password);
@@ -67,6 +76,10 @@ public class RestApiClient {
         return restApi.deleteUser(userid);
     }
 
+    public Single<UserEntity> updateUser(int userid, UserEntity userEntity) {
+        return restApi.updateUser(userid, userEntity);
+    }
+
     public Observable<List<UserEntity>> getAllUsers() {
         return restApi.getAllUsers();
     }
@@ -82,6 +95,10 @@ public class RestApiClient {
     public Single<String> verifyPasswordCode(String code, String email) { return restApi.verifyPasswordCode(code, email); }
 
     //ITEMS
+
+    public Single<ItemEntity> getItemById(int id) {
+        return restApi.getItemById(id);
+    }
 
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
         MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
@@ -106,8 +123,8 @@ public class RestApiClient {
         return restApi.getAmountInQuery(query);
     }
 
-    public Observable<Response<ResponseBody>> getImagesZip(String itemIds) {
-        return restApi.getImagesZip(itemIds);
+    public Observable<Response<ResponseBody>> getItemThumbnails(String itemIds) {
+        return restApi.getItemThumbnails(itemIds);
     }
 
     //BUSINESSES
@@ -130,5 +147,13 @@ public class RestApiClient {
 
     public Single<BusinessEntity> createBusinessAccount(BusinessEntity businessEntity) {
         return restApi.createBusinessAccount(businessEntity);
+    }
+
+    public Observable<Response<ResponseBody>> getImages(int itemId) {
+        return restApi.getImages(itemId);
+    }
+
+    public Single<OrderEntity> addToCart(int userid, int itemid, int quantity) {
+        return restApi.addToCart(userid, itemid, quantity);
     }
 }

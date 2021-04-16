@@ -6,21 +6,13 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.septech.centauri.data.repository.ItemDataRepository;
+import com.septech.centauri.data.repository.ItemRepositoryImpl;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.repository.ItemRepository;
+import com.septech.centauri.lib.Zip;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,51 +22,33 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
-import okio.BufferedSink;
-import okio.Okio;
-import retrofit2.Response;
-
-import static com.septech.centauri.persistent.CentauriApp.getAppContext;
 
 public class SearchViewModel extends ViewModel {
     private static final String TAG = "SearchViewModel";
 
     private ItemRepository itemRepo;
 
-    private MutableLiveData<List<Item>> itemsLiveData = new MutableLiveData<>();
-    private MutableLiveData<Map<Integer, Uri>> imagesLiveData = new MutableLiveData<>();
-    private Integer currentPage;
-    private MutableLiveData<Integer> searchAmount = new MutableLiveData<>();
-    private String currentQuery;
+    private MutableLiveData<List<Item>> itemsLiveData;
+    private MutableLiveData<Map<Integer, Uri>> imagesLiveData;
+    private MutableLiveData<Integer> searchAmountLiveData;
 
-    private final CompositeDisposable mDisposables = new CompositeDisposable();
+    private String query;
+    private Integer pageSize;
+    private Integer currentPage;
+
+    private final CompositeDisposable mDisposables;
 
     public SearchViewModel() {
-        itemRepo = ItemDataRepository.getInstance();
+        itemRepo = ItemRepositoryImpl.getInstance();
+
+        mDisposables = new CompositeDisposable();
 
         currentPage = 0;
+        pageSize = 20;
     }
 
-    public void search() {
-        mDisposables.add(itemRepo.getAmountInQuery(currentQuery)
-                .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableSingleObserver<Integer>() {
-                        @Override
-                        public void onSuccess(@NonNull Integer integer) {
-                            Log.i(TAG, "Search amount: " + integer);
-
-                            searchAmount.setValue(integer);
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: " + e);
-                    }
-                }));
-
-        mDisposables.add(itemRepo.searchItems(currentQuery, currentPage)
+    public void searchItems() {
+        mDisposables.add(itemRepo.searchItems(query, currentPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<List<Item>>() {
@@ -95,41 +69,66 @@ public class SearchViewModel extends ViewModel {
                 }));
     }
 
-    public void newSearch(String query) {
-        currentPage = 0;
-        currentQuery = query;
+    public void getSearchAmount() {
+        mDisposables.add(itemRepo.getAmountInQuery(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        Log.i(TAG, "Search amount: " + integer);
 
-        search();
+                        searchAmountLiveData.setValue(integer);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e);
+                    }
+                }));
+    }
+
+    private Function<List<Item>, Observable<List<Item>>> emit() {
+        return items -> {
+            itemsLiveData.setValue(items);
+            return Observable.just(items);
+        };
     }
 
     public void lastPage() {
         currentPage -= 1;
 
-        search();
+        itemsLiveData = new MutableLiveData<>();
+        imagesLiveData = new MutableLiveData<>();
+
+        searchItems();
     }
 
     public void nextPage() {
         currentPage += 1;
 
-        search();
+        itemsLiveData = new MutableLiveData<>();
+        imagesLiveData = new MutableLiveData<>();
+
+        searchItems();
     }
 
     public void getImages(int[] itemIds) {
-        mDisposables.add(itemRepo.getImagesZip(itemIds)
-                .flatMap(processResponse())
+        mDisposables.add(itemRepo.getItemThumbnails(itemIds)
+                .flatMap(Zip.processResponse())
                 .retry(25) //must be used when running the emulator, don't ask. I don't know why
-                .flatMap(unpackZip())
+                .flatMap(Zip.unpackZipThumbnails())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<File>() {
+                .subscribeWith(new DisposableObserver<Map<Integer, Uri>>() {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onCompleted");
                     }
 
                     @Override
-                    public void onNext(@NonNull File file) {
-                        Log.i(TAG, "Images received and converted");
+                    public void onNext(@NonNull Map<Integer, Uri> map) {
+                        imagesLiveData.setValue(map);
                     }
 
                     @Override
@@ -139,118 +138,56 @@ public class SearchViewModel extends ViewModel {
                 }));
     }
 
-    private Function<Response<ResponseBody>, Observable<File>> processResponse() {
-        return this::saveToDisk;
-    }
-
-    private Observable<File> saveToDisk(final Response<ResponseBody> response) {
-        return Observable.create(emitter -> {
-            try {
-                String header = response.headers().get("Content-Disposition");
-                String filename = header.replace("attachment; filename=", "");
-
-                File path = getAppContext().getExternalCacheDir();
-
-                path.mkdir();
-
-                System.out.println(path);
-                File file = new File(path, filename);
-
-                BufferedSink bufferedSink = Okio.buffer(Okio.sink(file));
-
-                System.out.println(response);
-                bufferedSink.writeAll(response.body().source());
-                bufferedSink.close();
-
-                response.body().close();
-
-                emitter.onNext(file);
-            } catch (IOException e) {
-                Log.i(TAG, e.toString());
-                emitter.onError(e);
-            }
-        });
-    }
-
-    private Function<File, Observable<File>> unpackZip() {
-        return file -> {
-            InputStream is;
-            ZipInputStream zis;
-
-            String parentFolder;
-            String filename;
-
-            Map<Integer, Uri> uris = new HashMap<>();
-            try {
-                File extractedFile = new File(file.getAbsolutePath().replace(".zip", ""));
-                extractedFile.mkdir();
-
-                parentFolder = file.getParentFile().getPath();
-
-
-                is = new FileInputStream(file.getAbsolutePath());
-                zis = new ZipInputStream(new BufferedInputStream(is));
-                ZipEntry ze;
-                byte[] buffer = new byte[1024];
-                int count;
-
-                while ((ze = zis.getNextEntry()) != null) {
-                    filename = ze.getName();
-
-                    if (ze.isDirectory()) {
-                        File fmd = new File(parentFolder + "/" + filename);
-                        fmd.mkdirs();
-                        continue;
-                    }
-
-                    File fileEntry = new File(parentFolder + "/" + filename);
-
-                    FileOutputStream fout = new FileOutputStream(fileEntry);
-
-                    while ((count = zis.read(buffer)) != -1) {
-                        fout.write(buffer, 0, count);
-                    }
-
-                    fout.close();
-                    zis.closeEntry();
-
-                    int itemId = Integer.parseInt(filename.replace("thumbnails/thumbnail_", "").replace(".jpg",
-                            ""));
-
-                    uris.put(itemId, Uri.fromFile(fileEntry));
-                }
-
-                zis.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            imagesLiveData.postValue(uris);
-
-            File extractedFile = new File(file.getAbsolutePath().replace(".zip", ""));
-            if (!file.delete()) Log.w("unpackZip", "Failed to delete the zip file.");
-            return Observable.just(extractedFile);
-        };
-    }
-
-    public MutableLiveData<Integer> getSearchAmount() {
-        return searchAmount;
+    public MutableLiveData<Integer> getSearchAmountLiveData() {
+        if (searchAmountLiveData == null) {
+            searchAmountLiveData = new MutableLiveData<>();
+            getSearchAmount();
+        }
+        return searchAmountLiveData;
     }
 
     public MutableLiveData<List<Item>> getItemsLiveData() {
+        if (itemsLiveData == null) {
+            itemsLiveData = new MutableLiveData<>();
+            searchItems();
+        }
         return itemsLiveData;
     }
 
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
+        if (imagesLiveData == null) {
+            imagesLiveData = new MutableLiveData<>();
+
+            getImages(itemLiveDataToIdList());
+        }
         return imagesLiveData;
+    }
+
+    private int[] itemLiveDataToIdList() {
+        List<Item> items = getItemsLiveData().getValue();
+
+        int[] itemIds = new int[items.size()];
+
+        for (int i = 0; i < items.size(); i++) {
+            itemIds[i] = items.get(i).getId();
+        }
+
+        return itemIds;
     }
 
     public Integer getCurrentPage() {
         return currentPage;
     }
 
-    public String getCurrentQuery() {
-        return currentQuery;
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String newQuery) {
+        this.query = newQuery;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
     }
 }

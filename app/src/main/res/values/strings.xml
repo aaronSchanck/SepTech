@@ -4,7 +4,7 @@
     <string name="action_signout">Sign Out</string>
     <string name="username_email_address">Email Address</string>
     <string name="password_hint">Password</string>
-    <string name="forgot_your_password"><b>Forgot Your Password?</b></string>
+    <string name="forgot_your_password">Forgot Your Password?</string>
     <string name="sign_in">Log In</string>
     <string name="create_an_account">Create An Account</string>
     <string name="continue_as_guest">Continue As Guest</string>
@@ -19,6 +19,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="string_username_incorrect">"Username length must be > 5"</string>
     <string name="string_password_incorrect">"Password length must be > 5"</string>
+    <string name="string_confirm_password_incorrect">Passwords don\'t match</string>
     <string name="register_string_fname_incorrect">Full name length must be > 1</string>
     <string name="register_string_email_incorrect">Email incorrect</string>
     <string name="register_string_password_incorrect">Password incorrect</string>
@@ -32,13 +33,13 @@
     <string name="registration_phone_number_resource_a">%1$s</string>
     <string name="registration_phone_number_resource_b">%1$s-%2$s</string>
     <string name="registration_phone_number_resource_c">%1$s-%2$s-%3$s</string>
-    <string name="wish_list"><b>Wish List</b></string>
-    <string name="view_history"><b>View History</b></string>
-    <string name="view_all_items"><b>View All Items</b></string>
-    <string name="cart"><b>Cart</b></string>
-    <string name="orders"><b>Orders</b></string>
-    <string name="need_help"><b>Need Help?</b></string>
-    <string name="home_welcome"><b>Welcome</b></string>
+    <string name="wish_list">Wish List</string>
+    <string name="view_history">View History</string>
+    <string name="view_all_items">View All Items</string>
+    <string name="cart">Cart</string>
+    <string name="orders">Orders</string>
+    <string name="need_help">Need Help?</string>
+    <string name="home_welcome">Welcome, %1$s!</string>
     <string name="settings_search">Settings Search</string>
     <string name="searchLabel">search</string>
     <string name="accountBtn">Account</string>
@@ -50,8 +51,8 @@
     <string name="locationBtn">Location</string>
     <string name="aboutBtn">About</string>
     <string name="arrow">arrow</string>
-    <string name="search_keyword_str"><b>Search Keyword</b></string>
-    <string name="search_cart_amount_str"><b>0</b></string>
+    <string name="search_keyword_str">Search Keyword</string>
+    <string name="search_cart_amount_str">0</string>
     <string name="addListingHeader">Add Listing</string>
     <string name="upload_image">Upload Image</string>
     <string name="item_name">Item Name</string>
@@ -200,5 +201,25 @@
     <string name="copied_message">Message copied!</string>
     <string name="date_header_today">Today</string>
     <string name="date_header_yesterday">Yesterday</string>
-
+    <string name="bottom_cart">Cart</string>
+    <string name="bottom_notifications">Notifications</string>
+    <string name="bottom_my_account">My Account</string>
+    <string name="bottom_messages">Messages</string>
+    <string name="cart_price">$%1$f</string>
+    <string name="cart_quantity">QTY %1$d</string>
+    <string name="cart_item_number">Item %1$s</string>
+    <string name="cart_item_name">%1$s</string>
+    <string name="listingQuantityLeft">%1$d left</string>
+    <string name="listing_price">Price: $%1$s ea.</string>
+    <string name="listing_wishlist_text">Add to WishList</string>
+    <string name="listing_cart_text">Add to Cart</string>
+    <string name="business_profile_text">%1$s Profile</string>
+    <string name="user_full_name">%1$s</string>
+    <string name="user_address">%1$s<br/>%2$s %3$s<br/>%4$s, %5$s %6$s<br/>%7$s</string>
+    <string name="user_phone_number">%1$s</string>
+    <string name="user_payment_method"><b>%1$s</b> ending in %2$d</string>
+    <string name="user_billing_address"><b>Billing Address:</b> %1$s</string>
+    <string name="change">Change</string>
+    <string name="phone_contact_text">Need help over the phone? <br/>Call <b>1-234-567-8900</b>.</string>
+    <string name="email_contact_text">Or choose to email us at <br/><b>septech.centauri@gmail.com</b></string>
 </resources>

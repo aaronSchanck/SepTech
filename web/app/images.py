@@ -22,6 +22,7 @@ def setup_syzygy_image_store(path):
 def clear_syzygy_image_store(path):
     items_dir = "items"
     businesses_dir = "businesses"
+    users_dir = "users"
 
     items_path = os.path.join(path, items_dir)
     businesses_path = os.path.join(path, businesses_dir)

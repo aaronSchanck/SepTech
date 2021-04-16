@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.R;
-import com.septech.centauri.data.repository.UserDataRepository;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
@@ -30,7 +30,7 @@ public class RegisterViewModel extends ViewModel {
     private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public RegisterViewModel() {
-        userRepo = UserDataRepository.getInstance();
+        userRepo = UserRepositoryImpl.getInstance();
 
         mRegisterFormState.setValue(new RegisterFormState());
     }
@@ -44,7 +44,7 @@ public class RegisterViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void createAccount(String email, String password, String fullName, String phoneNumber) {
+    public void createAccount(String email, String password, String fullName, String phoneNumber, String dob) {
         PasswordUtils pwUtils = new PasswordUtils(password);
         String pwHash = pwUtils.hash();
 
@@ -58,7 +58,7 @@ public class RegisterViewModel extends ViewModel {
 
         user.setCreatedAt(DateTime.nowDateTime());
         user.setModifiedAt(DateTime.nowDateTime());
-        user.setDateOfBirth(DateTime.nowDate());
+        user.setDateOfBirth(dob);
 
         mDisposables.add(userRepo.createAccount(user)
                 .subscribeOn(Schedulers.io())

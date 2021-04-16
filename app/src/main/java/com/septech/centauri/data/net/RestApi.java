@@ -2,11 +2,13 @@ package com.septech.centauri.data.net;
 
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.User;
 
 import java.io.File;
+import java.util.Dictionary;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -59,22 +61,22 @@ public interface RestApi {
     Single<UserEntity> createUser(@Body UserEntity userEntity);
 
     /**
-     * GET endpoint interface method for getting a user by their userid. Mostly used as a
-     * private method for some functionalities.
-     *
-     * @param userid The user's userid in the Users table.
-     * @return A UserEntity representing the user object in the table.
-     */
-    @GET("users/{userid}")
-    Single<UserEntity> getUserById(@Path("userid") int userid);
-
-    /**
      * GET endpoint interface method for getting all users from the table.
      *
-     * @return All user entities y
+     * @return All user entities
      */
     @GET("users")
     Observable<List<UserEntity>> getAllUsers();
+  
+    /**
+     * GET endpoint interface method for getting a user by their userid. Mostly used as a
+     * private method for some functionalities.
+     *
+     * @param id The user's userid in the Users table.
+     * @return A UserEntity representing the user object in the table.
+     */
+    @GET("users/{id}")
+    Single<UserEntity> getUserById(@Path("id") int id);
 
     /**
      * Deletes a user based off of their id. If a user with the specified id exists, then the
@@ -86,6 +88,15 @@ public interface RestApi {
      */
     @DELETE("users/{userid}")
     Single<UserEntity> deleteUser(@Path("userid") int userid);
+
+    /**
+     * Updates a user based off of their id.
+     *
+     * @param userid
+     * @return
+     */
+    @PUT("users/{userid}")
+    Single<UserEntity> updateUser(@Path("userid") int userid, @Body UserEntity userEntity);
 
     /**
      * @param email
@@ -108,7 +119,15 @@ public interface RestApi {
     @POST("users/{email}")
     Single<String> verifyPasswordCode(@Field("code") String code, @Path("email") String email);
 
-    //ITEMS ENDPOINTS
+    @Headers("Content-Type: application/json")
+    @POST("users/{id}/cart")
+    Single<OrderEntity> addToCart(@Path("id") int id, @Field("itemid") int itemid,
+                                  @Field("quantity") int quantity);
+
+    //ITEMS ENDPOINTS]
+
+    @GET("items/{id}")
+    Single<ItemEntity> getItemById(@Path("id") int id);
 
     @Multipart
     @POST("items/create")
@@ -121,21 +140,22 @@ public interface RestApi {
     @GET("items/search/amount")
     Single<Integer> getAmountItems();
 
-    @GET("items/search/{query}")
-    Observable<List<ItemEntity>> search(@Path("query") String query,
+    @GET("items/search/{search_str}")
+    Observable<List<ItemEntity>> search(@Path("search_str") String query,
                                         @Query("page") int page);
 
-    @GET("items/search/{query}/amount")
-    Single<Integer> getAmountInQuery(@Path("query") String query);
+    @GET("items/search/{search_str}/amount")
+    Single<Integer> getAmountInQuery(@Path("search_str") String query);
 
-//    @Headers({
-//            "Content-Type: application/json;charset=utf-8",
-//            "Accept: application/json"
-//    })
+    @Headers({"Connection: close"})
     @Streaming
-    @Headers("Connection: close")
     @GET("items/search/images")
-    Observable<Response<ResponseBody>> getImagesZip(@Query("ids") String ids);
+    Observable<Response<ResponseBody>> getItemThumbnails(@Query("ids") String ids);
+
+    @Headers({"Connection: close"})
+    @Streaming
+    @GET("items/search/images/{id}")
+    Observable<Response<ResponseBody>> getImages(@Path("id") int itemId);
 
     //BUSINESS ENDPOINTS
 
