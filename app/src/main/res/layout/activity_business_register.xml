@@ -23,7 +23,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,17 +37,30 @@
             android:paddingBottom="60dp"
             app:layout_constraintTop_toTopOf="parent">
 
+            <Button
+                android:id="@+id/business_creation_upload_image_Btn"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_image"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="@+id/business_profile_picture"
+                app:layout_constraintEnd_toStartOf="@+id/business_profile_picture"
+                app:layout_constraintTop_toTopOf="@+id/business_profile_picture"
+                app:layout_constraintVertical_bias="0.48" />
+
             <TextView
                 android:id="@+id/register_header"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="15dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
+                android:paddingBottom="15dp"
                 android:text="CREATE A BUSINESS ACCOUNT"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -54,8 +69,9 @@
                 android:id="@+id/business_name_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="3dp"
+                android:layout_marginTop="100dp"
                 android:orientation="vertical"
+                android:paddingBottom="3dp"
                 android:text="Business Name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -85,9 +101,9 @@
                 android:id="@+id/fname_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="3dp"
-                android:orientation="vertical"
                 android:text="Business Owner Full Name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -116,9 +132,9 @@
                 android:id="@+id/email_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="3dp"
-                android:orientation="vertical"
                 android:text="@string/register_email_address"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -147,9 +163,9 @@
                 android:id="@+id/password_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="3dp"
-                android:orientation="vertical"
                 android:text="Password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -159,7 +175,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_text_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:passwordToggleEnabled="true"
                 android:layout_width="370dp"
                 android:layout_height="64dp"
                 android:orientation="vertical"
@@ -167,7 +182,8 @@
                 app:layout_constraintHorizontal_bias="0.500"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password_text"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintVertical_bias="0.0"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/businessRegisterPasswordEditText"
@@ -180,9 +196,9 @@
                 android:id="@+id/confirm_password_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="3dp"
-                android:orientation="vertical"
                 android:text="Confirm Password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -212,9 +228,9 @@
                 android:id="@+id/phone_text"
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="3dp"
-                android:orientation="vertical"
                 android:text="Phone Number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -257,6 +273,16 @@
                 app:layout_constraintHorizontal_bias="0.512"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/phone_text_input" />
+
+            <ImageView
+                android:id="@+id/business_profile_picture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="108dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_header"
+                app:srcCompat="@drawable/centauri_logo_business" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

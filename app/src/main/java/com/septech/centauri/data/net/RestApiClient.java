@@ -6,7 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
+import com.septech.centauri.domain.models.Order;
 
 import java.io.File;
 import java.util.Arrays;
@@ -149,5 +151,9 @@ public class RestApiClient {
 
     public Observable<Response<ResponseBody>> getImages(int itemId) {
         return restApi.getImages(itemId);
+    }
+
+    public Single<OrderEntity> addToCart(int userid, int itemid, int quantity) {
+        return restApi.addToCart(userid, itemid, quantity);
     }
 }

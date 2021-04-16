@@ -7,6 +7,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.login.LoginActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -14,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -27,6 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mPasswordEditText;
     private EditText mConfirmPasswordEditText;
     private EditText mPhoneNumberEditText;
+
+    private DatePicker mDatePicker;     // TODO: prevent user for picking a date into the future
+
     private Button mCreateAccountBtn;
     private ProgressBar mLoadingIcon;
 
@@ -43,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
         TextInputLayout passwordTextInput = findViewById(R.id.password_text_input);
         TextInputLayout confirmPasswordTextInput = findViewById(R.id.confirm_password_text_input);
         TextInputLayout phoneTextInput = findViewById(R.id.phone_text_input);
+
+        mDatePicker = findViewById(R.id.dob_input);
 
         mLoadingIcon = findViewById(R.id.loading_icon);
         mLoadingIcon.setVisibility(View.GONE);
@@ -74,8 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
         mPhoneNumberEditText = phoneTextInput.getEditText();
 
         mCreateAccountBtn = findViewById(R.id.business_register_create_account_btn);
-
-        //TODO: get birth date from calendar
 
         createLiveDataObservers();
 
@@ -212,12 +217,23 @@ public class RegisterActivity extends AppCompatActivity {
         mPhoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher("1"));
     }
 
+    private String getDateOfBirth() {
+        int day = mDatePicker.getDayOfMonth();
+        int month = (mDatePicker.getMonth() + 1);
+        int year = mDatePicker.getYear();
+
+        @SuppressLint("DefaultLocale") String dob = String.format("%d-%d-%d", year, month, day);
+
+        return dob;
+    }
+
     private void createButtonListeners() {
         mCreateAccountBtn.setOnClickListener(v -> mRegisterViewModel.createAccount(
                 mEmailEditText.getText().toString(),
                 mPasswordEditText.getText().toString(),
                 mFNameEditText.getText().toString(),
-                mPhoneNumberEditText.getText().toString()));
+                mPhoneNumberEditText.getText().toString(),
+                getDateOfBirth()));
     }
 
     private void showLoadingIcon() {

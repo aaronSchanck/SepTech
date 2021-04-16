@@ -1,21 +1,41 @@
-package com.septech.centauri.domain.models;
+package com.septech.centauri.data.model.order;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.septech.centauri.data.model.orderitem.OrderItemEntity;
+import com.septech.centauri.domain.models.OrderItem;
+import com.septech.centauri.domain.models.User;
 
 import java.util.List;
 
-public class Order {
-
+public class OrderEntity {
+    @SerializedName("id")
+    @Expose(serialize = false)
     private int id;
-    private int userid;
-    private boolean ordered;
-    private String dateCreated;
-    private String dateShipped;
-    private String dateDelivered;
-    private List<OrderItemEntity> orderItems;
 
-    public Order() {
-    }
+    @SerializedName("id")
+    @Expose(serialize = false)
+    private int userid;
+
+    @SerializedName("ordered")
+    @Expose(serialize = false)
+    private boolean ordered;
+
+    @SerializedName("date_created")
+    @Expose(serialize = false)
+    private String dateCreated;
+
+    @SerializedName("date_shipped")
+    @Expose(serialize = false)
+    private String dateShipped;
+
+    @SerializedName("date_delivered")
+    @Expose(serialize = false)
+    private String dateDelivered;
+
+    @SerializedName("id")
+    @Expose(serialize = false)
+    private List<OrderItemEntity> orderItems;
 
     public int getId() {
         return id;
@@ -73,4 +93,3 @@ public class Order {
         this.orderItems = orderItems;
     }
 }
-

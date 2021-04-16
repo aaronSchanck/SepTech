@@ -182,7 +182,7 @@ public class ListingFragment extends Fragment {
                     return;
                 }
 
-                mViewModel.addToCart(item, quantity);
+                mViewModel.addToCart(mHomeViewModel.getUserLiveData().getValue(), item, quantity);
             });
 
             listingNameTextView.setText(item.getName());

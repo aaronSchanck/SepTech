@@ -7,11 +7,15 @@ import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.data.repository.BusinessRepositoryImpl;
 import com.septech.centauri.data.repository.ItemRepositoryImpl;
+import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.domain.models.Order;
+import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.BusinessRepository;
 import com.septech.centauri.domain.repository.ItemRepository;
+import com.septech.centauri.domain.repository.UserRepository;
 import com.septech.centauri.lib.Zip;
 
 import java.util.List;
@@ -25,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ListingViewModel extends ViewModel {
 
+    private UserRepository userRepo;
     private ItemRepository itemRepo;
     private BusinessRepository businessRepo;
 
@@ -41,6 +46,7 @@ public class ListingViewModel extends ViewModel {
     private CompositeDisposable mDisposables = new CompositeDisposable();
 
     public ListingViewModel() {
+        userRepo = UserRepositoryImpl.getInstance();
         itemRepo = ItemRepositoryImpl.getInstance();
         businessRepo = BusinessRepositoryImpl.getInstance();
     }
@@ -51,8 +57,21 @@ public class ListingViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void addToCart(Item item, int currentQuantity) {
+    public void addToCart(User user, Item item, int quantity) {
+        mDisposables.add(userRepo.addToCart(user, item, quantity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Order>() {
+                    @Override
+                    public void onSuccess(@NonNull Order order) {
+                        System.out.println("order = " + order);
+                    }
 
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
     }
 
     public void getImages(int id) {

@@ -33,6 +33,10 @@ from .model import User
 from .schema import UserSchema
 from .service import UserService
 
+from webargs.flaskparser import use_args, use_kwargs
+
+from marshmallow import fields
+
 api = Namespace("User")
 log = logging.getLogger(__name__)
 
@@ -152,3 +156,16 @@ class UserLoginResource(Resource):
         password = request.parsed_args["password"]
 
         return UserService.login(email, password)
+
+
+@api.route("/<int:id>/cart")
+@api.param("id", "User ID in database")
+class UserCartResource(Resource):
+    args = {"itemid": fields.Int(required=True), "quantity": fields.Str(required=True)}
+
+    @use_args(args)
+    def post(self):
+        itemid = args["itemid"]
+        quantity = args["quantity"]
+
+        print(itemid, quantity)
