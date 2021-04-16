@@ -33,6 +33,8 @@ from .model import User
 from .schema import UserSchema
 from .service import UserService
 
+from ..orders.schema import OrderSchema
+
 from webargs.flaskparser import use_args, use_kwargs
 
 from marshmallow import fields
@@ -161,11 +163,15 @@ class UserLoginResource(Resource):
 @api.route("/<int:id>/cart")
 @api.param("id", "User ID in database")
 class UserCartResource(Resource):
-    args = {"itemid": fields.Int(required=True), "quantity": fields.Str(required=True)}
+    args = {"itemid": fields.Int(required=True), "quantity": fields.Int(required=True)}
+    # required=True
+    @use_args(args, location="form")
+    def post(self, args, id: int):
+        order_schema = OrderSchema()
 
-    @use_args(args)
-    def post(self):
         itemid = args["itemid"]
         quantity = args["quantity"]
 
-        print(itemid, quantity)
+        order, response = UserService.add_to_cart(id, itemid, quantity)
+
+        return order_schema.dump(order) if response.status_code == 200 else response

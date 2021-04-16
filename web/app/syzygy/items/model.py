@@ -18,6 +18,8 @@ import logging
 
 from app import db
 
+from datetime import datetime
+
 log = logging.getLogger(__name__)
 
 
@@ -66,11 +68,15 @@ class Item(db.Model):
 
     def __init__(self, **kwargs):
         super(Item, self).__init__(**kwargs)
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
 
         self.thumbnail = 0 if len(self.images) > 0 else -1
 
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
+
+        self.modified_at = datetime.now()
 
         return self

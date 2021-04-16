@@ -22,14 +22,15 @@ import io.reactivex.annotations.NonNull;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
-    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-//    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
+//    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
+    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -37,10 +38,14 @@ public class RestApiClient {
     private Gson gson;
 
     private RestApiClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .readTimeout(40, TimeUnit.SECONDS)
-                .connectTimeout(40, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .addInterceptor(interceptor)
                 .build();
 
         gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();

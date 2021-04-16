@@ -19,11 +19,13 @@ import logging
 import re
 import secrets
 import smtplib
+from collections import OrderedDict
 from datetime import datetime, timedelta
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import List
+from flask import Response
 
 import bcrypt
 from app import db
@@ -31,7 +33,9 @@ from app.globals import *
 from libs.auth import encrypt_pw
 from libs.response import ErrResponse, NormalResponse
 
-from collections import OrderedDict
+from ..order_items.service import OrderItemService
+from ..orders.service import OrderService
+from ..orders.model import Order
 from .model import User
 
 log = logging.getLogger(__name__)
@@ -297,6 +301,18 @@ class UserService:
             if user is None
             else ErrResponse("User exists", 400)
         )
+
+    @staticmethod
+    def add_to_cart(id: int, itemid: int, quantity: int) -> (Order, Response):
+        order = OrderService.create_user_order_if_not_exists(id)
+
+        order_item, response = OrderItemService.order_item_from_item(
+            order.id, itemid, quantity
+        )
+
+        print(order, order_item)
+
+        return order, response
 
     @staticmethod
     def transform(attrs: dict) -> dict:

@@ -29,9 +29,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ListingViewModel extends ViewModel {
 
-    private UserRepository userRepo;
-    private ItemRepository itemRepo;
-    private BusinessRepository businessRepo;
+    private final UserRepository userRepo;
+    private final ItemRepository itemRepo;
+    private final BusinessRepository businessRepo;
 
     private Integer itemId;
 
@@ -41,9 +41,9 @@ public class ListingViewModel extends ViewModel {
     private MutableLiveData<Item> itemLiveData = new MutableLiveData<>();
     private MutableLiveData<Business> businessLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Uri>> imageLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<ItemReview>> reviews = new MutableLiveData<>();
+    private MutableLiveData<List<ItemReview>> reviews;
 
-    private CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public ListingViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
@@ -58,6 +58,7 @@ public class ListingViewModel extends ViewModel {
     }
 
     public void addToCart(User user, Item item, int quantity) {
+        System.out.println("user = " + user + ", item = " + item + ", quantity = " + quantity);
         mDisposables.add(userRepo.addToCart(user, item, quantity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -147,14 +148,26 @@ public class ListingViewModel extends ViewModel {
     }
 
     public MutableLiveData<Item> getItemLiveData() {
+        if (itemLiveData == null) {
+            itemLiveData = new MutableLiveData<>();
+            getItem(itemId);
+        }
         return itemLiveData;
     }
 
     public MutableLiveData<List<ItemReview>> getReviews() {
+        if (reviews == null) {
+            reviews = new MutableLiveData<>();
+            getReviews();
+        }
         return reviews;
     }
 
     public MutableLiveData<List<Uri>> getImageLiveData() {
+        if (imageLiveData == null) {
+            imageLiveData = new MutableLiveData<>();
+            getImages(itemId);
+        }
         return imageLiveData;
     }
 

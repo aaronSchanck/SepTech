@@ -24,9 +24,13 @@ public class OrderItemEntity {
     @Expose()
     private int orderid;
 
-    @SerializedName("added_at")
+    @SerializedName("created_at")
     @Expose(serialize = false)
-    private String addedAt;
+    private String createdAt;
+
+    @SerializedName("modified_at")
+    @Expose(serialize = false)
+    private String modifiedAt;
 
     public OrderItemEntity() {
     }
@@ -71,11 +75,19 @@ public class OrderItemEntity {
         this.orderid = orderid;
     }
 
-    public String getAddedAt() {
-        return addedAt;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setAddedAt(String addedAt) {
-        this.addedAt = addedAt;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(String modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

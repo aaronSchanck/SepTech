@@ -153,10 +153,7 @@ public class ListingFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
         mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
-        int id = getArguments().getInt("id");
-
-        mViewModel.getItem(id);
-        mViewModel.getImages(id);
+        mViewModel.setItemId(getArguments().getInt("id"));
 
         createLiveDataObservers();
     }

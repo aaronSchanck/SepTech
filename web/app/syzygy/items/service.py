@@ -181,6 +181,10 @@ class ItemService:
         pass
 
     @staticmethod
+    def get_item_stock(id: int):
+        return ItemService.get_by_id(id).quantity
+
+    @staticmethod
     def transform(attrs: dict) -> dict:
         """Transforms the dict input for the object. Puts the information in a form that the model can use.
 
