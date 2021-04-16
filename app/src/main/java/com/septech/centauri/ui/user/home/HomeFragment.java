@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.google.android.material.navigation.NavigationView;
 import com.septech.centauri.R;
+import com.septech.centauri.ui.user.help.HelpFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.cart.CartFragment;
 
@@ -102,11 +103,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        mHelpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mHelpBtn.setOnClickListener(v -> {
+            HelpFragment fragment = HelpFragment.newInstance();
 
-            }
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentfragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 

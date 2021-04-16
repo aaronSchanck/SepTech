@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.user.help.HelpFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/customerServiceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/customerServiceHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Service"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/needHelpContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintStart_toStartOf="@+id/customerServiceHeader"
+            app:layout_constraintTop_toBottomOf="@+id/customerServiceHeader"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/needHelpText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Need Help?"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="21sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/helpDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Get connected to an associate and receive live help right away."
+                android:textAllCaps="false"
+                android:textStyle="normal"
+                android:textColor="#000000"
+                android:textSize="21sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/needHelpText"
+                app:layout_constraintEnd_toStartOf="@+id/agentView"/>
+
+            <ImageView
+                android:id="@+id/agentView"
+                android:maxWidth="250dp"
+                android:layout_height="250dp"
+                android:layout_width="0dp"
+                android:src="@drawable/ic_agent_foreground"
+                app:tint="@color/teal_700"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@+id/needHelpContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@+id/helpDesc"
+                app:layout_constraintTop_toTopOf="@+id/needHelpContainer"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+            android:id="@+id/startHelpChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/centauri_red"
+            android:elevation="5dp"
+            android:text="Start Chatting Now"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/needHelpContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"/>
+
+        <!-- Additonal Options -->
+
+        <ImageView
+            android:id="@+id/phoneView"
+            android:maxWidth="250dp"
+            android:layout_height="70dp"
+            android:layout_width="70dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_phone_foreground"
+            app:tint="@color/teal_700"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startHelpChat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.1"/>
+
+
+        <TextView
+            android:id="@+id/phoneContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:text="@string/phone_contact_text"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/phoneView"
+            app:layout_constraintTop_toTopOf="@+id/phoneView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/phoneView" />
+
+        <ImageView
+            android:id="@+id/emailView"
+            android:maxWidth="250dp"
+            android:layout_height="70dp"
+            android:layout_width="70dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_email_foreground"
+            app:tint="@color/teal_700"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.5"/>
+
+        <TextView
+            android:id="@+id/emailContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+
+            android:text="@string/email_contact_text"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/emailView"
+            app:layout_constraintTop_toTopOf="@+id/emailView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/emailView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- End of Checkout Header -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
