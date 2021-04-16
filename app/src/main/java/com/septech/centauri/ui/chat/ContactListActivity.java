@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.chat.models.Contact;
-import com.septech.centauri.ui.chat.models.ContactModel;
+import com.septech.centauri.data.model.chat.Contact;
+import com.septech.centauri.data.model.chat.ContactModel;
 
 import java.util.List;
 

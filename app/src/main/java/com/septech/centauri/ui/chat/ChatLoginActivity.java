@@ -149,7 +149,7 @@ public class ChatLoginActivity extends AppCompatActivity
                     case ChatConnectionService.UI_AUTHENTICATED:
                         Log.d(TAG, "Broadcast shows main app window");
                         // Show main app window
-                        Intent i2 = new Intent(mContext, ContactListActivity.class);
+                        Intent i2 = new Intent(mContext, MessagesActivity.class);
                         startActivity(i2);
                         finish();
                         break;
