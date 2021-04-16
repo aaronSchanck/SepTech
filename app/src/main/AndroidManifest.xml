@@ -44,7 +44,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Chat Service -->
+        </activity>
+        <!-- Chat Service -->
         <service android:name=".ui.chat.ChatConnectionService" />
     </application>
 
