@@ -14,9 +14,11 @@ import com.septech.centauri.lib.Zip;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -86,8 +88,18 @@ public class SearchViewModel extends ViewModel {
                 }));
     }
 
+    private Function<List<Item>, Observable<List<Item>>> emit() {
+        return items -> {
+            itemsLiveData.setValue(items);
+            return Observable.just(items);
+        };
+    }
+
     public void lastPage() {
         currentPage -= 1;
+
+        itemsLiveData = new MutableLiveData<>();
+        imagesLiveData = new MutableLiveData<>();
 
         searchItems();
     }

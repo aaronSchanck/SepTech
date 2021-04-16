@@ -58,7 +58,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         super.onAttach(context);
 
         try {
-            callBackListener = (CallBackListener)context;
+            callBackListener = (CallBackListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
@@ -113,9 +113,6 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         createLiveDataObservers();
 
         System.out.println(mAlreadyLoaded);
-//        if(!mAlreadyLoaded)  {
-//            mViewModel.newSearch(query);
-//        }
     }
 
     private void createButtonListeners() {
@@ -158,30 +155,43 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     }
 
     private void createLiveDataObservers() {
-
         mViewModel.getSearchAmountLiveData().observe(getViewLifecycleOwner(), integer -> {
+            if(integer == null) {
+                return;
+            }
+
             searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
                     String.valueOf(integer), String.valueOf(0)));
             updatePageArrows();
         });
 
         mViewModel.getItemsLiveData().observe(getViewLifecycleOwner(), items -> {
-            Log.i(TAG, "ItemLiveData input");
-            adapter.setItems(items);
-            int[] itemIds = new int[items.size()];
-
-            for (int i = 0; i < items.size(); i++) {
-                itemIds[i] = items.get(i).getId();
+            if(items == null) {
+                return;
             }
 
-            mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
-                callBackListener.hideLoadingIcon();
-                Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
-                adapter.setImages(images);
-                rvItems.setAdapter(adapter);
+            Log.i(TAG, "ItemLiveData input");
+            adapter.setItems(items);
 
+            if (items.size() > 0) {
+                mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
+                    if (images == null) {
+                        return;
+                    }
+
+                    callBackListener.hideLoadingIcon();
+                    Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
+                    adapter.setImages(images);
+                    rvItems.setAdapter(adapter);
+
+                    rvItems.setVisibility(View.VISIBLE);
+                });
+            } else {
+                callBackListener.hideLoadingIcon();
+
+                rvItems.setAdapter(adapter);
                 rvItems.setVisibility(View.VISIBLE);
-            });
+            }
         });
     }
 
@@ -206,5 +216,4 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     public void onItemLongClick(int position) {
         Log.i(TAG, "onItemLongClick: " + position);
     }
-
 }

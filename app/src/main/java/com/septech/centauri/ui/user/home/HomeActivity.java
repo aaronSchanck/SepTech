@@ -21,6 +21,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -31,6 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.settings.SettingsFragment;
@@ -97,6 +99,12 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         mFilterViewModel = new ViewModelProvider(this).get(FilterViewModel.class);
 
         mViewModel.setUserId(getIntent().getIntExtra("id", 0));
+        mViewModel.getUserLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                System.out.println("user = " + user);
+            }
+        });
 
         //create fragments
         homeFragment = HomeFragment.newInstance();
