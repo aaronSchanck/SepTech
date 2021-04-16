@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.septech.centauri.R;
@@ -21,12 +22,16 @@ import com.septech.centauri.ui.user.cart.CartFragment;
 
 public class HomeFragment extends Fragment {
 
+    private String name;
+
     private ImageButton mViewItemsBtn;
     private ImageButton mCartBtn;
     private ImageButton mWishListBtn;
     private ImageButton mOrdersBtn;
     private ImageButton mViewHistoryBtn;
     private ImageButton mHelpBtn;
+
+    private TextView mWelcomeMessage;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -41,8 +46,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.user_home_fragment, container, false);
+
+        name = this.getArguments().getString("name");
 
         mViewItemsBtn = view.findViewById(R.id.homeViewAllItemsBtn);
         mCartBtn = view.findViewById(R.id.homeCartBtn);
@@ -50,6 +56,7 @@ public class HomeFragment extends Fragment {
         mOrdersBtn = view.findViewById(R.id.homeOrdersBtn);
         mViewHistoryBtn = view.findViewById(R.id.homeViewHistoryBtn);
         mHelpBtn = view.findViewById(R.id.homeNeedHelpBtn);
+        mWelcomeMessage = view.findViewById(R.id.homeWelcomeTextView);
 
         return view;
     }
@@ -57,6 +64,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (name == null) name = "Guest";
+        String message = getResources().getString(R.string.home_welcome, name);
+        mWelcomeMessage.setText(message);
 
         mViewItemsBtn.setOnClickListener(v -> {
             SearchFragment fragment = SearchFragment.newInstance();
