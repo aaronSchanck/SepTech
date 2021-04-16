@@ -1,6 +1,9 @@
 package com.septech.centauri.ui.chat;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.util.Log;
 import android.os.IBinder;
@@ -15,8 +18,12 @@ import org.jivesoftware.smack.XMPPException;
 import java.io.IOException;
 
 public class ChatConnectionService extends Service {
-    private static final String TAG = "Chat Service";
-    public static final String UI_AUTHENTICATED = "com.septech.centauri.ui.chat.uiauthenticated";
+    private static final String TAG = "ChatService";
+
+    public static final String UI_AUTHENTICATED = "com.septech.centauri.uiauthenticated";
+    public static final String SEND_MESSAGE = "com.septech.centauri.sendmessage";
+    public static final String BUNDLE_MESSAGE_BODY = "b_body";
+    public static final String BUNDLE_TO = "b_to";
 
     public static ChatConnection.ConnectionState sConnectionState;
     public static ChatConnection.LoggedInState sLoggedInState;

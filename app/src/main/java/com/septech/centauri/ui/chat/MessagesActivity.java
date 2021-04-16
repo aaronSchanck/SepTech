@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.septech.centauri.R;
 import com.septech.centauri.data.model.chat.Message;
+import com.septech.centauri.data.model.chat.User;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
@@ -39,7 +40,7 @@ public class MessagesActivity extends AppCompatActivity
     private static final int TOTAL_MESSAGES_COUNT = 100;
     private static final String TAG = "MessagesActivity";
 
-    protected final String senderId = "0";
+    protected final String senderId = "admin@chat.septech.me";
     protected ImageLoader imageLoader;
     protected MessagesListAdapter<Message> messagesAdapter;
 
@@ -140,6 +141,16 @@ public class MessagesActivity extends AppCompatActivity
     @Override
     public boolean onSubmit(CharSequence input) {
         // TODO
+        if (ChatConnectionService.getState().equals(ChatConnection.ConnectionState.CONNECTED)) {
+            Log.d(TAG, "Client is connected to server. Sending message.");
+
+            Intent intent = new Intent(ChatConnectionService.SEND_MESSAGE);
+            intent.putExtra(ChatConnectionService.BUNDLE_MESSAGE_BODY, input);
+            intent.putExtra(ChatConnectionService.BUNDLE_TO, senderId);
+
+            sendBroadcast(intent);
+            messagesAdapter.addToStart(new Message(senderId, new User(senderId, senderId, null, false), input.toString()), true);
+        }
         //messagesAdapter.addToStart(MessagesFixtures.getTextMessage(input.toString()), true);
         return true;
     }

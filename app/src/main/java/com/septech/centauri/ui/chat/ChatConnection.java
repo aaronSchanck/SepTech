@@ -1,17 +1,27 @@
 package com.septech.centauri.ui.chat;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.septech.centauri.data.model.chat.Message;
+import com.septech.centauri.data.model.chat.User;
 
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.ReconnectionManager;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.chat2.Chat;
+import org.jivesoftware.smack.chat2.ChatManager;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jxmpp.jid.EntityBareJid;
+import org.jxmpp.jid.impl.JidCreate;
+import org.jxmpp.stringprep.XmppStringprepException;
 
 import java.io.IOException;
 
@@ -24,6 +34,7 @@ public class ChatConnection implements ConnectionListener{
     private final String mPassword;
     private final String mServiceName = "chat.septech.me";
     private XMPPTCPConnection mConnection;
+    private BroadcastReceiver uiThreadMessageReceiver;
 
 
     public static enum ConnectionState {
@@ -113,5 +124,45 @@ public class ChatConnection implements ConnectionListener{
         i.setPackage(mApplicationContext.getPackageName());
         mApplicationContext.sendBroadcast(i);
         Log.d(TAG, "Sent the broadcast that it was authenticated");
+    }
+
+    private void setupUiThreadBroadcastMessageReceiver() {
+        uiThreadMessageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (action.equals(ChatConnectionService.SEND_MESSAGE)) {
+                    sendMessage(intent.getStringExtra(ChatConnectionService.BUNDLE_MESSAGE_BODY),
+                            intent.getStringExtra(ChatConnectionService.BUNDLE_TO));
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ChatConnectionService.SEND_MESSAGE);
+        mApplicationContext.registerReceiver(uiThreadMessageReceiver, filter);
+    }
+
+    private void sendMessage (String body, String toJid) {
+        Log.d(TAG, "Sending message to: " + toJid);
+
+        EntityBareJid jid = null;
+
+        ChatManager chatManager = ChatManager.getInstanceFor(mConnection);
+
+        try {
+            jid = JidCreate.entityBareFrom(toJid);
+        } catch (XmppStringprepException e) {
+            e.printStackTrace();
+        }
+
+        Chat chat = chatManager.chatWith(jid);
+        try {
+            chat.send(body);
+        } catch (SmackException.NotConnectedException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
