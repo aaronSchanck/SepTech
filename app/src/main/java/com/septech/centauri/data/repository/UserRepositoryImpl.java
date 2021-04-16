@@ -5,9 +5,12 @@ import android.util.Log;
 
 import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
+import com.septech.centauri.data.model.order.mapper.OrderDataMapper;
 import com.septech.centauri.data.model.user.mapper.UserDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
+import com.septech.centauri.domain.models.Item;
+import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
@@ -103,5 +106,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Single<String> forgotPassword(String email) {
         return restApiImpl.forgotPassword(email);
+    }
+
+    @Override
+    public Single<Order> addToCart(User user, Item item, int quantity) {
+        return restApiImpl.addToCart(user.getId(), item.getId(), quantity).map(OrderDataMapper::transform);
     }
 }

@@ -1,17 +1,34 @@
-package com.septech.centauri.domain.models;
+package com.septech.centauri.data.model.orderitem;
 
-public class OrderItem {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class OrderItemEntity {
+    @SerializedName("id")
+    @Expose(serialize = false)
     private int id;
+
+    @SerializedName("quantity")
+    @Expose()
     private int quantity;
+
+    @SerializedName("price")
+    @Expose()
     private float price;
-    private int userid;
+
+    @SerializedName("itemid")
+    @Expose()
     private int itemid;
-    private Item item;
+
+    @SerializedName("orderid")
+    @Expose()
     private int orderid;
-    private Order order;
+
+    @SerializedName("added_at")
+    @Expose(serialize = false)
     private String addedAt;
 
-    public OrderItem() {
+    public OrderItemEntity() {
     }
 
     public int getId() {
@@ -38,14 +55,6 @@ public class OrderItem {
         this.price = price;
     }
 
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
     public int getItemid() {
         return itemid;
     }
@@ -54,28 +63,12 @@ public class OrderItem {
         this.itemid = itemid;
     }
 
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
     public int getOrderid() {
         return orderid;
     }
 
     public void setOrderid(int orderid) {
         this.orderid = orderid;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public String getAddedAt() {
