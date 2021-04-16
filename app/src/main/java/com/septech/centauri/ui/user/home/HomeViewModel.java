@@ -22,7 +22,7 @@ public class HomeViewModel extends ViewModel {
 
     private int userId;
 
-    private CompositeDisposable mDisposables;
+    private String name = "Guest";
 
     public HomeViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
@@ -44,6 +44,7 @@ public class HomeViewModel extends ViewModel {
                     @Override
                     public void onSuccess(@NonNull User user) {
                         System.out.println("user = " + user);
+                        name = user.getFullName();
                         userLiveData.setValue(user);
                     }
 
@@ -54,6 +55,10 @@ public class HomeViewModel extends ViewModel {
                         System.out.println("e = " + e);
                     }
                 }));
+    }
+
+    public String getName() {
+        return name;
     }
 
     public MutableLiveData<User> getUserLiveData() {
@@ -72,11 +77,4 @@ public class HomeViewModel extends ViewModel {
         this.userId = userId;
     }
 
-    public MutableLiveData<User> getUserLiveData() {
-        if(userLiveData == null) {
-            userLiveData = new MutableLiveData<>();
-            getUser();
-        }
-        return userLiveData;
-    }
 }
