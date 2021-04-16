@@ -2,7 +2,7 @@ package com.septech.centauri.ui.user.home;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,19 +12,19 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -32,6 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
@@ -86,6 +87,13 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
     private BottomNavigationView bottomNavigation;
 
+    //bottom badges
+
+    private BadgeDrawable profileBadge;
+    private BadgeDrawable notificationBadge;
+    private BadgeDrawable cartBadge;
+    private BadgeDrawable chatBadge;
+
     //loading icon
 
     private ProgressBar loadingIcon;
@@ -105,6 +113,23 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 System.out.println("user = " + user);
             }
         });
+
+        mViewModel.getOrderLiveData().observe(this, new Observer<Order>() {
+            @Override
+            public void onChanged(Order order) {
+                //update cart icon
+                if (bottomNavigation == null) {
+                    bottomNavigation = findViewById(R.id.bottomMenu);
+                }
+                if (cartBadge == null) {
+                    cartBadge = bottomNavigation.getOrCreateBadge(R.id.bottom_cart);
+                }
+
+                cartBadge.setNumber(order.getOrderItems().size());
+            }
+        });
+
+        //setup badges
 
         //create fragments
         homeFragment = HomeFragment.newInstance();
@@ -307,6 +332,15 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
             }
             return false;
         });
+
+        profileBadge = bottomNavigation.getOrCreateBadge(R.id.bottom_person);
+        notificationBadge = bottomNavigation.getOrCreateBadge(R.id.bottom_notifications);
+        cartBadge = bottomNavigation.getOrCreateBadge(R.id.bottom_cart);
+        chatBadge = bottomNavigation.getOrCreateBadge(R.id.bottom_messages);
+
+        cartBadge.setBackgroundColor(ContextCompat.getColor(this, R.color.lighter_black));
+        cartBadge.setHorizontalOffset(20);
+        cartBadge.setVerticalOffset(20);
     }
 
     @Override

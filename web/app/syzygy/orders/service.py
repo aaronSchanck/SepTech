@@ -115,7 +115,7 @@ class OrderService:
             .first()
         )
 
-    def create_user_order_if_not_exists(userid: int) -> Order:
+    def create_user_cart_if_not_exists(userid: int) -> Order:
         order = OrderService.get_user_active_order(userid)
 
         print(order)

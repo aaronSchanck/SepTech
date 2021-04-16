@@ -124,6 +124,9 @@ public interface RestApi {
     Single<OrderEntity> addToCart(@Path("id") int id, @Field("itemid") int itemid,
                                   @Field("quantity") int quantity);
 
+    @GET("users/{id}/cart")
+    Single<OrderEntity> getUserCart(@Path("id") int id);
+
     //ITEMS ENDPOINTS]
 
     @GET("items/{id}")

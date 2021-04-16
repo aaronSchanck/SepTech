@@ -112,4 +112,9 @@ public class UserRepositoryImpl implements UserRepository {
     public Single<Order> addToCart(User user, Item item, int quantity) {
         return restApiImpl.addToCart(user.getId(), item.getId(), quantity).map(OrderDataMapper::transform);
     }
+
+    @Override
+    public Single<Order> getUserCart(int userId) {
+        return restApiImpl.getUserCart(userId).map(OrderDataMapper::transform);
+    }
 }

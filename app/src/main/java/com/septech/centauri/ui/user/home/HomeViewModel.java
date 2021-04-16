@@ -70,7 +70,6 @@ public class HomeViewModel extends ViewModel {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         //failed
-
                         System.out.println("e = " + e);
                     }
                 }));

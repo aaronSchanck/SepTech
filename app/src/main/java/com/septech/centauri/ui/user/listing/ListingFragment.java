@@ -33,6 +33,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.ui.user.home.HomeViewModel;
 
 import java.util.ArrayList;
@@ -161,8 +162,6 @@ public class ListingFragment extends Fragment {
     private void createLiveDataObservers() {
         mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
             Resources res = requireActivity().getResources();
-            //get business
-            mViewModel.getBusiness(item.getSellerId());
 
             wishlistBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -250,6 +249,13 @@ public class ListingFragment extends Fragment {
 
         mViewModel.getReviews().observe(getViewLifecycleOwner(),
                 itemReviews -> System.out.println("itemReviews = " + itemReviews));
+
+        mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), new Observer<Order>() {
+            @Override
+            public void onChanged(Order order) {
+                System.out.println("order = " + order);
+            }
+        });
     }
 
     private void updateImageBtnState(List<Uri> uris) {

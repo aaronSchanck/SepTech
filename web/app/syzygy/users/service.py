@@ -304,7 +304,7 @@ class UserService:
 
     @staticmethod
     def add_to_cart(id: int, itemid: int, quantity: int) -> (Order, Response):
-        order = OrderService.create_user_order_if_not_exists(id)
+        order = OrderService.create_user_cart_if_not_exists(id)
 
         order_item, response = OrderItemService.order_item_from_item(
             order.id, itemid, quantity
@@ -313,6 +313,12 @@ class UserService:
         print(order, order_item)
 
         return order, response
+
+    @staticmethod
+    def get_user_cart(id: int) -> (Order, Response):
+        order = OrderService.create_user_cart_if_not_exists(id)
+
+        return order, NormalResponse("Success", 200)
 
     @staticmethod
     def transform(attrs: dict) -> dict:

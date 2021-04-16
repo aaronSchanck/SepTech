@@ -4,12 +4,10 @@ public class OrderItem {
     private int id;
     private int quantity;
     private float price;
-    private int userid;
     private int itemid;
-    private Item item;
     private int orderid;
-    private Order order;
-    private String addedAt;
+    private String createdAt;
+    private String modifiedAt;
 
     public OrderItem() {
     }
@@ -38,28 +36,12 @@ public class OrderItem {
         this.price = price;
     }
 
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
     public int getItemid() {
         return itemid;
     }
 
     public void setItemid(int itemid) {
         this.itemid = itemid;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     public int getOrderid() {
@@ -70,19 +52,19 @@ public class OrderItem {
         this.orderid = orderid;
     }
 
-    public Order getOrder() {
-        return order;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getAddedAt() {
-        return addedAt;
+    public String getModifiedAt() {
+        return modifiedAt;
     }
 
-    public void setAddedAt(String addedAt) {
-        this.addedAt = addedAt;
+    public void setModifiedAt(String modifiedAt) {
+        this.modifiedAt = modifiedAt;
     }
 }

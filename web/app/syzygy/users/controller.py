@@ -43,17 +43,12 @@ api = Namespace("User")
 log = logging.getLogger(__name__)
 
 
+# declare schemas
+order_schema = OrderSchema()
+
+
 @api.route("/")
 class UserResource(Resource):
-    """[summary]
-
-    Args:
-        Resource ([type]): [description]
-
-    Returns:
-        [type]: [description]
-    """
-
     @responds(schema=UserSchema(many=True))
     def get(self):
         """Get all Users"""
@@ -126,14 +121,7 @@ class UserEmailResource(Resource):
 class UserEmailCheckResource(Resource):
     @responds(schema=UserSchema)
     def get(self, email: str):
-        """Used to check whether a user exists at the given email,
-        without actually sending the user object. When the user
-
-        :param email: [description]
-        :type email: str
-        :return: [description]
-        :rtype: [type]
-        """
+        """Used to check whether a user exists at the given email, without actually sending the user object."""
         return UserService.check_exists(email)
 
 
@@ -148,10 +136,6 @@ class UserLoginResource(Resource):
     def post(self):
         """Login with user email address and password. If the user exists, then
         return the user object to the caller.
-
-        :return: The User model with the specified email address and password,
-        if it exists.
-        :rtype:
         """
 
         email = request.parsed_args["email"]
@@ -164,7 +148,12 @@ class UserLoginResource(Resource):
 @api.param("id", "User ID in database")
 class UserCartResource(Resource):
     args = {"itemid": fields.Int(required=True), "quantity": fields.Int(required=True)}
-    # required=True
+
+    def get(self, id: int):
+        order, response = UserService.get_user_cart(id)
+
+        return order_schema.dump(order) if response.status_code == 200 else response
+
     @use_args(args, location="form")
     def post(self, args, id: int):
         order_schema = OrderSchema()
