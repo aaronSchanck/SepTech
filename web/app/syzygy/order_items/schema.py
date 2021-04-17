@@ -18,6 +18,8 @@ import logging
 
 from marshmallow import Schema, fields
 
+from ..items.schema import ItemSchema
+
 log = logging.getLogger(__name__)
 
 
@@ -28,7 +30,9 @@ class OrderItemSchema(Schema):
     orderid = fields.Int()
 
     quantity = fields.Number()
-    price = fields.Str()
+    price = fields.Int()
 
     created_at = fields.DateTime(dump_only=True)
     modified_at = fields.DateTime(dump_only=True)
+
+    item = fields.Nested(ItemSchema(), dump_only=True)

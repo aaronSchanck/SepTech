@@ -75,6 +75,13 @@ public class HomeViewModel extends ViewModel {
                 }));
     }
 
+    public void updateOrderData(Order order) {
+        if (cartLiveData == null) {
+            cartLiveData = new MutableLiveData<>();
+        }
+        cartLiveData.setValue(order);
+    }
+
     public MutableLiveData<User> getUserLiveData() {
         if (userLiveData == null) {
             userLiveData = new MutableLiveData<>();

@@ -186,8 +186,7 @@ public class ListingFragment extends Fragment {
             String COUNTRY = "US";
             String LANGUAGE = "en";
 
-            listingPriceTextView.setText(res.getString((R.string.listing_price),
-                    item.getBuyoutPrice()));
+            listingPriceTextView.setText(item.getDisplayablePrice());
             listingDescTextView.setText(item.getDescription());
 
             mViewModel.setCurrentQuantity(0);
@@ -253,6 +252,9 @@ public class ListingFragment extends Fragment {
         mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), new Observer<Order>() {
             @Override
             public void onChanged(Order order) {
+                if (order == null) return;
+
+                mHomeViewModel.updateOrderData(order);
                 System.out.println("order = " + order);
             }
         });

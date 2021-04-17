@@ -125,6 +125,9 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                     cartBadge = bottomNavigation.getOrCreateBadge(R.id.bottom_cart);
                 }
 
+                System.out.println("new order = " + order);
+                System.out.println(order.getOrderItems().size());
+
                 cartBadge.setNumber(order.getOrderItems().size());
             }
         });

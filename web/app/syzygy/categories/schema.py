@@ -26,7 +26,7 @@ class CategorySchema(Schema):
         ordered = True
 
     id = fields.Number(dump_only=True)
-    category_1 = fields.Str(required=True)
+    category_1 = fields.Str()
     category_2 = fields.Str()
     category_3 = fields.Str()
     category_4 = fields.Str()

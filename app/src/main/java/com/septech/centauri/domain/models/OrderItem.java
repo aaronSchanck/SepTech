@@ -1,11 +1,18 @@
 package com.septech.centauri.domain.models;
 
+import java.math.BigDecimal;
+
 public class OrderItem {
     private int id;
+
     private int quantity;
-    private float price;
+    private long price;
+
     private int itemid;
+    private Item item;
+
     private int orderid;
+
     private String createdAt;
     private String modifiedAt;
 
@@ -28,11 +35,11 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public float getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
@@ -42,6 +49,14 @@ public class OrderItem {
 
     public void setItemid(int itemid) {
         this.itemid = itemid;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getOrderid() {

@@ -81,7 +81,7 @@ public class AddListingActivity extends AppCompatActivity {
 
         businessId = Integer.parseInt(getIntent().getStringExtra("id"));
 
-        auctionLengthTextInput = findViewById(R.id.auctionLengthTextbox);
+//        auctionLengthTextInput = findViewById(R.id.auctionLengthTextbox);
         startingBidTextInput = findViewById(R.id.startingPriceTextbox);
         minimumBidTextInput = findViewById(R.id.minBidTextbox);
         buyoutPriceTextInput = findViewById(R.id.buyPriceTextbox);
@@ -89,6 +89,7 @@ public class AddListingActivity extends AppCompatActivity {
         itemNameEditText = findViewById(R.id.itemNameEditText);
         itemQualityEditText = findViewById(R.id.itemQualityEditText);
         itemQuantityEditText = findViewById(R.id.itemQuantityEditText);
+
         startingBidEditText = findViewById(R.id.startingBidEditText);
         minimumBidEditText = findViewById(R.id.minimumBidEditText);
         buyoutPriceEditText = findViewById(R.id.buyoutPriceEditText);
@@ -111,7 +112,7 @@ public class AddListingActivity extends AppCompatActivity {
 
         createSwitchListeners();
 
-        auctionLengthTextInput.setEnabled(false);
+//        auctionLengthTextInput.setEnabled(false);
         startingBidTextInput.setEnabled(false);
         minimumBidTextInput.setEnabled(false);
         buyoutPriceTextInput.setEnabled(false);
@@ -154,7 +155,7 @@ public class AddListingActivity extends AppCompatActivity {
 
                 boolean bid = bidSwitch.isChecked();
 
-                String auctionLength = bid ? auctionLengthEditText.getText().toString() : null;
+//                String auctionLength = bid ? auctionLengthEditText.getText().toString() : null;
                 String startingBid = bid ? startingBidEditText.getText().toString() : null;
                 String minimumBid = bid ? minimumBidEditText.getText().toString() : null;
 
@@ -162,19 +163,14 @@ public class AddListingActivity extends AppCompatActivity {
 
                 String buyoutPrice = buy ? buyoutPriceEditText.getText().toString() : null;
 
-                String mainCategory = mainCategoryEditText.getText().toString();
-                String categoryTwo = categoryTwoEditText.getText().toString();
-                String categoryThree = categoryThreeEditText.getText().toString();
-                String categoryFour = categoryFourEditText.getText().toString();
-                String categoryFive = categoryFiveEditText.getText().toString();
                 String itemDescription = itemDescriptionEditText.getText().toString();
 
                 System.out.println("v = " + itemDescription);
 
 
                 addListingViewModel.createItem(businessId, name, quality, quantity, bid, buy,
-                        auctionLength, startingBid, minimumBid, buyoutPrice, mainCategory,
-                        categoryTwo, categoryThree, categoryFour, categoryFive, itemDescription, imagePaths);
+                        null, startingBid, minimumBid, buyoutPrice, "",
+                        "", "", "", "", itemDescription, imagePaths);
             }
         });
     }
@@ -197,9 +193,12 @@ public class AddListingActivity extends AppCompatActivity {
             if (data.getClipData() != null) {
                 ClipData clipData = data.getClipData();
                 for (int i = 0; i < clipData.getItemCount(); i++) {
-
                     ClipData.Item item = clipData.getItemAt(i);
                     Uri uri = item.getUri();
+
+                    if (i == 0) {
+                        itemImageView.setImageURI(uri);
+                    }
 
                     currentImagePath = getPathFromUri(getApplicationContext(), uri);
                     imagePaths.add(currentImagePath);

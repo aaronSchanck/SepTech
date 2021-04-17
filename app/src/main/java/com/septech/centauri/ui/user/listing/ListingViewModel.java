@@ -67,6 +67,7 @@ public class ListingViewModel extends ViewModel {
                     @Override
                     public void onSuccess(@NonNull Order order) {
                         System.out.println("order = " + order);
+                        orderLiveData.setValue(order);
                     }
 
                     @Override

@@ -1,5 +1,6 @@
 package com.septech.centauri.data.model.orderitem.mapper;
 
+import com.septech.centauri.data.model.item.mapper.ItemDataMapper;
 import com.septech.centauri.data.model.orderitem.OrderItemEntity;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.OrderItem;
@@ -18,6 +19,7 @@ public class OrderItemDataMapper {
         orderItem.setOrderid(orderItemEntity.getOrderid());
         orderItem.setCreatedAt(orderItemEntity.getCreatedAt());
         orderItem.setModifiedAt(orderItemEntity.getModifiedAt());
+        orderItem.setItem(ItemDataMapper.transform(orderItemEntity.getItemEntity()));
 
         return orderItem;
     }
@@ -32,6 +34,7 @@ public class OrderItemDataMapper {
         orderItemEntity.setOrderid(orderItem.getOrderid());
         orderItemEntity.setCreatedAt(orderItem.getCreatedAt());
         orderItemEntity.setModifiedAt(orderItem.getModifiedAt());
+        orderItemEntity.setItemEntity(ItemDataMapper.transform(orderItem.getItem()));
 
         return orderItemEntity;
     }
