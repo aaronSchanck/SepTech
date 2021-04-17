@@ -23,7 +23,8 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Order> cartLiveData;
 
     private int userId;
-
+    private String name = "Guest";
+  
     public HomeViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
 
@@ -44,6 +45,7 @@ public class HomeViewModel extends ViewModel {
                     @Override
                     public void onSuccess(@NonNull User user) {
                         System.out.println("user = " + user);
+                        name = user.getFullName();
                         userLiveData.setValue(user);
                     }
 
@@ -80,6 +82,10 @@ public class HomeViewModel extends ViewModel {
             cartLiveData = new MutableLiveData<>();
         }
         cartLiveData.setValue(order);
+    }
+  
+    public String getName() {
+        return name;
     }
 
     public MutableLiveData<User> getUserLiveData() {

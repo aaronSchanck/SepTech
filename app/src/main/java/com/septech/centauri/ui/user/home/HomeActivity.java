@@ -38,6 +38,8 @@ import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.settings.SettingsFragment;
 
+import org.w3c.dom.Text;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -53,6 +55,9 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
     HomeFragment homeFragment;
     SettingsFragment settingsFragment;
     CartFragment cartFragment;
+
+    //home fragment
+    private String name;
 
     //top toolbar stuff
 
@@ -113,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 System.out.println("user = " + user);
             }
         });
+        name = getIntent().getStringExtra("name");
 
         mViewModel.getOrderLiveData().observe(this, new Observer<Order>() {
             @Override
@@ -139,6 +145,7 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         settingsFragment = SettingsFragment.newInstance();
         cartFragment = CartFragment.newInstance();
 
+
         createTextWatchers();
 
         toolbar = (MaterialToolbar) findViewById(R.id.topAppBar);
@@ -151,6 +158,12 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
         loadingIcon = findViewById(R.id.homeLoadingIcon);
         loadingIcon.setVisibility(View.GONE);
+
+        //bundle for home fragment
+        Bundle homeBundle = new Bundle();
+        homeBundle.putString("name", name);
+
+        homeFragment.setArguments(homeBundle);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

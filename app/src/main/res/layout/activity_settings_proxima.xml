@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/proxima_page_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/proxima_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:text="Proxima"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/proxima_page_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toBottomOf="@+id/proxima_page_label"
+            app:layout_constraintStart_toEndOf="@+id/proxima_page_label"
+            app:layout_constraintTop_toTopOf="@+id/proxima_page_label"
+            app:srcCompat="@drawable/ic_star_foreground"
+            app:tint="@color/centauri_red" />
+
+        <ImageView
+            android:id="@+id/proxima_page_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/proxima_page_label"
+            app:layout_constraintEnd_toStartOf="@+id/proxima_page_label"
+            app:layout_constraintTop_toTopOf="@+id/proxima_page_label"
+            app:srcCompat="@drawable/ic_back_arrow" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/proxima_page_"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proxima_page_top_layout">
+
+        <Button
+            android:id="@+id/proxima_page_upgrade_Btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/centauri__teal"
+            android:text="Upgrade To Proxima"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/proxima_page_cancel_Btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:text="Cancel Subscription"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/proxima_page_upgrade_Btn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/proxima_page_upgrade_Btn"
+            app:layout_constraintTop_toBottomOf="@+id/proxima_page_upgrade_Btn" />
+
+        <Button
+            android:id="@+id/proxima_page_shipping_settings_Btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:text="Proxima Shipping Settings"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/proxima_page_cancel_Btn"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/proxima_page_cancel_Btn"
+            app:layout_constraintTop_toBottomOf="@+id/proxima_page_cancel_Btn" />
+
+        <Button
+            android:id="@+id/proxima_page_filter_settings_Btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:text="Proxima Filter Settings"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/proxima_page_shipping_settings_Btn"
+            app:layout_constraintStart_toStartOf="@+id/proxima_page_shipping_settings_Btn"
+            app:layout_constraintTop_toBottomOf="@+id/proxima_page_shipping_settings_Btn" />
+
+        <Button
+            android:id="@+id/proxima_page_priority_settings_Btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:text="Proxima Priority Settings"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/proxima_page_filter_settings_Btn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/proxima_page_filter_settings_Btn"
+            app:layout_constraintTop_toBottomOf="@+id/proxima_page_filter_settings_Btn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

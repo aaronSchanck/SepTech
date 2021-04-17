@@ -216,6 +216,6 @@
     <string name="cartTaxText">$%1$s</string>
     <string name="cartShippingText">$%1$s</string>
     <string name="cartTotalText">$%1$s</string>
-
-
+    <string name="phone_contact_text">Need help over the phone? <br/>Call <b>1-234-567-8900</b>.</string>
+    <string name="email_contact_text">Or choose to email us at <br/><b>septech.centauri@gmail.com</b></string>
 </resources>

@@ -15,18 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
-
         <!-- User Activities -->
         <activity android:name=".ui.user.login.LoginActivity"/>
         <activity android:name=".ui.user.register.RegisterActivity" />
         <activity android:name=".ui.user.forgotpassword.ForgotPasswordActivity" />
         <activity android:name=".ui.user.forgotpasswordcode.ForgotPasswordCodeActivity" />
         <activity android:name=".ui.user.newpassword.NewPasswordActivity" />
-        <activity android:name=".ui.user.home.HomeActivity"
-            android:theme="@style/Theme.Centauri.NoActionBar"/>
-        <activity android:name=".ui.user.chat.ChatActivity" />
-        <activity android:name=".ui.user.chat.ContactListActivity" />
-
+        <activity android:name=".ui.user.home.HomeActivity" />
+        <activity android:name=".ui.user.cart.UserCartActivity" />
+        <activity android:name=".ui.user.settings.SettingsActivity" />
+        <activity android:name=".ui.chat.MessagesActivity" />
+        <activity android:name=".ui.chat.DialogsActivity" />
+        <activity android:name=".ui.chat.ChatLoginActivity"/>
+      
         <!-- Business Activities -->
         <activity android:name=".ui.business.addlisting.AddListingActivity" />
         <activity android:name=".ui.business.login.BusinessLoginActivity" />
@@ -34,7 +35,7 @@
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
         <activity android:name=".ui.business.home.BusinessHomeActivity" />
-
+      
         <!-- On Launch -->
         <activity
             android:name=".ui.landing.LandingActivity"
@@ -45,6 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Chat Service -->
+        <service android:name=".ui.chat.ChatConnectionService" />
     </application>
 
 </manifest>
