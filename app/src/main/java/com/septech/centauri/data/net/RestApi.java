@@ -119,10 +119,13 @@ public interface RestApi {
     @POST("users/{email}")
     Single<String> verifyPasswordCode(@Field("code") String code, @Path("email") String email);
 
-    @Headers("Content-Type: application/json")
+    @FormUrlEncoded
     @POST("users/{id}/cart")
     Single<OrderEntity> addToCart(@Path("id") int id, @Field("itemid") int itemid,
                                   @Field("quantity") int quantity);
+
+    @GET("users/{id}/cart")
+    Single<OrderEntity> getUserCart(@Path("id") int id);
 
     //ITEMS ENDPOINTS]
 

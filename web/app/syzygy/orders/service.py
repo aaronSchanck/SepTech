@@ -18,10 +18,13 @@ import json
 import logging
 from typing import List
 
+from datetime import datetime
+
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
 from .model import Order
+
 
 log = logging.getLogger(__name__)
 
@@ -93,12 +96,35 @@ class OrderService:
         :rtype: Order
         """
 
-        new_order = Order()
+        new_order = Order(
+            userid=new_attrs["userid"],
+            ordered=new_attrs["ordered"],
+            date_created=datetime.now(),
+        )
 
         db.session.add(new_order)
         db.session.commit()
 
         return new_order
+
+    @staticmethod
+    def get_user_active_order(userid: int) -> list:
+        return (
+            Order.query.filter(Order.userid == userid)
+            .filter(Order.ordered == False)
+            .first()
+        )
+
+    def create_user_cart_if_not_exists(userid: int) -> Order:
+        order = OrderService.get_user_active_order(userid)
+
+        print(order)
+
+        if not order:
+            order_data = {"userid": userid, "ordered": False}
+
+            order = OrderService.create(order_data)
+        return order
 
     @staticmethod
     def transform(attrs: dict) -> dict:

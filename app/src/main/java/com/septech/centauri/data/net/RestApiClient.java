@@ -1,18 +1,12 @@
 package com.septech.centauri.data.net;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
-import com.septech.centauri.domain.models.Order;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +16,7 @@ import io.reactivex.annotations.NonNull;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -37,10 +32,14 @@ public class RestApiClient {
     private Gson gson;
 
     private RestApiClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .readTimeout(40, TimeUnit.SECONDS)
-                .connectTimeout(40, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .addInterceptor(interceptor)
                 .build();
 
         gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
@@ -155,5 +154,9 @@ public class RestApiClient {
 
     public Single<OrderEntity> addToCart(int userid, int itemid, int quantity) {
         return restApi.addToCart(userid, itemid, quantity);
+    }
+
+    public Single<OrderEntity> getUserCart(int userId) {
+        return restApi.getUserCart(userId);
     }
 }

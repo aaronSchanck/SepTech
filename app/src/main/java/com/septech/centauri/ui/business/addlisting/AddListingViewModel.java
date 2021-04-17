@@ -43,12 +43,16 @@ public class AddListingViewModel extends ViewModel {
         newItem.setName(name);
         newItem.setQuality(quality);
         newItem.setQuantity(quantity);
+
         newItem.setCanBid(bid);
         newItem.setCanBuy(buyout);
+
         newItem.setBiddingEnds(auctionLength);
-        newItem.setStartingBid(startingBid);
-        newItem.setMinBidIncrement(minBidIncrement);
-        newItem.setBuyoutPrice(buyoutPrice);
+
+        newItem.setStartingBid(getMoneyValue(startingBid));
+        newItem.setMinBidIncrement(getMoneyValue(minBidIncrement));
+        newItem.setBuyoutPrice(getMoneyValue(buyoutPrice));
+
         newItem.setCategory(new Category(mainCategory, categoryTwo, categoryThree, categoryFour,
                 categoryFive));
         newItem.setDescription(itemDescription);
@@ -73,5 +77,15 @@ public class AddListingViewModel extends ViewModel {
                     }
                 })
         );
+    }
+
+    public Long getMoneyValue(String stringValue) {
+        if(stringValue == null || stringValue.equals("")) {
+            return null;
+        }
+
+        String newString = stringValue.replace(".", "");
+
+        return Long.parseLong(newString);
     }
 }

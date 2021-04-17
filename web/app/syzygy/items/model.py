@@ -18,6 +18,8 @@ import logging
 
 from app import db
 
+from datetime import datetime
+
 log = logging.getLogger(__name__)
 
 
@@ -40,15 +42,15 @@ class Item(db.Model):
     # buyout data
     can_buy = db.Column(db.Boolean)
 
-    price = db.Column(db.Numeric(10, 2))
+    price = db.Column(db.Integer())
 
     # bid data
     can_bid = db.Column(db.Boolean)
 
-    min_bid_increment = db.Column(db.Numeric(10, 2))
-    starting_bid = db.Column(db.Numeric(10, 2))
+    min_bid_increment = db.Column(db.Integer())
+    starting_bid = db.Column(db.Integer)
 
-    highest_bid = db.Column(db.Numeric(10, 2))
+    highest_bid = db.Column(db.Integer())
     bidding_ends = db.Column(db.DateTime)
 
     # top bid user
@@ -66,11 +68,15 @@ class Item(db.Model):
 
     def __init__(self, **kwargs):
         super(Item, self).__init__(**kwargs)
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
 
-        self.thumbnail = 0 if len(self.images) > 0 else -1
+        self.thumbnail = 0
 
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
+
+        self.modified_at = datetime.now()
 
         return self

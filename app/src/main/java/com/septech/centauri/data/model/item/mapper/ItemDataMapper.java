@@ -42,8 +42,8 @@ public class ItemDataMapper {
         itemEntity.setUpdatedAt(item.getUpdatedAt());
         itemEntity.setSellerId(item.getSellerId());
         itemEntity.setBuyoutPrice(item.getBuyoutPrice());
-        itemEntity.setCanBuy(item.isCanBuy());
-        itemEntity.setCanBid(item.isCanBid());
+        itemEntity.setCanBuy(item.getCanBuy());
+        itemEntity.setCanBid(item.getCanBid());
         itemEntity.setHighestBid(item.getHighestBid());
         itemEntity.setHighestBidUser(item.getHighestBidUser());
         itemEntity.setBiddingEnds(item.getBiddingEnds());

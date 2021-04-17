@@ -8,6 +8,7 @@ import com.septech.centauri.domain.models.User;
 import java.util.Dictionary;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -99,4 +100,6 @@ public interface UserRepository {
     Single<String> forgotPassword(String email);
 
     Single<Order> addToCart(User user, Item item, int quantity);
+
+    Single<Order> getUserCart(int user);
 }

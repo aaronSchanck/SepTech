@@ -10,7 +10,7 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/itemImage"
+        android:id="@+id/cartItemImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
@@ -21,38 +21,40 @@
         app:srcCompat="@drawable/centauri_logo" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/cartItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:text="@string/cart_item_name"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/itemImage"
-        app:layout_constraintStart_toEndOf="@+id/itemImage"
-        app:layout_constraintTop_toTopOf="@+id/itemImage" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cartItemImage"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/cartItemQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        android:layout_marginEnd="12dp"
         android:text="@string/cart_quantity"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/cartItemName"
+        app:layout_constraintEnd_toStartOf="@+id/cartItemPrice"
+        app:layout_constraintHorizontal_bias="0.964"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cartItemName"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/cartItemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cart_price"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintBottom_toBottomOf="@+id/cartItemQuantity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toTopOf="@+id/textView13"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cartItemQuantity"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

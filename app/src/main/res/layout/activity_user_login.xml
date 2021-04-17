@@ -60,14 +60,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="370dp"
             android:layout_height="64dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/password_hint"
             android:imeOptions="actionDone"
             android:selectAllOnFocus="true"
-            app:layout_constraintBottom_toTopOf="@+id/loading_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_text_input"
-            app:layout_constraintVertical_bias="0.1"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText

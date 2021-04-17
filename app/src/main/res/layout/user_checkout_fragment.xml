@@ -351,7 +351,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/cartTaxTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
@@ -369,9 +369,9 @@
                     android:text="TextView"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintEnd_toEndOf="@+id/cartTaxTextView"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView5"
+                    app:layout_constraintStart_toStartOf="@+id/cartTaxTextView"
                     app:layout_constraintTop_toTopOf="@+id/textView4"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -396,14 +396,14 @@
                     android:textColor="#000000"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintEnd_toEndOf="@+id/cartTaxTextView"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/textView6"
                     app:layout_constraintTop_toTopOf="@+id/textView7"
                     app:layout_constraintVertical_bias="1.0" />
 
                 <Button
-                    android:id="@+id/selectedImages"
+                    android:id="@+id/cartCheckoutBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"

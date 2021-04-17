@@ -68,14 +68,6 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        mAlreadyLoaded = false;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mAlreadyLoaded = true;
     }
 
     @Override

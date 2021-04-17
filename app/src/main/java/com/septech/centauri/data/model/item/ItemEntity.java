@@ -32,7 +32,7 @@ public class ItemEntity {
 
     @SerializedName("price")
     @Expose
-    private String buyoutPrice;
+    private long buyoutPrice;
 
     @SerializedName("can_buy")
     @Expose
@@ -44,19 +44,19 @@ public class ItemEntity {
 
     @SerializedName("highest_bid")
     @Expose(serialize = false)
-    private String highestBid;
+    private Long highestBid;
 
     @SerializedName("highest_bid_user")
     @Expose(serialize = false)
-    private String highestBidUser;
+    private Integer highestBidUser;
 
     @SerializedName("starting_bid")
     @Expose
-    private String startingBid;
+    private Long startingBid;
 
     @SerializedName("min_bid_increment")
     @Expose
-    private String minBidIncrement;
+    private Long minBidIncrement;
 
     @SerializedName("bidding_ends")
     @Expose
@@ -68,15 +68,11 @@ public class ItemEntity {
 
     @SerializedName("category_id")
     @Expose(serialize = false)
-    private String categoryId;
+    private Integer categoryId;
 
     @SerializedName("category")
     @Expose
     private CategoryEntity category;
-
-    @SerializedName("image")
-    @Expose(serialize = false)
-    private String[] images;
 
     @SerializedName("item_variants")
     @Expose(serialize = false)
@@ -137,11 +133,11 @@ public class ItemEntity {
         this.sellerId = sellerId;
     }
 
-    public String getBuyoutPrice() {
+    public long getBuyoutPrice() {
         return buyoutPrice;
     }
 
-    public void setBuyoutPrice(String buyoutPrice) {
+    public void setBuyoutPrice(long buyoutPrice) {
         this.buyoutPrice = buyoutPrice;
     }
 
@@ -161,35 +157,35 @@ public class ItemEntity {
         this.canBid = canBid;
     }
 
-    public String getHighestBid() {
+    public Long getHighestBid() {
         return highestBid;
     }
 
-    public void setHighestBid(String highestBid) {
+    public void setHighestBid(Long highestBid) {
         this.highestBid = highestBid;
     }
 
-    public String getHighestBidUser() {
+    public Integer getHighestBidUser() {
         return highestBidUser;
     }
 
-    public void setHighestBidUser(String highestBidUser) {
+    public void setHighestBidUser(Integer highestBidUser) {
         this.highestBidUser = highestBidUser;
     }
 
-    public String getStartingBid() {
+    public Long getStartingBid() {
         return startingBid;
     }
 
-    public void setStartingBid(String startingBid) {
+    public void setStartingBid(Long startingBid) {
         this.startingBid = startingBid;
     }
 
-    public String getMinBidIncrement() {
+    public Long getMinBidIncrement() {
         return minBidIncrement;
     }
 
-    public void setMinBidIncrement(String minBidIncrement) {
+    public void setMinBidIncrement(Long minBidIncrement) {
         this.minBidIncrement = minBidIncrement;
     }
 
@@ -209,11 +205,11 @@ public class ItemEntity {
         this.quality = quality;
     }
 
-    public String getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -223,14 +219,6 @@ public class ItemEntity {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
-    }
-
-    public String[] getImages() {
-        return images;
-    }
-
-    public void setImages(String[] images) {
-        this.images = images;
     }
 
     public String getItemVariants() {

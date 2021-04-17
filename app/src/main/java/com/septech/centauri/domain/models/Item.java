@@ -1,6 +1,6 @@
 package com.septech.centauri.domain.models;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public class Item {
     private Integer id;
@@ -9,20 +9,20 @@ public class Item {
     private String createdAt;
     private String updatedAt;
     private Integer sellerId;
-    private String buyoutPrice;
-    private boolean canBuy;
+    private Long buyoutPrice;
+    private Boolean canBuy;
 
-    private boolean canBid;
-    private String highestBid;
-    private String highestBidUser;
+    private Boolean canBid;
+    private Long highestBid;
+    private Integer highestBidUser;
     private String biddingEnds;
-    private String startingBid;
-    private String minBidIncrement;
+    private Long startingBid;
+    private Long minBidIncrement;
 
     private String quality;
     private Integer categoryId;
     private Category category;
-    private List<String> images;
+
     private String itemVariants;
     private String description;
 
@@ -66,8 +66,8 @@ public class Item {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String modifiedAt) {
-        this.updatedAt = modifiedAt;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Integer getSellerId() {
@@ -78,43 +78,43 @@ public class Item {
         this.sellerId = sellerId;
     }
 
-    public String getBuyoutPrice() {
+    public Long getBuyoutPrice() {
         return buyoutPrice;
     }
 
-    public void setBuyoutPrice(String buyoutPrice) {
+    public void setBuyoutPrice(Long buyoutPrice) {
         this.buyoutPrice = buyoutPrice;
     }
 
-    public boolean isCanBuy() {
+    public Boolean getCanBuy() {
         return canBuy;
     }
 
-    public void setCanBuy(boolean canBuy) {
+    public void setCanBuy(Boolean canBuy) {
         this.canBuy = canBuy;
     }
 
-    public boolean isCanBid() {
+    public Boolean getCanBid() {
         return canBid;
     }
 
-    public void setCanBid(boolean canBid) {
+    public void setCanBid(Boolean canBid) {
         this.canBid = canBid;
     }
 
-    public String getHighestBid() {
+    public Long getHighestBid() {
         return highestBid;
     }
 
-    public void setHighestBid(String highestBid) {
+    public void setHighestBid(Long highestBid) {
         this.highestBid = highestBid;
     }
 
-    public String getHighestBidUser() {
+    public Integer getHighestBidUser() {
         return highestBidUser;
     }
 
-    public void setHighestBidUser(String highestBidUser) {
+    public void setHighestBidUser(Integer highestBidUser) {
         this.highestBidUser = highestBidUser;
     }
 
@@ -126,19 +126,19 @@ public class Item {
         this.biddingEnds = biddingEnds;
     }
 
-    public String getStartingBid() {
+    public Long getStartingBid() {
         return startingBid;
     }
 
-    public void setStartingBid(String startingBid) {
+    public void setStartingBid(Long startingBid) {
         this.startingBid = startingBid;
     }
 
-    public String getMinBidIncrement() {
+    public Long getMinBidIncrement() {
         return minBidIncrement;
     }
 
-    public void setMinBidIncrement(String minBidIncrement) {
+    public void setMinBidIncrement(Long minBidIncrement) {
         this.minBidIncrement = minBidIncrement;
     }
 
@@ -166,14 +166,6 @@ public class Item {
         this.category = category;
     }
 
-    public List<String> getImage() {
-        return images;
-    }
-
-    public void setImage(List<String> image) {
-        this.images = image;
-    }
-
     public String getItemVariants() {
         return itemVariants;
     }
@@ -188,5 +180,26 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getBigDecDollarPrice() {
+        return new BigDecimal(getStringDollarPrice());
+    }
+
+    public String getStringDollarPrice() {
+        String amount;
+        if (buyoutPrice != null) {
+            amount = String.valueOf(buyoutPrice);
+        } else {
+            amount = String.valueOf(highestBid);
+        }
+
+        return amount.substring(0, amount.length() - 2)
+                + "."
+                + amount.substring(amount.length() - 2);
+    }
+
+    public String getDisplayablePrice() {
+        return "$" + getStringDollarPrice();
     }
 }

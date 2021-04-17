@@ -33,6 +33,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.ui.user.home.HomeViewModel;
 
 import java.util.ArrayList;
@@ -153,10 +154,7 @@ public class ListingFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
         mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
-        int id = getArguments().getInt("id");
-
-        mViewModel.getItem(id);
-        mViewModel.getImages(id);
+        mViewModel.setItemId(getArguments().getInt("id"));
 
         createLiveDataObservers();
     }
@@ -164,8 +162,6 @@ public class ListingFragment extends Fragment {
     private void createLiveDataObservers() {
         mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
             Resources res = requireActivity().getResources();
-            //get business
-            mViewModel.getBusiness(item.getSellerId());
 
             wishlistBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -190,8 +186,7 @@ public class ListingFragment extends Fragment {
             String COUNTRY = "US";
             String LANGUAGE = "en";
 
-            listingPriceTextView.setText(res.getString((R.string.listing_price),
-                    item.getBuyoutPrice()));
+            listingPriceTextView.setText(item.getDisplayablePrice());
             listingDescTextView.setText(item.getDescription());
 
             mViewModel.setCurrentQuantity(0);
@@ -253,6 +248,16 @@ public class ListingFragment extends Fragment {
 
         mViewModel.getReviews().observe(getViewLifecycleOwner(),
                 itemReviews -> System.out.println("itemReviews = " + itemReviews));
+
+        mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), new Observer<Order>() {
+            @Override
+            public void onChanged(Order order) {
+                if (order == null) return;
+
+                mHomeViewModel.updateOrderData(order);
+                System.out.println("order = " + order);
+            }
+        });
     }
 
     private void updateImageBtnState(List<Uri> uris) {

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.data.repository.UserRepositoryImpl;
+import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
@@ -19,11 +20,11 @@ public class HomeViewModel extends ViewModel {
     private final CompositeDisposable mDisposables;
 
     private MutableLiveData<User> userLiveData;
+    private MutableLiveData<Order> cartLiveData;
 
     private int userId;
-
     private String name = "Guest";
-
+  
     public HomeViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
 
@@ -57,6 +58,32 @@ public class HomeViewModel extends ViewModel {
                 }));
     }
 
+    private void getUserCart() {
+        mDisposables.add(userRepo.getUserCart(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Order>() {
+                    @Override
+                    public void onSuccess(@NonNull Order order) {
+                        System.out.println("cart = " + order);
+                        cartLiveData.setValue(order);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        //failed
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
+    public void updateOrderData(Order order) {
+        if (cartLiveData == null) {
+            cartLiveData = new MutableLiveData<>();
+        }
+        cartLiveData.setValue(order);
+    }
+  
     public String getName() {
         return name;
     }
@@ -69,6 +96,14 @@ public class HomeViewModel extends ViewModel {
         return userLiveData;
     }
 
+    public MutableLiveData<Order> getOrderLiveData() {
+        if (cartLiveData == null) {
+            cartLiveData = new MutableLiveData<>();
+            getUserCart();
+        }
+        return cartLiveData;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -76,5 +111,4 @@ public class HomeViewModel extends ViewModel {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
 }

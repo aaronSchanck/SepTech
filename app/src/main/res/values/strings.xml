@@ -39,7 +39,7 @@
     <string name="cart">Cart</string>
     <string name="orders">Orders</string>
     <string name="need_help">Need Help?</string>
-    <string name="home_welcome">Welcome, %1$s!</string>
+    <string name="home_welcome">Welcome</string>
     <string name="settings_search">Settings Search</string>
     <string name="searchLabel">search</string>
     <string name="accountBtn">Account</string>
@@ -194,13 +194,6 @@
     <string name="continue_as_guest_user">Continue as Guest User</string>
     <string name="placeholder">$%1$s</string>
     <string name="item_amount_string">%1$s results found in %2$s seconds.</string>
-    <string name="hint_enter_a_message">Type a message…</string>
-    <string name="on_log_click_message">Your custom long click handler</string>
-    <string name="action_delete">Delete</string>
-    <string name="action_copy">Copy</string>
-    <string name="copied_message">Message copied!</string>
-    <string name="date_header_today">Today</string>
-    <string name="date_header_yesterday">Yesterday</string>
     <string name="bottom_cart">Cart</string>
     <string name="bottom_notifications">Notifications</string>
     <string name="bottom_my_account">My Account</string>
@@ -220,6 +213,9 @@
     <string name="user_payment_method"><b>%1$s</b> ending in %2$d</string>
     <string name="user_billing_address"><b>Billing Address:</b> %1$s</string>
     <string name="change">Change</string>
+    <string name="cartTaxText">$%1$s</string>
+    <string name="cartShippingText">$%1$s</string>
+    <string name="cartTotalText">$%1$s</string>
     <string name="phone_contact_text">Need help over the phone? <br/>Call <b>1-234-567-8900</b>.</string>
     <string name="email_contact_text">Or choose to email us at <br/><b>septech.centauri@gmail.com</b></string>
 </resources>

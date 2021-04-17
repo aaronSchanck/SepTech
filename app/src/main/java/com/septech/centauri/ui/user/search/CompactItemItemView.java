@@ -66,7 +66,7 @@ class CompactItemItemView extends
         checkMarkImage.setVisibility(View.GONE);
 
         Resources res = getAppContext().getResources();
-        priceTextView.setText(res.getString(R.string.placeholder, item.getBuyoutPrice()));
+        priceTextView.setText(item.getDisplayablePrice());
     }
 
     public void setItems(List<Item> mItems) {

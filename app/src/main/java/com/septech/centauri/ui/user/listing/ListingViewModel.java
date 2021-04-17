@@ -29,21 +29,22 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ListingViewModel extends ViewModel {
 
-    private UserRepository userRepo;
-    private ItemRepository itemRepo;
-    private BusinessRepository businessRepo;
+    private final UserRepository userRepo;
+    private final ItemRepository itemRepo;
+    private final BusinessRepository businessRepo;
 
     private Integer itemId;
 
     private int currentImage;
     private int currentQuantity;
 
-    private MutableLiveData<Item> itemLiveData = new MutableLiveData<>();
-    private MutableLiveData<Business> businessLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Uri>> imageLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<ItemReview>> reviews = new MutableLiveData<>();
+    private MutableLiveData<Item> itemLiveData;
+    private MutableLiveData<Business> businessLiveData;
+    private MutableLiveData<List<Uri>> imageLiveData;
+    private MutableLiveData<List<ItemReview>> reviews;
+    private MutableLiveData<Order> orderLiveData;
 
-    private CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public ListingViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
@@ -58,6 +59,7 @@ public class ListingViewModel extends ViewModel {
     }
 
     public void addToCart(User user, Item item, int quantity) {
+        System.out.println("user = " + user + ", item = " + item + ", quantity = " + quantity);
         mDisposables.add(userRepo.addToCart(user, item, quantity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -65,6 +67,7 @@ public class ListingViewModel extends ViewModel {
                     @Override
                     public void onSuccess(@NonNull Order order) {
                         System.out.println("order = " + order);
+                        orderLiveData.setValue(order);
                     }
 
                     @Override
@@ -121,7 +124,8 @@ public class ListingViewModel extends ViewModel {
     }
 
     public void getBusiness(int id) {
-        mDisposables.add(businessRepo.getBusinessById(id)
+        mDisposables.add(itemRepo.getItemById(id)
+                .flatMap(item -> businessRepo.getBusinessById(item.getSellerId()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Business>() {
@@ -138,24 +142,51 @@ public class ListingViewModel extends ViewModel {
                 }));
     }
 
+    public MutableLiveData<Business> getBusinessLiveData() {
+        if (businessLiveData == null) {
+            businessLiveData = new MutableLiveData<>();
+            getBusiness(itemId);
+        }
+        return businessLiveData;
+    }
+
+    public MutableLiveData<Item> getItemLiveData() {
+        if (itemLiveData == null) {
+            itemLiveData = new MutableLiveData<>();
+            getItem(itemId);
+        }
+        return itemLiveData;
+    }
+
+    public MutableLiveData<List<ItemReview>> getReviews() {
+        if (reviews == null) {
+            reviews = new MutableLiveData<>();
+            getReviews();
+        }
+        return reviews;
+    }
+
+    public MutableLiveData<List<Uri>> getImageLiveData() {
+        if (imageLiveData == null) {
+            imageLiveData = new MutableLiveData<>();
+            getImages(itemId);
+        }
+        return imageLiveData;
+    }
+
+    public MutableLiveData<Order> getOrderLiveData() {
+        if (orderLiveData == null) {
+            orderLiveData = new MutableLiveData<>();
+        }
+        return orderLiveData;
+    }
+
     public Integer getItemId() {
         return itemId;
     }
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
-    }
-
-    public MutableLiveData<Item> getItemLiveData() {
-        return itemLiveData;
-    }
-
-    public MutableLiveData<List<ItemReview>> getReviews() {
-        return reviews;
-    }
-
-    public MutableLiveData<List<Uri>> getImageLiveData() {
-        return imageLiveData;
     }
 
     public int getCurrentImage() {
@@ -172,9 +203,5 @@ public class ListingViewModel extends ViewModel {
 
     public void setCurrentQuantity(int currentQuantity) {
         this.currentQuantity = currentQuantity;
-    }
-
-    public MutableLiveData<Business> getBusinessLiveData() {
-        return businessLiveData;
     }
 }

@@ -199,7 +199,8 @@ class ItemCreateResource(Resource):
         item_vali = item_schema.validate(obj)
 
         if item_vali:
-            return SchemaErrResponse(item_vali, 402)
+            print(item_vali)
+            return SchemaErrResponse(item_vali, 400)
 
         item_data = item_schema.load(obj)
 

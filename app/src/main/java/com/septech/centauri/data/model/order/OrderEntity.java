@@ -13,12 +13,12 @@ public class OrderEntity {
     @Expose(serialize = false)
     private int id;
 
-    @SerializedName("id")
-    @Expose(serialize = false)
+    @SerializedName("userid")
+    @Expose()
     private int userid;
 
     @SerializedName("ordered")
-    @Expose(serialize = false)
+    @Expose()
     private boolean ordered;
 
     @SerializedName("date_created")
@@ -33,7 +33,7 @@ public class OrderEntity {
     @Expose(serialize = false)
     private String dateDelivered;
 
-    @SerializedName("id")
+    @SerializedName("order_items")
     @Expose(serialize = false)
     private List<OrderItemEntity> orderItems;
 

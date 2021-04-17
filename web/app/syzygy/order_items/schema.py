@@ -18,18 +18,21 @@ import logging
 
 from marshmallow import Schema, fields
 
+from ..items.schema import ItemSchema
+
 log = logging.getLogger(__name__)
 
 
 class OrderItemSchema(Schema):
     id = fields.Number(dump_only=True)
-    quantity = fields.Number(dump_only=True)
-    price = fields.Str()
-
-    userid = fields.Int()
 
     itemid = fields.Int()
+    orderid = fields.Int()
 
-    orderid = fields.Int(allow_none=True)
+    quantity = fields.Number()
+    price = fields.Int()
 
-    added_at = fields.DateTime(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)
+
+    item = fields.Nested(ItemSchema(), dump_only=True)

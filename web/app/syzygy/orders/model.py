@@ -43,7 +43,7 @@ class Order(db.Model):
     date_shipped = db.Column(db.DateTime)
     date_delivered = db.Column(db.DateTime)
 
-    total_price = db.Column(db.Numeric(10, 2))
+    total_price = db.Column(db.Integer())
 
     order_items = db.relationship("OrderItem", back_populates="order")
 

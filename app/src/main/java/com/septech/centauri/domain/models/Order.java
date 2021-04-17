@@ -5,14 +5,13 @@ import com.septech.centauri.data.model.orderitem.OrderItemEntity;
 import java.util.List;
 
 public class Order {
-
     private int id;
     private int userid;
     private boolean ordered;
     private String dateCreated;
     private String dateShipped;
     private String dateDelivered;
-    private List<OrderItemEntity> orderItems;
+    private List<OrderItem> orderItems;
 
     public Order() {
     }
@@ -65,11 +64,11 @@ public class Order {
         this.dateDelivered = dateDelivered;
     }
 
-    public List<OrderItemEntity> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItemEntity> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 }

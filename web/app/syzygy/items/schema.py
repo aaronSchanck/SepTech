@@ -44,21 +44,21 @@ class ItemSchema(Schema):
     sellerid = fields.Integer()
 
     can_buy = fields.Bool()
-    price = fields.Str(allow_none=True)
+    price = fields.Integer(allow_none=True)
 
     can_bid = fields.Bool()
-    starting_bid = fields.Str(allow_none=True)
-    min_bid_increment = fields.Str(allow_none=True)
+    starting_bid = fields.Integer(allow_none=True)
+    min_bid_increment = fields.Integer(allow_none=True)
 
-    highest_bid = fields.Number(dump_only=True)
+    highest_bid = fields.Integer(dump_only=True)
     highest_bid_user = fields.Integer(dump_only=True)
     bidding_ends = fields.DateTime(allow_none=True)
 
     category_id = fields.Integer(dump_only=True)
-    category = fields.Nested(CategorySchema, required=True)
+    category = fields.Nested(CategorySchema)
 
     thumbnail = fields.Integer()
-    image = fields.List(fields.String, dump_only=True)
+    # image = fields.List(fields.String, dump_only=True)
     item_variants = fields.List(fields.Integer, dump_only=True)
     description = fields.Str()
     # attributes = fields.Dict()  # act as filters
