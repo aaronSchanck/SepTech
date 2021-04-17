@@ -47,6 +47,8 @@ class Item(db.Model):
     # bid data
     can_bid = db.Column(db.Boolean)
 
+    bids = db.relationship("Bid", back_populates="item")
+
     min_bid_increment = db.Column(db.Integer())
     starting_bid = db.Column(db.Integer)
 

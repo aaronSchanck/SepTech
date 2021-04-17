@@ -42,18 +42,24 @@ class BusinessReport(db.Model):
     report_reason = db.Column(db.String)
     report_comment = db.Column(db.String)
 
-    created_at = db.Column(db.DateTime)
-
     # admin stuff
     reviewed_by_id = db.Column(db.Integer, nullable=True)
     reviewed_by_name = db.Column(db.String, nullable=True)
     reviewed_at = db.Column(db.DateTime, nullable=True)
 
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
+
     def __init__(self, **kwargs):
         super(BusinessReport, self).__init__(**kwargs)
 
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
+
     def update(self, changes: dict):
-        for key, val in changes.businesss():
+        for key, val in changes.items():
             setattr(self, key, val)
+
+        self.modified_at = datetime.now()
 
         return self

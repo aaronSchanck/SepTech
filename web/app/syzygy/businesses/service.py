@@ -119,23 +119,14 @@ class BusinessService:
         if business is not None:
             return ErrResponse("Business with email already exists", 400)
 
-        encrypted_pw = encrypt_pw(new_attrs["password"])
-
-        phone_number_reformatted = new_attrs["phone_number"]
-
-        # reformat phone number to remove extraneous (non-numeric) chars
-        for c in ["(", ")", "-", " "]:
-            if c in new_attrs["phone_number"]:
-                phone_number_reformatted.replace(c, "")
+        BusinessService.transform(new_attrs)
 
         new_business = Business(
             business_name=new_attrs["business_name"],
             owner_full_name=new_attrs["owner_full_name"],
             email=new_attrs["email"],
-            password=encrypted_pw,
-            created_at=datetime.now(),
-            modified_at=datetime.now(),
-            phone_number=phone_number_reformatted,
+            password=new_attrs["password"],
+            phone_number=new_attrs["phone_number"],
             password_salt=new_attrs["password_salt"],
             description=new_attrs["description"],
         )
@@ -193,4 +184,20 @@ class BusinessService:
         :rtype: dict
         """
 
-        pass
+        # re-encrypt the user password when updated
+        if "password" in attrs.keys():
+            encrypted_pw = encrypt_pw(attrs["password"])
+            attrs["password"] = encrypted_pw
+
+        # reformat the user phone number when updated
+        if "phone_number" in attrs.keys():
+            phone_number_reformatted = attrs["phone_number"]
+            for c in ["(", ")", "-", " "]:
+                if c in attrs["phone_number"]:
+                    phone_number_reformatted.replace(c, "")
+
+            attrs["phone_number"] = phone_number_reformatted
+
+        log.info(attrs)
+
+        return attrs

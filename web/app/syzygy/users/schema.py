@@ -27,6 +27,8 @@ log = logging.getLogger(__name__)
 
 class UserSchema(Schema):
     id = fields.Number(dump_only=True)
+
+    username = fields.String(dump_only=True)
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
     full_name = fields.Str(required=True)
@@ -38,8 +40,5 @@ class UserSchema(Schema):
     phone_number = fields.String()
 
     password_salt = fields.String(required=True)
-
-    password_reset_code = fields.String(dump_only=True)
-    password_reset_timeout = fields.DateTime(dump_only=True)
 
     admin_level = fields.String(dump_only=True)

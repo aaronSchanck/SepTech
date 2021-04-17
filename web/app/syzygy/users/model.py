@@ -24,12 +24,13 @@ log = logging.getLogger(__name__)
 
 
 class User(db.Model):
-    """A User entity in the users table""" 
+    """A User entity in the users table"""
 
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
 
+    username = db.Column(db.String)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.LargeBinary(127), nullable=False)
     full_name = db.Column(db.String(255))
@@ -73,6 +74,9 @@ class User(db.Model):
 
     # user orders
     orders = db.relationship("Order", back_populates="user")
+
+    # bids
+    bids = db.relationship("Bid", back_populates="user")
 
     admin_level = db.Column(db.Integer)
 

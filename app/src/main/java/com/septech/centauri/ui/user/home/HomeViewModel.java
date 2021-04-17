@@ -15,7 +15,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends ViewModel {
-    private UserRepository userRepo;
+    private final UserRepository userRepo;
 
     private final CompositeDisposable mDisposables;
 
@@ -23,7 +23,6 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Order> cartLiveData;
 
     private int userId;
-    private String name = "Guest";
   
     public HomeViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
@@ -45,7 +44,6 @@ public class HomeViewModel extends ViewModel {
                     @Override
                     public void onSuccess(@NonNull User user) {
                         System.out.println("user = " + user);
-                        name = user.getFullName();
                         userLiveData.setValue(user);
                     }
 
@@ -84,9 +82,12 @@ public class HomeViewModel extends ViewModel {
         cartLiveData.setValue(order);
     }
   
-    public String getName() {
-        return name;
-    }
+//    public String getName() {
+//        if (userLiveData == null) {
+//            return "Guest";
+//        }
+//        return userLiveData.getValue().getUsername();
+//    }
 
     public MutableLiveData<User> getUserLiveData() {
         if (userLiveData == null) {

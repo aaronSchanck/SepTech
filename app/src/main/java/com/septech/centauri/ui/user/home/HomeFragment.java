@@ -48,8 +48,6 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_home_fragment, container, false);
 
-        name = this.getArguments().getString("name");
-
         mViewItemsBtn = view.findViewById(R.id.homeViewAllItemsBtn);
         mCartBtn = view.findViewById(R.id.homeCartBtn);
         mWishListBtn = view.findViewById(R.id.homeWishListBtn);
@@ -64,10 +62,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (name == null) name = "Guest";
-        String message = getResources().getString(R.string.home_welcome, name);
-        mWelcomeMessage.setText(message);
 
         mViewItemsBtn.setOnClickListener(v -> {
             SearchFragment fragment = SearchFragment.newInstance();

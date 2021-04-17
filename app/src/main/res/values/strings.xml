@@ -39,7 +39,7 @@
     <string name="cart">Cart</string>
     <string name="orders">Orders</string>
     <string name="need_help">Need Help?</string>
-    <string name="home_welcome">Welcome</string>
+    <string name="home_welcome">Welcome %1$s</string>
     <string name="settings_search">Settings Search</string>
     <string name="searchLabel">search</string>
     <string name="accountBtn">Account</string>
@@ -218,4 +218,9 @@
     <string name="cartTotalText">$%1$s</string>
     <string name="phone_contact_text">Need help over the phone? <br/>Call <b>1-234-567-8900</b>.</string>
     <string name="email_contact_text">Or choose to email us at <br/><b>septech.centauri@gmail.com</b></string>
+    <string name="hint_enter_a_message">Enter a message</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_delete">Delete</string>
+    <string name="date_header_yesterday">Date header yesterday</string>
+    <string name="date_header_today">date header today</string>
 </resources>

@@ -138,13 +138,10 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
             }
         });
 
-        //setup badges
-
         //create fragments
         homeFragment = HomeFragment.newInstance();
         settingsFragment = SettingsFragment.newInstance();
         cartFragment = CartFragment.newInstance();
-
 
         createTextWatchers();
 
@@ -158,12 +155,6 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
         loadingIcon = findViewById(R.id.homeLoadingIcon);
         loadingIcon.setVisibility(View.GONE);
-
-        //bundle for home fragment
-        Bundle homeBundle = new Bundle();
-        homeBundle.putString("name", name);
-
-        homeFragment.setArguments(homeBundle);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

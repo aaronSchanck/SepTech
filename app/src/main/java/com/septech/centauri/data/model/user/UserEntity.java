@@ -8,6 +8,10 @@ public class UserEntity {
     @Expose(serialize = false)
     private int userid;
 
+    @SerializedName("username")
+    @Expose(serialize = false)
+    private String username;
+
     @SerializedName("email")
     @Expose
     private String email;
@@ -40,14 +44,6 @@ public class UserEntity {
     @Expose(serialize=false)
     private String modifiedAt;
 
-    @SerializedName("password_reset_code")
-    @Expose(serialize=false)
-    private String passwordResetCode;
-
-    @SerializedName("password_reset_timeout")
-    @Expose(serialize=false)
-    private String passwordResetTimeout;
-
     @SerializedName("admin_level")
     @Expose(serialize=false)
     private String adminLevel;
@@ -66,6 +62,14 @@ public class UserEntity {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -132,19 +136,11 @@ public class UserEntity {
         this.modifiedAt = modifiedAt;
     }
 
-    public String getPasswordResetCode() {
-        return passwordResetCode;
+    public String getAdminLevel() {
+        return adminLevel;
     }
 
-    public void setPasswordResetCode(String passwordResetCode) {
-        this.passwordResetCode = passwordResetCode;
-    }
-
-    public String getPasswordResetTimeout() {
-        return passwordResetTimeout;
-    }
-
-    public void setPasswordResetTimeout(String passwordResetTimeout) {
-        this.passwordResetTimeout = passwordResetTimeout;
+    public void setAdminLevel(String adminLevel) {
+        this.adminLevel = adminLevel;
     }
 }

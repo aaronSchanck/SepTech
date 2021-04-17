@@ -35,11 +35,15 @@ class Bid(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
-    user = db.relationship("User")
+    user = db.relationship("User", back_populates="bids")
 
-    bid_amount = db.Column(db.Numeric(10, 2))
+    itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
+    item = db.relationship("Item", back_populates="bids")
 
-    bid_posted_at = db.Column(db.DateTime)
+    bid_amount = db.Column(db.Integer)
+
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
     def __init__(self, **kwargs):
         super(Bid, self).__init__(**kwargs)

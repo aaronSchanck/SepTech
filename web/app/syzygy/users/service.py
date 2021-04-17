@@ -25,16 +25,17 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import List
-from flask import Response
+
+from ..orders.service import OrderService
+from ..order_items.service import OrderItemService
 
 import bcrypt
 from app import db
 from app.globals import *
+from flask import Response
 from libs.auth import encrypt_pw
 from libs.response import ErrResponse, NormalResponse
 
-from ..order_items.service import OrderItemService
-from ..orders.service import OrderService
 from ..orders.model import Order
 from .model import User
 
@@ -44,56 +45,33 @@ log = logging.getLogger(__name__)
 class UserService:
     @staticmethod
     def get_all():
-        """[summary]
-
-        :return: [description]
-        :rtype: [type]
-        """
         return User.query.all()
 
     @staticmethod
     def get_by_id(id: int) -> User:
-        """[summary]
-
-        :param id: [description]
-        :type id: int
-        :return: [description]
-        :rtype: [type]
-        """
         user = User.query.get(id)
 
         return user
 
     @staticmethod
     def get_by_email(email: str) -> User:
-        """[summary]
-
-        :param email: [description]
-        :type email: str
-        :return: [description]
-        :rtype: [type]
-        """
-
         user = User.query.filter(User.email == email).first()
 
         return user
 
     @staticmethod
+    def get_by_username(username: str) -> User:
+        user = User.query.filter(User.username == username).first()
+
+        return user
+
+    @staticmethod
     def update(user: User, updates: dict) -> User:
-        """[summary]
 
-        :param user: [description]
-        :type user: User
-        :param updates: [description]
-        :type updates: dict
-        :return: [description]
-        :rtype: User
-        """
-
+        # transform the input before using it
         UserService.transform(updates)
 
         user.update(updates)
-        user.modified_at = datetime.now()
 
         db.session.commit()
         return user
@@ -117,13 +95,14 @@ class UserService:
         return [id]
 
     @staticmethod
-    def create(new_attrs: OrderedDict) -> User:
-        """[summary]
+    def create(new_attrs: dict) -> User:
+        """Create a user with a dictionary object
 
-        :param new_attrs: [description]
-        :type new_attrs: OrderedDict
-        :return: [description]
-        :rtype: User
+        Args:
+            new_attrs (dict): Parsed user data dictionary
+
+        Returns:
+            User: SQLAlchemy user entity
         """
 
         user = UserService.get_by_email(new_attrs["email"])
@@ -131,10 +110,22 @@ class UserService:
         if user is not None:
             return ErrResponse("User with email already exists", 400)
 
+        email = new_attrs["email"]
+
         UserService.transform(new_attrs)
 
+        append = 1
+        username = UserService.get_username(email)
+        user = UserService.get_by_username(username)
+
+        if user is not None:
+            username = UserService.get_username(email, append=append)
+            user = UserService.get_by_username(username)
+            append += 1
+
         new_user = User(
-            email=new_attrs["email"],
+            username=username,
+            email=email,
             password=new_attrs["password"],
             full_name=new_attrs["full_name"],
             date_of_birth=new_attrs["date_of_birth"],
@@ -146,6 +137,22 @@ class UserService:
         db.session.commit()
 
         return new_user
+
+    @staticmethod
+    def get_username(email: str, append=None) -> str:
+        loc = email.index("@")
+
+        converted = email[:loc]
+
+        print(append)
+
+        if append is not None:
+            _append = str(append).zfill(4)
+            converted = f"{converted}_{_append}"
+
+        print(converted)
+
+        return converted
 
     @staticmethod
     def login(email: str, password: str) -> User:

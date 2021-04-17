@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     private int id;
+    private String username;
     private String email;
     private String password;
     private String fullName;
@@ -13,8 +14,6 @@ public class User {
     private String passwordSalt;
     private String createdAt;
     private String modifiedAt;
-    private String passwordResetCode;
-    private String passwordResetTimeout;
     private String adminLevel;
 
     public User() {
@@ -31,6 +30,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -95,22 +102,6 @@ public class User {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
-    }
-
-    public String getPasswordResetCode() {
-        return passwordResetCode;
-    }
-
-    public void setPasswordResetCode(String passwordResetCode) {
-        this.passwordResetCode = passwordResetCode;
-    }
-
-    public String getPasswordResetTimeout() {
-        return passwordResetTimeout;
-    }
-
-    public void setPasswordResetTimeout(String passwordResetTimeout) {
-        this.passwordResetTimeout = passwordResetTimeout;
     }
 
     public String getAdminLevel() {

@@ -18,6 +18,8 @@ import logging
 
 from app import db
 
+from datetime import datetime
+
 log = logging.getLogger(__name__)
 
 
@@ -57,9 +59,14 @@ class Business(db.Model):
     def __init__(self, **kwargs):
         super(Business, self).__init__(**kwargs)
 
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
+
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
+
+        self.modified_at = datetime.now()
 
         return self
 
