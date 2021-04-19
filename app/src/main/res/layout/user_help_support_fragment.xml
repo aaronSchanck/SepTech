@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="Neew help over the phone?"
+            android:text="Need help over the phone?"
             app:layout_constraintBottom_toBottomOf="@+id/help_support_page_phone_icon"
             app:layout_constraintStart_toEndOf="@+id/help_support_page_phone_icon"
             app:layout_constraintTop_toTopOf="@+id/help_support_page_phone_icon"
