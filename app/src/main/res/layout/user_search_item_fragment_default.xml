@@ -15,36 +15,57 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Listing Name -->
-        <TextView
-            android:id="@+id/listingName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:text="Listing Name"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-        <!-- End of Listing Name -->
+            android:layout_marginBottom="15dp">
+
+            <!-- Listing Name -->
+            <TextView
+                android:id="@+id/listingName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Listing Name"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <!-- End of Listing Name -->
 
 
-        <!-- Listing Price -->
-        <TextView
-            android:id="@+id/listingPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="$%1$s"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-        <!-- End of Listing Price -->
+            <!-- Listing Price -->
+            <TextView
+                android:id="@+id/listingPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="$%1$s"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listingName"/>
+            <!-- End of Listing Price -->
 
-        <!-- Add Button -->
-        <!-- this is where i would put the add button if i had one -->
-        <!-- End of Add Button -->
+            <!-- Add Button -->
+            <ImageView
+                android:id="@+id/checkMarkImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="15dp"
+                android:background="#00000000"
+                android:backgroundTint="#FFFFFF"
+                android:foregroundTint="#FFFFFF"
+                android:src="@drawable/ic_add_circle_foreground"
+                app:tint="@color/centauri_red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/listingName"
+                android:elevation="10dp"/>
+            <!-- End of Add Button -->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Listing Image -->
         <ImageView
@@ -69,23 +90,41 @@
             android:textSize="16sp" />
         <!-- End of Listing Description -->
 
-        <!-- View More Button -->
-        <Button
-            android:id="@+id/listing_view_more_btn"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/view_more"
-            android:textColor="@color/centauri_red"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            />
-        <!-- End of View More Button -->
+            android:layout_marginTop="10dp">
 
-        <!-- Item Rating View -->
-        <!-- this is where i would put stars if i had some -->
-        <!-- End of Item Rating View -->
+            <!-- View More Button -->
+            <Button
+                android:id="@+id/listing_view_more_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/view_more"
+                android:textColor="@color/centauri_red"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <!-- End of View More Button -->
+
+            <!-- Item Rating View -->
+            <RatingBar
+                android:id="@+id/itemRatingBar"
+                style="@android:style/Widget.Holo.Light.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:isIndicator="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <!-- End of Item Rating View -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 

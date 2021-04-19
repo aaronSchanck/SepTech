@@ -14,24 +14,25 @@ import android.view.ViewGroup;
 
 import com.septech.centauri.R;
 
-public class SettingsFragment extends Fragment {
+public class HelpSupportFragment extends Fragment {
 
-    private SettingsViewModel mViewModel;
+    private HelpSupportViewModel mViewModel;
 
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
+    public static HelpSupportFragment newInstance() {
+        return new HelpSupportFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_settings_main_fragment, container, false);
+        return inflater.inflate(R.layout.user_settings_help_support_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(HelpSupportViewModel.class);
+        // TODO: Use the ViewModel
     }
 
 }

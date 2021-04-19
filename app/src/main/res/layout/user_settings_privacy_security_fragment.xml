@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/privacy_security_page_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/privacy_security_page_back_arro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/privacy_security_page_label"
+            app:layout_constraintEnd_toStartOf="@+id/privacy_security_page_label"
+            app:layout_constraintTop_toTopOf="@+id/privacy_security_page_label" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:text="Privacy and Security"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/privacy_security_page_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_security_foreground"
+            app:layout_constraintBottom_toBottomOf="@+id/privacy_security_page_label"
+            app:layout_constraintStart_toEndOf="@+id/privacy_security_page_label"
+            app:layout_constraintTop_toTopOf="@+id/privacy_security_page_label"
+            app:tint="@color/centauri_red" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/privacy_security_page_body_layout"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_top_layout">
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Two Factor Authentification"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You'll be sent a security code to verify it's you logging on"
+            app:layout_constraintEnd_toEndOf="@+id/privacy_security_page_two_factor_Label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/privacy_security_page_two_factor_Label"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_two_factor_Label" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_text_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:text="Text Message"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_two_factor_text" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_text_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send a code to: "
+            android:textColor="@color/lighter_black"
+            app:layout_constraintEnd_toEndOf="@+id/privacy_security_page_two_factor_text_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/privacy_security_page_two_factor_text_label"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_two_factor_text_label" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_text_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_phone_number"
+            android:textColor="@color/lighter_black"
+            app:layout_constraintBottom_toBottomOf="@+id/privacy_security_page_two_factor_text_text"
+            app:layout_constraintStart_toEndOf="@+id/privacy_security_page_two_factor_text_text"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_two_factor_text_label" />
+
+        <Switch
+            android:id="@+id/privacy_security_page_two_factor_text_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="183dp"
+            app:layout_constraintBottom_toBottomOf="@+id/privacy_security_page_two_factor_text_number"
+            app:layout_constraintStart_toEndOf="@+id/privacy_security_page_two_factor_text_number"
+            app:layout_constraintTop_toTopOf="@+id/privacy_security_page_two_factor_text_number"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Email"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_two_factor_text_text" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_email_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send a code to: "
+            android:textColor="@color/lighter_black"
+            app:layout_constraintEnd_toEndOf="@+id/privacy_security_page_two_factor_email_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/privacy_security_page_two_factor_email_label"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_security_page_two_factor_email_label" />
+
+        <TextView
+            android:id="@+id/privacy_security_page_two_factor_email_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textColor="@color/lighter_black"
+            app:layout_constraintBottom_toBottomOf="@+id/privacy_security_page_two_factor_email_text"
+            app:layout_constraintStart_toEndOf="@+id/privacy_security_page_two_factor_email_text"
+            app:layout_constraintTop_toTopOf="@+id/privacy_security_page_two_factor_email_text" />
+
+        <Switch
+            android:id="@+id/privacy_security_page_two_factor_email_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="183dp"
+            app:layout_constraintBottom_toBottomOf="@+id/privacy_security_page_two_factor_email_email"
+            app:layout_constraintStart_toEndOf="@+id/privacy_security_page_two_factor_email_email"
+            app:layout_constraintTop_toTopOf="@+id/privacy_security_page_two_factor_email_email" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

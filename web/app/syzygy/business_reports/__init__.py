@@ -1,4 +1,4 @@
-"""/web/app/syzygy/item_reports/__init__.py
+"""/web/app/syzygy/business_reports/__init__.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

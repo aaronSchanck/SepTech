@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/help_support_page_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/help_support_page_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/help_support_page_label"
+            app:layout_constraintEnd_toStartOf="@+id/help_support_page_label"
+            app:layout_constraintTop_toTopOf="@+id/help_support_page_label" />
+
+        <TextView
+            android:id="@+id/help_support_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:text="Help and Support"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/help_support_page_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_help_foreground"
+            app:layout_constraintBottom_toBottomOf="@+id/help_support_page_label"
+            app:layout_constraintStart_toEndOf="@+id/help_support_page_label"
+            app:layout_constraintTop_toTopOf="@+id/help_support_page_label"
+            app:tint="@color/centauri_red" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/help_support_page_body_layout"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/help_support_page_top_layout">
+
+        <TextView
+            android:id="@+id/help_support_page_need_help_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="46dp"
+            android:layout_marginTop="12dp"
+            android:text="Need Help?"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/help_support_page_need_help_text"
+            android:layout_width="179dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="12dp"
+            android:text="Get connected to an associate and receive live help right away."
+            app:layout_constraintEnd_toEndOf="@+id/help_support_page_need_help_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/help_support_page_need_help_label"
+            app:layout_constraintTop_toBottomOf="@+id/help_support_page_need_help_label" />
+
+        <ImageView
+            android:id="@+id/help_support_page_need_help_icon"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="31dp"
+            android:src="@drawable/ic_baseline_person_pin_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/help_support_page_start_chatting_Btn"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/centauri__teal"
+            android:text="Start Chatting Now"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/help_support_page_need_help_text"
+            app:layout_constraintHorizontal_bias="0.093"
+            app:layout_constraintStart_toStartOf="@+id/help_support_page_need_help_text"
+            app:layout_constraintTop_toBottomOf="@+id/help_support_page_need_help_icon" />
+
+        <ImageView
+            android:id="@+id/help_support_page_phone_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_phone_foreground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/help_support_page_start_chatting_Btn"
+            app:tint="@color/centauri_red" />
+
+        <TextView
+            android:id="@+id/help_support_page_phone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Need help over the phone?"
+            app:layout_constraintBottom_toBottomOf="@+id/help_support_page_phone_icon"
+            app:layout_constraintStart_toEndOf="@+id/help_support_page_phone_icon"
+            app:layout_constraintTop_toTopOf="@+id/help_support_page_phone_icon"
+            app:layout_constraintVertical_bias="0.303" />
+
+        <TextView
+            android:id="@+id/help_support_page_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Call 1-234-567-8900"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/help_support_page_phone_icon"
+            app:layout_constraintStart_toEndOf="@+id/help_support_page_phone_icon"
+            app:layout_constraintTop_toTopOf="@+id/help_support_page_phone_icon"
+            app:layout_constraintVertical_bias="0.606" />
+
+        <ImageView
+            android:id="@+id/help_support_page_email_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/ic_email_foreground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/help_support_page_phone_icon"
+            app:tint="@color/centauri_red" />
+
+        <TextView
+            android:id="@+id/help_support_page_email_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Or choose to email us at"
+            app:layout_constraintBottom_toBottomOf="@+id/help_support_page_email_icon"
+            app:layout_constraintStart_toEndOf="@+id/help_support_page_email_icon"
+            app:layout_constraintTop_toTopOf="@+id/help_support_page_email_icon"
+            app:layout_constraintVertical_bias="0.348" />
+
+        <TextView
+            android:id="@+id/help_support_page_email_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="septech.centauri@gmail.com"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/help_support_page_email_icon"
+            app:layout_constraintStart_toEndOf="@+id/help_support_page_email_icon"
+            app:layout_constraintTop_toTopOf="@+id/help_support_page_email_icon"
+            app:layout_constraintVertical_bias="0.64" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

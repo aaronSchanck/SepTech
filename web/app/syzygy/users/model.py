@@ -78,6 +78,8 @@ class User(db.Model):
     # bids
     bids = db.relationship("Bid", back_populates="user")
 
+    # settings
+
     admin_level = db.Column(db.Integer)
 
     def __init__(self, **kwargs):

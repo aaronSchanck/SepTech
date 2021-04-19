@@ -19,14 +19,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ImageButton
                 android:id="@+id/backBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
                 android:backgroundTint="@color/transparent"
                 android:clickable="true"
                 android:scaleType="center"
@@ -40,36 +39,31 @@
                 android:id="@+id/wishlistBtn"
                 android:layout_width="208dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:clickable="true"
                 android:text="@string/listing_wishlist_text"
                 app:icon="@drawable/ic_baseline_add_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/businessProfileBtn" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/cartBtn"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:clickable="true"
                 android:text="@string/listing_cart_text"
                 android:textColorHighlight="#070000"
                 android:textColorLink="#000000"
                 app:icon="@drawable/ic_baseline_add_24"
-                app:layout_constraintEnd_toEndOf="@+id/quantityEditText"
-                app:layout_constraintEnd_toStartOf="@+id/quantityForwardBtn"
-                app:layout_constraintStart_toEndOf="@+id/quantityBackBtn"
-                app:layout_constraintStart_toStartOf="@+id/quantityEditText"
-                app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
+                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
+                app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
 
             <Button
                 android:id="@+id/cartBtn2"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Leave a Review"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:textColorHighlight="#070000"
                 android:textColorLink="#000000"
                 app:icon="@drawable/ic_baseline_add_24"
@@ -81,21 +75,20 @@
                 android:id="@+id/listingNameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="12dp"
                 android:text="TextView"
                 android:textAllCaps="true"
                 android:textSize="28sp"
-                app:layout_constraintEnd_toStartOf="@+id/wishlistBtn"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wishlistBtn" />
+                app:layout_constraintStart_toStartOf="@+id/wishlistBtn"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/listingPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/listing_price"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -106,14 +99,12 @@
                 android:id="@+id/listingImageView"
                 android:layout_width="0dp"
                 android:layout_height="276dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="184dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:background="#CCCCCC"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView"
+                app:layout_constraintTop_toBottomOf="@+id/businessProfileBtn"
                 app:srcCompat="@drawable/ic_image_foreground" />
 
             <ImageButton
@@ -139,25 +130,25 @@
                 app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
                 app:layout_constraintEnd_toEndOf="@+id/listingImageView"
                 app:layout_constraintTop_toTopOf="@+id/listingImageView"
-                app:srcCompat="@drawable/ic_right_arrow_black"/>
+                app:srcCompat="@drawable/ic_right_arrow_black" />
 
             <TextView
                 android:id="@+id/listingDescTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="96dp"
                 android:text="Some words"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/listingImageView"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/listingImageView"
-                app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
 
             <TextView
                 android:id="@+id/itemRatingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="52dp"
                 android:text="Rating"
                 android:textAllCaps="true"
                 android:textSize="20sp"
@@ -169,7 +160,7 @@
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="88dp"
+                android:layout_marginTop="64dp"
                 android:text="Reviews"
                 android:textAllCaps="true"
                 android:textSize="20sp"
@@ -182,7 +173,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="48dp"
                 android:textAllCaps="true"
                 app:layout_constraintBottom_toBottomOf="@+id/textView22"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -261,46 +251,49 @@
                 android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
                 android:text="Purchase Now"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/listingPriceTextView" />
+                app:layout_constraintEnd_toEndOf="@+id/cartBtn"
+                app:layout_constraintStart_toStartOf="@+id/cartBtn"
+                app:layout_constraintTop_toTopOf="@+id/quantityLeftTextView" />
 
             <Button
                 android:id="@+id/businessProfileBtn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/business_profile_text"
+                android:layout_marginTop="16dp"
+                android:text="Seller's Profile"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cartBtn"
-                app:layout_constraintStart_toStartOf="@+id/quantityLeftTextView"
-                app:layout_constraintTop_toTopOf="@+id/cartBtn" />
+                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView" />
 
             <TextView
                 android:id="@+id/quantityLeftTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
                 android:text="@string/listingQuantityLeft"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/quantityEditText"
-                app:layout_constraintStart_toStartOf="@+id/listingPriceTextView" />
+                app:layout_constraintStart_toEndOf="@+id/quantityBackBtn"
+                app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
 
             <EditText
                 android:id="@+id/quantityEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="40dp"
                 android:ems="10"
                 android:gravity="center_horizontal"
                 android:inputType="number"
                 android:text="0"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView25"
-                app:layout_constraintStart_toStartOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                app:layout_constraintBottom_toBottomOf="@+id/cartBtn"
+                app:layout_constraintEnd_toStartOf="@+id/cartBtn"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView22"

@@ -18,6 +18,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.ui.user.help.HelpFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.cart.CartFragment;
+import com.septech.centauri.ui.user.wishlist.WishlistFragment;
 
 
 public class HomeFragment extends Fragment {
@@ -87,11 +88,13 @@ public class HomeFragment extends Fragment {
                     .commit();
         });
 
-        mWishListBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("v = " + v);
-            }
+        mWishListBtn.setOnClickListener(v -> {
+            WishlistFragment fragment = WishlistFragment.newInstance();
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentfragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         mOrdersBtn.setOnClickListener(new View.OnClickListener() {

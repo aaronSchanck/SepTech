@@ -91,21 +91,11 @@
         android:id="@+id/seller_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/seller_page_bottom_action_bar_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seller_page_top_layout">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/seller_page_bottom_action_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seller_recyclerView">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,24 +14,25 @@ import android.view.ViewGroup;
 
 import com.septech.centauri.R;
 
-public class SettingsFragment extends Fragment {
+public class PrivacySecurityFragment extends Fragment {
 
-    private SettingsViewModel mViewModel;
+    private PrivacySecurityViewModel mViewModel;
 
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
+    public static PrivacySecurityFragment newInstance() {
+        return new PrivacySecurityFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_settings_main_fragment, container, false);
+        return inflater.inflate(R.layout.user_settings_privacy_security_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(PrivacySecurityViewModel.class);
+        // TODO: Use the ViewModel
     }
 
 }

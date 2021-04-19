@@ -1,16 +1,8 @@
-"""/web/app/syzygy/users/schema.py
+"""/web/app/syzygy/orders/schema.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
-[Description]
-
-Classes:
-
-    [ClassesList]
-
-Functions:
-
-    [FunctionsList]
+Schemas used in the Order table
 
 """
 
