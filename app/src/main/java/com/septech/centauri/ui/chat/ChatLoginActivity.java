@@ -103,7 +103,13 @@ public class ChatLoginActivity extends AppCompatActivity
             focusView.requestFocus();
         } else {
             //do login
-            saveCredentialsAndLogin();
+            //saveCredentialsAndLogin();
+
+            ChatLogin login = new ChatLogin(mJidView.getText().toString(),
+                    "Liam Blair",
+                    mPasswordView.getText().toString(),
+                    this);
+            login.saveCredentialsAndLogin();
         }
     }
 
@@ -116,7 +122,7 @@ public class ChatLoginActivity extends AppCompatActivity
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
-
+/**
     private void saveCredentialsAndLogin() {
         Log.d(TAG, "saveCredentialsAndLogin()");
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -130,6 +136,7 @@ public class ChatLoginActivity extends AppCompatActivity
         Intent il = new Intent(this, ChatConnectionService.class);
         startService(il);
     }
+ **/
 
     @Override
     protected void onPause() {

@@ -208,7 +208,7 @@
     <string name="listing_cart_text">Add to Cart</string>
     <string name="business_profile_text">%1$s Profile</string>
     <string name="user_full_name">%1$s</string>
-    <string name="user_address">%1$s<br/>%2$s %3$s<br/>%4$s, %5$s %6$s<br/>%7$s</string>
+    <string name="user_address">%1$s<br />%2$s %3$s<br />%4$s, %5$s %6$s<br />%7$s</string>
     <string name="user_phone_number">%1$s</string>
     <string name="user_payment_method"><b>%1$s</b> ending in %2$d</string>
     <string name="user_billing_address"><b>Billing Address:</b> %1$s</string>
@@ -216,11 +216,13 @@
     <string name="cartTaxText">$%1$s</string>
     <string name="cartShippingText">$%1$s</string>
     <string name="cartTotalText">$%1$s</string>
-    <string name="phone_contact_text">Need help over the phone? <br/>Call <b>1-234-567-8900</b>.</string>
-    <string name="email_contact_text">Or choose to email us at <br/><b>septech.centauri@gmail.com</b></string>
+    <string name="phone_contact_text">Need help over the phone? <br />Call <b>1-234-567-8900</b>.</string>
+    <string name="email_contact_text">Or choose to email us at <br /><b>septech.centauri@gmail.com</b></string>
     <string name="hint_enter_a_message">Enter a message</string>
     <string name="action_copy">Copy</string>
     <string name="action_delete">Delete</string>
-    <string name="date_header_yesterday">Date header yesterday</string>
-    <string name="date_header_today">date header today</string>
+    <string name="date_header_yesterday">Yesterday</string>
+    <string name="date_header_today">Today</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

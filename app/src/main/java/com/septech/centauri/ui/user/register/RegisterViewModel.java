@@ -12,6 +12,14 @@ import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 import com.septech.centauri.lib.DateTime;
+import com.septech.centauri.ui.chat.ChatConnection;
+
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -82,6 +90,20 @@ public class RegisterViewModel extends ViewModel {
                     }
                 })
         );
+
+        String jid = email.replace("@", "") + "@chat.septech.me";
+        Map<String, String> attributes = new HashMap<String, String>() {{
+            put("name", fullName);
+            put("email", email);
+            put("date", DateTime.nowDate());
+            put("dob", dob);
+        }};
+
+        try {
+            ChatConnection.register(jid, password, attributes);
+        } catch (IOException | XMPPException | SmackException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public MutableLiveData<RegisterFormState> getRegisterFormState() {

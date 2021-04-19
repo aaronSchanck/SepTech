@@ -8,11 +8,10 @@ public class User implements IUser {
     private String avatar;
     private boolean online;
 
-    public User(String id, String name, String avatar, boolean online){
+    public User(String id, String name, String avatar){
         this.id = id;
         this.name = name;
         this.avatar = avatar;
-        this.online = online;
     }
 
     @Override
@@ -28,9 +27,5 @@ public class User implements IUser {
     @Override
     public String getAvatar() {
         return avatar;
-    }
-
-    public boolean isOnline() {
-        return online;
     }
 }

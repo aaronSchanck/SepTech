@@ -2,6 +2,7 @@ package com.septech.centauri.ui.user.home;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,8 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.chat.ChatLoginActivity;
+import com.septech.centauri.ui.chat.MessagesActivity;
 import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.settings.SettingsFragment;
@@ -335,6 +338,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 return true;
             } else if (itemId == R.id.bottom_messages) {
                 System.out.println("item =  " + item);
+                Intent il = new Intent(this, ChatLoginActivity.class);
+                startActivity(il);
                 return true;
             }
             return false;

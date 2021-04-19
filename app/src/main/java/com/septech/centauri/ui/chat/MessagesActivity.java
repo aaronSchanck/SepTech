@@ -3,8 +3,10 @@ package com.septech.centauri.ui.chat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.util.Log;
@@ -43,6 +45,8 @@ public class MessagesActivity extends AppCompatActivity
     protected ImageLoader imageLoader;
     protected MessagesListAdapter<Message> messagesAdapter;
 
+    private BroadcastReceiver mBroadcastReceiver;
+
     private Menu menu;
     private int selectionCount;
     private Date lastLoadedDate;
@@ -67,6 +71,7 @@ public class MessagesActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        loadMessages();
         //messagesAdapter.addToStart(MessagesFixtures.getTextMessage(), true);
     }
 
@@ -103,7 +108,7 @@ public class MessagesActivity extends AppCompatActivity
 
     @Override
     public void onLoadMore(int page, int totalItemsCount) {
-        Log.i(TAG, "onLoadMord: " + page + " " + totalItemsCount);
+        Log.i(TAG, "onLoadMore: " + page + " " + totalItemsCount);
         if (totalItemsCount < TOTAL_MESSAGES_COUNT) {
             loadMessages();
         }
@@ -122,6 +127,7 @@ public class MessagesActivity extends AppCompatActivity
     }
 
     private MessagesListAdapter.Formatter<Message> getMessageStringFormatter() {
+        // TODO - change to only copy message contents
         return message -> {
             String createdAt = new SimpleDateFormat("MMM d, EEE 'at' h:mm a", Locale.getDefault())
                     .format(message.getCreatedAt());
@@ -148,7 +154,7 @@ public class MessagesActivity extends AppCompatActivity
             intent.putExtra(ChatConnectionService.BUNDLE_TO, senderId);
 
             sendBroadcast(intent);
-            messagesAdapter.addToStart(new Message(senderId, new User(senderId, senderId, null, false), input.toString()), true);
+            messagesAdapter.addToStart(new Message(senderId, new User(senderId, senderId, null), input.toString()), true);
         }
         //messagesAdapter.addToStart(MessagesFixtures.getTextMessage(input.toString()), true);
         return true;
@@ -177,5 +183,35 @@ public class MessagesActivity extends AppCompatActivity
         messagesAdapter.setLoadMoreListener(this);
         messagesAdapter.setDateHeadersFormatter(this);
         messagesList.setAdapter(messagesAdapter);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                switch (action) {
+                    case ChatConnectionService.NEW_MESSAGE:
+                        String from = intent.getStringExtra(ChatConnectionService.BUNDLE_FROM_JID);
+                        CharSequence body = intent.getCharSequenceExtra(ChatConnectionService.BUNDLE_MESSAGE_BODY);
+
+                        if (from.equals(senderId)) {
+                            // put message to screen
+                        } else {
+                            Log.d(TAG, "Got a message from jid: " + from);
+                        }
+                        return;
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter(ChatConnectionService.NEW_MESSAGE);
+        registerReceiver(mBroadcastReceiver, filter);
     }
 }
