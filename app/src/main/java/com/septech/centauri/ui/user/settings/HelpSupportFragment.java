@@ -25,7 +25,7 @@ public class HelpSupportFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.user_help_support_fragment, container, false);
+        return inflater.inflate(R.layout.user_settings_help_support_fragment, container, false);
     }
 
     @Override

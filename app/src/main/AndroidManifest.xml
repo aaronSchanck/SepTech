@@ -35,6 +35,9 @@
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
         <activity android:name=".ui.business.home.BusinessHomeActivity" />
+
+        <!-- Chat Service -->
+        <service android:name=".ui.chat.ChatConnectionService" />
       
         <!-- On Launch -->
         <activity
@@ -46,8 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Chat Service -->
-        <service android:name=".ui.chat.ChatConnectionService" />
     </application>
 
 </manifest>

@@ -47,7 +47,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appearance_page_body_layout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appearance_page_top_layout">
 
