@@ -2,7 +2,6 @@ package com.septech.centauri.ui.user.listing;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -30,20 +29,17 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.septech.centauri.R;
-import com.septech.centauri.domain.models.Business;
-import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.models.Order;
-import com.septech.centauri.ui.user.home.HomeViewModel;
+import com.septech.centauri.ui.user.home.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class ListingFragment extends Fragment {
     private ListingViewModel mViewModel;
-    private HomeViewModel mHomeViewModel;
+    private UserViewModel mUserViewModel;
 
     private RecyclerView listingRV;
     private ReviewAdapter adapter;
@@ -95,7 +91,7 @@ public class ListingFragment extends Fragment {
         backBtn = view.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(v -> {
             System.out.println("v = " + v);
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
         });
 
         imageBackBtn = view.findViewById(R.id.imageBackBtn);
@@ -152,7 +148,7 @@ public class ListingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
-        mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         mViewModel.setItemId(getArguments().getInt("id"));
 
@@ -178,7 +174,7 @@ public class ListingFragment extends Fragment {
                     return;
                 }
 
-                mViewModel.addToCart(mHomeViewModel.getUserLiveData().getValue(), item, quantity);
+                mViewModel.addToCart(mUserViewModel.getUserLiveData().getValue(), item, quantity);
             });
 
             listingNameTextView.setText(item.getName());
@@ -254,7 +250,7 @@ public class ListingFragment extends Fragment {
             public void onChanged(Order order) {
                 if (order == null) return;
 
-                mHomeViewModel.updateOrderData(order);
+                mUserViewModel.updateOrderData(order);
                 System.out.println("order = " + order);
             }
         });

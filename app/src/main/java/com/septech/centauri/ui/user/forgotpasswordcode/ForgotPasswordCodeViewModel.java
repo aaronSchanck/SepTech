@@ -57,7 +57,7 @@ public class ForgotPasswordCodeViewModel extends ViewModel {
                     @Override
                     public void onSuccess(@NonNull String o) {
                         Log.d(TAG, code);
-                        responseLiveData.setValue(ForgotPasswordCodeCloudResponse.CODE_FOUND);
+                        responseLiveData.setValue(ForgotPasswordCodeCloudResponse.CODE_MATCHED);
                     }
 
                     @Override

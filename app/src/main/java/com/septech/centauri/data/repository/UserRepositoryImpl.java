@@ -1,6 +1,7 @@
 package com.septech.centauri.data.repository;
 
 
+import android.service.autofill.UserData;
 import android.util.Log;
 
 import com.septech.centauri.data.cache.FileCache;
@@ -104,8 +105,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Single<String> forgotPassword(String email) {
-        return restApiImpl.forgotPassword(email);
+    public Single<User> forgotPassword(String email) {
+        return restApiImpl.forgotPassword(email).map(UserDataMapper::transform);
     }
 
     @Override

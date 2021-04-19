@@ -1,6 +1,6 @@
 package com.septech.centauri.ui.user.forgotpassword;
 
-public enum ForgotPasswordCloudResponse {
+public enum ForgotPasswordEmailCloudResponse {
     NO_USER_FOUND,
     NO_INTERNET,
     LOADING,

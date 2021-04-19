@@ -218,10 +218,7 @@ class UserService:
 
         UserService.send_password_code_email(user)
 
-        return NormalResponse(
-            "Healthy",
-            200,
-        )
+        return user
 
     @staticmethod
     def gen_unique_reset_code() -> str:

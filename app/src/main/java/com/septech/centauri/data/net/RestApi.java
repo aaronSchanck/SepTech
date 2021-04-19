@@ -106,7 +106,7 @@ public interface RestApi {
     Single<UserEntity> getUserByEmail(@Path("email") String email);
 
     @PUT("users/{email}")
-    Single<String> forgotPassword(@Path("email") String email);
+    Single<UserEntity> forgotPassword(@Path("email") String email);
 
     /**
      * @param email

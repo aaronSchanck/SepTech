@@ -97,7 +97,7 @@ public interface UserRepository {
 
     Single<String> verifyPasswordCode(String code, String email);
 
-    Single<String> forgotPassword(String email);
+    Single<User> forgotPassword(String email);
 
     Single<Order> addToCart(User user, Item item, int quantity);
 

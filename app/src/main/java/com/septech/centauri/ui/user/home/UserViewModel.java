@@ -14,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class HomeViewModel extends ViewModel {
+public class UserViewModel extends ViewModel {
     private final UserRepository userRepo;
 
     private final CompositeDisposable mDisposables;
@@ -24,7 +24,7 @@ public class HomeViewModel extends ViewModel {
 
     private int userId;
   
-    public HomeViewModel() {
+    public UserViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
 
         mDisposables = new CompositeDisposable();

@@ -16,20 +16,17 @@
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
         <!-- User Activities -->
-        <activity android:name=".ui.user.login.LoginActivity"/>
-        <activity android:name=".ui.user.register.RegisterActivity" />
-        <activity android:name=".ui.user.forgotpassword.ForgotPasswordActivity" />
-        <activity android:name=".ui.user.forgotpasswordcode.ForgotPasswordCodeActivity" />
-        <activity android:name=".ui.user.newpassword.NewPasswordActivity" />
+        <activity
+            android:name=".ui.user.login.LoginActivity"
+            android:theme="@style/Theme.Centauri.NoActionBar" />
         <activity
             android:name=".ui.user.home.HomeActivity"
             android:theme="@style/Theme.Centauri.NoActionBar" />
         <activity android:name=".ui.chat.MessagesActivity" />
         <activity android:name=".ui.chat.DialogsActivity" />
-        <activity android:name=".ui.chat.ChatLoginActivity"/>
-      
+        <activity android:name=".ui.chat.ChatLoginActivity" />
+
         <!-- Business Activities -->
-        <activity android:name=".ui.business.addlisting.AddListingActivity" />
         <activity android:name=".ui.business.login.BusinessLoginActivity" />
         <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity" />
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
@@ -38,7 +35,7 @@
 
         <!-- Chat Service -->
         <service android:name=".ui.chat.ChatConnectionService" />
-      
+
         <!-- On Launch -->
         <activity
             android:name=".ui.landing.LandingActivity"

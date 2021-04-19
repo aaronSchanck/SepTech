@@ -35,6 +35,11 @@ public class LoginViewModel extends ViewModel {
         this.loginTries = 0;
     }
 
+    @Override
+    protected void onCleared() {
+        mDisposables.clear();
+    }
+
     public MutableLiveData<User> getUserLiveData() {
         return userLiveData;
     }
@@ -45,11 +50,6 @@ public class LoginViewModel extends ViewModel {
 
     public MutableLiveData<LoginFormState> getLoginFormStateLiveData() {
         return loginFormStateLiveData;
-    }
-
-    @Override
-    protected void onCleared() {
-        mDisposables.clear();
     }
 
     public void login(String email, String password) {

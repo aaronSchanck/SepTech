@@ -44,6 +44,9 @@ log = logging.getLogger(__name__)
 
 
 # declare schemas
+user_schema = UserSchema()
+user_schema_many = UserSchema(many=True)
+
 order_schema = OrderSchema()
 
 
@@ -113,7 +116,8 @@ class UserEmailResource(Resource):
 
     def put(self, email: str):
         """Forgot password API Endpoint"""
-        return UserService.reset_password(email)
+        result = UserService.reset_password(email)
+        return jsonify(result)
 
 
 @api.route("/<email>/check_exists")

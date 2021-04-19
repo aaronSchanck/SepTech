@@ -1,6 +1,6 @@
 package com.septech.centauri.ui.user.newpassword;
 
-public enum NewPasswordCloudResponse {
+public enum ForgotPasswordNewCloudResponse {
     MISMATCH_PASSWORD,
     LOADING,
     SUCCESS

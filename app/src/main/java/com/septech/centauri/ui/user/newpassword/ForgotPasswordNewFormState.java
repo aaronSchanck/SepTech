@@ -2,7 +2,7 @@ package com.septech.centauri.ui.user.newpassword;
 
 import androidx.annotation.Nullable;
 
-public class NewPasswordFormState {
+public class ForgotPasswordNewFormState {
     private static final String TAG = "NewPasswordFormState";
 
     @Nullable
@@ -15,7 +15,7 @@ public class NewPasswordFormState {
 
     private boolean isDataValid;
 
-    NewPasswordFormState() {
+    ForgotPasswordNewFormState() {
         this.passwordError = null;
         this.confirmPasswordError = null;
 
