@@ -21,5 +21,7 @@ from marshmallow import Schema, fields
 log = logging.getLogger(__name__)
 
 
-class NotificationSchema(Schema):
+class UserNotificationSchema(Schema):
     id = fields.Number(dump_only=True)
+
+    userid = fields.Number()

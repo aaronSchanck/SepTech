@@ -63,14 +63,14 @@
                 android:id="@+id/account_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/accountBtn"
+                app:layout_constraintEnd_toStartOf="@id/accountBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/accountBtn"
-                app:layout_constraintBottom_toBottomOf="@id/accountBtn"
-                app:layout_constraintEnd_toStartOf="@id/accountBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_person_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/accountBtn"
@@ -94,14 +94,14 @@
                 android:id="@+id/proxima_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/proximaBtn"
+                app:layout_constraintEnd_toStartOf="@id/proximaBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/proximaBtn"
-                app:layout_constraintBottom_toBottomOf="@id/proximaBtn"
-                app:layout_constraintEnd_toStartOf="@id/proximaBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_star_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/proximaBtn"
@@ -123,14 +123,14 @@
                 android:id="@+id/notif_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/notificationsBtn"
+                app:layout_constraintEnd_toStartOf="@id/notificationsBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/notificationsBtn"
-                app:layout_constraintBottom_toBottomOf="@id/notificationsBtn"
-                app:layout_constraintEnd_toStartOf="@id/notificationsBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_notification_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/notificationsBtn"
@@ -152,14 +152,14 @@
                 android:id="@+id/appearence_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/appearenceBtn"
+                app:layout_constraintEnd_toStartOf="@id/appearenceBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/appearenceBtn"
-                app:layout_constraintBottom_toBottomOf="@id/appearenceBtn"
-                app:layout_constraintEnd_toStartOf="@id/appearenceBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_appearance_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/appearenceBtn"
@@ -180,14 +180,14 @@
                 android:id="@+id/security_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/securityBtn"
+                app:layout_constraintEnd_toStartOf="@id/securityBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/securityBtn"
-                app:layout_constraintBottom_toBottomOf="@id/securityBtn"
-                app:layout_constraintEnd_toStartOf="@id/securityBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_security_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/securityBtn"
@@ -208,14 +208,14 @@
                 android:id="@+id/help_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/helpBtn"
+                app:layout_constraintEnd_toStartOf="@id/helpBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/helpBtn"
-                app:layout_constraintBottom_toBottomOf="@id/helpBtn"
-                app:layout_constraintEnd_toStartOf="@id/helpBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_help_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/helpBtn"
@@ -236,14 +236,14 @@
                 android:id="@+id/location_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/locationBtn"
+                app:layout_constraintEnd_toStartOf="@id/locationBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/locationBtn"
-                app:layout_constraintBottom_toBottomOf="@id/locationBtn"
-                app:layout_constraintEnd_toStartOf="@id/locationBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_location_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/locationBtn"
@@ -264,14 +264,14 @@
                 android:id="@+id/about_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/aboutBtn"
+                app:layout_constraintEnd_toStartOf="@id/aboutBtn"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/aboutBtn"
-                app:layout_constraintBottom_toBottomOf="@id/aboutBtn"
-                app:layout_constraintEnd_toStartOf="@id/aboutBtn"
                 app:layout_constraintVertical_bias="0.5"
                 app:srcCompat="@drawable/ic_about_foreground"
-                app:tint="@color/centauri_red"/>
+                app:tint="@color/centauri_red" />
 
             <Button
                 android:id="@+id/aboutBtn"
@@ -288,7 +288,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias=".875" />
 
-<!--            Arrows-->
+            <!--            Arrows-->
 
             <ImageView
                 android:id="@+id/account_arrow"

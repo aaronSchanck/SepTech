@@ -1,4 +1,4 @@
-"""/web/app/syzygy/orders/service.py
+"""/web/app/syzygy/wishlist_items/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -23,13 +23,13 @@ from datetime import datetime
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .model import Order
+from .model import WishlistItem
 
 
 log = logging.getLogger(__name__)
 
 
-class OrderService:
+class WishlistItemService:
     @staticmethod
     def get_all():
         """[summary]
@@ -37,10 +37,10 @@ class OrderService:
         :return: [description]
         :rtype: [type]
         """
-        return Order.query.all()
+        return WishlistItem.query.all()
 
     @staticmethod
-    def get_by_id(id: int) -> Order:
+    def get_by_id(id: int) -> WishlistItem:
         """[summary]
 
         :param id: [description]
@@ -48,83 +48,60 @@ class OrderService:
         :return: [description]
         :rtype: [type]
         """
-        order = Order.query.get(id)
+        wishlist_item = WishlistItem.query.get(id)
 
-        return order
+        return wishlist_item
 
     @staticmethod
-    def update(order: Order, updates: dict) -> Order:
+    def update(wishlist_item: WishlistItem, updates: dict) -> WishlistItem:
         """[summary]
 
-        :param order: [description]
-        :type order: Order
+        :param wishlist_item: [description]
+        :type wishlist_item: WishlistItem
         :param updates: [description]
         :type updates: dict
         :return: [description]
-        :rtype: Order
+        :rtype: WishlistItem
         """
 
-        order.update(updates)
+        wishlist_item.update(updates)
         db.session.commit()
-        return order
+        return wishlist_item
 
     @staticmethod
-    def delete_by_id(id: int) -> List:
-        """Deletes a order from the table with the specified id
+    def delete_by_id(id: int) -> WishlistItem:
+        """Deletes a wishlist_item from the table with the specified id
 
-        :param id: Order's id
+        :param id: WishlistItem's id
         :type id: int
-        :return: List containing the deleted order, if found, otherwise an empty
+        :return: List containing the deleted wishlist_item, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        order = OrderService.get_by_id(id)
-        if not order:
-            return []
-        db.session.delete(order)
+        wishlist_item = WishlistItemService.get_by_id(id)
+        if not wishlist_item:
+            return None
+        db.session.delete(wishlist_item)
         db.session.commit()
-        return [id]
+        return wishlist_item
 
     @staticmethod
-    def create(new_attrs: dict) -> Order:
+    def create(new_attrs: dict) -> WishlistItem:
         """[summary]
 
         :param new_attrs: [description]
         :type new_attrs: dict
         :return: [description]
-        :rtype: Order
+        :rtype: WishlistItem
         """
 
-        new_order = Order(
-            userid=new_attrs["userid"],
-            ordered=new_attrs["ordered"],
-            date_created=datetime.now(),
-        )
+        new_wishlist_item = WishlistItem()
 
-        db.session.add(new_order)
+        db.session.add(new_wishlist_item)
         db.session.commit()
 
-        return new_order
-
-    @staticmethod
-    def get_user_active_order(userid: int) -> list:
-        return (
-            Order.query.filter(Order.userid == userid)
-            .filter(Order.ordered == False)
-            .first()
-        )
-
-    def create_user_cart_if_not_exists(userid: int) -> Order:
-        order = OrderService.get_user_active_order(userid)
-
-        print(order)
-
-        if not order:
-            order_data = {"userid": userid, "ordered": False}
-
-            order = OrderService.create(order_data)
-        return order
+        return new_wishlist_item
 
     @staticmethod
     def transform(attrs: dict) -> dict:

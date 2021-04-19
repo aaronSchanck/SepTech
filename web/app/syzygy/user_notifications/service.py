@@ -1,4 +1,4 @@
-"""/web/app/syzygy/notifications/service.py
+"""/web/app/syzygy/user_notifications/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -23,13 +23,13 @@ from datetime import datetime
 from app import db
 from libs.response import ErrResponse, NormalResponse
 
-from .model import Notification
+from .model import UserNotification
 
 
 log = logging.getLogger(__name__)
 
 
-class NotificationService:
+class UserNotificationService:
     @staticmethod
     def get_all():
         """[summary]
@@ -37,10 +37,10 @@ class NotificationService:
         :return: [description]
         :rtype: [type]
         """
-        return Notification.query.all()
+        return UserNotification.query.all()
 
     @staticmethod
-    def get_by_id(id: int) -> Notification:
+    def get_by_id(id: int) -> UserNotification:
         """[summary]
 
         :param id: [description]
@@ -48,60 +48,60 @@ class NotificationService:
         :return: [description]
         :rtype: [type]
         """
-        notification = Notification.query.get(id)
+        user_notification = UserNotification.query.get(id)
 
-        return notification
+        return user_notification
 
     @staticmethod
-    def update(notification: Notification, updates: dict) -> Notification:
+    def update(user_notification: UserNotification, updates: dict) -> UserNotification:
         """[summary]
 
-        :param notification: [description]
-        :type notification: Notification
+        :param user_notification: [description]
+        :type user_notification: UserNotification
         :param updates: [description]
         :type updates: dict
         :return: [description]
-        :rtype: Notification
+        :rtype: UserNotification
         """
 
-        notification.update(updates)
+        user_notification.update(updates)
         db.session.commit()
-        return notification
+        return user_notification
 
     @staticmethod
     def delete_by_id(id: int) -> List:
-        """Deletes a notification from the table with the specified id
+        """Deletes a user_notification from the table with the specified id
 
-        :param id: Notification's id
+        :param id: UserNotification's id
         :type id: int
-        :return: List containing the deleted notification, if found, otherwise an empty
+        :return: List containing the deleted user_notification, if found, otherwise an empty
         list
         :rtype: List
         """
 
-        notification = NotificationService.get_by_id(id)
-        if not notification:
+        user_notification = UserNotificationService.get_by_id(id)
+        if not user_notification:
             return []
-        db.session.delete(notification)
+        db.session.delete(user_notification)
         db.session.commit()
         return [id]
 
     @staticmethod
-    def create(new_attrs: dict) -> Notification:
-        """[summary]
+    def create(new_attrs: dict) -> UserNotification:
+        """Create a UserNotification entity with given attributes.
 
         :param new_attrs: [description]
         :type new_attrs: dict
         :return: [description]
-        :rtype: Notification
+        :rtype: UserNotification
         """
 
-        new_notification = Notification()
+        new_user_notification = UserNotification()
 
-        db.session.add(new_notification)
+        db.session.add(new_user_notification)
         db.session.commit()
 
-        return new_notification
+        return new_user_notification
 
     @staticmethod
     def transform(attrs: dict) -> dict:

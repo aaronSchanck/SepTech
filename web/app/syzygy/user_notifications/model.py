@@ -21,7 +21,7 @@ from app import db
 log = logging.getLogger(__name__)
 
 
-class Notification(db.Model):
+class UserNotification(db.Model):
     """[summary]
 
     :param db: [description]
@@ -30,25 +30,15 @@ class Notification(db.Model):
     :rtype: [type]
     """
 
-    __tablename__ = "notifications"
+    __tablename__ = "user_notifications"
 
     id = db.Column(db.Integer, primary_key=True)
 
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
-    user = db.relationship("User", back_populates="notifications")
-
-    ordered = db.Column(db.Boolean)
-
-    date_created = db.Column(db.DateTime)
-    date_shipped = db.Column(db.DateTime)
-    date_delivered = db.Column(db.DateTime)
-
-    total_price = db.Column(db.Integer())
-
-    order_items = db.relationship("NotificationItem", back_populates="order")
+    user = db.relationship("User", back_populates="user_notifications")
 
     def __init__(self, **kwargs):
-        super(Notification, self).__init__(**kwargs)
+        super(UserNotification, self).__init__(**kwargs)
 
     def update(self, changes: dict):
         for key, val in changes.items():

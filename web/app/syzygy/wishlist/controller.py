@@ -8,11 +8,11 @@ rudimentary testing on the browser.
 
 Classes:
 
-    OrderResource:
+    WishlistResource:
         Extends Resource from flask-restx. Adding a function with name
         "get"/"post"/"delete"/"put" will add the respective route to the API.
 
-    OrderIdResource:
+    WishlistIdResource:
         Extends Resource from flask-restx. Follows same functionality from
         aforementioned class. Must be routed to with {baseurl}/{id}.
 
@@ -25,16 +25,16 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .model import Order
-from .schema import OrderSchema
-from .service import OrderService
+from .model import Wishlist
+from .schema import WishlistSchema
+from .service import WishlistService
 
-api = Namespace("Order")
+api = Namespace("Wishlist")
 log = logging.getLogger(__name__)
 
 
 @api.route("/")
-class OrderResource(Resource):
+class WishlistResource(Resource):
     """[summary]
 
     Args:
@@ -44,41 +44,41 @@ class OrderResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=OrderSchema(many=True))
+    @responds(schema=WishlistSchema(many=True))
     def get(self):
-        """Get all Orders"""
+        """Get all Wishlists"""
 
-        return OrderService.get_all()
+        return WishlistService.get_all()
 
-    @accepts(schema=OrderSchema, api=api)
-    @responds(schema=OrderSchema)
+    @accepts(schema=WishlistSchema, api=api)
+    @responds(schema=WishlistSchema)
     def post(self):
-        """Create a Single Order"""
+        """Create a Single Wishlist"""
 
-        return OrderService.create(request.parsed_obj)
+        return WishlistService.create(request.parsed_obj)
 
 
 @api.route("/<int:id>")
-@api.param("id", "Order database ID")
-class OrderIdResource(Resource):
-    @responds(schema=OrderSchema)
+@api.param("id", "Wishlist database ID")
+class WishlistIdResource(Resource):
+    @responds(schema=WishlistSchema)
     def get(self, id: int):
-        """Get Single Order"""
+        """Get Single Wishlist"""
 
-        return OrderService.get_by_id(id)
+        return WishlistService.get_by_id(id)
 
     def delete(self, id: int):
-        """Delete Single Order"""
+        """Delete Single Wishlist"""
         from flask import jsonify
 
-        id = OrderService.delete_by_id(id)
+        id = WishlistService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=OrderSchema, api=api)
-    @responds(schema=OrderSchema)
+    @accepts(schema=WishlistSchema, api=api)
+    @responds(schema=WishlistSchema)
     def put(self, id: int):
-        """Update Single Order"""
+        """Update Single Wishlist"""
 
         updates = request.parsed_obj
-        order = OrderService.get_by_id(id)
-        return OrderService.update(order, updates)
+        order = WishlistService.get_by_id(id)
+        return WishlistService.update(order, updates)

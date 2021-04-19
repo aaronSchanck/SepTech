@@ -22,13 +22,6 @@ log = logging.getLogger(__name__)
 
 
 class Address(db.Model):
-    """[summary]
-
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
-    """
 
     __tablename__ = "addresses"
 

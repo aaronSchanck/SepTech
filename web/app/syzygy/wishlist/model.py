@@ -21,7 +21,7 @@ from app import db
 log = logging.getLogger(__name__)
 
 
-class Order(db.Model):
+class Wishlist(db.Model):
     """[summary]
 
     :param db: [description]
@@ -37,18 +37,13 @@ class Order(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
     user = db.relationship("User", back_populates="orders")
 
-    ordered = db.Column(db.Boolean)
+    wishlist_items = db.relationship("WishlistItem", back_populates="wishlist")
 
-    date_created = db.Column(db.DateTime)
-    date_shipped = db.Column(db.DateTime)
-    date_delivered = db.Column(db.DateTime)
-
-    total_price = db.Column(db.Integer())
-
-    order_items = db.relationship("OrderItem", back_populates="order")
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
     def __init__(self, **kwargs):
-        super(Order, self).__init__(**kwargs)
+        super(Wishlist, self).__init__(**kwargs)
 
     def update(self, changes: dict):
         for key, val in changes.items():
