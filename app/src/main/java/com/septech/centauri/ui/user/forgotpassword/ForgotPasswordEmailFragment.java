@@ -13,15 +13,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
-import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.forgotpasswordcode.ForgotPasswordCodeFragment;
 
 public class ForgotPasswordEmailFragment extends Fragment {
-
     private ForgotPasswordEmailViewModel mViewModel;
     private ForgotPasswordViewModel mForgotPasswordViewModel;
 

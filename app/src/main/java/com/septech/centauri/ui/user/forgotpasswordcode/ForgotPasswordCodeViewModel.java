@@ -17,18 +17,17 @@ import io.reactivex.schedulers.Schedulers;
 public class ForgotPasswordCodeViewModel extends ViewModel {
     private static final String TAG = "ForgotPasswordCode_VM";
 
-    private UserRepository userRepo;
-    private CompositeDisposable mDisposables = new CompositeDisposable();
+    private final UserRepository userRepo;
+    private final CompositeDisposable mDisposables;
 
-    private MutableLiveData<ForgotPasswordCodeFormState> formLiveData =
-            new MutableLiveData<>();
-    private MutableLiveData<ForgotPasswordCodeCloudResponse> responseLiveData = new MutableLiveData<>();
+    private MutableLiveData<ForgotPasswordCodeFormState> formState;
+    private MutableLiveData<ForgotPasswordCodeCloudResponse> responseLiveData;
 
 
     public ForgotPasswordCodeViewModel() {
         this.userRepo = UserRepositoryImpl.getInstance();
 
-        formLiveData.setValue(new ForgotPasswordCodeFormState());
+        mDisposables = new CompositeDisposable();
     }
 
     @Override
@@ -36,11 +35,18 @@ public class ForgotPasswordCodeViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public MutableLiveData<ForgotPasswordCodeFormState> getFormLiveData() {
-        return formLiveData;
+    public MutableLiveData<ForgotPasswordCodeFormState> getFormState() {
+        if(formState == null) {
+            formState = new MutableLiveData<>();
+            formState.setValue(new ForgotPasswordCodeFormState());
+        }
+        return formState;
     }
 
     public MutableLiveData<ForgotPasswordCodeCloudResponse> getResponseLiveData() {
+        if(responseLiveData == null) {
+            responseLiveData = new MutableLiveData<>();
+        }
         return responseLiveData;
     }
 

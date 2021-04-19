@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.forgotpassword.ForgotPasswordViewModel;
 import com.septech.centauri.ui.user.home.CallBackListener;
-import com.septech.centauri.ui.user.newpassword.ForgotPasswordNewFragment;
+import com.septech.centauri.ui.user.forgotpasswordnew.ForgotPasswordNewFragment;
 
 public class ForgotPasswordCodeFragment extends Fragment {
 
@@ -71,7 +71,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
                     mForgotPasswordViewModel.getUserLiveData().getValue().getEmail());
         });
 
-        mViewModel.getFormLiveData().observe(getViewLifecycleOwner(), forgotPasswordCodeFormState -> {
+        mViewModel.getFormState().observe(getViewLifecycleOwner(), forgotPasswordCodeFormState -> {
             if (forgotPasswordCodeFormState == null) {
                 return;
             }

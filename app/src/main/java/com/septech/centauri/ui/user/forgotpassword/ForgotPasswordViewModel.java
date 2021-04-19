@@ -14,8 +14,8 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ForgotPasswordViewModel extends ViewModel {
-    private UserRepository userRepo;
-    private CompositeDisposable mDisposables;
+    private final UserRepository userRepo;
+    private final CompositeDisposable mDisposables;
 
     private MutableLiveData<User> userLiveData;
 

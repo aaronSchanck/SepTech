@@ -1,4 +1,4 @@
-package com.septech.centauri.ui.user.newpassword;
+package com.septech.centauri.ui.user.forgotpasswordnew;
 
 import android.util.Log;
 

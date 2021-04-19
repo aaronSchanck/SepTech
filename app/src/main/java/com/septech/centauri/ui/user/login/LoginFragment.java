@@ -33,7 +33,6 @@ import com.septech.centauri.ui.user.register.RegisterFragment;
 public class LoginFragment extends Fragment {
 
     private LoginViewModel mViewModel;
-    private UserLoginViewModel mUserLoginViewModel;
 
     private CallBackListener callBackListener;
 

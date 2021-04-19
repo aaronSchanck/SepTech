@@ -44,12 +44,13 @@ public class ListingViewModel extends ViewModel {
     private MutableLiveData<List<ItemReview>> reviews;
     private MutableLiveData<Order> orderLiveData;
 
-    private final CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables;
 
     public ListingViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
         itemRepo = ItemRepositoryImpl.getInstance();
         businessRepo = BusinessRepositoryImpl.getInstance();
+        mDisposables = new CompositeDisposable();
     }
 
     @Override
