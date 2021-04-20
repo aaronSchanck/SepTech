@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.user.wishlist.WishlistFragment">
+    tools:context=".ui.user.viewhistory.ViewHistoryFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,9 +20,10 @@
 
             <!-- Checkout Header -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wishlistHeader"
+                android:id="@+id/viewHistoryHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -31,18 +32,32 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Wish List"
+                    android:text="View History"
                     android:textColor="#000000"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textAllCaps="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_margin="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.071"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+                <Button
+                    android:id="@+id/clearHistoryButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Clear History"
+                    android:textColor="@color/centauri_red"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!-- End of Checkout Header -->
 
@@ -53,7 +68,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wishlistHeader"
+                app:layout_constraintTop_toBottomOf="@+id/viewHistoryHeader"
                 app:layout_constraintVertical_bias="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
