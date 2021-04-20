@@ -51,9 +51,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
     //fragments
 
-    HomeFragment homeFragment;
-    SettingsFragment settingsFragment;
-    CartFragment cartFragment;
+    private HomeFragment homeFragment;
+    private SettingsFragment settingsFragment;
 
     //home fragment
     private String name;
@@ -140,7 +139,6 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         //create fragments
         homeFragment = HomeFragment.newInstance();
         settingsFragment = SettingsFragment.newInstance();
-        cartFragment = CartFragment.newInstance();
 
         createTextWatchers();
 
@@ -327,6 +325,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 System.out.println();
                 return true;
             } else if (itemId == R.id.bottom_cart) {
+                CartFragment cartFragment = CartFragment.newInstance();
+
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentfragment, cartFragment)
                         .addToBackStack(null)
