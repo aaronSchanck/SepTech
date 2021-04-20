@@ -29,6 +29,17 @@ public class BusinessHomeActivity extends AppCompatActivity implements CallBackL
                 Log.i("Business update", "New Business: " + business);
             }
         });
+
+
+
+        if (savedInstanceState == null) {
+            BusinessHomeFragment fragment = BusinessHomeFragment.newInstance();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.business_home_content_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Override
@@ -38,6 +49,11 @@ public class BusinessHomeActivity extends AppCompatActivity implements CallBackL
 
     @Override
     public void hideLoadingIcon() {
+
+    }
+
+    @Override
+    public void hideKeyboard() {
 
     }
 }

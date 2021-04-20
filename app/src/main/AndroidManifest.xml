@@ -16,9 +16,7 @@
         android:theme="@style/Theme.Centauri"
         android:usesCleartextTraffic="true">
         <!-- User Activities -->
-        <activity
-            android:name=".ui.user.login.LoginActivity"
-            android:theme="@style/Theme.Centauri.NoActionBar" />
+        <activity android:name=".ui.user.login.LoginActivity" />
         <activity
             android:name=".ui.user.home.HomeActivity"
             android:theme="@style/Theme.Centauri.NoActionBar" />
@@ -31,7 +29,9 @@
         <activity android:name=".ui.business.forgotpasswordcode.BusinessForgotPasswordCodeActivity" />
         <activity android:name=".ui.business.forgotpassword.BusinessForgotPasswordActivity" />
         <activity android:name=".ui.business.register.BusinessRegisterActivity" />
-        <activity android:name=".ui.business.home.BusinessHomeActivity" />
+        <activity
+            android:name=".ui.business.home.BusinessHomeActivity"
+            android:theme="@style/Theme.Centauri.NoActionBar" />
 
         <!-- Chat Service -->
         <service android:name=".ui.chat.ChatConnectionService" />
