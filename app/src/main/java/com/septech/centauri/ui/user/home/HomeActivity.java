@@ -156,7 +156,6 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, homeFragment)
-                    .addToBackStack(null)
                     .commit();
         }
 
