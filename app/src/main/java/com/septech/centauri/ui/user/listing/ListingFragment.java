@@ -32,6 +32,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.ui.user.home.UserViewModel;
+import com.septech.centauri.ui.user.itemreview.ItemReviewFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +59,7 @@ public class ListingFragment extends Fragment {
     private ImageButton quantityForwardBtn;
 
     private Button businessProfileBtn;
+    private Button leaveReviewBtn;
 
     private TextView listingNameTextView;
     private TextView listingPriceTextView;
@@ -87,6 +89,7 @@ public class ListingFragment extends Fragment {
 
         wishlistBtn = view.findViewById(R.id.wishlistBtn);
         cartBtn = view.findViewById(R.id.cartBtn);
+        leaveReviewBtn = view.findViewById(R.id.user_listing_leave_review_btn);
 
         backBtn = view.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(v -> {
@@ -157,12 +160,15 @@ public class ListingFragment extends Fragment {
 
     private void createLiveDataObservers() {
         mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
+            System.out.println(item);
+            if (item == null) return;
+
             Resources res = requireActivity().getResources();
 
             wishlistBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("v = " + v);
+                    mViewModel.addToWishlist(mUserViewModel.getUserLiveData().getValue(), item);
                 }
             });
 
@@ -179,10 +185,8 @@ public class ListingFragment extends Fragment {
 
             listingNameTextView.setText(item.getName());
 
-            String COUNTRY = "US";
-            String LANGUAGE = "en";
-
-            listingPriceTextView.setText(item.getDisplayablePrice());
+            listingPriceTextView.setText(res.getString(R.string.listing_price,
+                    item.getDisplayablePrice()));
             listingDescTextView.setText(item.getDescription());
 
             mViewModel.setCurrentQuantity(0);
@@ -203,6 +207,18 @@ public class ListingFragment extends Fragment {
 
             quantityLeftTextView.setText(res.getString((R.string.listingQuantityLeft),
                     item.getQuantity()));
+
+            leaveReviewBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemReviewFragment fragment = ItemReviewFragment.newInstance();
+
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentfragment, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
 
             //set rating bar and score
 

@@ -16,15 +16,14 @@ Functions:
 
 import json
 import logging
+from datetime import datetime
 from typing import List
 
-from datetime import datetime
-
 from app import db
+from flask import Response
 from libs.response import ErrResponse, NormalResponse
 
 from .model import WishlistItem
-
 
 log = logging.getLogger(__name__)
 
@@ -102,6 +101,21 @@ class WishlistItemService:
         db.session.commit()
 
         return new_wishlist_item
+
+    @staticmethod
+    def wishlist_item_from_item(
+        wishlistid: int, itemid: int
+    ) -> (WishlistItem, Response):
+        item = ItemService.get_by_id(itemid)
+
+        wishlist_item_data = {
+            "itemid": itemid,
+            "wishlistid": wishlistid,
+        }
+
+        wishlist_item = WishlistItemService.create(wishlist_item_data)
+
+        return wishlist_item, NormalResponse("Success", 200)
 
     @staticmethod
     def transform(attrs: dict) -> dict:

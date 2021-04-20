@@ -78,6 +78,9 @@ class User(db.Model):
     # bids
     bids = db.relationship("Bid", back_populates="user")
 
+    # wishlist
+    wishlist = db.relationship("Wishlist", back_populates="user", uselist=False)
+
     # settings
 
     admin_level = db.Column(db.Integer)

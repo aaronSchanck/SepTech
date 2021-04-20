@@ -4,6 +4,7 @@ import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
+import com.septech.centauri.data.model.wishlist.WishlistEntity;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.User;
 
@@ -126,6 +127,10 @@ public interface RestApi {
 
     @GET("users/{id}/cart")
     Single<OrderEntity> getUserCart(@Path("id") int id);
+
+    @FormUrlEncoded
+    @POST("users/{id}/cart")
+    Single<WishlistEntity> addToWishlist(@Path("id") int id, @Field("itemid") int itemid);
 
     //ITEMS ENDPOINTS]
 

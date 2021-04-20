@@ -28,16 +28,14 @@ from typing import List
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
+from marshmallow import fields
+from webargs.flaskparser import use_args, use_kwargs
 
+from ..orders.schema import OrderSchema
+from ..wishlist.schema import WishlistSchema
 from .model import User
 from .schema import UserSchema
 from .service import UserService
-
-from ..orders.schema import OrderSchema
-
-from webargs.flaskparser import use_args, use_kwargs
-
-from marshmallow import fields
 
 api = Namespace("User")
 log = logging.getLogger(__name__)
@@ -48,6 +46,8 @@ user_schema = UserSchema()
 user_schema_many = UserSchema(many=True)
 
 order_schema = OrderSchema()
+
+wishlist_schema = WishlistSchema()
 
 
 @api.route("/")
@@ -168,3 +168,26 @@ class UserCartResource(Resource):
         order, response = UserService.add_to_cart(id, itemid, quantity)
 
         return order_schema.dump(order) if response.status_code == 200 else response
+
+
+@api.route("/<int:id>/wishlist")
+@api.param("id", "User ID in database")
+class UserWishlistResource(Resource):
+    args = {"itemid": fields.Int(required=True)}
+
+    def get(self, id: int):
+        wishlist, response = UserService.get_user_wishlist(id)
+
+        return (
+            wishlist_schema.dump(wishlist) if response.status_code == 200 else response
+        )
+
+    @use_args(args, location="form")
+    def post(self, args, id: int):
+        itemid = args["itemid"]
+
+        wishlist, response = UserService.add_to_wishlist(id, itemid)
+
+        return (
+            wishlist_schema.dump(wishlist) if response.status_code == 200 else response
+        )

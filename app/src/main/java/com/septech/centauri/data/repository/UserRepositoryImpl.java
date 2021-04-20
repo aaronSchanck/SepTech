@@ -8,11 +8,13 @@ import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.data.model.order.mapper.OrderDataMapper;
 import com.septech.centauri.data.model.user.mapper.UserDataMapper;
+import com.septech.centauri.data.model.wishlist.mapper.WishlistDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import java.util.List;
@@ -117,5 +119,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Single<Order> getUserCart(int userId) {
         return restApiImpl.getUserCart(userId).map(OrderDataMapper::transform);
+    }
+
+    @Override
+    public Single<Wishlist> addToWishlist(User user, Item item) {
+        return restApiImpl.addToWishlist(user.getId(), item.getId()).map(WishlistDataMapper::transform);
     }
 }

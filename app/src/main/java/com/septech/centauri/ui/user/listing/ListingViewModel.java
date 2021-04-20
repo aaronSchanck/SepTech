@@ -59,6 +59,24 @@ public class ListingViewModel extends ViewModel {
         mDisposables.clear();
     }
 
+    public void addToWishlist(User user, Item item) {
+        mDisposables.add(userRepo.addToWishlist(user, item)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Order>() {
+                    @Override
+                    public void onSuccess(@NonNull Order order) {
+                        System.out.println("order = " + order);
+                        orderLiveData.setValue(order);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
     public void addToCart(User user, Item item, int quantity) {
         System.out.println("user = " + user + ", item = " + item + ", quantity = " + quantity);
         mDisposables.add(userRepo.addToCart(user, item, quantity)

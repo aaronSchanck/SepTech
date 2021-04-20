@@ -18,16 +18,19 @@ import logging
 
 from app import db
 
+from datetime import datetime
+
 log = logging.getLogger(__name__)
 
 
 class WishlistItem(db.Model):
-    """[summary]
+    """Wishlist entity in database
 
-    :param db: [description]
-    :type db: [type]
-    :return: [description]
-    :rtype: [type]
+    Args:
+        db ([type]): [description]
+
+    Returns:
+        [type]: [description]
     """
 
     __tablename__ = "wishlist_items"
@@ -45,9 +48,13 @@ class WishlistItem(db.Model):
 
     def __init__(self, **kwargs):
         super(WishlistItem, self).__init__(**kwargs)
+        self.created_at = datetime.now()
+        self.modified_at = datetime.now()
 
     def update(self, changes: dict):
         for key, val in changes.items():
             setattr(self, key, val)
+
+        self.modified_at = datetime.now()
 
         return self
