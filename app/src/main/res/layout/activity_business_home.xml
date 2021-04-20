@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/homeLoadingIcon"
+        android:id="@+id/business_home_loading_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:elevation="10dp"

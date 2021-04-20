@@ -45,11 +45,30 @@ public class BusinessHomeFragment extends Fragment {
         myAuctionsBtn = view.findViewById(R.id.myAuctionsBtn);
         ordersBtn = view.findViewById(R.id.ordersBtn);
 
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(BusinessHomeViewModel.class);
+        mBusinessViewModel = new ViewModelProvider(requireActivity()).get(BusinessViewModel.class);
+
+        mBusinessViewModel.getBusinessLiveData().observe(getViewLifecycleOwner(), new Observer<Business>() {
+            @Override
+            public void onChanged(Business business) {
+                if (business == null) return;
+
+                businessNameTextView.setText(business.getBusinessName());
+                businessDescTextView.setText(business.getOwnerFullName());
+            }
+        });
+
         addListingBtn.setOnClickListener(v -> {
             AddListingFragment fragment = new AddListingFragment();
 
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentfragment, fragment)
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.business_home_content_fragment, fragment)
                     .addToBackStack(null)
                     .commit();
         });
@@ -68,24 +87,6 @@ public class BusinessHomeFragment extends Fragment {
             }
         });
 
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(BusinessHomeViewModel.class);
-        mBusinessViewModel = new ViewModelProvider(requireActivity()).get(BusinessViewModel.class);
-
-        mBusinessViewModel.getBusinessLiveData().observe(getViewLifecycleOwner(), new Observer<Business>() {
-            @Override
-            public void onChanged(Business business) {
-                if(business == null) return;
-
-                businessNameTextView.setText(business.getBusinessName());
-                businessDescTextView.setText(business.getOwnerFullName());
-            }
-        });
 
     }
 

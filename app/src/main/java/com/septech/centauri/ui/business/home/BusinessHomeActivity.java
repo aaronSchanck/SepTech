@@ -1,7 +1,11 @@
 package com.septech.centauri.ui.business.home;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -14,6 +18,8 @@ import com.septech.centauri.ui.user.home.CallBackListener;
 public class BusinessHomeActivity extends AppCompatActivity implements CallBackListener {
 
     private BusinessViewModel mViewModel;
+
+    private ProgressBar loadingIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,8 @@ public class BusinessHomeActivity extends AppCompatActivity implements CallBackL
             }
         });
 
-
+        loadingIcon = findViewById(R.id.business_home_loading_icon);
+        hideLoadingIcon();
 
         if (savedInstanceState == null) {
             BusinessHomeFragment fragment = BusinessHomeFragment.newInstance();
@@ -44,16 +51,24 @@ public class BusinessHomeActivity extends AppCompatActivity implements CallBackL
 
     @Override
     public void showLoadingIcon() {
-
+        loadingIcon.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoadingIcon() {
-
+        loadingIcon.setVisibility(View.GONE);
     }
 
     @Override
     public void hideKeyboard() {
-
+        InputMethodManager imm =
+                (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = this.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
