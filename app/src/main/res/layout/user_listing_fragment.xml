@@ -37,11 +37,14 @@
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/wishlistBtn"
-                android:layout_width="208dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:text="@string/listing_wishlist_text"
+                android:padding="0dp"
+                android:text="Add to Wishlist"
+                android:textSize="14sp"
                 app:icon="@drawable/ic_baseline_add_24"
+                app:iconPadding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/businessProfileBtn" />
 
@@ -59,7 +62,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
 
             <Button
-                android:id="@+id/cartBtn2"
+                android:id="@+id/user_listing_leave_review_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,13 +78,15 @@
                 android:id="@+id/listingNameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="32dp"
+                android:gravity="right"
                 android:text="TextView"
                 android:textAllCaps="true"
                 android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@+id/backBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/wishlistBtn"
+                app:layout_constraintStart_toEndOf="@+id/backBtn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -89,10 +94,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:gravity="right"
                 android:text="@string/listing_price"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/listingNameTextView"
+                app:layout_constraintEnd_toEndOf="@+id/listingNameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/listingNameTextView" />
 
             <ImageView
@@ -188,8 +194,8 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 app:layout_constraintBottom_toBottomOf="@+id/itemRatingTextView"
-                app:layout_constraintEnd_toEndOf="@+id/cartBtn2"
-                app:layout_constraintStart_toStartOf="@+id/cartBtn2"
+                app:layout_constraintEnd_toEndOf="@+id/user_listing_leave_review_btn"
+                app:layout_constraintStart_toStartOf="@+id/user_listing_leave_review_btn"
                 app:layout_constraintTop_toTopOf="@+id/itemRatingTextView"
                 app:layout_constraintVertical_bias="1.0" />
 
@@ -205,6 +211,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/listingRatingBar" />
 
             <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -247,22 +254,14 @@
                 app:layout_constraintVertical_bias="0.481"
                 app:srcCompat="@drawable/ic_right_arrow_black" />
 
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Purchase Now"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/cartBtn"
-                app:layout_constraintStart_toStartOf="@+id/cartBtn"
-                app:layout_constraintTop_toTopOf="@+id/quantityLeftTextView" />
-
             <Button
                 android:id="@+id/businessProfileBtn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="Seller's Profile"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/listingImageView"
@@ -274,6 +273,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="@string/listingQuantityLeft"
+                android:textColor="#9E0000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/quantityBackBtn"
                 app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
@@ -304,6 +304,46 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/textView26"
                 app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/listingDescTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantityLeftTextView" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/listingRatingBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listingDescTextView" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/user_listing_leave_review_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listingRatingScore" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

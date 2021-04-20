@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.data.repository.UserRepositoryImpl;
+import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -13,18 +14,14 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ForgotPasswordViewModel extends ViewModel {
-    private UserRepository userRepo;
-    private CompositeDisposable mDisposables = new CompositeDisposable();
+    private final UserRepository userRepo;
+    private final CompositeDisposable mDisposables;
 
-    private MutableLiveData<ForgotPasswordFormState> formLiveData =
-            new MutableLiveData<>();
-    private MutableLiveData<ForgotPasswordCloudResponse> responseLiveData = new MutableLiveData<>();
-
+    private MutableLiveData<User> userLiveData;
 
     public ForgotPasswordViewModel() {
         this.userRepo = UserRepositoryImpl.getInstance();
-
-        formLiveData.setValue(new ForgotPasswordFormState());
+        mDisposables = new CompositeDisposable();
     }
 
     @Override
@@ -32,35 +29,10 @@ public class ForgotPasswordViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public MutableLiveData<ForgotPasswordFormState> getFormLiveData() {
-        return formLiveData;
-    }
-
-    public MutableLiveData<ForgotPasswordCloudResponse> getResponseLiveData() {
-        return responseLiveData;
-    }
-
-    public void forgotPasswordSubmit(String email) {
-        mDisposables.add(userRepo.forgotPassword(email)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<String>() {
-                    @Override
-                    public void onStart() {
-                        responseLiveData.setValue(ForgotPasswordCloudResponse.LOADING);
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull String string) {
-                        responseLiveData.setValue(ForgotPasswordCloudResponse.USER_FOUND);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        //check for error, declare NO_INTERNET or NO_USER_FOUND accordingly
-                        responseLiveData.setValue(ForgotPasswordCloudResponse.NO_USER_FOUND);
-                    }
-                })
-        );
+    public MutableLiveData<User> getUserLiveData() {
+        if(userLiveData == null) {
+            userLiveData = new MutableLiveData<>();
+        }
+        return userLiveData;
     }
 }

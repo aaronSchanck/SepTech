@@ -1,203 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/seller_homepage_top_layout"
-        android:layout_width="412dp"
-        android:layout_height="305dp"
+    <ProgressBar
+        android:id="@+id/business_home_loading_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="10dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/centauri_red"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/sellerUploadImageBtn"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="@string/upload_image"
-            android:textSize="12sp"
-            app:icon="@drawable/ic_baseline_add_24"
-            app:layout_constraintEnd_toEndOf="@+id/seller_homepage_profile_image"
-            app:layout_constraintStart_toStartOf="@+id/seller_homepage_profile_image"
-            app:layout_constraintTop_toBottomOf="@+id/seller_homepage_profile_image" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_app_bar"
+            app:navigationIcon="@drawable/ic_baseline_menu_24"
+            app:title="Centauri" />
 
-        <ImageView
-            android:id="@+id/seller_homepage_profile_image"
-            android:layout_width="144dp"
-            android:layout_height="144dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/black"
-            android:contentDescription="@string/sellerprofileimage"
-            android:src="@drawable/ic_person_foreground"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/seller_homepage_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="@string/seller_name_text"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/seller_homepage_profile_image"
-            app:layout_constraintTop_toTopOf="@+id/seller_homepage_profile_image" />
-
-        <TextView
-            android:id="@+id/seller_homepage_description_text"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/seller_description_label"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/seller_homepage_name_text"
-            app:layout_constraintTop_toBottomOf="@+id/seller_homepage_name_text" />
-
-        <RatingBar
-            android:id="@+id/itemRatingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/seller_homepage_name_text"
-            app:layout_constraintEnd_toEndOf="@+id/seller_homepage_description_text"
-            app:layout_constraintTop_toTopOf="@+id/seller_homepage_name_text" />
-
-        <TextView
-            android:id="@+id/seller_homepage_products_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:text="@string/productsLabel"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ordersBtn" />
-
-        <Button
-            android:id="@+id/addListingBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="@string/add_listing_Btn"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="@+id/seller_homepage_description_text"
-            app:layout_constraintStart_toEndOf="@+id/add_listing_icon"
-            app:layout_constraintTop_toBottomOf="@+id/seller_homepage_description_text" />
-
-        <Button
-            android:id="@+id/myAuctionsBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:text="@string/my_auctions_Btn"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="@+id/addListingBtn"
-            app:layout_constraintStart_toStartOf="@+id/addListingBtn"
-            app:layout_constraintTop_toBottomOf="@+id/addListingBtn" />
-
-        <Button
-            android:id="@+id/ordersBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:text="@string/orders_Btn"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="@+id/myAuctionsBtn"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/myAuctionsBtn"
-            app:layout_constraintTop_toBottomOf="@+id/myAuctionsBtn" />
-
-        <ImageView
-            android:id="@+id/add_listing_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/addListingBtn"
-            app:layout_constraintStart_toEndOf="@+id/addListingBtn"
-            app:layout_constraintTop_toTopOf="@+id/addListingBtn"
-            app:srcCompat="@drawable/ic_right_arrow_black" />
-
-        <ImageView
-            android:id="@+id/my_auctions_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/myAuctionsBtn"
-            app:layout_constraintStart_toEndOf="@+id/myAuctionsBtn"
-            app:layout_constraintTop_toTopOf="@+id/myAuctionsBtn"
-            app:srcCompat="@drawable/ic_right_arrow_black" />
-
-        <ImageView
-            android:id="@+id/orders_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/arrow"
-            app:layout_constraintBottom_toBottomOf="@+id/ordersBtn"
-            app:layout_constraintStart_toEndOf="@+id/ordersBtn"
-            app:layout_constraintTop_toTopOf="@+id/ordersBtn"
-            app:srcCompat="@drawable/ic_right_arrow_black" />
-
-        <ImageView
-            android:id="@+id/add_listing_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/icon"
-            app:layout_constraintBottom_toBottomOf="@+id/addListingBtn"
-            app:layout_constraintStart_toStartOf="@+id/seller_homepage_description_text"
-            app:layout_constraintTop_toTopOf="@+id/addListingBtn"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
-
-        <ImageView
-            android:id="@+id/my_auctions_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/icon"
-            app:layout_constraintBottom_toBottomOf="@+id/myAuctionsBtn"
-            app:layout_constraintEnd_toStartOf="@+id/myAuctionsBtn"
-            app:layout_constraintTop_toBottomOf="@+id/addListingBtn"
-            app:srcCompat="@drawable/ic_gavel" />
-
-        <ImageView
-            android:id="@+id/orders_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/icon"
-            app:layout_constraintBottom_toBottomOf="@+id/ordersBtn"
-            app:layout_constraintEnd_toStartOf="@+id/ordersBtn"
-            app:layout_constraintTop_toTopOf="@+id/ordersBtn"
-            app:srcCompat="@drawable/ic_orders" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/seller_homepage_recyclerView"
+    <FrameLayout
+        android:id="@+id/business_home_content_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/seller_homepage_bottom_action_bar_layout"
+        app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seller_homepage_top_layout" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/seller_homepage_bottom_action_bar_layout"
-        android:layout_width="412dp"
-        android:layout_height="50dp"
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/centauri_red"
+        app:itemIconSize="48dp"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,13 +1,14 @@
 package com.septech.centauri.ui.user.home;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
@@ -38,8 +39,6 @@ import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.settings.SettingsFragment;
 
-import org.w3c.dom.Text;
-
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -47,14 +46,13 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
     //viewmodels
 
-    private HomeViewModel mViewModel;
+    private UserViewModel mViewModel;
     private FilterViewModel mFilterViewModel; //used to store filter settings when searching
 
     //fragments
 
-    HomeFragment homeFragment;
-    SettingsFragment settingsFragment;
-    CartFragment cartFragment;
+    private HomeFragment homeFragment;
+    private SettingsFragment settingsFragment;
 
     //home fragment
     private String name;
@@ -108,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         mFilterViewModel = new ViewModelProvider(this).get(FilterViewModel.class);
 
         mViewModel.setUserId(getIntent().getIntExtra("id", 0));
@@ -141,7 +139,6 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
         //create fragments
         homeFragment = HomeFragment.newInstance();
         settingsFragment = SettingsFragment.newInstance();
-        cartFragment = CartFragment.newInstance();
 
         createTextWatchers();
 
@@ -328,6 +325,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 System.out.println();
                 return true;
             } else if (itemId == R.id.bottom_cart) {
+                CartFragment cartFragment = CartFragment.newInstance();
+
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentfragment, cartFragment)
                         .addToBackStack(null)
@@ -443,11 +442,6 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
     }
 
     @Override
-    public void OnCallBack(Class fragmentClass, Bundle bundle) {
-
-    }
-
-    @Override
     public void showLoadingIcon() {
         loadingIcon.setVisibility(View.VISIBLE);
     }
@@ -455,5 +449,18 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
     @Override
     public void hideLoadingIcon() {
         loadingIcon.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideKeyboard() {
+        InputMethodManager imm =
+                (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = this.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

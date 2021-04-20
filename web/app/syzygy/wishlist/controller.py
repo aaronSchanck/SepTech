@@ -1,4 +1,4 @@
-"""/web/app/syzygy/orders/controller.py
+"""/web/app/syzygy/wishlist/controller.py
 
 Author: Adam Green (adam.green1@maine.edu)
 

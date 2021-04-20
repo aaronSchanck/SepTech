@@ -2,7 +2,7 @@ package com.septech.centauri.ui.user.forgotpassword;
 
 import androidx.annotation.Nullable;
 
-public class ForgotPasswordFormState {
+public class ForgotPasswordEmailFormState {
     private static final String TAG = "ForgotPasswordFormState";
 
     @Nullable
@@ -12,7 +12,7 @@ public class ForgotPasswordFormState {
 
     private boolean isDataValid;
 
-    ForgotPasswordFormState() {
+    ForgotPasswordEmailFormState() {
         this.emailError = null;
 
         this.emailEdited = false;

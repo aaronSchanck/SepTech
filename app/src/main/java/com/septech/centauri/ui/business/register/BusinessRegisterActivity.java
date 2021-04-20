@@ -1,9 +1,5 @@
 package com.septech.centauri.ui.business.register;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.content.ClipData;
 import android.content.Intent;
@@ -15,15 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-
 import com.septech.centauri.R;
-import com.septech.centauri.ui.business.addlisting.AddListingActivity;
 import com.septech.centauri.ui.business.login.BusinessLoginActivity;
 
 import java.util.ArrayList;
@@ -168,7 +165,6 @@ public class BusinessRegisterActivity extends AppCompatActivity {
     private void openGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }

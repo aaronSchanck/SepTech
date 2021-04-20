@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.home.CallBackListener;
-import com.septech.centauri.ui.user.home.HomeViewModel;
+import com.septech.centauri.ui.user.home.UserViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class CartFragment extends Fragment implements CartItemAdapter.OnCartItemListener {
 
     private CartViewModel mViewModel;
-    private HomeViewModel mHomeViewModel;
+    private UserViewModel mUserViewModel;
 
     private RecyclerView rvCartItems;
     private CartItemAdapter cartItemAdapter;
@@ -85,8 +85,8 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(CartViewModel.class);
-        mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        mViewModel.setUserId(mHomeViewModel.getUserId());
+        mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        mViewModel.setUserId(mUserViewModel.getUserId());
 
         callBackListener.showLoadingIcon();
         mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), order -> {
@@ -97,7 +97,7 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
             cartItemAdapter.setCart(order.getOrderItems());
             rvCartItems.setAdapter(cartItemAdapter);
 
-            mHomeViewModel.updateOrderData(order);
+            mUserViewModel.updateOrderData(order);
 
             if (order.getOrderItems().size() > 0) {
                 mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {

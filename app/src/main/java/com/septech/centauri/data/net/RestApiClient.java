@@ -6,6 +6,8 @@ import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
+import com.septech.centauri.data.model.wishlist.WishlistEntity;
+import com.septech.centauri.domain.models.User;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -136,7 +138,7 @@ public class RestApiClient {
         return restApi.getBusinessByEmail(email);
     }
 
-    public Single<String> forgotPassword(String email) {
+    public Single<UserEntity> forgotPassword(String email) {
         return restApi.forgotPassword(email);
     }
 
@@ -158,5 +160,9 @@ public class RestApiClient {
 
     public Single<OrderEntity> getUserCart(int userId) {
         return restApi.getUserCart(userId);
+    }
+
+    public Single<WishlistEntity> addToWishlist(int userid, int itemid) {
+        return restApi.addToWishlist(userid, itemid);
     }
 }
