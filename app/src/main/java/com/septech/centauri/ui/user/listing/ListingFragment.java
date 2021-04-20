@@ -1,19 +1,9 @@
 package com.septech.centauri.ui.user.listing;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +17,17 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.ItemReview;
-import com.septech.centauri.domain.models.Order;
+import com.septech.centauri.ui.user.home.CallBackListener;
 import com.septech.centauri.ui.user.home.UserViewModel;
 import com.septech.centauri.ui.user.itemreview.ItemReviewFragment;
 
@@ -41,6 +38,8 @@ import java.util.List;
 public class ListingFragment extends Fragment {
     private ListingViewModel mViewModel;
     private UserViewModel mUserViewModel;
+
+    private CallBackListener callBackListener;
 
     private RecyclerView listingRV;
     private ReviewAdapter adapter;
@@ -78,12 +77,24 @@ public class ListingFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callBackListener = (CallBackListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_listing_fragment, container, false);
 
         layout = view.findViewById(R.id.listing_layout);
         layout.setVisibility(View.GONE);
+        callBackListener.showLoadingIcon();
 
         itemImage = view.findViewById(R.id.listingImageView);
 
@@ -160,17 +171,13 @@ public class ListingFragment extends Fragment {
 
     private void createLiveDataObservers() {
         mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
-            System.out.println(item);
             if (item == null) return;
 
             Resources res = requireActivity().getResources();
 
-            wishlistBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mViewModel.addToWishlist(mUserViewModel.getUserLiveData().getValue(), item);
-                }
-            });
+            //add item specific button listeners
+
+            wishlistBtn.setOnClickListener(v -> mViewModel.addToWishlist(mUserViewModel.getUserLiveData().getValue(), item));
 
             cartBtn.setOnClickListener(v -> {
                 int quantity = mViewModel.getCurrentQuantity();
@@ -182,12 +189,6 @@ public class ListingFragment extends Fragment {
 
                 mViewModel.addToCart(mUserViewModel.getUserLiveData().getValue(), item, quantity);
             });
-
-            listingNameTextView.setText(item.getName());
-
-            listingPriceTextView.setText(res.getString(R.string.listing_price,
-                    item.getDisplayablePrice()));
-            listingDescTextView.setText(item.getDescription());
 
             mViewModel.setCurrentQuantity(0);
             quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
@@ -205,19 +206,25 @@ public class ListingFragment extends Fragment {
                 updateQuantityBtnState(item.getQuantity());
             });
 
+            listingNameTextView.setText(item.getName());
+
+            listingPriceTextView.setText(res.getString(R.string.listing_price,
+                    item.getDisplayablePrice()));
+            listingDescTextView.setText(item.getDescription());
             quantityLeftTextView.setText(res.getString((R.string.listingQuantityLeft),
                     item.getQuantity()));
 
-            leaveReviewBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ItemReviewFragment fragment = ItemReviewFragment.newInstance();
+            leaveReviewBtn.setOnClickListener(v -> {
+                ItemReviewFragment fragment = ItemReviewFragment.newInstance();
 
-                    requireActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.contentfragment, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("itemid", item.getId());
+
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentfragment, fragment)
+                        .addToBackStack(null)
+                        .commit();
             });
 
             //set rating bar and score
@@ -225,6 +232,8 @@ public class ListingFragment extends Fragment {
             //add reviews adapter
 
             layout.setVisibility(View.VISIBLE);
+
+            callBackListener.hideLoadingIcon();
         });
 
         mViewModel.getBusinessLiveData().observe(getViewLifecycleOwner(), business -> {
@@ -261,14 +270,10 @@ public class ListingFragment extends Fragment {
         mViewModel.getReviews().observe(getViewLifecycleOwner(),
                 itemReviews -> System.out.println("itemReviews = " + itemReviews));
 
-        mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), new Observer<Order>() {
-            @Override
-            public void onChanged(Order order) {
-                if (order == null) return;
+        mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), order -> {
+            if (order == null) return;
 
-                mUserViewModel.updateOrderData(order);
-                System.out.println("order = " + order);
-            }
+            mUserViewModel.updateOrderData(order);
         });
     }
 
