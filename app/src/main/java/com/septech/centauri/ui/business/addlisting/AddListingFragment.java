@@ -1,19 +1,27 @@
 package com.septech.centauri.ui.business.addlisting;
 
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.Manifest;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,18 +32,19 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.septech.centauri.R;
-import com.septech.centauri.ui.business.home.BusinessHomeActivity;
+import com.septech.centauri.domain.models.Business;
+import com.septech.centauri.ui.business.home.BusinessViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.septech.centauri.data.utils.ImagePath.getPathFromUri;
 
-public class AddListingActivity extends AppCompatActivity {
+public class AddListingFragment extends Fragment {
 
-    private AddListingViewModel addListingViewModel;
+    private AddListingViewModel mViewModel;
+    private BusinessViewModel mBusinessViewModel;
 
-    private TextInputLayout auctionLengthTextInput;
     private TextInputLayout startingBidTextInput;
     private TextInputLayout minimumBidTextInput;
     private TextInputLayout buyoutPriceTextInput;
@@ -43,15 +52,9 @@ public class AddListingActivity extends AppCompatActivity {
     private TextInputEditText itemNameEditText;
     private TextInputEditText itemQualityEditText;
     private TextInputEditText itemQuantityEditText;
-    private TextInputEditText auctionLengthEditText;
     private TextInputEditText startingBidEditText;
     private TextInputEditText minimumBidEditText;
     private TextInputEditText buyoutPriceEditText;
-    private TextInputEditText mainCategoryEditText;
-    private TextInputEditText categoryTwoEditText;
-    private TextInputEditText categoryThreeEditText;
-    private TextInputEditText categoryFourEditText;
-    private TextInputEditText categoryFiveEditText;
     private TextInputEditText itemDescriptionEditText;
 
     private Button uploadImageButton;
@@ -65,44 +68,45 @@ public class AddListingActivity extends AppCompatActivity {
 
     private List<String> imagePaths;
 
-    private int businessId;
-
     private boolean imagesSelected;
 
     private static final int PICK_IMAGE = 100;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business_add_listing);
+    public AddListingFragment() {
+    }
 
-        addListingViewModel = new ViewModelProvider(this).get(AddListingViewModel.class);
+    public static AddListingFragment newInstance() {
+        return new AddListingFragment();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.business_add_listing_fragment, container, false);
 
         imagesSelected = false;
 
-        businessId = Integer.parseInt(getIntent().getStringExtra("id"));
+        startingBidTextInput = view.findViewById(R.id.startingPriceTextbox);
+        minimumBidTextInput = view.findViewById(R.id.minBidTextbox);
+        buyoutPriceTextInput = view.findViewById(R.id.buyPriceTextbox);
 
-//        auctionLengthTextInput = findViewById(R.id.auctionLengthTextbox);
-        startingBidTextInput = findViewById(R.id.startingPriceTextbox);
-        minimumBidTextInput = findViewById(R.id.minBidTextbox);
-        buyoutPriceTextInput = findViewById(R.id.buyPriceTextbox);
+        itemNameEditText = view.findViewById(R.id.itemNameEditText);
+        itemQualityEditText = view.findViewById(R.id.itemQualityEditText);
+        itemQuantityEditText = view.findViewById(R.id.itemQuantityEditText);
 
-        itemNameEditText = findViewById(R.id.itemNameEditText);
-        itemQualityEditText = findViewById(R.id.itemQualityEditText);
-        itemQuantityEditText = findViewById(R.id.itemQuantityEditText);
+        startingBidEditText = view.findViewById(R.id.startingBidEditText);
+        minimumBidEditText = view.findViewById(R.id.minimumBidEditText);
+        buyoutPriceEditText = view.findViewById(R.id.buyoutPriceEditText);
+        itemDescriptionEditText = view.findViewById(R.id.itemDescriptionEditText);
 
-        startingBidEditText = findViewById(R.id.startingBidEditText);
-        minimumBidEditText = findViewById(R.id.minimumBidEditText);
-        buyoutPriceEditText = findViewById(R.id.buyoutPriceEditText);
-        itemDescriptionEditText = findViewById(R.id.itemDescriptionEditText);
+        uploadImageButton = view.findViewById(R.id.uploadImageButton);
+        backArrowButton = view.findViewById(R.id.backArrow);
+        createItemButton = view.findViewById(R.id.createItemButton);
 
-        uploadImageButton = findViewById(R.id.uploadImageButton);
-        backArrowButton = findViewById(R.id.backArrow);
-        createItemButton = findViewById(R.id.createItemButton);
+        itemImageView = view.findViewById(R.id.ItemAddImageBox);
 
-        itemImageView = findViewById(R.id.ItemAddImageBox);
-
-        bidSwitch = findViewById(R.id.auctionSwitch);
-        buySwitch = findViewById(R.id.buyNowSwitch);
+        bidSwitch = view.findViewById(R.id.auctionSwitch);
+        buySwitch = view.findViewById(R.id.buyNowSwitch);
 
         imagePaths = new ArrayList<>();
 
@@ -112,38 +116,24 @@ public class AddListingActivity extends AppCompatActivity {
 
         createSwitchListeners();
 
-//        auctionLengthTextInput.setEnabled(false);
         startingBidTextInput.setEnabled(false);
         minimumBidTextInput.setEnabled(false);
         buyoutPriceTextInput.setEnabled(false);
+
+        return view;
     }
 
-    private void createTextWatchers() {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(AddListingViewModel.class);
+        mBusinessViewModel = new ViewModelProvider(requireActivity()).get(BusinessViewModel.class);
 
-    }
-
-    private void createButtonListeners() {
-        uploadImageButton.setOnClickListener(v -> {
-            Dexter.withContext(AddListingActivity.this)
-                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    .withListener(new PermissionListener() {
-                        @Override
-                        public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
-
-                        @Override
-                        public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-
-                        @Override
-                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
-                    }).check();
-
-            openGallery();
-        });
-
-        backArrowButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, BusinessHomeActivity.class);
-            intent.putExtra("id", businessId);
-            startActivity(intent);
+        mBusinessViewModel.getBusinessLiveData().observe(getViewLifecycleOwner(), new Observer<Business>() {
+            @Override
+            public void onChanged(Business business) {
+                System.out.println("business = " + business);
+            }
         });
 
         createItemButton.setOnClickListener(new View.OnClickListener() {
@@ -168,16 +158,46 @@ public class AddListingActivity extends AppCompatActivity {
                 System.out.println("v = " + itemDescription);
 
 
-                addListingViewModel.createItem(businessId, name, quality, quantity, bid, buy,
+                mViewModel.createItem(mBusinessViewModel.getBusinessId(), name, quality, quantity, bid,
+                        buy,
                         null, startingBid, minimumBid, buyoutPrice, "",
                         "", "", "", "", itemDescription, imagePaths);
             }
         });
     }
 
+    private void createTextWatchers() {
+
+    }
+
+    private void createButtonListeners() {
+        uploadImageButton.setOnClickListener(v -> {
+            Dexter.withContext(requireActivity())
+                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .withListener(new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted(PermissionGrantedResponse response) {/* ... */}
+
+                        @Override
+                        public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                    }).check();
+
+            openGallery();
+        });
+
+        backArrowButton.setOnClickListener(v -> {
+            System.out.println("v = " + v);
+            requireActivity().onBackPressed();
+        });
+
+
+    }
+
     private void createSwitchListeners() {
         bidSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            auctionLengthTextInput.setEnabled(isChecked);
             startingBidTextInput.setEnabled(isChecked);
             minimumBidTextInput.setEnabled(isChecked);
         });
@@ -185,9 +205,9 @@ public class AddListingActivity extends AppCompatActivity {
         buySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> buyoutPriceTextInput.setEnabled(isChecked));
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE && null != data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE && null != data) {
             String currentImagePath;
 
             if (data.getClipData() != null) {
@@ -200,7 +220,7 @@ public class AddListingActivity extends AppCompatActivity {
                         itemImageView.setImageURI(uri);
                     }
 
-                    currentImagePath = getPathFromUri(getApplicationContext(), uri);
+                    currentImagePath = getPathFromUri(getActivity(), uri);
                     imagePaths.add(currentImagePath);
                     Log.d("ImageDetails", "Image URI " + i + " = " + uri);
                     Log.d("ImageDetails", "Image Path " + i + " = " + currentImagePath);
@@ -208,7 +228,7 @@ public class AddListingActivity extends AppCompatActivity {
                 }
             } else if (data.getData() != null) {
                 Uri uri = data.getData();
-                currentImagePath = getPathFromUri(getApplicationContext(), uri);
+                currentImagePath = getPathFromUri(getActivity(), uri);
                 Log.d("ImageDetails", "Single Image URI : " + uri);
                 Log.d("ImageDetails", "Single Image Path : " + currentImagePath);
                 imagePaths.add(currentImagePath);

@@ -2,7 +2,6 @@ package com.septech.centauri.ui.user.listing;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -30,20 +29,18 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.septech.centauri.R;
-import com.septech.centauri.domain.models.Business;
-import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.models.Order;
-import com.septech.centauri.ui.user.home.HomeViewModel;
+import com.septech.centauri.ui.user.home.UserViewModel;
+import com.septech.centauri.ui.user.itemreview.ItemReviewFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class ListingFragment extends Fragment {
     private ListingViewModel mViewModel;
-    private HomeViewModel mHomeViewModel;
+    private UserViewModel mUserViewModel;
 
     private RecyclerView listingRV;
     private ReviewAdapter adapter;
@@ -62,6 +59,7 @@ public class ListingFragment extends Fragment {
     private ImageButton quantityForwardBtn;
 
     private Button businessProfileBtn;
+    private Button leaveReviewBtn;
 
     private TextView listingNameTextView;
     private TextView listingPriceTextView;
@@ -91,11 +89,12 @@ public class ListingFragment extends Fragment {
 
         wishlistBtn = view.findViewById(R.id.wishlistBtn);
         cartBtn = view.findViewById(R.id.cartBtn);
+        leaveReviewBtn = view.findViewById(R.id.user_listing_leave_review_btn);
 
         backBtn = view.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(v -> {
             System.out.println("v = " + v);
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
         });
 
         imageBackBtn = view.findViewById(R.id.imageBackBtn);
@@ -152,7 +151,7 @@ public class ListingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
-        mHomeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         mViewModel.setItemId(getArguments().getInt("id"));
 
@@ -161,12 +160,15 @@ public class ListingFragment extends Fragment {
 
     private void createLiveDataObservers() {
         mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
+            System.out.println(item);
+            if (item == null) return;
+
             Resources res = requireActivity().getResources();
 
             wishlistBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("v = " + v);
+                    mViewModel.addToWishlist(mUserViewModel.getUserLiveData().getValue(), item);
                 }
             });
 
@@ -178,15 +180,13 @@ public class ListingFragment extends Fragment {
                     return;
                 }
 
-                mViewModel.addToCart(mHomeViewModel.getUserLiveData().getValue(), item, quantity);
+                mViewModel.addToCart(mUserViewModel.getUserLiveData().getValue(), item, quantity);
             });
 
             listingNameTextView.setText(item.getName());
 
-            String COUNTRY = "US";
-            String LANGUAGE = "en";
-
-            listingPriceTextView.setText(item.getDisplayablePrice());
+            listingPriceTextView.setText(res.getString(R.string.listing_price,
+                    item.getDisplayablePrice()));
             listingDescTextView.setText(item.getDescription());
 
             mViewModel.setCurrentQuantity(0);
@@ -207,6 +207,18 @@ public class ListingFragment extends Fragment {
 
             quantityLeftTextView.setText(res.getString((R.string.listingQuantityLeft),
                     item.getQuantity()));
+
+            leaveReviewBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ItemReviewFragment fragment = ItemReviewFragment.newInstance();
+
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentfragment, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
 
             //set rating bar and score
 
@@ -254,7 +266,7 @@ public class ListingFragment extends Fragment {
             public void onChanged(Order order) {
                 if (order == null) return;
 
-                mHomeViewModel.updateOrderData(order);
+                mUserViewModel.updateOrderData(order);
                 System.out.println("order = " + order);
             }
         });

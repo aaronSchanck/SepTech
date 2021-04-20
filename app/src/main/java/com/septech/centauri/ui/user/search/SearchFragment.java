@@ -195,7 +195,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
 
         fragment.setArguments(bundle);
 
-        getActivity().getSupportFragmentManager().beginTransaction()
+        requireActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentfragment, fragment)
                 .addToBackStack(null)
                 .commit();

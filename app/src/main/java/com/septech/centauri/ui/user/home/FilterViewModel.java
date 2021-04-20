@@ -7,20 +7,32 @@ import androidx.lifecycle.ViewModel;
 //probably better to call a search everytime that the filters are updated, after pressing an
 // "apply filters" button
 public class FilterViewModel extends ViewModel {
-    MutableLiveData<String> searchQuery = new MutableLiveData<>();
+    private MutableLiveData<String> searchQuery;
 
-    private MutableLiveData<Float> leftSliderLiveData = new MutableLiveData<>();
-    private MutableLiveData<Float> rightSliderLiveData = new MutableLiveData<>();
+    private MutableLiveData<Float> leftSliderLiveData;
+    private MutableLiveData<Float> rightSliderLiveData;
 
     public FilterViewModel() {
-        System.out.println();
+    }
+
+    public MutableLiveData<String> getQueryLiveData() {
+        if(searchQuery == null) {
+            searchQuery = new MutableLiveData<>();
+        }
+        return searchQuery;
     }
 
     public MutableLiveData<Float> getLeftSliderLiveData() {
+        if(leftSliderLiveData == null) {
+            leftSliderLiveData = new MutableLiveData<>();
+        }
         return leftSliderLiveData;
     }
 
     public MutableLiveData<Float> getRightSliderLiveData() {
+        if(rightSliderLiveData == null) {
+            rightSliderLiveData = new MutableLiveData<>();
+        }
         return rightSliderLiveData;
     }
 }

@@ -44,18 +44,37 @@ public class ListingViewModel extends ViewModel {
     private MutableLiveData<List<ItemReview>> reviews;
     private MutableLiveData<Order> orderLiveData;
 
-    private final CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables;
 
     public ListingViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
         itemRepo = ItemRepositoryImpl.getInstance();
         businessRepo = BusinessRepositoryImpl.getInstance();
+        mDisposables = new CompositeDisposable();
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
         mDisposables.clear();
+    }
+
+    public void addToWishlist(User user, Item item) {
+//        mDisposables.add(userRepo.addToWishlist(user, item)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableSingleObserver<Order>() {
+//                    @Override
+//                    public void onSuccess(@NonNull Order order) {
+//                        System.out.println("order = " + order);
+//                        orderLiveData.setValue(order);
+//                    }
+//
+//                    @Override
+//                    public void onError(@NonNull Throwable e) {
+//                        System.out.println("e = " + e);
+//                    }
+//                }));
     }
 
     public void addToCart(User user, Item item, int quantity) {

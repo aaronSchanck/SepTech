@@ -1,28 +1,35 @@
 package com.septech.centauri.ui.user.register;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.textfield.TextInputLayout;
-import com.septech.centauri.R;
-import com.septech.centauri.ui.user.login.LoginActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-public class RegisterActivity extends AppCompatActivity {
-    private static final String TAG = "RegisterActivity";
+import com.google.android.material.textfield.TextInputLayout;
+import com.septech.centauri.R;
+import com.septech.centauri.ui.user.home.CallBackListener;
 
-    private RegisterViewModel mRegisterViewModel;
+public class RegisterFragment extends Fragment {
+
+    private RegisterViewModel mViewModel;
+
+    private CallBackListener callBackListener;
 
     private EditText mFNameEditText;
     private EditText mEmailEditText;
@@ -30,82 +37,64 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mConfirmPasswordEditText;
     private EditText mPhoneNumberEditText;
 
-    private DatePicker mDatePicker;     // TODO: prevent user for picking a date into the future
+    private DatePicker mDatePicker;
 
     private Button mCreateAccountBtn;
-    private ProgressBar mLoadingIcon;
 
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_register);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
 
-        mRegisterViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        try {
+            callBackListener = (CallBackListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
+    }
 
-        TextInputLayout fullNameTextInput = findViewById(R.id.fname_text_input);
-        TextInputLayout emailTextInput = findViewById(R.id.email_text_input);
-        TextInputLayout passwordTextInput = findViewById(R.id.password_text_input);
-        TextInputLayout confirmPasswordTextInput = findViewById(R.id.confirm_password_text_input);
-        TextInputLayout phoneTextInput = findViewById(R.id.phone_text_input);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.user_register_fragment, container, false);
 
-        mDatePicker = findViewById(R.id.dob_input);
-
-        mLoadingIcon = findViewById(R.id.loading_icon);
-        mLoadingIcon.setVisibility(View.GONE);
-
-        mRegisterViewModel.getResponseLiveData().observe(this, response -> {
-            switch (response) {
-                case EMAIL_EXISTS:
-                    mEmailEditText.setError("Email already exists");
-                    break;
-                case EMAIL_DOES_NOT_EXIST:
-                    mEmailEditText.setError(null);
-                    break;
-                case INFO_INCORRECT:
-                    hideLoadingIcon();
-                    break;
-                case LOADING:
-                    showLoadingIcon();
-                    break;
-                case SUCCESS:
-                    startLoginActivity();
-                    break;
-            }
-        });
-
-        mFNameEditText = fullNameTextInput.getEditText();
-        mEmailEditText = emailTextInput.getEditText();
-        mPasswordEditText = passwordTextInput.getEditText();
-        mConfirmPasswordEditText = confirmPasswordTextInput.getEditText();
-        mPhoneNumberEditText = phoneTextInput.getEditText();
-
-        mCreateAccountBtn = findViewById(R.id.business_register_create_account_btn);
-
-        createLiveDataObservers();
+        mFNameEditText = view.findViewById(R.id.user_register_fullname_edittext);
+        mEmailEditText = view.findViewById(R.id.user_register_email_edittext);
+        mPasswordEditText = view.findViewById(R.id.user_register_password_edittext);
+        mConfirmPasswordEditText = view.findViewById(R.id.user_register_confirmpassword_edittext);
+        mPhoneNumberEditText = view.findViewById(R.id.user_register_phonenumber_edittext);
 
         createTextWatchers();
 
-        createButtonListeners();
-
-        createFocusChangeListeners();
-    }
-
-    private void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    private void createFocusChangeListeners() {
         mEmailEditText.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                mRegisterViewModel.checkUserExists(mEmailEditText.getText().toString());
+                mViewModel.checkUserExists(mEmailEditText.getText().toString());
             }
         });
+
+        mDatePicker = view.findViewById(R.id.dob_input);
+
+        mCreateAccountBtn = view.findViewById(R.id.business_register_create_account_btn);
+
+        mCreateAccountBtn.setOnClickListener(v -> mViewModel.createAccount(
+                mEmailEditText.getText().toString(),
+                mPasswordEditText.getText().toString(),
+                mFNameEditText.getText().toString(),
+                mPhoneNumberEditText.getText().toString(),
+                getDateOfBirth()));
+
+        return view;
     }
 
-    private void createLiveDataObservers() {
-        mRegisterViewModel.getRegisterFormState().observe(this, registerFormState -> {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+
+        mViewModel.getRegisterFormState().observe(getViewLifecycleOwner(), registerFormState -> {
             if (registerFormState == null) {
                 return;
             }
@@ -142,6 +131,26 @@ public class RegisterActivity extends AppCompatActivity {
                 mPhoneNumberEditText.setError(null);
             }
         });
+
+        mViewModel.getResponseLiveData().observe(getViewLifecycleOwner(), response -> {
+            switch (response) {
+                case EMAIL_EXISTS:
+                    mEmailEditText.setError("Email already exists");
+                    break;
+                case EMAIL_DOES_NOT_EXIST:
+                    mEmailEditText.setError(null);
+                    break;
+                case INFO_INCORRECT:
+                    callBackListener.hideLoadingIcon();
+                    break;
+                case LOADING:
+                    callBackListener.showLoadingIcon();
+                    break;
+                case SUCCESS:
+                    callBackListener.hideLoadingIcon();
+                    break;
+            }
+        });
     }
 
     private void createTextWatchers() {
@@ -158,7 +167,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateFullName(mFNameEditText.getText().toString());
+                mViewModel.onUpdateFullName(mFNameEditText.getText().toString());
             }
         });
 
@@ -175,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateEmail(mEmailEditText.getText().toString());
+                mViewModel.onUpdateEmail(mEmailEditText.getText().toString());
             }
         });
 
@@ -192,7 +201,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdatePassword(mPasswordEditText.getText().toString(),
+                mViewModel.onUpdatePassword(mPasswordEditText.getText().toString(),
                         mConfirmPasswordEditText.getText().toString());
             }
         });
@@ -210,7 +219,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mRegisterViewModel.onUpdateConfirmPassword(mConfirmPasswordEditText.getText().toString(), mPasswordEditText.getText().toString());
+                mViewModel.onUpdateConfirmPassword(mConfirmPasswordEditText.getText().toString(), mPasswordEditText.getText().toString());
             }
         });
 
@@ -225,22 +234,5 @@ public class RegisterActivity extends AppCompatActivity {
         @SuppressLint("DefaultLocale") String dob = String.format("%d-%d-%d", year, month, day);
 
         return dob;
-    }
-
-    private void createButtonListeners() {
-        mCreateAccountBtn.setOnClickListener(v -> mRegisterViewModel.createAccount(
-                mEmailEditText.getText().toString(),
-                mPasswordEditText.getText().toString(),
-                mFNameEditText.getText().toString(),
-                mPhoneNumberEditText.getText().toString(),
-                getDateOfBirth()));
-    }
-
-    private void showLoadingIcon() {
-        mLoadingIcon.setVisibility(View.VISIBLE);
-    }
-
-    private void hideLoadingIcon() {
-        mLoadingIcon.setVisibility(View.GONE);
     }
 }

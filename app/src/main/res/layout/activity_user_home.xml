@@ -76,7 +76,7 @@
 
         <include
             android:id="@+id/include"
-            layout="@layout/navigation_drawer" />
+            layout="@layout/user_search_filters_navigation_drawer" />
 
     </com.google.android.material.navigation.NavigationView>
 

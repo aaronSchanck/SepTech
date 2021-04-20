@@ -1,5 +1,6 @@
 package com.septech.centauri.ui.user.home;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,7 @@ import com.septech.centauri.ui.user.wishlist.WishlistFragment;
 
 public class HomeFragment extends Fragment {
 
-    private String name;
+    private CallBackListener callBackListener;
 
     private ImageButton mViewItemsBtn;
     private ImageButton mCartBtn;
@@ -36,6 +37,16 @@ public class HomeFragment extends Fragment {
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callBackListener = (CallBackListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
     }
 
     @Override
@@ -71,7 +82,7 @@ public class HomeFragment extends Fragment {
             bundle.putString("query", "");
             fragment.setArguments(bundle);
 
-            getActivity().getSupportFragmentManager().beginTransaction()
+            requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, fragment)
                     .addToBackStack(null)
                     .commit();
@@ -82,7 +93,7 @@ public class HomeFragment extends Fragment {
         mCartBtn.setOnClickListener(v -> {
             CartFragment fragment = CartFragment.newInstance();
 
-            getActivity().getSupportFragmentManager().beginTransaction()
+            requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, fragment)
                     .addToBackStack(null)
                     .commit();

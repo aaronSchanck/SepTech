@@ -1,80 +1,74 @@
 package com.septech.centauri.ui.business.home;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.business.addlisting.AddListingActivity;
+import com.septech.centauri.domain.models.Business;
+import com.septech.centauri.ui.user.home.CallBackListener;
 
-public class BusinessHomeActivity extends AppCompatActivity {
+public class BusinessHomeActivity extends AppCompatActivity implements CallBackListener {
 
-    private BusinessHomeViewModel mBusinessHomeViewModel;
+    private BusinessViewModel mViewModel;
 
-    private TextView businessNameTextView;
-    private TextView businessDescTextView;
-
-    private Button addListingBtn;
-    private Button myAuctionsBtn;
-    private Button ordersBtn;
-
+    private ProgressBar loadingIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_home);
 
-        mBusinessHomeViewModel = new ViewModelProvider(this).get(BusinessHomeViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(BusinessViewModel.class);
+        mViewModel.setBusinessId(getIntent().getIntExtra("id", 0));
 
-        businessNameTextView = findViewById(R.id.seller_homepage_name_text);
-        businessDescTextView = findViewById(R.id.seller_homepage_description_text);
-
-        addListingBtn = findViewById(R.id.addListingBtn);
-        myAuctionsBtn = findViewById(R.id.myAuctionsBtn);
-        ordersBtn = findViewById(R.id.ordersBtn);
-
-        createButtonListeners();
-
-        createLiveDataObservers();
-
-        mBusinessHomeViewModel.setBusiness(Integer.parseInt(getIntent().getStringExtra("id")));
-    }
-
-    private void createButtonListeners() {
-        addListingBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddListingActivity.class);
-            intent.putExtra("id",
-                    String.valueOf(mBusinessHomeViewModel.getBusinessLiveData().getValue().getId()));
-
-            startActivity(intent);
-        });
-
-        myAuctionsBtn.setOnClickListener(new View.OnClickListener() {
+        mViewModel.getBusinessLiveData().observe(this, new Observer<Business>() {
             @Override
-            public void onClick(View v) {
-                //TODO
+            public void onChanged(Business business) {
+                Log.i("Business update", "New Business: " + business);
             }
         });
 
-        ordersBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO
-            }
-        });
+        loadingIcon = findViewById(R.id.business_home_loading_icon);
+        hideLoadingIcon();
+
+        if (savedInstanceState == null) {
+            BusinessHomeFragment fragment = BusinessHomeFragment.newInstance();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.business_home_content_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
-    private void createLiveDataObservers() {
-        mBusinessHomeViewModel.getBusinessLiveData().observe(this, business -> {
-            if(business == null) return;
+    @Override
+    public void showLoadingIcon() {
+        loadingIcon.setVisibility(View.VISIBLE);
+    }
 
-            businessNameTextView.setText(business.getBusinessName());
-            businessDescTextView.setText(business.getOwnerFullName());
-        });
+    @Override
+    public void hideLoadingIcon() {
+        loadingIcon.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideKeyboard() {
+        InputMethodManager imm =
+                (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = this.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
