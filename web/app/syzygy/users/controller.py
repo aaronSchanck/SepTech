@@ -173,18 +173,22 @@ class UserCartResource(Resource):
 @api.route("/<int:id>/wishlist")
 @api.param("id", "User ID in database")
 class UserWishlistResource(Resource):
-    args = {"itemid": fields.Int(required=True)}
+    wishlist_args = {"itemid": fields.Int(required=True)}
 
     def get(self, id: int):
         wishlist, response = UserService.get_user_wishlist(id)
+
+        print(wishlist_schema.dump(wishlist))
 
         return (
             wishlist_schema.dump(wishlist) if response.status_code == 200 else response
         )
 
-    @use_args(args, location="form")
+    @use_args(wishlist_args, location="form")
     def post(self, args, id: int):
         itemid = args["itemid"]
+
+        print(itemid)
 
         wishlist, response = UserService.add_to_wishlist(id, itemid)
 

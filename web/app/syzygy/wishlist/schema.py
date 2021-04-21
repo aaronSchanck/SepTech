@@ -29,3 +29,6 @@ class WishlistSchema(Schema):
     userid = fields.Number()
 
     wishlist_items = fields.List(fields.Nested(WishlistItemSchema), dump_only=True)
+
+    created_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)

@@ -20,13 +20,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.domain.models.Wishlist;
+import com.septech.centauri.domain.models.WishlistItem;
 import com.septech.centauri.ui.user.home.CallBackListener;
 import com.septech.centauri.ui.user.home.UserViewModel;
 import com.septech.centauri.ui.user.itemreview.ItemReviewFragment;
@@ -122,7 +126,7 @@ public class ListingFragment extends Fragment {
         listingRatingScore = view.findViewById(R.id.listingRatingScore);
         quantityLeftTextView = view.findViewById(R.id.quantityLeftTextView);
 
-        quantityEditText = view.findViewById(R.id.quantityEditText);
+        quantityEditText = view.findViewById(R.id.listing_quantity_edittext);
 
         //find spinner and set item listener
         listingSpinner = view.findViewById(R.id.listingSpinner);
@@ -165,11 +169,12 @@ public class ListingFragment extends Fragment {
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         mViewModel.setItemId(getArguments().getInt("id"));
+        mViewModel.setUserId(mUserViewModel.getUserId());
 
-        createLiveDataObservers();
+        createLiveDataObservers(savedInstanceState);
     }
 
-    private void createLiveDataObservers() {
+    private void createLiveDataObservers(Bundle savedInstanceState) {
         mViewModel.getItemLiveData().observe(getViewLifecycleOwner(), item -> {
             if (item == null) return;
 
@@ -190,8 +195,11 @@ public class ListingFragment extends Fragment {
                 mViewModel.addToCart(mUserViewModel.getUserLiveData().getValue(), item, quantity);
             });
 
-            mViewModel.setCurrentQuantity(0);
-            quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
+            if(savedInstanceState == null) {
+                mViewModel.setCurrentQuantity(0);
+                quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
+            }
+
             updateQuantityBtnState(item.getQuantity());
 
             quantityBackBtn.setOnClickListener(v -> {
@@ -274,6 +282,24 @@ public class ListingFragment extends Fragment {
             if (order == null) return;
 
             mUserViewModel.updateOrderData(order);
+        });
+
+        mViewModel.getWishlistLiveData().observe(getViewLifecycleOwner(), new Observer<Wishlist>() {
+            @Override
+            public void onChanged(Wishlist wishlist) {
+                System.out.println("wishlist = " + wishlist);
+                System.out.println("wishlist = " + wishlist.getWishlistItems());
+
+                for (WishlistItem item :
+                        wishlist.getWishlistItems()) {
+                    if(item.getItemid() == mViewModel.getItemId()) {
+                        wishlistBtn.setText(R.string.listing_wishlist_added_text);
+                        wishlistBtn.setIcon(ContextCompat.getDrawable(requireActivity(),
+                                R.drawable.ic_baseline_check_24));
+                    }
+
+                }
+            }
         });
     }
 
