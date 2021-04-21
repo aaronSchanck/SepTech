@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.user.wishlist.WishlistFragment">
+    tools:context=".ui.user.orderhistory.OrderHistoryFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,9 +18,9 @@
             android:paddingBottom="20dp"
             android:orientation="vertical">
 
-            <!-- Wish List Header -->
+            <!-- Orders Header -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wishlistHeader"
+                android:id="@+id/ordersHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Wish List"
+                    android:text="Your Orders"
                     android:textColor="#000000"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -43,8 +43,23 @@
                     app:layout_constraintHorizontal_bias="0.071"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+                <!-- Sort Spinner -->
+                <Spinner
+                    android:id="@+id/sortSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:textAllCaps="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <!-- End of Sort Spinner -->
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <!-- End of Wish List Header -->
+            <!-- End of Orders Header -->
+
+            <!-- Search View -->
+            <!-- End of Search View -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/itemsRecyclerView"
@@ -53,7 +68,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wishlistHeader"
+                app:layout_constraintTop_toBottomOf="@+id/ordersHeader"
                 app:layout_constraintVertical_bias="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
