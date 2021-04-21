@@ -43,8 +43,23 @@
                     app:layout_constraintHorizontal_bias="0.071"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+                <!-- Sort Spinner -->
+                <Spinner
+                    android:id="@+id/sortSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:textAllCaps="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <!-- End of Sort Spinner -->
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!-- End of Orders Header -->
+
+            <!-- Search View -->
+            <!-- End of Search View -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/itemsRecyclerView"
