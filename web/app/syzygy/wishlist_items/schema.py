@@ -28,7 +28,7 @@ class WishlistItemSchema(Schema):
 
     itemid = fields.Number()
 
-    wishlistid = fields.Number(dump_only=True)
+    wishlistid = fields.Number()
 
     created_at = fields.DateTime(dump_only=True)
     modified_at = fields.DateTime(dump_only=True)

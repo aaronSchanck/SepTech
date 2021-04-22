@@ -7,6 +7,7 @@ import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.wishlist.WishlistEntity;
+import com.septech.centauri.data.model.wishlistitem.WishlistItemEntity;
 import com.septech.centauri.domain.models.User;
 
 import java.util.List;
@@ -162,7 +163,15 @@ public class RestApiClient {
         return restApi.getUserCart(userId);
     }
 
-    public Single<WishlistEntity> addToWishlist(int userid, int itemid) {
-        return restApi.addToWishlist(userid, itemid);
+    public Single<WishlistEntity> addToWishlist(int userId, int itemid) {
+        return restApi.addToWishlist(userId, itemid);
+    }
+
+    public Single<WishlistEntity> getUserWishlist(int userId) {
+        return restApi.getUserWishlist(userId);
+    }
+
+    public Single<WishlistItemEntity> getUserWishlistItem(Integer userId, Integer itemId) {
+        return restApi.getUserWishlistItem(userId, itemId);
     }
 }

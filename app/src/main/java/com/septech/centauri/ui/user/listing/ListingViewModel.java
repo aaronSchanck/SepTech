@@ -13,6 +13,8 @@ import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.domain.models.Wishlist;
+import com.septech.centauri.domain.models.WishlistItem;
 import com.septech.centauri.domain.repository.BusinessRepository;
 import com.septech.centauri.domain.repository.ItemRepository;
 import com.septech.centauri.domain.repository.UserRepository;
@@ -33,6 +35,7 @@ public class ListingViewModel extends ViewModel {
     private final ItemRepository itemRepo;
     private final BusinessRepository businessRepo;
 
+    private Integer userId;
     private Integer itemId;
 
     private int currentImage;
@@ -43,6 +46,7 @@ public class ListingViewModel extends ViewModel {
     private MutableLiveData<List<Uri>> imageLiveData;
     private MutableLiveData<List<ItemReview>> reviews;
     private MutableLiveData<Order> orderLiveData;
+    private MutableLiveData<Wishlist> wishlistLiveData;
 
     private final CompositeDisposable mDisposables;
 
@@ -60,21 +64,20 @@ public class ListingViewModel extends ViewModel {
     }
 
     public void addToWishlist(User user, Item item) {
-//        mDisposables.add(userRepo.addToWishlist(user, item)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(new DisposableSingleObserver<Order>() {
-//                    @Override
-//                    public void onSuccess(@NonNull Order order) {
-//                        System.out.println("order = " + order);
-//                        orderLiveData.setValue(order);
-//                    }
-//
-//                    @Override
-//                    public void onError(@NonNull Throwable e) {
-//                        System.out.println("e = " + e);
-//                    }
-//                }));
+        mDisposables.add(userRepo.addToWishlist(user, item)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Wishlist>() {
+                    @Override
+                    public void onSuccess(@NonNull Wishlist wishlist) {
+                        System.out.println("wishlist = " + wishlist);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
     }
 
     public void addToCart(User user, Item item, int quantity) {
@@ -161,6 +164,42 @@ public class ListingViewModel extends ViewModel {
                 }));
     }
 
+    private void getUserWishlist() {
+        mDisposables.add(userRepo.getUserWishlist(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Wishlist>() {
+                    @Override
+                    public void onSuccess(@NonNull Wishlist wishlist) {
+                        wishlistLiveData.setValue(wishlist);
+//                        System.out.println("wishlist = " + wishlist);
+//                        System.out.println("wishlist = " + wishlist.getWishlistItems());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
+    private void checkWishlistItem() {
+        mDisposables.add(userRepo.getUserWishlistItem(userId, itemId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<WishlistItem>() {
+                    @Override
+                    public void onSuccess(@NonNull WishlistItem wishlistItem) {
+                        System.out.println("wishlistItem = " + wishlistItem);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
     public MutableLiveData<Business> getBusinessLiveData() {
         if (businessLiveData == null) {
             businessLiveData = new MutableLiveData<>();
@@ -200,6 +239,14 @@ public class ListingViewModel extends ViewModel {
         return orderLiveData;
     }
 
+    public MutableLiveData<Wishlist> getWishlistLiveData() {
+        if (wishlistLiveData == null) {
+            wishlistLiveData = new MutableLiveData<>();
+            getUserWishlist();
+        }
+        return wishlistLiveData;
+    }
+
     public Integer getItemId() {
         return itemId;
     }
@@ -222,5 +269,13 @@ public class ListingViewModel extends ViewModel {
 
     public void setCurrentQuantity(int currentQuantity) {
         this.currentQuantity = currentQuantity;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
