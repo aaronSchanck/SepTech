@@ -178,8 +178,6 @@ class UserWishlistResource(Resource):
     def get(self, id: int):
         wishlist, response = UserService.get_user_wishlist(id)
 
-        print(wishlist_schema.dump(wishlist))
-
         return (
             wishlist_schema.dump(wishlist) if response.status_code == 200 else response
         )
