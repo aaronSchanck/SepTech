@@ -186,8 +186,6 @@ class UserWishlistResource(Resource):
     def post(self, args, id: int):
         itemid = args["itemid"]
 
-        print(itemid)
-
         wishlist, response = UserService.add_to_wishlist(id, itemid)
 
         return (

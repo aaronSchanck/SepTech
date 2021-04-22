@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,7 +169,12 @@ public class ListingFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        mViewModel.setItemId(getArguments().getInt("id"));
+        try {
+            mViewModel.setItemId(getArguments().getInt("id"));
+        } catch (NullPointerException e) {
+            Log.e("Arguments", "Fragment needs bundle arguments");
+        }
+
         mViewModel.setUserId(mUserViewModel.getUserId());
 
         createLiveDataObservers(savedInstanceState);
@@ -195,7 +201,7 @@ public class ListingFragment extends Fragment {
                 mViewModel.addToCart(mUserViewModel.getUserLiveData().getValue(), item, quantity);
             });
 
-            if(savedInstanceState == null) {
+            if (savedInstanceState == null) {
                 mViewModel.setCurrentQuantity(0);
                 quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
             }
@@ -226,8 +232,10 @@ public class ListingFragment extends Fragment {
                 ItemReviewFragment fragment = ItemReviewFragment.newInstance();
 
                 Bundle bundle = new Bundle();
-
                 bundle.putInt("itemid", item.getId());
+                bundle.putString("item_name", item.getName());
+                bundle.putString("business_name", mViewModel.getBusinessLiveData().getValue().getBusinessName());
+                fragment.setArguments(bundle);
 
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentfragment, fragment)
@@ -292,7 +300,7 @@ public class ListingFragment extends Fragment {
 
                 for (WishlistItem item :
                         wishlist.getWishlistItems()) {
-                    if(item.getItemid() == mViewModel.getItemId()) {
+                    if (item.getItemid() == mViewModel.getItemId()) {
                         wishlistBtn.setText(R.string.listing_wishlist_added_text);
                         wishlistBtn.setIcon(ContextCompat.getDrawable(requireActivity(),
                                 R.drawable.ic_baseline_check_24));

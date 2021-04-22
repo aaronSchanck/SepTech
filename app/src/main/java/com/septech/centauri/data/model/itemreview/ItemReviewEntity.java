@@ -1,28 +1,36 @@
-package com.septech.centauri.domain.models;
+package com.septech.centauri.data.model.itemreview;
 
-public class ItemReview {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class ItemReviewEntity {
+    @SerializedName("id")
+    @Expose(serialize = false)
     private int id;
 
+    @SerializedName("userid")
+    @Expose
     private int userid;
+
+    @SerializedName("itemid")
+    @Expose
     private int itemid;
 
+    @SerializedName("rating")
+    @Expose
     private Float rating;
 
+    @SerializedName("review_content")
+    @Expose
     private String content;
 
+    @SerializedName("created_at")
+    @Expose(serialize = false)
     private String createdAt;
+
+    @SerializedName("modified_at")
+    @Expose(serialize = false)
     private String modifiedAt;
-
-    public ItemReview(int userid, int itemid, Float rating, String content) {
-        this.userid = userid;
-        this.itemid = itemid;
-        this.rating = rating;
-        this.content = content;
-    }
-
-    public ItemReview() {
-
-    }
 
     public int getId() {
         return id;

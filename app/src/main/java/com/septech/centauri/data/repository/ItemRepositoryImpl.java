@@ -7,8 +7,10 @@ import com.septech.centauri.data.cache.FileCache;
 import com.septech.centauri.data.db.betelgeuse.BetelgeuseDatabase;
 import com.septech.centauri.data.model.item.ItemEntity;
 import com.septech.centauri.data.model.item.mapper.ItemDataMapper;
+import com.septech.centauri.data.model.itemreview.mapper.ItemReviewDataMapper;
 import com.septech.centauri.data.net.RestApiClient;
 import com.septech.centauri.domain.models.Item;
+import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.repository.ItemRepository;
 
 import java.io.ByteArrayOutputStream;
@@ -64,6 +66,11 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Single<Item> getItemById(int id) {
         return restApiImpl.getItemById(id).map(ItemDataMapper::transform);
+    }
+
+    @Override
+    public Single<Item> getItemDetails(int id) {
+        return restApiImpl.getItemDetails(id).map(ItemDataMapper::transform);
     }
 
     /**
@@ -143,5 +150,9 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public Observable<Response<ResponseBody>> getImages(int itemId) {
         return restApiImpl.getImages(itemId);
+    }
+
+    public Single<ItemReview> addItemReview(ItemReview review) {
+        return restApiImpl.addItemReview(ItemReviewDataMapper.transform(review)).map(ItemReviewDataMapper::transform);
     }
 }

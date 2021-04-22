@@ -3,6 +3,9 @@ package com.septech.centauri.data.model.item;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.septech.centauri.data.model.category.CategoryEntity;
+import com.septech.centauri.data.model.itemreview.ItemReviewEntity;
+
+import java.util.List;
 
 public class ItemEntity {
 
@@ -77,6 +80,10 @@ public class ItemEntity {
     @SerializedName("item_variants")
     @Expose(serialize = false)
     private String itemVariants;
+
+    @SerializedName("item_reviews")
+    @Expose(serialize = false)
+    private List<ItemReviewEntity> reviews;
 
     @SerializedName("description")
     @Expose
@@ -235,5 +242,13 @@ public class ItemEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<ItemReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ItemReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 }

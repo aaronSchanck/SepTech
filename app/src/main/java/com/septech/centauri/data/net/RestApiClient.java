@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.itemreview.ItemReviewEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.wishlist.WishlistEntity;
@@ -102,6 +103,10 @@ public class RestApiClient {
         return restApi.getItemById(id);
     }
 
+    public Single<ItemEntity> getItemDetails(int id) {
+        return restApi.getItemDetails(id);
+    }
+
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
         MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
 
@@ -173,5 +178,9 @@ public class RestApiClient {
 
     public Single<WishlistItemEntity> getUserWishlistItem(Integer userId, Integer itemId) {
         return restApi.getUserWishlistItem(userId, itemId);
+    }
+
+    public Single<ItemReviewEntity> addItemReview(ItemReviewEntity itemReviewEntity) {
+        return restApi.addItemReview(itemReviewEntity);
     }
 }

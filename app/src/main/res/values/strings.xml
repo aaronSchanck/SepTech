@@ -226,4 +226,6 @@
     <string name="listing_wishlist_added_text">Added to Wishlist!</string>
     <string name="order_date">Order Placed: <b>%1$s</b></string>
     <string name="cancel_or_return">%1$s Item</string>
+    <string name="item_review_business_name_text">Sold By: %1$s</string>
+    <string name="item_review_item_name_text">%1$s</string>
 </resources>

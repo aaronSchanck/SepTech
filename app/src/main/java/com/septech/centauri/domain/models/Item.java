@@ -1,6 +1,7 @@
 package com.septech.centauri.domain.models;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Item {
     private Integer id;
@@ -25,6 +26,8 @@ public class Item {
 
     private String itemVariants;
     private String description;
+
+    private List<ItemReview> reviews;
 
     public Item() {
         //left empty
@@ -201,5 +204,13 @@ public class Item {
 
     public String getDisplayablePrice() {
         return "$" + getStringDollarPrice();
+    }
+
+    public List<ItemReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ItemReview> reviews) {
+        this.reviews = reviews;
     }
 }
