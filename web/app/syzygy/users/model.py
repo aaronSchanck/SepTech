@@ -81,6 +81,10 @@ class User(db.Model):
     # wishlist
     wishlist = db.relationship("Wishlist", back_populates="user", uselist=False)
 
+    # view history
+
+    view_history = db.relationship("View History", back_populates="user", uselist=False)
+
     # settings
 
     admin_level = db.Column(db.Integer)

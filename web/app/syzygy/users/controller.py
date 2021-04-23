@@ -33,6 +33,7 @@ from webargs.flaskparser import use_args, use_kwargs
 
 from ..orders.schema import OrderSchema
 from ..wishlist.schema import WishlistSchema
+from ..view_history.schema import ViewHistorySchema
 from .model import User
 from .schema import UserSchema
 from .service import UserService
@@ -48,6 +49,8 @@ user_schema_many = UserSchema(many=True)
 order_schema = OrderSchema()
 
 wishlist_schema = WishlistSchema()
+
+view_history_schema = ViewHistorySchema()
 
 
 @api.route("/")
@@ -191,3 +194,7 @@ class UserWishlistResource(Resource):
         return (
             wishlist_schema.dump(wishlist) if response.status_code == 200 else response
         )
+
+"""
+TODO: view history resource
+"""
