@@ -13,22 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/item_review_submit_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_item_review_business_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/item_review_business_name_textview"
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/user_item_review_review_edittext"
+            android:id="@+id/item_review_review_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/white"
             android:ems="10"
-            android:hint="Enter your Review"
+            android:hint="Enter your Review (optional)"
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
+            android:textColor="@color/text_black"
             android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,41 +42,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_item_review_item_name_textview"
+        android:id="@+id/item_review_item_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="%1$s"
+        android:text="@string/item_review_item_name_text"
         app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
-        android:id="@+id/user_item_review_business_name_textview"
+        android:id="@+id/item_review_business_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Sold By: %1$s"
-        app:layout_constraintStart_toStartOf="@+id/user_item_review_item_name_textview"
-        app:layout_constraintTop_toBottomOf="@+id/user_item_review_item_name_textview" />
+        android:text="@string/item_review_business_name_text"
+        app:layout_constraintStart_toStartOf="@+id/item_review_item_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/item_review_item_name_textview" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:id="@+id/item_review_ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/user_item_review_business_name_textview"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:clickable="true"
+        android:focusable="true"
+        android:isIndicator="false"
+        android:numStars="5"
+        app:layout_constraintBottom_toBottomOf="@+id/item_review_business_name_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_review_business_name_textview"
+        app:layout_constraintVertical_bias="0.605" />
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add a Rating"
-        app:layout_constraintBottom_toBottomOf="@+id/user_item_review_item_name_textview"
-        app:layout_constraintEnd_toEndOf="@+id/ratingBar" />
+        android:layout_marginBottom="8dp"
+        android:text="Add a Rating:"
+        app:layout_constraintBottom_toTopOf="@+id/item_review_ratingbar"
+        app:layout_constraintEnd_toEndOf="@+id/item_review_ratingbar" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/item_review_submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit Review"
@@ -83,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/item_review_cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"

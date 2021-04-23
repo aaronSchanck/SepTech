@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -35,6 +39,7 @@ import com.septech.centauri.ui.user.home.CallBackListener;
 import com.septech.centauri.ui.user.home.UserViewModel;
 import com.septech.centauri.ui.user.itemreview.ItemReviewFragment;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +74,7 @@ public class ListingFragment extends Fragment {
     private TextView listingDescTextView;
     private TextView listingRatingScore;
     private TextView quantityLeftTextView;
+    private TextView reviewsFoundTv;
 
     private EditText quantityEditText;
 
@@ -125,6 +131,7 @@ public class ListingFragment extends Fragment {
         listingDescTextView = view.findViewById(R.id.listingDescTextView);
         listingRatingScore = view.findViewById(R.id.listingRatingScore);
         quantityLeftTextView = view.findViewById(R.id.quantityLeftTextView);
+        reviewsFoundTv = view.findViewById(R.id.listing_reviews_found_tv);
 
         quantityEditText = view.findViewById(R.id.listing_quantity_edittext);
 
@@ -156,6 +163,9 @@ public class ListingFragment extends Fragment {
         listingRatingBar = view.findViewById(R.id.listingRatingBar);
 
         listingRV = view.findViewById(R.id.listingRV);
+        listingRV.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.HORIZONTAL));
+        listingRV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new ReviewAdapter(new ArrayList<>());
 
@@ -168,7 +178,12 @@ public class ListingFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ListingViewModel.class);
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        mViewModel.setItemId(getArguments().getInt("id"));
+        try {
+            mViewModel.setItemId(getArguments().getInt("id"));
+        } catch (NullPointerException e) {
+            Log.e("Arguments", "Fragment needs bundle arguments");
+        }
+
         mViewModel.setUserId(mUserViewModel.getUserId());
 
         createLiveDataObservers(savedInstanceState);
@@ -195,7 +210,7 @@ public class ListingFragment extends Fragment {
                 mViewModel.addToCart(mUserViewModel.getUserLiveData().getValue(), item, quantity);
             });
 
-            if(savedInstanceState == null) {
+            if (savedInstanceState == null) {
                 mViewModel.setCurrentQuantity(0);
                 quantityEditText.setText(String.valueOf(mViewModel.getCurrentQuantity()));
             }
@@ -226,8 +241,10 @@ public class ListingFragment extends Fragment {
                 ItemReviewFragment fragment = ItemReviewFragment.newInstance();
 
                 Bundle bundle = new Bundle();
-
                 bundle.putInt("itemid", item.getId());
+                bundle.putString("item_name", item.getName());
+                bundle.putString("business_name", mViewModel.getBusinessLiveData().getValue().getBusinessName());
+                fragment.setArguments(bundle);
 
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentfragment, fragment)
@@ -237,7 +254,28 @@ public class ListingFragment extends Fragment {
 
             //set rating bar and score
 
+            float rating = item.getAverageRating();
+
+
+
+            listingRatingBar.setRating(rating);
+
+            DecimalFormat df = new DecimalFormat("0.0");
+            df.setMinimumFractionDigits(1);
+            df.setMaximumFractionDigits(1);
+
+            listingRatingScore.setText(res.getString(R.string.listing_rating_score_text,
+                    df.format(rating)));
+
+            String reviewsFoundPlural = item.getReviews().size() == 1 ? "review" : "reviews";
+            reviewsFoundTv.setText(res.getString(R.string.listing_reviews_found_text,
+                    item.getReviews().size(), reviewsFoundPlural));
+
             //add reviews adapter
+
+            adapter.setReviews(item.getReviews());
+
+            listingRV.setAdapter(adapter);
 
             layout.setVisibility(View.VISIBLE);
 
@@ -292,7 +330,7 @@ public class ListingFragment extends Fragment {
 
                 for (WishlistItem item :
                         wishlist.getWishlistItems()) {
-                    if(item.getItemid() == mViewModel.getItemId()) {
+                    if (item.getItemid() == mViewModel.getItemId()) {
                         wishlistBtn.setText(R.string.listing_wishlist_added_text);
                         wishlistBtn.setIcon(ContextCompat.getDrawable(requireActivity(),
                                 R.drawable.ic_baseline_check_24));
@@ -355,7 +393,7 @@ public class ListingFragment extends Fragment {
             LayoutInflater inflater = LayoutInflater.from(context);
 
             // Inflate the custom layout
-            View itemView = inflater.inflate(R.layout.user_cart_item_fragment, parent, false);
+            View itemView = inflater.inflate(R.layout.user_item_review_item_fragment, parent, false);
 
             // Return a new holder instance
             ViewHolder viewHolder = new ViewHolder(itemView);
@@ -365,6 +403,22 @@ public class ListingFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             ItemReview review = mReviews.get(position);
+
+            holder.getReviewerName().setText(review.getUser().getFullName());
+
+            String modifiedAt = review.getModifiedAt();
+
+            modifiedAt = modifiedAt.substring(0, modifiedAt.indexOf("T"));
+
+            holder.getPostDate().setText(modifiedAt);
+
+            String content = review.getContent();
+
+            if (content.equals("")) content = "No review content";
+
+            holder.getReviewContent().setText(content);
+
+            holder.getRatingBar().setRating(review.getRating());
         }
 
         public void setReviews(List<ItemReview> mReviews) {
@@ -378,8 +432,36 @@ public class ListingFragment extends Fragment {
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
 
+            private TextView reviewerName;
+            private TextView postDate;
+            private TextView reviewContent;
+
+            private RatingBar ratingBar;
+
             public ViewHolder(View itemView) {
                 super(itemView);
+
+                reviewerName = itemView.findViewById(R.id.item_review_item_reviewer_name);
+                postDate = itemView.findViewById(R.id.item_review_item_posted_date);
+                reviewContent = itemView.findViewById(R.id.item_review_item_review_content);
+
+                ratingBar = itemView.findViewById(R.id.item_review_item_ratingbar);
+            }
+
+            public TextView getReviewerName() {
+                return reviewerName;
+            }
+
+            public TextView getPostDate() {
+                return postDate;
+            }
+
+            public TextView getReviewContent() {
+                return reviewContent;
+            }
+
+            public RatingBar getRatingBar() {
+                return ratingBar;
             }
         }
     }

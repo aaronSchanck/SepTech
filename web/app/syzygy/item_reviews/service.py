@@ -97,7 +97,12 @@ class ItemReviewService:
         :rtype: ItemReview
         """
 
-        new_item_review = ItemReview()
+        new_item_review = ItemReview(
+            userid=new_attrs["userid"],
+            itemid=new_attrs["itemid"],
+            review_content=new_attrs["review_content"],
+            rating=new_attrs["rating"],
+        )
 
         db.session.add(new_item_review)
         db.session.commit()

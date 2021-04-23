@@ -125,10 +125,8 @@ public class ListingViewModel extends ViewModel {
                 }));
     }
 
-    public void getItem(int id) {
-        this.itemId = id;
-
-        mDisposables.add(itemRepo.getItemById(id)
+    public void getItemDetails(int id) {
+        mDisposables.add(itemRepo.getItemDetails(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Item>() {
@@ -211,7 +209,7 @@ public class ListingViewModel extends ViewModel {
     public MutableLiveData<Item> getItemLiveData() {
         if (itemLiveData == null) {
             itemLiveData = new MutableLiveData<>();
-            getItem(itemId);
+            getItemDetails(itemId);
         }
         return itemLiveData;
     }

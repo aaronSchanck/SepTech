@@ -18,7 +18,7 @@ import logging
 
 from marshmallow import Schema, fields
 
-from ..items.schema import ItemSchema
+from ..items.schema import ItemLightSchema
 
 log = logging.getLogger(__name__)
 
@@ -33,4 +33,4 @@ class WishlistItemSchema(Schema):
     created_at = fields.DateTime(dump_only=True)
     modified_at = fields.DateTime(dump_only=True)
 
-    item = fields.Nested(ItemSchema(), dump_only=True)
+    item = fields.Nested(ItemLightSchema(), dump_only=True)

@@ -72,9 +72,8 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
 
         checkoutBtn = view.findViewById(R.id.cartCheckoutBtn);
 
-        df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        df.setMinimumFractionDigits(0);
+        df = new DecimalFormat("0.00");
+        df.setMinimumFractionDigits(2);
         df.setGroupingUsed(false);
 
         return view;

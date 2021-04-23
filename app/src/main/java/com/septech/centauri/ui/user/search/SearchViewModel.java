@@ -44,7 +44,7 @@ public class SearchViewModel extends ViewModel {
         mDisposables = new CompositeDisposable();
 
         currentPage = 0;
-        pageSize = 20;
+        pageSize = 5;
     }
 
     public void searchItems() {
@@ -98,8 +98,7 @@ public class SearchViewModel extends ViewModel {
     public void lastPage() {
         currentPage -= 1;
 
-        itemsLiveData = new MutableLiveData<>();
-        imagesLiveData = new MutableLiveData<>();
+        imagesLiveData = null;
 
         searchItems();
     }
@@ -107,8 +106,7 @@ public class SearchViewModel extends ViewModel {
     public void nextPage() {
         currentPage += 1;
 
-        itemsLiveData = new MutableLiveData<>();
-        imagesLiveData = new MutableLiveData<>();
+        imagesLiveData = null;
 
         searchItems();
     }
@@ -157,7 +155,6 @@ public class SearchViewModel extends ViewModel {
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
         if (imagesLiveData == null) {
             imagesLiveData = new MutableLiveData<>();
-
             getImages(itemLiveDataToIdList());
         }
         return imagesLiveData;

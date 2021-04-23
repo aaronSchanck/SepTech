@@ -22,7 +22,7 @@ from .schema import CategorySchema
 from .service import CategoryService
 
 from ..items.model import Item
-from ..items.schema import ItemSchema
+from ..items.schema import ItemLightSchema
 
 api = Namespace("Category")
 log = logging.getLogger(__name__)

@@ -17,7 +17,7 @@ Functions:
 import logging
 
 from .model import Item
-from .schema import ItemSchema
+from .schema import ItemLightSchema, ItemFullSchema
 
 BASE_ROUTE = "items"
 
