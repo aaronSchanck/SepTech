@@ -98,11 +98,15 @@ public class SearchViewModel extends ViewModel {
     public void lastPage() {
         currentPage -= 1;
 
+        imagesLiveData = null;
+
         searchItems();
     }
 
     public void nextPage() {
         currentPage += 1;
+
+        imagesLiveData = null;
 
         searchItems();
     }
@@ -151,8 +155,8 @@ public class SearchViewModel extends ViewModel {
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
         if (imagesLiveData == null) {
             imagesLiveData = new MutableLiveData<>();
+            getImages(itemLiveDataToIdList());
         }
-        getImages(itemLiveDataToIdList());
         return imagesLiveData;
     }
 

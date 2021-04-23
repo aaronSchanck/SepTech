@@ -174,13 +174,14 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                     Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
                     adapter.setImages(images);
                     rvItems.setAdapter(adapter);
+                    callBackListener.hideLoadingIcon();
+                    rvItems.setVisibility(View.VISIBLE);
                 });
             } else {
                 rvItems.setAdapter(adapter);
+                callBackListener.hideLoadingIcon();
+                rvItems.setVisibility(View.VISIBLE);
             }
-            callBackListener.hideLoadingIcon();
-
-            rvItems.setVisibility(View.VISIBLE);
         });
     }
 

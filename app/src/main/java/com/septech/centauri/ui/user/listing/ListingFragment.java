@@ -267,8 +267,9 @@ public class ListingFragment extends Fragment {
             listingRatingScore.setText(res.getString(R.string.listing_rating_score_text,
                     df.format(rating)));
 
+            String reviewsFoundPlural = item.getReviews().size() == 1 ? "review" : "reviews";
             reviewsFoundTv.setText(res.getString(R.string.listing_reviews_found_text,
-                    item.getReviews().size()));
+                    item.getReviews().size(), reviewsFoundPlural));
 
             //add reviews adapter
 
