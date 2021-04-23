@@ -2,6 +2,7 @@ package com.septech.centauri.data.model.itemreview;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.septech.centauri.data.model.user.UserEntity;
 
 public class ItemReviewEntity {
     @SerializedName("id")
@@ -11,6 +12,10 @@ public class ItemReviewEntity {
     @SerializedName("userid")
     @Expose
     private int userid;
+
+    @SerializedName("user")
+    @Expose
+    private UserEntity user;
 
     @SerializedName("itemid")
     @Expose
@@ -46,6 +51,14 @@ public class ItemReviewEntity {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public int getItemid() {

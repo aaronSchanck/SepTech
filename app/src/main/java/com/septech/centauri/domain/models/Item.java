@@ -1,6 +1,9 @@
 package com.septech.centauri.domain.models;
 
+import org.jivesoftware.smack.util.StringUtils;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Item {
@@ -203,7 +206,12 @@ public class Item {
     }
 
     public String getDisplayablePrice() {
-        return "$" + getStringDollarPrice();
+        String dollarPrice = getStringDollarPrice();
+        if(dollarPrice.charAt(0) == '.') {
+            dollarPrice = "0" + dollarPrice;
+        }
+
+        return "$" + dollarPrice;
     }
 
     public List<ItemReview> getReviews() {
@@ -212,5 +220,16 @@ public class Item {
 
     public void setReviews(List<ItemReview> reviews) {
         this.reviews = reviews;
+    }
+
+    public float getAverageRating() {
+        float sum = 0f;
+
+        for (ItemReview review :
+                getReviews()) {
+            sum += review.getRating();
+        }
+
+        return sum/getReviews().size();
     }
 }

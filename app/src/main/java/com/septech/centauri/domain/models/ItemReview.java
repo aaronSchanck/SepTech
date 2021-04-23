@@ -4,6 +4,8 @@ public class ItemReview {
     private int id;
 
     private int userid;
+    private User user;
+
     private int itemid;
 
     private Float rating;
@@ -38,6 +40,14 @@ public class ItemReview {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getItemid() {

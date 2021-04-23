@@ -26,6 +26,7 @@ log = logging.getLogger(__name__)
 class ItemReviewSchema(Schema):
     id = fields.Number(dump_only=True)
     userid = fields.Number(required=True)
+    user = fields.Nested(UserSchema(), dump_only=True)
 
     itemid = fields.Number(required=True)
 

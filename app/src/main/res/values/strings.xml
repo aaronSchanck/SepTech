@@ -228,4 +228,6 @@
     <string name="cancel_or_return">%1$s Item</string>
     <string name="item_review_business_name_text">Sold By: %1$s</string>
     <string name="item_review_item_name_text">%1$s</string>
+    <string name="item_review_item_posted_date">Posted at: %1$s</string>
+    <string name="listing_reviews_found_text">%1$d reviews found.</string>
 </resources>
