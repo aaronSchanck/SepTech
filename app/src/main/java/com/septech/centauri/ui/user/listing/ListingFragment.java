@@ -256,8 +256,16 @@ public class ListingFragment extends Fragment {
 
             float rating = item.getAverageRating();
 
+
+
             listingRatingBar.setRating(rating);
-//            listingRatingScore.setText(new DecimalFormat("0.0").format(rating));
+
+            DecimalFormat df = new DecimalFormat("0.0");
+            df.setMinimumFractionDigits(1);
+            df.setMaximumFractionDigits(1);
+
+            listingRatingScore.setText(res.getString(R.string.listing_rating_score_text,
+                    df.format(rating)));
 
             reviewsFoundTv.setText(res.getString(R.string.listing_reviews_found_text,
                     item.getReviews().size()));

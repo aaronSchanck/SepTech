@@ -230,4 +230,5 @@
     <string name="item_review_item_name_text">%1$s</string>
     <string name="item_review_item_posted_date">Posted at: %1$s</string>
     <string name="listing_reviews_found_text">%1$d reviews found.</string>
+    <string name="listing_rating_score_text">%1$s out of 5</string>
 </resources>

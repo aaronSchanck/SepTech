@@ -208,9 +208,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
-                android:text="%1$f out of 5"
+                android:text="@string/listing_rating_score_text"
                 app:layout_constraintEnd_toEndOf="@+id/listingRatingBar"
-                app:layout_constraintHorizontal_bias="0.436"
                 app:layout_constraintStart_toStartOf="@+id/listingRatingBar"
                 app:layout_constraintTop_toBottomOf="@+id/listingRatingBar" />
 

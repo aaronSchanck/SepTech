@@ -223,6 +223,8 @@ public class Item {
     }
 
     public float getAverageRating() {
+        if(getReviews().size() == 0) return 0f;
+
         float sum = 0f;
 
         for (ItemReview review :
