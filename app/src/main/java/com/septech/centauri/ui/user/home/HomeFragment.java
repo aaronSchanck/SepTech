@@ -19,8 +19,10 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.help.HelpFragment;
+import com.septech.centauri.ui.user.orderhistory.OrderHistoryFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.cart.CartFragment;
+import com.septech.centauri.ui.user.viewhistory.ViewHistoryFragment;
 import com.septech.centauri.ui.user.wishlist.WishlistFragment;
 
 
@@ -118,30 +120,34 @@ public class HomeFragment extends Fragment {
         mWishListBtn.setOnClickListener(v -> {
             WishlistFragment fragment = WishlistFragment.newInstance();
 
-            getActivity().getSupportFragmentManager().beginTransaction()
+            requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, fragment)
                     .addToBackStack(null)
                     .commit();
         });
 
-        mOrdersBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("v = " + v);
-            }
+        mOrdersBtn.setOnClickListener(v -> {
+            OrderHistoryFragment fragment = OrderHistoryFragment.newInstance();
+
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentfragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
-        mViewHistoryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mViewHistoryBtn.setOnClickListener(v -> {
+            ViewHistoryFragment fragment = ViewHistoryFragment.newInstance();
 
-            }
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contentfragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         mHelpBtn.setOnClickListener(v -> {
             HelpFragment fragment = HelpFragment.newInstance();
 
-            getActivity().getSupportFragmentManager().beginTransaction()
+            requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, fragment)
                     .addToBackStack(null)
                     .commit();
