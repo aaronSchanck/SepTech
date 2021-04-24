@@ -95,7 +95,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/createItemButton"
+                    android:id="@+id/addlisting_create_btn"
                     style="@style/Widget.MaterialComponents.Button.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,13 +132,13 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="12dp"
-                    app:layout_constraintEnd_toStartOf="@+id/createItemButton"
+                    app:layout_constraintEnd_toStartOf="@+id/addlisting_create_btn"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/descriptionLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/itemDescriptionEditText"
+                        android:id="@+id/addlisting_item_desc_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Write a short description..."
@@ -227,17 +227,19 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
-                    android:id="@+id/ItemAddImageBox"
-                    android:layout_width="144dp"
-                    android:layout_height="144dp"
+                    android:id="@+id/addlisting_item_image_iv"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:contentDescription="@string/addimage"
+                    android:scaleType="centerCrop"
+                    android:background="#CCCCCC"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.902"
+                    app:layout_constraintHorizontal_bias="0.906"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.141"
-                    tools:srcCompat="@drawable/centauri_logo" />
+                    app:layout_constraintTop_toBottomOf="@+id/addListingHeader"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:srcCompat="@drawable/ic_image_foreground" />
 
                 <TextView
                     android:id="@+id/ItemQuantityLabel"
@@ -252,16 +254,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/itemQualityTextbox" />
 
                 <Button
-                    android:id="@+id/uploadImageButton"
+                    android:id="@+id/addlisting_upload_image_btn"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:text="Upload Images"
                     android:textSize="12sp"
                     app:icon="@drawable/ic_baseline_add_24"
-                    app:layout_constraintEnd_toEndOf="@+id/ItemAddImageBox"
-                    app:layout_constraintStart_toStartOf="@+id/ItemAddImageBox"
-                    app:layout_constraintTop_toBottomOf="@+id/ItemAddImageBox" />
+                    app:layout_constraintEnd_toEndOf="@+id/addlisting_item_image_iv"
+                    app:layout_constraintStart_toStartOf="@+id/addlisting_item_image_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/addlisting_item_image_iv" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/itemQualityTextbox"
@@ -274,7 +276,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/itemQualityTextView">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/itemQualityEditText"
+                        android:id="@+id/addlisting_item_quality_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="New, Used, etc."
@@ -323,7 +325,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/itemNameLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/itemNameEditText"
+                        android:id="@+id/addlisting_item_name_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
@@ -345,7 +347,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/ItemAddImageBox"
+                    app:layout_constraintEnd_toStartOf="@+id/addlisting_item_image_iv"
                     app:layout_constraintHorizontal_bias="0.418"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/addListingHeader"
@@ -365,7 +367,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/itemNameTextbox" />
 
                 <EditText
-                    android:id="@+id/editTextNumber"
+                    android:id="@+id/addlisting_item_quantity_et"
                     android:layout_width="128dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -411,7 +413,7 @@
                 <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/buyNowSwitch"
+                    android:id="@+id/addlisting_buynow_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="@string/buyNowSwitch"
@@ -419,7 +421,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.946"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/auctionSwitch"
+                    app:layout_constraintTop_toTopOf="@+id/addlisting_auction_switch"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -427,11 +429,11 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/buyNowSwitch"
+                    app:layout_constraintEnd_toEndOf="@+id/addlisting_buynow_switch"
                     app:layout_constraintTop_toBottomOf="@+id/textView15">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/buyoutPriceEditText"
+                        android:id="@+id/addlisting_buyout_price_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="$00.00"
@@ -451,10 +453,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner">
+                    app:layout_constraintTop_toBottomOf="@+id/addlisting_auction_length_spinner">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/startingBidEditText"
+                        android:id="@+id/addlisting_starting_bid_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="$00.00"
@@ -466,7 +468,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/auctionSwitch"
+                    android:id="@+id/addlisting_auction_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="@string/auctionSwitch"
@@ -475,7 +477,7 @@
                     app:layout_constraintHorizontal_bias="0.052"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.076" />
+                    app:layout_constraintVertical_bias="0.124" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/minBidTextbox"
@@ -489,7 +491,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/startingPriceTextbox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/minimumBidEditText"
+                        android:id="@+id/addlisting_min_bid_incre_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="$00.00"
@@ -508,7 +510,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/minBidTextbox"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/auctionSwitch"
+                    app:layout_constraintTop_toTopOf="@+id/addlisting_auction_switch"
                     app:layout_constraintVertical_bias="0.246"
                     app:srcCompat="@drawable/ic_line" />
 
@@ -520,8 +522,8 @@
                     android:text="@string/auction_length"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/auctionSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/auctionSwitch" />
+                    app:layout_constraintStart_toStartOf="@+id/addlisting_auction_switch"
+                    app:layout_constraintTop_toBottomOf="@+id/addlisting_auction_switch" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -554,14 +556,33 @@
                     app:layout_constraintEnd_toEndOf="@+id/buyPriceTextbox" />
 
                 <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/addlisting_auction_length_spinner"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="@+id/startingPriceTextbox"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/auctionSwitch"
+                    app:layout_constraintStart_toStartOf="@+id/addlisting_auction_switch"
                     app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <TextView
+                    android:id="@+id/textview99"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose One"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView5"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toTopOf="@+id/textview99"
+                    tools:layout_editor_absoluteX="13dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
