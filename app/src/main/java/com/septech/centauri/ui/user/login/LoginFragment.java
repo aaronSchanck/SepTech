@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.GuestUser;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.forgotpassword.ForgotPasswordEmailFragment;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.HomeActivity;
 import com.septech.centauri.ui.user.register.RegisterFragment;
 
@@ -49,6 +48,7 @@ public class LoginFragment extends Fragment {
 
         try {
             callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
@@ -114,16 +114,19 @@ public class LoginFragment extends Fragment {
         change will affect the UI as a result.
          */
         mViewModel.getResponseLiveData().observe(getViewLifecycleOwner(), loginResponse -> {
+            int duration = Toast.LENGTH_SHORT;
             switch (loginResponse) {
                 case PASSWORD_INCORRECT:
+                case NO_USER_FOUND_FOR_EMAIL:
+                    callBackListener.hideLoadingIcon();
+                    Toast.makeText(getActivity(), "Incorrect credentials", duration).show();
                     break;
                 case NO_INTERNET:
+                    callBackListener.hideLoadingIcon();
+                    Toast.makeText(getActivity(), "No connection to server", duration).show();
                     break;
                 case SEARCHING:
                     callBackListener.showLoadingIcon();
-                    break;
-                case NO_USER_FOUND_FOR_EMAIL:
-                    callBackListener.hideLoadingIcon();
                     break;
                 case USER_FOUND:
                     callBackListener.hideLoadingIcon();

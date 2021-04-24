@@ -2,9 +2,11 @@ package com.septech.centauri.data.net;
 
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.itemreview.ItemReviewEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.wishlist.WishlistEntity;
+import com.septech.centauri.data.model.wishlistitem.WishlistItemEntity;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.User;
 
@@ -129,13 +131,22 @@ public interface RestApi {
     Single<OrderEntity> getUserCart(@Path("id") int id);
 
     @FormUrlEncoded
-    @POST("users/{id}/cart")
+    @POST("users/{id}/wishlist")
     Single<WishlistEntity> addToWishlist(@Path("id") int id, @Field("itemid") int itemid);
+
+    @GET("users/{id}/wishlist")
+    Single<WishlistEntity> getUserWishlist(@Path("id") int id);
+
+    @GET("users/{id}/wishlist/{itemid}")
+    Single<WishlistItemEntity> getUserWishlistItem(@Path("id") int id, @Path("itemid") int itemid);
 
     //ITEMS ENDPOINTS]
 
     @GET("items/{id}")
     Single<ItemEntity> getItemById(@Path("id") int id);
+
+    @GET("items/{id}/full")
+    Single<ItemEntity> getItemDetails(@Path("id") int id);
 
     @Multipart
     @POST("items/create")
@@ -164,6 +175,10 @@ public interface RestApi {
     @Streaming
     @GET("items/search/images/{id}")
     Observable<Response<ResponseBody>> getImages(@Path("id") int itemId);
+
+    @Headers("Content-Type: application/json")
+    @POST("items/review")
+    Single<ItemReviewEntity> addItemReview(@Body ItemReviewEntity itemReviewEntity);
 
     //BUSINESS ENDPOINTS
 

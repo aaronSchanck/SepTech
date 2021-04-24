@@ -1,10 +1,8 @@
 package com.septech.centauri.domain.models;
 
-import com.septech.centauri.data.model.orderitem.OrderItemEntity;
-
 import java.util.List;
 
-public class Order {
+public class Order extends GenericModel {
     private int id;
     private int userid;
     private boolean ordered;
@@ -70,6 +68,11 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }
 

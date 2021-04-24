@@ -10,16 +10,28 @@ public class WishlistItemDataMapper {
     public static WishlistItem transform(WishlistItemEntity wishlistItemEntity) {
         WishlistItem wishlistItem = new WishlistItem();
 
+        wishlistItem.setId(wishlistItemEntity.getId());
+        wishlistItem.setItemid(wishlistItemEntity.getItemid());
+        wishlistItem.setWishlistid(wishlistItemEntity.getWishlistid());
+        wishlistItem.setCreatedAt(wishlistItemEntity.getCreatedAt());
+        wishlistItem.setModifiedAt(wishlistItemEntity.getModifiedAt());
+
         return wishlistItem;
     }
 
     public static WishlistItemEntity transform(WishlistItem wishlistItem) {
         WishlistItemEntity wishlistItemEntity = new WishlistItemEntity();
 
+        wishlistItemEntity.setId(wishlistItem.getId());
+        wishlistItemEntity.setItemid(wishlistItem.getItemid());
+        wishlistItemEntity.setWishlistid(wishlistItem.getWishlistid());
+        wishlistItemEntity.setCreatedAt(wishlistItem.getCreatedAt());
+        wishlistItemEntity.setModifiedAt(wishlistItem.getModifiedAt());
+
         return wishlistItemEntity;
     }
 
-    public static List<WishlistItem> transformOrderItemEntityList(List<WishlistItemEntity> wishlistItemEntities) {
+    public static List<WishlistItem> transformWishlistItemEntityList(List<WishlistItemEntity> wishlistItemEntities) {
         List<WishlistItem> wishlistItems = new ArrayList<>();
 
         for (WishlistItemEntity wishlistItemEntity :
@@ -30,7 +42,7 @@ public class WishlistItemDataMapper {
         return wishlistItems;
     }
 
-    public static List<WishlistItemEntity> transformOrderItemList(List<WishlistItem> wishlistItems) {
+    public static List<WishlistItemEntity> transformWishlistItemList(List<WishlistItem> wishlistItems) {
         List<WishlistItemEntity> wishlistItemEntities = new ArrayList<>();
 
         for (WishlistItem wishlistItem :

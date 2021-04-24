@@ -1,8 +1,6 @@
 package com.septech.centauri.domain.models;
 
-import java.math.BigDecimal;
-
-public class OrderItem {
+public class OrderItem extends GenericModel {
     private int id;
 
     private int quantity;
@@ -81,5 +79,10 @@ public class OrderItem {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

@@ -5,6 +5,7 @@ import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.models.Wishlist;
+import com.septech.centauri.domain.models.WishlistItem;
 
 import java.util.Dictionary;
 import java.util.List;
@@ -105,4 +106,8 @@ public interface UserRepository {
     Single<Order> getUserCart(int user);
 
     Single<Wishlist> addToWishlist(User user, Item item);
+
+    Single<Wishlist> getUserWishlist(int user);
+
+    Single<WishlistItem> getUserWishlistItem(Integer userId, Integer itemId);
 }

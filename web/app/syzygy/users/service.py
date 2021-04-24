@@ -332,6 +332,8 @@ class UserService:
     def add_to_wishlist(id: int, itemid: int) -> (Wishlist, Response):
         wishlist = WishlistService.create_user_wishlist_if_not_exists(id)
 
+        print(wishlist)
+
         wishlist_item, response = WishlistItemService.wishlist_item_from_item(
             wishlist.id, itemid
         )

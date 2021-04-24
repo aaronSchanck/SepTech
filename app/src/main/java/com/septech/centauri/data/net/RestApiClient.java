@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.itemreview.ItemReviewEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
 import com.septech.centauri.data.model.wishlist.WishlistEntity;
+import com.septech.centauri.data.model.wishlistitem.WishlistItemEntity;
 import com.septech.centauri.domain.models.User;
 
 import java.util.List;
@@ -39,8 +41,8 @@ public class RestApiClient {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build();
 
@@ -99,6 +101,10 @@ public class RestApiClient {
 
     public Single<ItemEntity> getItemById(int id) {
         return restApi.getItemById(id);
+    }
+
+    public Single<ItemEntity> getItemDetails(int id) {
+        return restApi.getItemDetails(id);
     }
 
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
@@ -162,7 +168,19 @@ public class RestApiClient {
         return restApi.getUserCart(userId);
     }
 
-    public Single<WishlistEntity> addToWishlist(int userid, int itemid) {
-        return restApi.addToWishlist(userid, itemid);
+    public Single<WishlistEntity> addToWishlist(int userId, int itemid) {
+        return restApi.addToWishlist(userId, itemid);
+    }
+
+    public Single<WishlistEntity> getUserWishlist(int userId) {
+        return restApi.getUserWishlist(userId);
+    }
+
+    public Single<WishlistItemEntity> getUserWishlistItem(Integer userId, Integer itemId) {
+        return restApi.getUserWishlistItem(userId, itemId);
+    }
+
+    public Single<ItemReviewEntity> addItemReview(ItemReviewEntity itemReviewEntity) {
+        return restApi.addItemReview(itemReviewEntity);
     }
 }

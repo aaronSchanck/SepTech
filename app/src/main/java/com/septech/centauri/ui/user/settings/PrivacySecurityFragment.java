@@ -16,7 +16,7 @@ import com.septech.centauri.R;
 
 public class PrivacySecurityFragment extends Fragment {
 
-    private PrivacySecurityViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
     public static PrivacySecurityFragment newInstance() {
         return new PrivacySecurityFragment();
@@ -31,8 +31,8 @@ public class PrivacySecurityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(PrivacySecurityViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
+
     }
 
 }

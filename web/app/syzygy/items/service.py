@@ -34,6 +34,8 @@ from ..categories.model import Category
 from ..categories.service import CategoryService
 from .model import Item
 from .schema import ImageSchema
+from ..item_reviews.service import ItemReviewService
+from ..item_reviews.model import ItemReview
 
 log = logging.getLogger(__name__)
 
@@ -183,6 +185,35 @@ class ItemService:
     @staticmethod
     def get_item_stock(id: int):
         return ItemService.get_by_id(id).quantity
+
+    @staticmethod
+    def find_reviews(userid: int, itemid: int):
+        review = (
+            ItemReview.query.filter(ItemReview.itemid == itemid)
+            .filter(ItemReview.userid == userid)
+            .first()
+        )
+
+        return review
+
+    @staticmethod
+    def add_or_update_review(args: dict):
+        check_review = ItemService.find_reviews(args["userid"], args["itemid"])
+
+        print(check_review)
+
+        if check_review is None:
+            item_review = ItemReviewService.create(args)
+            response = NormalResponse("Review created", 200)
+        else:
+            data = {
+                "rating": args["rating"],
+                "review_content": args["review_content"],
+            }
+            item_review = ItemReviewService.update(check_review, data)
+            response = NormalResponse("Review updated", 200)
+
+        return item_review, response
 
     @staticmethod
     def transform(attrs: dict) -> dict:

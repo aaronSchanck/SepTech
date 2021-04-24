@@ -39,9 +39,11 @@ class Item(db.Model):
     sellerid = db.Column(db.Integer, db.ForeignKey("businesses.id"))
     seller = db.relationship("Business", backref="items")
 
+    # reviews
+    item_reviews = db.relationship("ItemReview", back_populates="item")
+
     # buyout data
     can_buy = db.Column(db.Boolean)
-
     price = db.Column(db.Integer())
 
     # bid data

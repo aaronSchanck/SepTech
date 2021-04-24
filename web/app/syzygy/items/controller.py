@@ -26,6 +26,8 @@ from pathlib import Path
 from typing import List
 import zipfile
 
+from flask import jsonify
+
 from marshmallow import fields
 
 import werkzeug
@@ -36,16 +38,22 @@ from flask_restx import Namespace, Resource, reqparse
 from libs.response import SchemaErrResponse
 
 from .model import Item
-from .schema import ImageSchema, ItemSchema, SearchSchema
+from .schema import ImageSchema, ItemLightSchema, ItemFullSchema, SearchSchema
 from .service import ItemService
+from ..item_reviews.schema import ItemReviewSchema
+from ..item_reviews.service import ItemReviewService
 
 from webargs.flaskparser import use_args, use_kwargs
 
 api = Namespace("Item")
 log = logging.getLogger(__name__)
 
-item_schema = ItemSchema()
-item_schema_many = ItemSchema(many=True)
+item_light_schema = ItemLightSchema()
+item_light_schema_many = ItemLightSchema(many=True)
+
+item_full_schema = ItemFullSchema()
+
+item_review_schema = ItemReviewSchema()
 
 image_schema = ImageSchema()
 
@@ -61,14 +69,14 @@ class ItemResource(Resource):
         [type]: [description]
     """
 
-    @responds(schema=ItemSchema(many=True))
+    @responds(schema=ItemLightSchema(many=True))
     def get(self):
         """Get all Items"""
 
         return ItemService.get_all()
 
-    @accepts(schema=ItemSchema, api=api)
-    @responds(schema=ItemSchema)
+    @accepts(schema=ItemLightSchema, api=api)
+    @responds(schema=ItemLightSchema)
     def post(self):
         """Create a Single Item"""
 
@@ -82,10 +90,10 @@ class ItemSearchResource(Resource):
         print(args)
 
         items = ItemService.search(
-            search_str="", filters={}, page=args["page"], page_size=20
+            search_str="", filters={}, page=args["page"], page_size=5
         )
 
-        return item_schema_many.dump(items)
+        return item_light_schema_many.dump(items)
 
 
 @api.route("/search/amount")
@@ -147,10 +155,10 @@ class ItemSearchQueryResource(Resource):
         print(search_str)
 
         items = ItemService.search(
-            search_str=search_str, filters={}, page=args["page"], page_size=20
+            search_str=search_str, filters={}, page=args["page"], page_size=5
         )
 
-        return item_schema_many.dump(items)
+        return item_light_schema_many.dump(items)
 
 
 @api.route("/search/<search_str>/amount")
@@ -167,7 +175,7 @@ class ItemSearchQueryAmountResource(Resource):
 @api.route("/<int:id>")
 @api.param("id", "Item database ID")
 class ItemIdResource(Resource):
-    @responds(schema=ItemSchema)
+    @responds(schema=ItemLightSchema)
     def get(self, id: int):
         """Get Single Item"""
 
@@ -180,8 +188,8 @@ class ItemIdResource(Resource):
         id = ItemService.delete_by_id(id)
         return jsonify(dict(status="Success", id=id))
 
-    @accepts(schema=ItemSchema, api=api)
-    @responds(schema=ItemSchema)
+    @accepts(schema=ItemLightSchema, api=api)
+    @responds(schema=ItemLightSchema)
     def put(self, id: int):
         """Update Single Item"""
 
@@ -196,13 +204,13 @@ class ItemCreateResource(Resource):
         dat = item_req.to_dict()["itemEntity"]
         obj = json.loads(dat)
 
-        item_vali = item_schema.validate(obj)
+        item_vali = item_light_schema.validate(obj)
 
         if item_vali:
             print(item_vali)
             return SchemaErrResponse(item_vali, 400)
 
-        item_data = item_schema.load(obj)
+        item_data = item_light_schema.load(obj)
 
         item = ItemService.create(item_data)
 
@@ -224,7 +232,7 @@ class ItemCreateResource(Resource):
 
         ItemService.update(item, updates)
 
-        return item_schema.dump(item)
+        return item_light_schema.dump(item)
 
 
 @api.route("/search/images/<int:id>")
@@ -255,3 +263,27 @@ class ItemImagesResource(Resource):
             as_attachment=True,
             attachment_filename=zip_filename,
         )
+
+
+@api.route("/<int:id>/full")
+@api.param("id", "Item database ID")
+class ItemIdDetailsResource(Resource):
+    def get(self, id: int):
+        """Get Single Item details"""
+
+        item = ItemService.get_by_id(id)
+
+        return jsonify(item_full_schema.dump(item))
+
+
+@api.route("/review")
+class ItemReviewResource(Resource):
+    @use_args(ItemReviewSchema())
+    def post(self, args):
+        """Create an item review endpoint"""
+
+        item_review, response = ItemService.add_or_update_review(args)
+
+        print(item_review_schema.dump(item_review))
+
+        print(jsonify(item_review_schema.dump(item_review), response.json))

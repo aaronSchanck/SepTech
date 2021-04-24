@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/about_page_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/about_page_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/about_page_label"
+            app:layout_constraintEnd_toStartOf="@+id/about_page_label"
+            app:layout_constraintTop_toTopOf="@+id/about_page_label" />
+
+        <TextView
+            android:id="@+id/about_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:text="About"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/about_page_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_about_foreground"
+            app:tint="@color/centauri_red"
+            app:layout_constraintBottom_toBottomOf="@+id/about_page_label"
+            app:layout_constraintStart_toEndOf="@+id/about_page_label"
+            app:layout_constraintTop_toTopOf="@+id/about_page_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/about_page_body_layout"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_page_top_layout">
+
+        <TextView
+            android:id="@+id/about_page_body_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="16dp"
+            android:text="Who We Are"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/about_page_body_text"
+            android:layout_width="347dp"
+            android:layout_height="406dp"
+            android:layout_marginTop="6dp"
+            android:text="Centauri is an ECommerce platform focused on customer and seller satisfaction alike. We give users the ability to buy and sell products from the touch of their phone. This gives users the freedom to choose from a large range of products, finding the product that fills their needs by using the filter widget to specify their needs. A user can also sell any product of their wishing at any quantity and set a buy out price, and if they wish set a starting bid price as well.  Centauri was developed by SepTech, a team of students from the University of Maine for educational purposes.  "
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/about_page_body_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/about_page_body_label"
+            app:layout_constraintTop_toBottomOf="@+id/about_page_body_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

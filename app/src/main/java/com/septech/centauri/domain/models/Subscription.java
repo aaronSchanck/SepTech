@@ -1,4 +1,8 @@
 package com.septech.centauri.domain.models;
 
-public class Subscription {
+public class Subscription extends GenericModel {
+    @Override
+    public void initTestData() {
+
+    }
 }

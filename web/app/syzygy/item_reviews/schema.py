@@ -26,10 +26,11 @@ log = logging.getLogger(__name__)
 class ItemReviewSchema(Schema):
     id = fields.Number(dump_only=True)
     userid = fields.Number(required=True)
-    user = fields.Nested(UserSchema())
+    user = fields.Nested(UserSchema(), dump_only=True)
+
     itemid = fields.Number(required=True)
 
-    rating = fields.Integer(required=True)
+    rating = fields.Number(required=True)
     review_content = fields.Str()
 
     created_at = fields.DateTime(dump_only=True)

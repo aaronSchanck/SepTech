@@ -9,28 +9,17 @@
         android:title="Search"/>
 
     <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="Favorite"
-        android:contentDescription="Favorite"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/switchAccounts"
         android:title="Switch Accounts"
-        android:contentDescription="More"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/settings"
         android:title="Settings"
-        android:contentDescription="More"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/logout"
         android:title="Logout"
-        android:contentDescription="More"
         app:showAsAction="never" />
-
 </menu>

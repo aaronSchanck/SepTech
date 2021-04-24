@@ -99,9 +99,6 @@ public class BusinessLoginActivity extends AppCompatActivity {
                     break;
                 case BUSINESS_FOUND:
                     mLoadingIcon.setVisibility(View.GONE);
-                    //TODO need activity to swap to
-//                    Intent intent = new Intent(this, BusinessHomeActivity.class);
-//                    startActivity(intent);
                     break;
             }
         });

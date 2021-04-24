@@ -23,3 +23,8 @@ log = logging.getLogger(__name__)
 
 class BidSchema(Schema):
     id = fields.Number(dump_only=True)
+
+    userid = fields.Integer()
+    itemid = fields.Integer()
+
+    bid_amount = fields.Integer()

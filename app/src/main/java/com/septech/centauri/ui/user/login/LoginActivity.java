@@ -2,8 +2,6 @@ package com.septech.centauri.ui.user.login;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -13,7 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
+import com.septech.centauri.ui.user.settings.SettingsViewModel;
 
 /**
  * An activity representing the login UI/UX for the app end-user. The page consists of fields for
@@ -28,6 +27,7 @@ import com.septech.centauri.ui.user.home.CallBackListener;
  */
 public class LoginActivity extends AppCompatActivity implements CallBackListener {
     private LoginViewModel mLoginViewModel;
+    private SettingsViewModel mSettingsViewModel;
 
     private ProgressBar mLoadingIcon;
 
@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
         setContentView(R.layout.activity_user_login);
 
         mLoginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mSettingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         mLoadingIcon = findViewById(R.id.loading_icon);
         hideLoadingIcon();
@@ -49,28 +50,6 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
                     .replace(R.id.user_login_content_fragment, fragment)
                     .commit();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -94,5 +73,10 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void initFragment() {
+        hideLoadingIcon();
     }
 }

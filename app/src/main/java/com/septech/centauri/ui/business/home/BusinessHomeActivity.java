@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Business;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 
 public class BusinessHomeActivity extends AppCompatActivity implements CallBackListener {
 
@@ -70,5 +70,10 @@ public class BusinessHomeActivity extends AppCompatActivity implements CallBackL
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void initFragment() {
+        hideLoadingIcon();
     }
 }

@@ -19,7 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.FilterViewModel;
 import com.septech.centauri.ui.user.listing.ListingFragment;
 
@@ -43,8 +43,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     private TextView searchAmountTextView;
 
     //timing variables
-//    private long searchStartTime;
-//    private long searchEndtime;
+
 
     //callback listener
     private CallBackListener callBackListener;
@@ -101,6 +100,8 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
 
         mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
 
+        callBackListener.showLoadingIcon();
+
         createButtonListeners();
         createLiveDataObservers();
 
@@ -153,7 +154,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
             }
 
             searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
-                    String.valueOf(integer), String.valueOf(0)));
+                    String.valueOf(integer), String.valueOf(mViewModel.getSearchTime())));
             updatePageArrows();
         });
 
@@ -174,13 +175,14 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                     Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
                     adapter.setImages(images);
                     rvItems.setAdapter(adapter);
+                    callBackListener.hideLoadingIcon();
+                    rvItems.setVisibility(View.VISIBLE);
                 });
             } else {
                 rvItems.setAdapter(adapter);
+                callBackListener.hideLoadingIcon();
+                rvItems.setVisibility(View.VISIBLE);
             }
-            callBackListener.hideLoadingIcon();
-
-            rvItems.setVisibility(View.VISIBLE);
         });
     }
 

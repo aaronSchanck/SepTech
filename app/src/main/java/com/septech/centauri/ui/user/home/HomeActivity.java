@@ -3,6 +3,7 @@ package com.septech.centauri.ui.user.home;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -35,9 +36,12 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.cart.CartFragment;
+import com.septech.centauri.ui.user.login.LoginActivity;
 import com.septech.centauri.ui.user.search.SearchFragment;
 import com.septech.centauri.ui.user.settings.SettingsFragment;
+import com.septech.centauri.ui.user.wishlist.WishlistFragment;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -323,6 +327,14 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
             } else if (itemId == R.id.bottom_notifications) {
                 System.out.println();
                 return true;
+            } else if (itemId == R.id.bottom_favorites) {
+                WishlistFragment fragment = WishlistFragment.newInstance();
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentfragment, fragment)
+                        .addToBackStack(null)
+                        .commit();
+                return true;
             } else if (itemId == R.id.bottom_cart) {
                 CartFragment cartFragment = CartFragment.newInstance();
 
@@ -400,8 +412,6 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                     .addToBackStack(null)
                     .commit();
             return true;
-        } else if (itemId == R.id.favorite) {
-            return true;
         } else if (itemId == R.id.switchAccounts) {
             return true;
         } else if (itemId == R.id.logout) {
@@ -413,7 +423,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                     })
                     .setNeutralButton("Cancel", null)
                     .setNegativeButton("This Session", (dialog, which) -> {
-
+                        Intent intent = new Intent(this, LoginActivity.class);
+                        startActivity(intent);
                     })
                     .setIcon(R.drawable.ic_baseline_warning_24)
                     .show();
@@ -424,7 +435,7 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
 
     @Override
     public void onBackPressed() {
-        hideLoadingIcon(); //in case left a search activity
+        hideLoadingIcon();
 
         FragmentManager fm = getFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
@@ -461,5 +472,10 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void initFragment() {
+        hideLoadingIcon();
     }
 }

@@ -1,5 +1,6 @@
 package com.septech.centauri.ui.user.forgotpassword;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.forgotpasswordcode.ForgotPasswordCodeFragment;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 
 public class ForgotPasswordEmailFragment extends Fragment {
     private ForgotPasswordEmailViewModel mViewModel;
@@ -25,6 +27,20 @@ public class ForgotPasswordEmailFragment extends Fragment {
     private EditText mEmailEditText;
 
     private Button mSubmitButton;
+
+    private CallBackListener callBackListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
+    }
 
     public static ForgotPasswordEmailFragment newInstance() {
         return new ForgotPasswordEmailFragment();
