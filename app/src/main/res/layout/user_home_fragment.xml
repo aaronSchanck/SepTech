@@ -14,10 +14,10 @@
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
-            android:id="@+id/homeWelcomeTextView"
+            android:id="@+id/home_welcome_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/home_welcome"
+            android:text="@string/home_welcome_text"
             android:textColor="@color/black"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,23 +27,20 @@
             app:layout_constraintVertical_bias=".05" />
 
         <TextView
-            android:id="@+id/homeWishListTextView"
+            android:id="@+id/home_wishlist_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:orientation="vertical"
             android:text="@string/wish_list"
-            android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/homeWishListBtn"
+            app:layout_constraintEnd_toEndOf="@+id/home_wishlist_btn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/homeWishListBtn"
-            app:layout_constraintTop_toBottomOf="@+id/homeWishListBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/home_wishlist_btn"
+            app:layout_constraintTop_toBottomOf="@+id/home_wishlist_btn" />
 
         <ImageButton
-            android:id="@+id/homeViewHistoryBtn"
+            android:id="@+id/home_view_history_btn"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
@@ -57,7 +54,7 @@
             app:layout_constraintVertical_bias="0.9" />
 
         <ImageButton
-            android:id="@+id/homeWishListBtn"
+            android:id="@+id/home_wishlist_btn"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
@@ -72,7 +69,7 @@
             app:layout_constraintVertical_bias="0.55" />
 
         <ImageButton
-            android:id="@+id/homeCartBtn"
+            android:id="@+id/home_cart_btn"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
@@ -86,7 +83,7 @@
             app:layout_constraintVertical_bias=".2" />
 
         <ImageButton
-            android:id="@+id/homeOrdersBtn"
+            android:id="@+id/home_orders_btn"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/ic_cart_background"
@@ -100,7 +97,7 @@
             app:layout_constraintVertical_bias="0.55" />
 
         <ImageButton
-            android:id="@+id/homeNeedHelpBtn"
+            android:id="@+id/home_need_help_btn"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/ic_person_background"
@@ -114,7 +111,7 @@
             app:layout_constraintVertical_bias="0.9" />
 
         <ImageButton
-            android:id="@+id/homeViewAllItemsBtn"
+            android:id="@+id/home_view_all_items_btn"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/ic_search_background"
@@ -135,43 +132,36 @@
             android:text="@string/view_history"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/homeViewHistoryBtn"
-            app:layout_constraintStart_toStartOf="@+id/homeViewHistoryBtn"
-            app:layout_constraintTop_toBottomOf="@+id/homeViewHistoryBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="@+id/home_view_history_btn"
+            app:layout_constraintStart_toStartOf="@+id/home_view_history_btn"
+            app:layout_constraintTop_toBottomOf="@+id/home_view_history_btn" />
 
         <TextView
-            android:id="@+id/homeHelpTextView"
+            android:id="@+id/home_need_help_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:text="@string/need_help"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/homeNeedHelpBtn"
+            app:layout_constraintEnd_toEndOf="@+id/home_need_help_btn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/homeNeedHelpBtn"
-            app:layout_constraintTop_toBottomOf="@+id/homeNeedHelpBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/home_need_help_btn"
+            app:layout_constraintTop_toBottomOf="@+id/home_need_help_btn" />
 
         <TextView
-            android:id="@+id/homeOrdersTextView"
+            android:id="@+id/home_orders_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/orders"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/homeOrdersBtn"
+            app:layout_constraintEnd_toEndOf="@+id/home_orders_btn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/homeOrdersBtn"
-            app:layout_constraintTop_toBottomOf="@+id/homeOrdersBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/home_orders_btn"
+            app:layout_constraintTop_toBottomOf="@+id/home_orders_btn" />
 
         <TextView
-            android:id="@+id/homeViewAllItemsTextView"
+            android:id="@+id/home_view_all_items_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ffffff"
@@ -179,15 +169,12 @@
             android:text="@string/view_all_items"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/homeViewAllItemsBtn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/homeViewAllItemsBtn"
-            app:layout_constraintTop_toBottomOf="@+id/homeViewAllItemsBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="@+id/home_view_all_items_btn"
+            app:layout_constraintStart_toStartOf="@+id/home_view_all_items_btn"
+            app:layout_constraintTop_toBottomOf="@+id/home_view_all_items_btn" />
 
         <TextView
-            android:id="@+id/homeCartTextView"
+            android:id="@+id/home_cart_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ffffff"
@@ -195,11 +182,9 @@
             android:text="@string/cart"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/homeCartBtn"
+            app:layout_constraintEnd_toEndOf="@+id/home_cart_btn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/homeCartBtn"
-            app:layout_constraintTop_toBottomOf="@+id/homeCartBtn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/home_cart_btn"
+            app:layout_constraintTop_toBottomOf="@+id/home_cart_btn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

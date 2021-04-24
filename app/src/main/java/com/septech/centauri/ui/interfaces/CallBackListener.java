@@ -1,8 +1,4 @@
-package com.septech.centauri.ui.user.home;
-
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
+package com.septech.centauri.ui.interfaces;
 
 public interface CallBackListener {
     void showLoadingIcon();
@@ -10,4 +6,6 @@ public interface CallBackListener {
     void hideLoadingIcon();
 
     void hideKeyboard();
+
+    void initFragment();
 }

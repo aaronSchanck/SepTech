@@ -1,4 +1,8 @@
 package com.septech.centauri.domain.models;
 
-public class UserReport {
+public class UserReport extends GenericModel {
+    @Override
+    public void initTestData() {
+
+    }
 }

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.GuestUser;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.user.forgotpassword.ForgotPasswordEmailFragment;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.HomeActivity;
 import com.septech.centauri.ui.user.register.RegisterFragment;
 
@@ -49,6 +48,7 @@ public class LoginFragment extends Fragment {
 
         try {
             callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }

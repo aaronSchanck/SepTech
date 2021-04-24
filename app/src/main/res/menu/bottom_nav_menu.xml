@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_notification_foreground"
         android:title="@string/bottom_notifications" />
     <item
+        android:id="@+id/bottom_favorites"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/bottom_favorites" />
+    <item
         android:id="@+id/bottom_cart"
         android:icon="@drawable/ic_cart_foreground"
         android:title="@string/bottom_cart" />

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.UserViewModel;
 
 import java.text.DecimalFormat;

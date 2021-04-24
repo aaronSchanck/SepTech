@@ -2,7 +2,7 @@ package com.septech.centauri.domain.models;
 
 import java.util.List;
 
-public class Wishlist {
+public class Wishlist extends GenericModel {
     private int id;
     private int userid;
     private List<WishlistItem> wishlistItems;
@@ -47,5 +47,10 @@ public class Wishlist {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

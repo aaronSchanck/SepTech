@@ -26,7 +26,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +34,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.models.WishlistItem;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.UserViewModel;
 import com.septech.centauri.ui.user.itemreview.ItemReviewFragment;
 

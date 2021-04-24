@@ -19,11 +19,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 
 public class RegisterFragment extends Fragment {
 

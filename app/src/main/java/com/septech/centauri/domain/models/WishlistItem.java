@@ -1,6 +1,6 @@
 package com.septech.centauri.domain.models;
 
-public class WishlistItem {
+public class WishlistItem extends GenericModel {
     private int id;
     private int itemid;
     private int wishlistid;
@@ -45,5 +45,10 @@ public class WishlistItem {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

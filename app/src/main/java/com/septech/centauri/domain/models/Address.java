@@ -1,6 +1,6 @@
 package com.septech.centauri.domain.models;
 
-public class Address {
+public class Address extends GenericModel {
     private int id;
     private String unit;
     private String building;
@@ -94,5 +94,10 @@ public class Address {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

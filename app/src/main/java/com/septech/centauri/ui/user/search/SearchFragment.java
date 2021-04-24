@@ -19,7 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.FilterViewModel;
 import com.septech.centauri.ui.user.listing.ListingFragment;
 
@@ -99,6 +99,8 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         mViewModel.setQuery(getArguments().getString("query"));
 
         mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
+
+        callBackListener.showLoadingIcon();
 
         createButtonListeners();
         createLiveDataObservers();

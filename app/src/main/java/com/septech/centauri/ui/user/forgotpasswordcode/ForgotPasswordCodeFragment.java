@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
 import com.septech.centauri.ui.user.forgotpassword.ForgotPasswordViewModel;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.forgotpasswordnew.ForgotPasswordNewFragment;
 
 public class ForgotPasswordCodeFragment extends Fragment {
@@ -40,6 +40,7 @@ public class ForgotPasswordCodeFragment extends Fragment {
 
         try {
             callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }

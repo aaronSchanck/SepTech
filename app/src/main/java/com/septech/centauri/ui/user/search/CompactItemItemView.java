@@ -27,7 +27,7 @@ class CompactItemItemView extends
 
     private Map<Integer, Uri> images;
 
-    private OnSearchItemListener onItemListener;
+    private final OnSearchItemListener onItemListener;
 
     public CompactItemItemView(OnSearchItemListener onItemListener, List<Item> mItems, Map<Integer, Uri> images) {
         this.onItemListener = onItemListener;
@@ -45,24 +45,23 @@ class CompactItemItemView extends
         View itemView = inflater.inflate(R.layout.user_search_item_fragment_compact, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(itemView, onItemListener);
-        return viewHolder;
+        return new ViewHolder(itemView, onItemListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = mItems.get(position);
 
-        ImageView imageView = holder.itemImageView;
+        ImageView imageView = holder.getItemImageView();
 
         imageView.setImageURI(images.get(item.getId()));
 
-        TextView nameTextView = holder.nameTextView;
+        TextView nameTextView = holder.getNameTextView();
         nameTextView.setText(item.getName());
 
-        TextView priceTextView = holder.priceTextView;
+        TextView priceTextView = holder.getPriceTextView();
 
-        ImageView checkMarkImage = holder.checkMarkImageView;
+        ImageView checkMarkImage = holder.getCheckMarkImageView();
         checkMarkImage.setVisibility(View.GONE);
 
         Resources res = getAppContext().getResources();
@@ -88,11 +87,11 @@ class CompactItemItemView extends
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        public TextView nameTextView;
-        public ImageView itemImageView;
-        public TextView priceTextView;
+        private TextView nameTextView;
+        private ImageView itemImageView;
+        private TextView priceTextView;
 
-        public ImageView checkMarkImageView;
+        private ImageView checkMarkImageView;
 
         private final OnSearchItemListener onSearchItemListener;
 
@@ -111,6 +110,22 @@ class CompactItemItemView extends
             itemView.setOnLongClickListener(this);
         }
 
+        public TextView getNameTextView() {
+            return nameTextView;
+        }
+
+        public ImageView getItemImageView() {
+            return itemImageView;
+        }
+
+        public TextView getPriceTextView() {
+            return priceTextView;
+        }
+
+        public ImageView getCheckMarkImageView() {
+            return checkMarkImageView;
+        }
+
         @Override
         public void onClick(View v) {
             onSearchItemListener.onItemClick(getBindingAdapterPosition());
@@ -119,6 +134,7 @@ class CompactItemItemView extends
         @Override
         public boolean onLongClick(View v) {
             onSearchItemListener.onItemLongClick(getBindingAdapterPosition());
+            checkMarkImageView.setVisibility(View.VISIBLE);
             return true;
         }
     }

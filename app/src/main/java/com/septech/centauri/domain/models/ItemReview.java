@@ -1,6 +1,6 @@
 package com.septech.centauri.domain.models;
 
-public class ItemReview {
+public class ItemReview extends GenericModel {
     private int id;
 
     private int userid;
@@ -88,5 +88,10 @@ public class ItemReview {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

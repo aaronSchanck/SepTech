@@ -2,8 +2,6 @@ package com.septech.centauri.ui.user.login;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -13,7 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.home.CallBackListener;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.settings.SettingsViewModel;
 
 /**
@@ -75,5 +73,10 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void initFragment() {
+        hideLoadingIcon();
     }
 }

@@ -40,6 +40,7 @@ public class LoginViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
+        super.onCleared();
         mDisposables.clear();
     }
 
