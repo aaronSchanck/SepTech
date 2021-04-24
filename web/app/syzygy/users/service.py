@@ -41,7 +41,6 @@ from ..wishlist.service import WishlistService
 from ..wishlist_items.service import WishlistItemService
 from ..view_history.model import ViewHistory
 from ..view_history.service import ViewHistoryService
-from ..view_history_items.service import ViewHistoryItemService
 from .model import User
 
 log = logging.getLogger(__name__)

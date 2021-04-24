@@ -19,7 +19,7 @@ import logging
 
 from marshmallow import Schema, fields
 
-from ..view_history_items.schema import ViewHistoryItemSchema
+from ..items.schema import ItemSchema
 
 log = logging.getLogger(__name__)
 
@@ -28,8 +28,11 @@ class ViewHistorySchema(Schema):
     id = fields.Number(dump_only=True)
 
     userid = fields.Number()
+    itemid = fields.Number(required=True)
 
-    view_history_items = fields.List(fields.Nested(ViewHistoryItemSchema), dump_only=True)
+    item = fields.Nested(ItemSchema(), dump_only=True)
 
     created_at = fields.DateTime(dump_only=True)
     modified_at = fields.DateTime(dump_only=True)
+
+

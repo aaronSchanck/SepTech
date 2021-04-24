@@ -21,6 +21,8 @@ from app import db
 
 from datetime import datetime
 
+from ..items.schema import ItemSchema
+
 log = logging.getLogger(__name__)
 
 
@@ -40,7 +42,8 @@ class ViewHistory(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
     user = db.relationship("User", back_populates="view_history")
 
-    view_history_items = db.relationship("ViewHistoryItem", back_populates="view_history")
+    itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
+    item = db.relationship("Item")
 
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
