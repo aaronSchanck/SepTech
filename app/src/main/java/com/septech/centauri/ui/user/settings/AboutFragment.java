@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.septech.centauri.R;
 
 public class AboutFragment extends Fragment {
 
-    private AboutViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
@@ -31,8 +32,8 @@ public class AboutFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AboutViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
+
     }
 
 }

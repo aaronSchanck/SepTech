@@ -43,8 +43,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     private TextView searchAmountTextView;
 
     //timing variables
-//    private long searchStartTime;
-//    private long searchEndtime;
+
 
     //callback listener
     private CallBackListener callBackListener;
@@ -153,7 +152,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
             }
 
             searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
-                    String.valueOf(integer), String.valueOf(0)));
+                    String.valueOf(integer), String.valueOf(mViewModel.getSearchTime())));
             updatePageArrows();
         });
 

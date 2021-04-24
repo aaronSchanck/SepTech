@@ -1,23 +1,17 @@
 package com.septech.centauri.ui.user.settings;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.septech.centauri.R;
-import com.septech.centauri.ui.user.search.SearchFragment;
 
 public class SettingsFragment extends Fragment {
 
@@ -41,14 +35,14 @@ public class SettingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_settings_main_fragment, container, false);
 
-        accountBtnVar=view.findViewById(R.id.accountBtn);
-        proximaBtnVar=view.findViewById(R.id.proximaBtn);
-        notificationBtnVar=view.findViewById(R.id.notificationsBtn);
-        appearenceBtnVar=view.findViewById(R.id.appearenceBtn);
-        privSecBtnVar=view.findViewById(R.id.securityBtn);
-        helpSupportBtnVar=view.findViewById(R.id.helpBtn);
-        locationBtnVar=view.findViewById(R.id.locationBtn);
-        aboutBtnVar=view.findViewById(R.id.aboutBtn);
+        accountBtnVar = view.findViewById(R.id.accountBtn);
+        proximaBtnVar = view.findViewById(R.id.proximaBtn);
+        notificationBtnVar = view.findViewById(R.id.notificationsBtn);
+        appearenceBtnVar = view.findViewById(R.id.appearenceBtn);
+        privSecBtnVar = view.findViewById(R.id.securityBtn);
+        helpSupportBtnVar = view.findViewById(R.id.helpBtn);
+        locationBtnVar = view.findViewById(R.id.locationBtn);
+        aboutBtnVar = view.findViewById(R.id.aboutBtn);
 
         return view;
     }
@@ -63,6 +57,8 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
 
         accountBtnVar.setOnClickListener(v -> {
             //TODO transition activity to fragment
@@ -89,7 +85,7 @@ public class SettingsFragment extends Fragment {
         });
 
         privSecBtnVar.setOnClickListener(v -> {
-            PrivacySecurityFragment fragment =  PrivacySecurityFragment.newInstance();
+            PrivacySecurityFragment fragment = PrivacySecurityFragment.newInstance();
             requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, fragment)
                     .addToBackStack(null)

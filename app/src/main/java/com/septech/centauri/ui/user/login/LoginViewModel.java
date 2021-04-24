@@ -8,11 +8,14 @@ import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
+import java.net.SocketTimeoutException;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 
 public class LoginViewModel extends ViewModel {
@@ -71,8 +74,15 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(LoginResponse.PASSWORD_INCORRECT);
-                        loginTries += 1;
+                        if(e instanceof NullPointerException) {
+                            responseLiveData.setValue(LoginResponse.NO_USER_FOUND_FOR_EMAIL);
+                            loginTries += 1;
+                        } else if(e instanceof HttpException) {
+                            responseLiveData.setValue(LoginResponse.PASSWORD_INCORRECT);
+                            loginTries += 1;
+                        } else if(e instanceof SocketTimeoutException) {
+                            responseLiveData.setValue(LoginResponse.NO_INTERNET);
+                        }
                     }
                 }));
     }

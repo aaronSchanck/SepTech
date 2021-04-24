@@ -114,16 +114,19 @@ public class LoginFragment extends Fragment {
         change will affect the UI as a result.
          */
         mViewModel.getResponseLiveData().observe(getViewLifecycleOwner(), loginResponse -> {
+            int duration = Toast.LENGTH_SHORT;
             switch (loginResponse) {
                 case PASSWORD_INCORRECT:
+                case NO_USER_FOUND_FOR_EMAIL:
+                    callBackListener.hideLoadingIcon();
+                    Toast.makeText(getActivity(), "Incorrect credentials", duration).show();
                     break;
                 case NO_INTERNET:
+                    callBackListener.hideLoadingIcon();
+                    Toast.makeText(getActivity(), "No connection to server", duration).show();
                     break;
                 case SEARCHING:
                     callBackListener.showLoadingIcon();
-                    break;
-                case NO_USER_FOUND_FOR_EMAIL:
-                    callBackListener.hideLoadingIcon();
                     break;
                 case USER_FOUND:
                     callBackListener.hideLoadingIcon();

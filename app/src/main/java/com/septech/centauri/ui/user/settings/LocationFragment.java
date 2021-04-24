@@ -16,7 +16,7 @@ import com.septech.centauri.R;
 
 public class LocationFragment extends Fragment {
 
-    private LocationViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
     public static LocationFragment newInstance() {
         return new LocationFragment();
@@ -31,8 +31,8 @@ public class LocationFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
+
     }
 
 }

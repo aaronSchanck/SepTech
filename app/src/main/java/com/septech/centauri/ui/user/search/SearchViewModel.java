@@ -36,6 +36,9 @@ public class SearchViewModel extends ViewModel {
     private Integer pageSize;
     private Integer currentPage;
 
+    private long searchStartTime;
+    private long searchEndtime;
+
     private final CompositeDisposable mDisposables;
 
     public SearchViewModel() {
@@ -45,6 +48,12 @@ public class SearchViewModel extends ViewModel {
 
         currentPage = 0;
         pageSize = 5;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        mDisposables.clear();
     }
 
     public void searchItems() {
@@ -75,8 +84,16 @@ public class SearchViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Integer>() {
                     @Override
+                    protected void onStart() {
+                        super.onStart();
+                        searchStartTime = System.currentTimeMillis();
+                    }
+
+                    @Override
                     public void onSuccess(@NonNull Integer integer) {
                         Log.i(TAG, "Search amount: " + integer);
+
+                        searchEndtime = System.currentTimeMillis();
 
                         searchAmountLiveData.setValue(integer);
                     }
@@ -186,5 +203,10 @@ public class SearchViewModel extends ViewModel {
 
     public Integer getPageSize() {
         return pageSize;
+    }
+
+    public double getSearchTime() {
+        Log.w("sd", String.valueOf(searchEndtime - searchStartTime));
+        return (searchEndtime - searchStartTime) / 1000.0;
     }
 }

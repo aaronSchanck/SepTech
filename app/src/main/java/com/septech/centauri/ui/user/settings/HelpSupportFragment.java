@@ -16,7 +16,7 @@ import com.septech.centauri.R;
 
 public class HelpSupportFragment extends Fragment {
 
-    private HelpSupportViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
     public static HelpSupportFragment newInstance() {
         return new HelpSupportFragment();
@@ -31,8 +31,8 @@ public class HelpSupportFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HelpSupportViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
+
     }
 
 }
