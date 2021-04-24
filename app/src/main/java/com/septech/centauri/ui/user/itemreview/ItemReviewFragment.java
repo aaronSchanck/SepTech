@@ -1,5 +1,6 @@
 package com.septech.centauri.ui.user.itemreview;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.ItemReview;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.home.UserViewModel;
 
 public class ItemReviewFragment extends Fragment {
@@ -34,6 +36,20 @@ public class ItemReviewFragment extends Fragment {
 
     private Button cancelBtn;
     private Button submitBtn;
+
+    private CallBackListener callBackListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
+    }
 
     public static ItemReviewFragment newInstance() {
         return new ItemReviewFragment();

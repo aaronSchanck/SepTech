@@ -22,12 +22,11 @@ import android.widget.EditText;
 
 import com.septech.centauri.R;
 import com.septech.centauri.ui.interfaces.CallBackListener;
+import com.septech.centauri.ui.user.login.LoginFragment;
 
 public class RegisterFragment extends Fragment {
 
     private RegisterViewModel mViewModel;
-
-    private CallBackListener callBackListener;
 
     private EditText mFNameEditText;
     private EditText mEmailEditText;
@@ -39,9 +38,7 @@ public class RegisterFragment extends Fragment {
 
     private Button mCreateAccountBtn;
 
-    public static RegisterFragment newInstance() {
-        return new RegisterFragment();
-    }
+    private CallBackListener callBackListener;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -49,9 +46,14 @@ public class RegisterFragment extends Fragment {
 
         try {
             callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
+    }
+
+    public static RegisterFragment newInstance() {
+        return new RegisterFragment();
     }
 
     @Override
@@ -146,6 +148,13 @@ public class RegisterFragment extends Fragment {
                     break;
                 case SUCCESS:
                     callBackListener.hideLoadingIcon();
+                    LoginFragment fragment = LoginFragment.newInstance();
+
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentfragment, fragment)
+                            .addToBackStack(null)
+                            .commit();
+
                     break;
             }
         });

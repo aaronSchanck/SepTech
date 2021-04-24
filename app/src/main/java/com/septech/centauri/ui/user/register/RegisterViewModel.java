@@ -43,17 +43,7 @@ public class RegisterViewModel extends ViewModel {
         PasswordUtils pwUtils = new PasswordUtils(password);
         String pwHash = pwUtils.hash();
 
-        User user = new User();
-
-        user.setEmail(email);
-        user.setPassword(pwHash);
-        user.setFullName(fullName);
-        user.setPhoneNumber(phoneNumber);
-        user.setPasswordSalt(pwUtils.getSalt());
-
-        user.setCreatedAt(DateTime.nowDateTime());
-        user.setModifiedAt(DateTime.nowDateTime());
-        user.setDateOfBirth(dob);
+        User user = new User(email, pwHash, pwUtils.getSalt(), fullName, dob, phoneNumber);
 
         mDisposables.add(userRepo.createAccount(user)
                 .subscribeOn(Schedulers.io())

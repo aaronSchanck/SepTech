@@ -33,14 +33,14 @@ public class LoginFragment extends Fragment {
 
     private LoginViewModel mViewModel;
 
-    private CallBackListener callBackListener;
-
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
 
     private Button mLoginButton;
     private Button mCreateAccountBtn;
     private Button mForgotPasswordBtn;
+
+    private CallBackListener callBackListener;
 
     @Override
     public void onAttach(@NonNull Context context) {

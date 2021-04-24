@@ -1,27 +1,31 @@
 package com.septech.centauri.ui.business.addlisting;
 
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,13 +38,16 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.ui.business.home.BusinessViewModel;
+import com.septech.centauri.ui.interfaces.CallBackListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.septech.centauri.data.utils.ImagePath.getPathFromUri;
 
 public class AddListingFragment extends Fragment {
+    private static final int PICK_IMAGE = 100;
 
     private AddListingViewModel mViewModel;
     private BusinessViewModel mBusinessViewModel;
@@ -49,17 +56,19 @@ public class AddListingFragment extends Fragment {
     private TextInputLayout minimumBidTextInput;
     private TextInputLayout buyoutPriceTextInput;
 
-    private TextInputEditText itemNameEditText;
-    private TextInputEditText itemQualityEditText;
-    private TextInputEditText itemQuantityEditText;
-    private TextInputEditText startingBidEditText;
-    private TextInputEditText minimumBidEditText;
-    private TextInputEditText buyoutPriceEditText;
-    private TextInputEditText itemDescriptionEditText;
+    private EditText itemNameET;
+    private EditText itemQualityET;
+    private EditText itemQuantityET;
+    private EditText startingBidET;
+    private EditText minBidET;
+    private EditText buyoutPriceET;
+    private EditText itemDescriptionET;
 
     private Button uploadImageButton;
-    private ImageButton backArrowButton;
     private Button createItemButton;
+    private ImageButton backArrowButton;
+
+    private Spinner auctionLengthSpinner;
 
     private ImageView itemImageView;
 
@@ -67,12 +76,20 @@ public class AddListingFragment extends Fragment {
     private SwitchCompat buySwitch;
 
     private List<String> imagePaths;
-
     private boolean imagesSelected;
 
-    private static final int PICK_IMAGE = 100;
+    private CallBackListener callBackListener;
 
-    public AddListingFragment() {
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CallBackListener");
+        }
     }
 
     public static AddListingFragment newInstance() {
@@ -90,23 +107,26 @@ public class AddListingFragment extends Fragment {
         minimumBidTextInput = view.findViewById(R.id.minBidTextbox);
         buyoutPriceTextInput = view.findViewById(R.id.buyPriceTextbox);
 
-        itemNameEditText = view.findViewById(R.id.itemNameEditText);
-        itemQualityEditText = view.findViewById(R.id.itemQualityEditText);
-        itemQuantityEditText = view.findViewById(R.id.itemQuantityEditText);
+        itemNameET = view.findViewById(R.id.addlisting_item_name_et);
+        itemQualityET = view.findViewById(R.id.addlisting_item_quality_et);
+        itemQuantityET = view.findViewById(R.id.addlisting_item_quantity_et);
 
-        startingBidEditText = view.findViewById(R.id.startingBidEditText);
-        minimumBidEditText = view.findViewById(R.id.minimumBidEditText);
-        buyoutPriceEditText = view.findViewById(R.id.buyoutPriceEditText);
-        itemDescriptionEditText = view.findViewById(R.id.itemDescriptionEditText);
+        startingBidET = view.findViewById(R.id.addlisting_starting_bid_et);
+        minBidET = view.findViewById(R.id.addlisting_min_bid_incre_et);
+        buyoutPriceET = view.findViewById(R.id.addlisting_buyout_price_et);
+        itemDescriptionET = view.findViewById(R.id.addlisting_item_desc_et);
 
-        uploadImageButton = view.findViewById(R.id.uploadImageButton);
+        uploadImageButton = view.findViewById(R.id.addlisting_upload_image_btn);
         backArrowButton = view.findViewById(R.id.backArrow);
-        createItemButton = view.findViewById(R.id.createItemButton);
+        createItemButton = view.findViewById(R.id.addlisting_create_btn);
 
-        itemImageView = view.findViewById(R.id.ItemAddImageBox);
+        itemImageView = view.findViewById(R.id.addlisting_item_image_iv);
+        itemImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_image_foreground));
 
-        bidSwitch = view.findViewById(R.id.auctionSwitch);
-        buySwitch = view.findViewById(R.id.buyNowSwitch);
+        bidSwitch = view.findViewById(R.id.addlisting_auction_switch);
+        buySwitch = view.findViewById(R.id.addlisting_buynow_switch);
+
+        auctionLengthSpinner = view.findViewById(R.id.addlisting_auction_length_spinner);
 
         imagePaths = new ArrayList<>();
 
@@ -116,8 +136,9 @@ public class AddListingFragment extends Fragment {
 
         createSwitchListeners();
 
-        startingBidTextInput.setEnabled(false);
-        minimumBidTextInput.setEnabled(false);
+        bidSwitch.setChecked(true);
+        enableOrDisableBid(true);
+
         buyoutPriceTextInput.setEnabled(false);
 
         return view;
@@ -136,31 +157,53 @@ public class AddListingFragment extends Fragment {
             }
         });
 
+//        auctionLength
+
+        auctionLengthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("parent = " + parent + ", view = " + view + ", position = " + position + ", id = " + id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                System.out.println("parent = " + parent);
+            }
+        });
+
+        //create spinner choices
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(
+                requireActivity(),
+                android.R.layout.simple_list_item_1,
+                Arrays.asList("1 Day", "3 Days", "5 Days", "7 Days",
+                        "14 Days"));
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        auctionLengthSpinner.setAdapter(dataAdapter);
+
         createItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = itemNameEditText.getText().toString();
-                String quality = itemQualityEditText.getText().toString();
-                int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
+                String name = itemNameET.getText().toString();
+                String quality = itemQualityET.getText().toString();
+                int quantity = Integer.parseInt(itemQuantityET.getText().toString());
 
                 boolean bid = bidSwitch.isChecked();
 
-//                String auctionLength = bid ? auctionLengthEditText.getText().toString() : null;
-                String startingBid = bid ? startingBidEditText.getText().toString() : null;
-                String minimumBid = bid ? minimumBidEditText.getText().toString() : null;
+                String startingBid = bid ? startingBidET.getText().toString() : null;
+                String minimumBid = bid ? minBidET.getText().toString() : null;
 
                 boolean buy = buySwitch.isChecked();
 
-                String buyoutPrice = buy ? buyoutPriceEditText.getText().toString() : null;
+                String buyoutPrice = buy ? buyoutPriceET.getText().toString() : null;
 
-                String itemDescription = itemDescriptionEditText.getText().toString();
+                String itemDescription = itemDescriptionET.getText().toString();
 
                 System.out.println("v = " + itemDescription);
 
-
                 mViewModel.createItem(mBusinessViewModel.getBusinessId(), name, quality, quantity, bid,
-                        buy,
-                        null, startingBid, minimumBid, buyoutPrice, "",
+                        buy, null, startingBid, minimumBid, buyoutPrice, "",
                         "", "", "", "", itemDescription, imagePaths);
             }
         });
@@ -197,12 +240,33 @@ public class AddListingFragment extends Fragment {
     }
 
     private void createSwitchListeners() {
-        bidSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            startingBidTextInput.setEnabled(isChecked);
-            minimumBidTextInput.setEnabled(isChecked);
+        bidSwitch.setOnClickListener(v -> {
+            boolean isChecked = bidSwitch.isChecked();
+
+            buySwitch.setChecked(!isChecked);
+
+            enableOrDisableBid(isChecked);
+            enableOrDisableBuy(!isChecked);
         });
 
-        buySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> buyoutPriceTextInput.setEnabled(isChecked));
+        buySwitch.setOnClickListener(v -> {
+            boolean isChecked = buySwitch.isChecked();
+
+            bidSwitch.setChecked(!isChecked);
+
+            enableOrDisableBuy(isChecked);
+            enableOrDisableBid(!isChecked);
+        });
+    }
+
+    private void enableOrDisableBid(boolean isChecked) {
+        auctionLengthSpinner.setEnabled(isChecked);
+        startingBidTextInput.setEnabled(isChecked);
+        minimumBidTextInput.setEnabled(isChecked);
+    }
+
+    private void enableOrDisableBuy(boolean isChecked) {
+        buyoutPriceTextInput.setEnabled(isChecked);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
