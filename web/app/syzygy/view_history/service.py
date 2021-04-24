@@ -1,7 +1,6 @@
 """/web/app/syzygy/view_history/service.py
 
-Author: Adam Green (adam.green1@maine.edu)
-        Ashley Drexler (ashley.drexler@maine.edu)
+Author: Ashley Drexler (ashley.drexler@maine.edu)
 
 [Description]
 
@@ -106,7 +105,7 @@ class ViewHistoryService:
 
     @staticmethod
     def get_user_active_view_history(userid: int) -> ViewHistory:
-        return ViewHistory.query.filter(ViewHistory.userid == userid).first()
+        return ViewHistory.query.filter(ViewHistory.userid == userid).all()
 
     def create_user_view_history_if_not_exists(userid: int) -> ViewHistory:
         view_history = ViewHistoryService.get_user_active_view_history(userid)

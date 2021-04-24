@@ -50,7 +50,7 @@ order_schema = OrderSchema()
 
 wishlist_schema = WishlistSchema()
 
-view_history_schema = ViewHistorySchema()
+view_history_schema = ViewHistorySchema(many=True)
 
 
 @api.route("/")
@@ -195,6 +195,25 @@ class UserWishlistResource(Resource):
             wishlist_schema.dump(wishlist) if response.status_code == 200 else response
         )
 
-"""
-TODO: view history resource
-"""
+@api.route("/<int:id>/view_history")
+@api.param("id", "User ID in database")
+class UserViewHistoryResource(Resource):
+    view_history_args = {"itemid": fields.Int(required=True)}
+
+    def get(self, userid: int):
+        view_history, response = UserService.get_all_by_id(userid)
+
+        return (
+            view_history_schema.dump(view_history) if response.status_code == 200 else response
+        )
+
+    @use_args(wishlist_args, location="form")
+    def post(self, args, id: int):
+        itemid = args["itemid"]
+
+        view_history, response = UserService.add_to_view_history(id, itemid)
+
+        return (
+            view_history_schema.dump(view_history) if response.status_code == 200 else response
+        )
+

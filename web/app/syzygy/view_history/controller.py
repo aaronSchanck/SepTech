@@ -1,7 +1,6 @@
 """/web/app/syzygy/view_history/controller.py
 
-Author: Adam Green (adam.green1@maine.edu)
-        Ashley Drexler (ashley.drexler@maine.edu)
+Author: Ashley Drexler (ashley.drexler@maine.edu)
 
 This file acts as the main router for the API. The main GET/POST/PUT/DELETE
 requests are written here. This also draws the swagger UI on the API for
