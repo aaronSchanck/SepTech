@@ -189,7 +189,7 @@ public class BusinessLoginActivity extends AppCompatActivity {
         System.out.println("business = " + business);
 
         Intent intent = new Intent(this, BusinessHomeActivity.class);
-        intent.putExtra("id", String.valueOf(business.getId()));
+        intent.putExtra("id", business.getId());
 
         startActivity(intent);
     }
