@@ -17,7 +17,7 @@
             android:id="@+id/home_welcome_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/home_welcome_text"
+            android:text="@string/welcome"
             android:textColor="@color/black"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
