@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
             public void onChanged(User user) {
                 if(user == null) return;
 
-                mWelcomeMessage.setText(getActivity().getResources().getString(R.string.home_welcome_text, user.getFirstName()));
+//                mWelcomeMessage.setText(getActivity().getResources().getString(R.string.home_welcome_text, user.getFirstName()));     // TODO: this doesn't work anymore
             }
         });
 
