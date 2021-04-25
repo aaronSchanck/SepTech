@@ -207,7 +207,7 @@ class UserViewHistoryResource(Resource):
             view_history_schema.dump(view_history) if response.status_code == 200 else response
         )
 
-    @use_args(wishlist_args, location="form")
+    @use_args(view_history_args, location="form")
     def post(self, args, id: int):
         itemid = args["itemid"]
 

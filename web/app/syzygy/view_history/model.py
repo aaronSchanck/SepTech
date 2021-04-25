@@ -21,7 +21,7 @@ from app import db
 
 from datetime import datetime
 
-from ..items.schema import ItemSchema
+from ..items.schema import ItemLightSchema
 
 log = logging.getLogger(__name__)
 
