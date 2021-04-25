@@ -39,6 +39,8 @@ public class ItemReviewDataMapper {
     }
 
     public static List<ItemReview> transformItemReviewEntityList(List<ItemReviewEntity> itemReviewEntityList) {
+        if(itemReviewEntityList == null) return new ArrayList<>();
+
         List<ItemReview> itemReviewList = new ArrayList<>();
 
         for (ItemReviewEntity review :
@@ -50,6 +52,8 @@ public class ItemReviewDataMapper {
     }
 
     public static List<ItemReviewEntity> transformItemReviewList(List<ItemReview> itemReviewList) {
+        if(itemReviewList == null) return new ArrayList<>();
+
         List<ItemReviewEntity> itemReviewEntityList = new ArrayList<>();
 
         for (ItemReview review :

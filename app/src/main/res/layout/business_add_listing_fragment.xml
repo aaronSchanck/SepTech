@@ -283,8 +283,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingTop="16dp"
-                        android:paddingBottom="8dp"
-                        android:textStyle="italic" />
+                        android:paddingBottom="8dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -366,17 +365,23 @@
                     app:layout_constraintStart_toStartOf="@+id/itemNameLabel"
                     app:layout_constraintTop_toBottomOf="@+id/itemNameTextbox" />
 
-                <EditText
-                    android:id="@+id/addlisting_item_quantity_et"
-                    android:layout_width="128dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:ems="10"
-                    android:inputType="number"
+                    android:layout_marginStart="24dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:layout_constraintBottom_toBottomOf="@+id/ItemQuantityLabel"
                     app:layout_constraintStart_toEndOf="@+id/ItemQuantityLabel"
-                    app:layout_constraintTop_toTopOf="@+id/ItemQuantityLabel"
-                    app:layout_constraintVertical_bias="0.619" />
+                    app:layout_constraintTop_toTopOf="@+id/ItemQuantityLabel">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addlisting_item_quantity_et"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -462,6 +467,7 @@
                         android:hint="$00.00"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
+                        android:textColor="#FFFFFF"
                         android:paddingTop="16dp"
                         android:paddingBottom="8dp"
                         android:textStyle="italic" />
