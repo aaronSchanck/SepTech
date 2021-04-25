@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
 //    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
+    private final String API_BASE_URL = "http://192.168.0.212:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
