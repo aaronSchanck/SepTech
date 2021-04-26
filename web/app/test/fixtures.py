@@ -3,12 +3,12 @@ import pytest
 from app import create_app
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app():
     return create_app("test")
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def db(app):
     from app import db
 
@@ -22,6 +22,6 @@ def db(app):
         db.session.commit()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def client(app, db):
     return app.test_client()

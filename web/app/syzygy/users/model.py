@@ -40,27 +40,27 @@ class User(db.Model):
     modified_at = db.Column(db.DateTime)
 
     # billing address information
-    billing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
-    billing_address = db.relationship(
-        "Address",
-        foreign_keys=billing_addressid,
-        backref="user_billaddr",
-        uselist=False,
-    )
+    # billing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
+    # billing_address = db.relationship(
+    #     "Address",
+    #     foreign_keys=billing_addressid,
+    #     backref="user_billaddr",
+    #     uselist=False,
+    # )
 
-    # mailing address information
-    mailing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
-    mailing_address = db.relationship(
-        "Address",
-        foreign_keys=mailing_addressid,
-        backref="user_mailaddr",
-        uselist=False,
-    )
+    # # # mailing address information
+    # mailing_addressid = db.Column(db.Integer, db.ForeignKey("addresses.id"))
+    # mailing_address = db.relationship(
+    #     "Address",
+    #     foreign_keys=mailing_addressid,
+    #     backref="user_mailaddr",
+    #     uselist=False,
+    # )
 
     # ban information
     banned = db.Column(db.Boolean)
     ban_end = db.Column(db.DateTime)
-    past_bans = db.relationship("UserBan")
+    # past_bans = db.relationship("UserBan")
 
     phone_number = db.Column(db.String(11))
     password_salt = db.Column(db.String(63))

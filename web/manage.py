@@ -21,7 +21,7 @@ from flask_script import Manager
 from commands.seed import SeedCommand
 from app.images import clear_syzygy_image_store
 
-env = os.getenv("FLASK_ENV") or "test"
+env = os.getenv("FLASK_ENV") or "dev"
 print(f"Active environment: * {env} *")
 app = create_app(env)
 
