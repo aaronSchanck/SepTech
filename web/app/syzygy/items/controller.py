@@ -228,9 +228,9 @@ class ItemCreateResource(Resource):
 
         images = ItemService.parse_images(item_images_path, request.files)
 
-        updates = {"images": images, "thumbnail": 0 if len(images) > 0 else -1}
+        # updates = {"images": images, "thumbnail": 0 if len(images) > 0 else -1}
 
-        ItemService.update(item, updates)
+        # ItemService.update(item, updates)
 
         return item_light_schema.dump(item)
 

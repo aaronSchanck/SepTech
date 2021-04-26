@@ -36,8 +36,6 @@ class Address(db.Model):
     address_code = db.Column(db.String(15))
     postal_code = db.Column(db.String(15))
 
-    # userid = db.Column(db.Integer, db.ForeignKey("users.id"))
-
     def __init__(self, **kwargs):
         super(Address, self).__init__(**kwargs)
 
