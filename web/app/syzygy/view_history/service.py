@@ -21,9 +21,11 @@ from typing import List
 from datetime import datetime
 
 from app import db
+from flask import Response
 from libs.response import ErrResponse, NormalResponse
 
 from .model import ViewHistory
+from app.syzygy.items.service import ItemService
 
 
 log = logging.getLogger(__name__)
@@ -102,6 +104,24 @@ class ViewHistoryService:
         db.session.commit()
 
         return new_order
+
+    @staticmethod
+    def add_view_history_item(
+        viewhistoryid: int, itemid: int
+    ) -> (ViewHistory, Response):
+
+        item = ItemService.get_by_id(itemid)
+
+        print(item)
+
+        view_history_items = {
+            "itemid": itemid,
+            "wishlistid": viewhistoryid,
+        }
+
+        view_history = ViewHistoryService.update(view_history_items)
+
+        return view_history, NormalResponse("Success", 200)
 
     @staticmethod
     def get_user_active_view_history(userid: int) -> ViewHistory:

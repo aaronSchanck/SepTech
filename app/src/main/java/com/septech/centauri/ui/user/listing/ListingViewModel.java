@@ -13,6 +13,7 @@ import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.ItemReview;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.domain.models.ViewHistory;
 import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.models.WishlistItem;
 import com.septech.centauri.domain.repository.BusinessRepository;
@@ -90,6 +91,24 @@ public class ListingViewModel extends ViewModel {
                     public void onSuccess(@NonNull Order order) {
                         System.out.println("order = " + order);
                         orderLiveData.setValue(order);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
+    public void addToViewHistory(Integer userId, Integer itemId) {
+        System.out.println("user = " + userId + ", item = " + itemId);
+        mDisposables.add(userRepo.addToViewHistory(userId, itemId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<ViewHistory>() {
+                    @Override
+                    public void onSuccess(@NonNull ViewHistory viewhistory) {
+                        System.out.println("view history = " + viewhistory);
                     }
 
                     @Override
