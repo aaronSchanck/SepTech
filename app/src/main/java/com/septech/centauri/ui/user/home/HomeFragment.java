@@ -27,19 +27,16 @@ import com.septech.centauri.ui.user.wishlist.WishlistFragment;
 
 
 public class HomeFragment extends Fragment {
-
     private UserViewModel mUserViewModel;
 
     private CallBackListener callBackListener;
 
     private ImageButton mViewItemsBtn;
-    private ImageButton mCartBtn;
-    private ImageButton mWishListBtn;
     private ImageButton mOrdersBtn;
+    private ImageButton mBidsBtn;
+    private ImageButton mOrderHistoryBtn;
     private ImageButton mViewHistoryBtn;
     private ImageButton mHelpBtn;
-
-    private TextView mWelcomeMessage;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -50,6 +47,7 @@ public class HomeFragment extends Fragment {
 
         try {
             callBackListener = (CallBackListener) context;
+            callBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
@@ -67,13 +65,11 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_home_fragment, container, false);
 
         mViewItemsBtn = view.findViewById(R.id.home_view_all_items_btn);
-        mCartBtn = view.findViewById(R.id.home_cart_btn);
-        mWishListBtn = view.findViewById(R.id.home_wishlist_btn);
-        mOrdersBtn = view.findViewById(R.id.home_orders_btn);
+        mOrdersBtn = view.findViewById(R.id.home_my_orders_btn);
+        mBidsBtn = view.findViewById(R.id.home_my_bids_btn);
+        mOrderHistoryBtn = view.findViewById(R.id.home_order_history_btn);
         mViewHistoryBtn = view.findViewById(R.id.home_view_history_btn);
         mHelpBtn = view.findViewById(R.id.home_need_help_btn);
-
-        mWelcomeMessage = view.findViewById(R.id.home_welcome_tv);
 
         return view;
     }
@@ -88,8 +84,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(User user) {
                 if(user == null) return;
-
-//                mWelcomeMessage.setText(getActivity().getResources().getString(R.string.home_welcome_text, user.getFirstName()));     // TODO: this doesn't work anymore
             }
         });
 
@@ -107,26 +101,16 @@ public class HomeFragment extends Fragment {
         });
 
         //TODO change button
-        mCartBtn.setOnClickListener(v -> {
-            CartFragment fragment = CartFragment.newInstance();
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentfragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
+        mOrdersBtn.setOnClickListener(v -> {
+            //TODO
         });
 
         //TODO also change button
-        mWishListBtn.setOnClickListener(v -> {
-            WishlistFragment fragment = WishlistFragment.newInstance();
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.contentfragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
+        mBidsBtn.setOnClickListener(v -> {
+            //TODO
         });
 
-        mOrdersBtn.setOnClickListener(v -> {
+        mOrderHistoryBtn.setOnClickListener(v -> {
             OrderHistoryFragment fragment = OrderHistoryFragment.newInstance();
 
             requireActivity().getSupportFragmentManager().beginTransaction()

@@ -103,3 +103,6 @@ class User(db.Model):
         self.modified_at = datetime.now()
 
         return self
+
+    def __eq__(self, other):
+        return isinstance(other, User) and self.id == other.id

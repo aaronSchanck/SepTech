@@ -39,7 +39,7 @@
     <string name="cart">Cart</string>
     <string name="orders">Orders</string>
     <string name="need_help">Need Help?</string>
-    <string name="home_welcome_text">Welcome %1$s</string>
+    <string name="home_welcome_text">Welcome</string>
     <string name="settings_search">Settings Search</string>
     <string name="searchLabel">search</string>
     <string name="accountBtn">Account</string>
