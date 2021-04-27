@@ -52,12 +52,12 @@ def test_delete_by_id(db: SQLAlchemy):  # noqa
 
 
 def test_create(db: SQLAlchemy):  # noqa
-    yin = dict(id=1, username="yin12345", email="yin12345@gmail.com", password=b"password", full_name="Yin", date_of_birth=date(1994,10,10), phone_number="0123456789", password_salt="test")
+    yin = dict(id=5, username="yin", email="yin@gmail.com", password="password", full_name="Yin", date_of_birth=date(1994,10,10), phone_number="0123456789", password_salt="test")
     UserService.create(yin)
     results: List[User] = User.query.all()
     print(results)
 
-    assert len(results) == 3
+    assert len(results) == 4
 
     for k in yin.keys():
-        assert getattr(results[0], k) == yin[k]
+        assert getattr(results[3], k) == yin[k]
