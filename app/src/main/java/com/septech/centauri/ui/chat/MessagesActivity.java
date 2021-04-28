@@ -201,8 +201,8 @@ public class MessagesActivity extends AppCompatActivity
 
                         if (from.equals(senderId)) {
                             messagesAdapter.addToStart(
-                                    new Message("liam@chat.septech.me",
-                                            new User("liam@chat.septech.me", "Liam", null),
+                                    new Message("test_user@chat.septech.me",
+                                            new User("test_user@chat.septech.me", "test", null),
                                             body.toString()),
                                     true);
                         } else {
