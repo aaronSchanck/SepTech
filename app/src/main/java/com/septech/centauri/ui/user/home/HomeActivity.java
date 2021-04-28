@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,8 +35,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.chat.models.Message;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.chat.ChatLoginActivity;
+import com.septech.centauri.ui.chat.MessagesActivity;
 import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.login.LoginActivity;
@@ -345,6 +349,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 return true;
             } else if (itemId == R.id.bottom_messages) {
                 System.out.println("item =  " + item);
+                Intent il = new Intent(this, MessagesActivity.class);
+                startActivity(il);
                 return true;
             }
             return false;

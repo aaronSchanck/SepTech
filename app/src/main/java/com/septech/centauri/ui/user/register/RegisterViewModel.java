@@ -1,5 +1,6 @@
 package com.septech.centauri.ui.user.register;
 
+import android.util.Log;
 import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
@@ -12,6 +13,14 @@ import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 import com.septech.centauri.lib.DateTime;
+import com.septech.centauri.ui.chat.ChatConnection;
+
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -58,6 +67,30 @@ public class RegisterViewModel extends ViewModel {
                     public void onSuccess(@NonNull User user) {
                         responseLiveData.setValue(RegisterResponse.SUCCESS);
                         System.out.println("user = " + user);
+
+/**
+                        // Register user on the chat server
+                        String jid = user.getEmail().replaceAll("[@.]", "") + "@chat.septech.me";
+
+                        Log.d(TAG, "jid: " + jid);
+                        com.septech.centauri.domain.chat.models.User newUser = new com.septech.centauri.domain.chat.models.User(
+                                "jid",
+                                user.getFullName(),
+                                null);
+
+                        Map<String, String> attributes = new HashMap<String, String>() {{
+                            put("name", user.getFullName());
+                            put("email", user.getEmail());
+                            put("date", user.getCreatedAt());
+                            put("dob", user.getDateOfBirth());
+                        }};
+
+                        try {
+                            ChatConnection.register(jid, user.getPassword(), attributes, newUser);
+                        } catch (IOException | XMPPException | SmackException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+ **/
                     }
 
                     @Override
