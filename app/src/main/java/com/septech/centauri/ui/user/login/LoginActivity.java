@@ -41,11 +41,26 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
         mSettingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         mLoadingIcon = findViewById(R.id.loading_icon);
-        hideLoadingIcon();
 
+        hideLoadingIcon();
         if(savedInstanceState == null) {
             LoginFragment fragment = LoginFragment.newInstance();
+        }
+    }
 
+    private void onSuccessfulLogin(User user) {
+        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFullName()),
+                Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("id", user.getId());
+        intent.putExtra("name", user.getFullName());
+
+        startActivity(intent);
+    }
+
+    private void onUnsuccessfulLogin() {
+        Toast.makeText(getApplicationContext(), "Incorrect login", Toast.LENGTH_SHORT).show();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.user_login_content_fragment, fragment)
                     .commit();

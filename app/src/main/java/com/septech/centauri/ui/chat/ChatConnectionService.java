@@ -25,6 +25,9 @@ public class ChatConnectionService extends Service {
     public static final String BUNDLE_MESSAGE_BODY = "b_body";
     public static final String BUNDLE_TO = "b_to";
 
+    public static final String NEW_MESSAGE = "com.septech.centauri.newmessage";
+    public static final String BUNDLE_FROM_JID = "b_from";
+
     public static ChatConnection.ConnectionState sConnectionState;
     public static ChatConnection.LoggedInState sLoggedInState;
 
