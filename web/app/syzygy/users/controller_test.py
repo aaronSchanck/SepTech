@@ -73,7 +73,6 @@ class TestUserResource:
                             full_name="name",
                             date_of_birth="2021-04-28")
             result = client.post(f"/api/{BASE_ROUTE}/", json=payload).get_json()
-            print("FUCK: ", payload["date_of_birth"])
             expected = (
                 UserSchema()
                 .dump(User(
