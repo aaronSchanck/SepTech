@@ -4,7 +4,6 @@ package com.septech.centauri.domain.repository;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
-import com.septech.centauri.domain.models.ViewHistory;
 import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.models.WishlistItem;
 
@@ -111,7 +110,4 @@ public interface UserRepository {
     Single<Wishlist> getUserWishlist(int user);
 
     Single<WishlistItem> getUserWishlistItem(Integer userId, Integer itemId);
-
-    Single<ViewHistory> addToViewHistory(Integer userId, Integer itemId);
-
 }

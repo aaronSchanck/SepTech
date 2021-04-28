@@ -349,24 +349,6 @@ class UserService:
         return wishlist, NormalResponse("Success", 200)
 
     @staticmethod
-    def add_to_view_history(id: int, itemid: int) -> (ViewHistory, Response):
-        viewhistory = ViewHistoryService.create_user_view_history_if_not_exists(id)
-
-        print(viewhistory)
-
-        viewhistory, response = ViewHistoryService.add_view_history_item(
-            viewhistory.id, itemid
-        )
-
-        return viewhistory, response
-
-    @staticmethod
-    def get_user_view_history(id: int) -> (ViewHistory, Response):
-        viewhistory = ViewHistoryService.create_user_view_history_if_not_exists(id)
-
-        return viewhistory, NormalResponse("Success", 200)
-
-    @staticmethod
     def transform(attrs: dict) -> dict:
         """Transforms the dict input for the object. Puts the information in a form that the model can use.
 

@@ -15,7 +15,6 @@ import com.septech.centauri.data.utils.PasswordUtils;
 import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
-import com.septech.centauri.domain.models.ViewHistory;
 import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.models.WishlistItem;
 import com.septech.centauri.domain.repository.UserRepository;
@@ -137,10 +136,5 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Single<WishlistItem> getUserWishlistItem(Integer userId, Integer itemId) {
         return restApiImpl.getUserWishlistItem(userId, itemId).map(WishlistItemDataMapper::transform);
-    }
-
-    @Override
-    public Single<ViewHistory> addToViewHistory(Integer userId, Integer itemId) {
-        return restApiImpl.addToViewHistory(userId, itemId);
     }
 }

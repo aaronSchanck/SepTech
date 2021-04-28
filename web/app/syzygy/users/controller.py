@@ -200,8 +200,8 @@ class UserWishlistResource(Resource):
 class UserViewHistoryResource(Resource):
     view_history_args = {"itemid": fields.Int(required=True)}
 
-    def get(self, id: int):
-        view_history, response = UserService.get_user_view_history(id)
+    def get(self, userid: int):
+        view_history, response = UserService.get_all_by_id(userid)
 
         return (
             view_history_schema.dump(view_history) if response.status_code == 200 else response

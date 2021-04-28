@@ -57,7 +57,6 @@ public class AddListingViewModel extends ViewModel {
                 categoryFive));
         newItem.setDescription(itemDescription);
 
-
         mDisposables.add(itemRepo.createItem(newItem, imagePaths)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

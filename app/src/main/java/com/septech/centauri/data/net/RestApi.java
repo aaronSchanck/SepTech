@@ -9,7 +9,6 @@ import com.septech.centauri.data.model.wishlist.WishlistEntity;
 import com.septech.centauri.data.model.wishlistitem.WishlistItemEntity;
 import com.septech.centauri.domain.models.Business;
 import com.septech.centauri.domain.models.User;
-import com.septech.centauri.domain.models.ViewHistory;
 
 import java.io.File;
 import java.util.Dictionary;
@@ -140,13 +139,6 @@ public interface RestApi {
 
     @GET("users/{id}/wishlist/{itemid}")
     Single<WishlistItemEntity> getUserWishlistItem(@Path("id") int id, @Path("itemid") int itemid);
-
-    @FormUrlEncoded
-    @POST("users/{id}/view_history")
-    Single<ViewHistory> addToViewHistory(@Path("id") int id, @Field("itemid") int itemid);
-
-    @GET("users/{id}/view_history")
-    Single<ViewHistory> getUserViewHistory(@Path("id") int id);
 
     //ITEMS ENDPOINTS]
 

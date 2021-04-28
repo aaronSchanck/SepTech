@@ -185,11 +185,6 @@ public class ListingFragment extends Fragment {
 
         mViewModel.setUserId(mUserViewModel.getUserId());
 
-        mViewModel.addToViewHistory(mViewModel.getUserId(), mViewModel.getItemId());
-        Log.e("USER ID", mViewModel.getUserId().toString());
-        Log.e("ITEM ID", mViewModel.getItemId().toString());
-
-
         createLiveDataObservers(savedInstanceState);
     }
 
