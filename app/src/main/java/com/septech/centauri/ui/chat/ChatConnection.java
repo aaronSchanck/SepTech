@@ -22,11 +22,14 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smackx.iqregister.AccountManager;
+import org.jivesoftware.smackx.offline.OfflineMessageManager;
 import org.jxmpp.jid.EntityBareJid;
 import org.jxmpp.jid.impl.JidCreate;
 import org.jxmpp.stringprep.XmppStringprepException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -39,6 +42,7 @@ public class ChatConnection implements ConnectionListener{
     private final String mServiceName = "chat.septech.me";
     private XMPPTCPConnection mConnection;
     private BroadcastReceiver uiThreadMessageReceiver;
+    private static ArrayList<User> users = new ArrayList<>();
 
 
     public static enum ConnectionState {
@@ -206,7 +210,7 @@ public class ChatConnection implements ConnectionListener{
         }
     }
 
-    public static void register(String username, String password, Map<String, String> attributes) throws IOException, XMPPException, SmackException, InterruptedException {
+    public static void register(String username, String password, Map<String, String> attributes, User user) throws IOException, XMPPException, SmackException, InterruptedException {
         XMPPTCPConnectionConfiguration conf = XMPPTCPConnectionConfiguration.builder()
                 .setXmppDomain("chat.septech.me")
                 .setHost("chat.septech.me")
@@ -219,6 +223,7 @@ public class ChatConnection implements ConnectionListener{
 
         AccountManager accountManager = AccountManager.getInstance(connection);
 
+        users.add(user);
 
         EntityBareJid jid = null;
         try {

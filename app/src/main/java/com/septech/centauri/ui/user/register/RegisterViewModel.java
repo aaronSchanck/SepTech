@@ -1,5 +1,6 @@
 package com.septech.centauri.ui.user.register;
 
+import android.util.Log;
 import android.util.Patterns;
 
 import androidx.lifecycle.MutableLiveData;
@@ -81,6 +82,30 @@ public class RegisterViewModel extends ViewModel {
                     public void onSuccess(@NonNull User user) {
                         responseLiveData.setValue(RegisterResponse.SUCCESS);
                         System.out.println("user = " + user);
+
+/**
+                        // Register user on the chat server
+                        String jid = user.getEmail().replaceAll("[@.]", "") + "@chat.septech.me";
+
+                        Log.d(TAG, "jid: " + jid);
+                        com.septech.centauri.domain.chat.models.User newUser = new com.septech.centauri.domain.chat.models.User(
+                                "jid",
+                                user.getFullName(),
+                                null);
+
+                        Map<String, String> attributes = new HashMap<String, String>() {{
+                            put("name", user.getFullName());
+                            put("email", user.getEmail());
+                            put("date", user.getCreatedAt());
+                            put("dob", user.getDateOfBirth());
+                        }};
+
+                        try {
+                            ChatConnection.register(jid, user.getPassword(), attributes, newUser);
+                        } catch (IOException | XMPPException | SmackException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+ **/
                     }
 
                     @Override
@@ -90,20 +115,6 @@ public class RegisterViewModel extends ViewModel {
                     }
                 })
         );
-
-        String jid = email.replace("@", "") + "@chat.septech.me";
-        Map<String, String> attributes = new HashMap<String, String>() {{
-            put("name", fullName);
-            put("email", email);
-            put("date", DateTime.nowDate());
-            put("dob", dob);
-        }};
-
-        try {
-            ChatConnection.register(jid, password, attributes);
-        } catch (IOException | XMPPException | SmackException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public MutableLiveData<RegisterFormState> getRegisterFormState() {

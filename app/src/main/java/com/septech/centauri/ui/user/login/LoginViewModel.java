@@ -1,5 +1,7 @@
 package com.septech.centauri.ui.user.login;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -7,6 +9,7 @@ import com.septech.centauri.R;
 import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
+import com.septech.centauri.ui.chat.ChatLogin;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -52,7 +55,7 @@ public class LoginViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void login(String email, String password) {
+    public void login(String email, String password, Context context) {
         mDisposables.add(userRepo.getUserByEmail(email)
                 .flatMap(user -> userRepo.login(email, password, user.getPasswordSalt()))
                 .subscribeOn(Schedulers.io())
@@ -67,6 +70,11 @@ public class LoginViewModel extends ViewModel {
                     public void onSuccess(@NonNull User user) {
                         responseLiveData.setValue(LoginResponse.USER_FOUND);
                         userLiveData.setValue(user);
+
+                        // Login to chat server
+                        String jid = user.getEmail().replaceAll("[@.]", "") + "@chat.septech.me";
+                        ChatLogin login = new ChatLogin("test_user@chat.septech.me", user.getFullName(),"test", context);
+                        login.saveCredentialsAndLogin();
                     }
 
                     @Override

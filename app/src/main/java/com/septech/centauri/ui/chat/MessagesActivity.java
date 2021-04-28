@@ -145,7 +145,6 @@ public class MessagesActivity extends AppCompatActivity
 
     @Override
     public boolean onSubmit(CharSequence input) {
-        // TODO
         if (ChatConnectionService.getState().equals(ChatConnection.ConnectionState.CONNECTED)) {
             Log.d(TAG, "Client is connected to server. Sending message.");
 
@@ -156,7 +155,6 @@ public class MessagesActivity extends AppCompatActivity
             sendBroadcast(intent);
             messagesAdapter.addToStart(new Message(senderId, new User(senderId, senderId, null), input.toString()), true);
         }
-        //messagesAdapter.addToStart(MessagesFixtures.getTextMessage(input.toString()), true);
         return true;
     }
 
@@ -202,7 +200,11 @@ public class MessagesActivity extends AppCompatActivity
                         CharSequence body = intent.getCharSequenceExtra(ChatConnectionService.BUNDLE_MESSAGE_BODY);
 
                         if (from.equals(senderId)) {
-                            // put message to screen
+                            messagesAdapter.addToStart(
+                                    new Message("liam@chat.septech.me",
+                                            new User("liam@chat.septech.me", "Liam", null),
+                                            body.toString()),
+                                    true);
                         } else {
                             Log.d(TAG, "Got a message from jid: " + from);
                         }

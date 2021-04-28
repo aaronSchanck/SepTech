@@ -33,6 +33,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.septech.centauri.R;
+import com.septech.centauri.domain.chat.models.Message;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.chat.ChatLoginActivity;
@@ -338,7 +339,7 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                 return true;
             } else if (itemId == R.id.bottom_messages) {
                 System.out.println("item =  " + item);
-                Intent il = new Intent(this, ChatLoginActivity.class);
+                Intent il = new Intent(this, MessagesActivity.class);
                 startActivity(il);
                 return true;
             }

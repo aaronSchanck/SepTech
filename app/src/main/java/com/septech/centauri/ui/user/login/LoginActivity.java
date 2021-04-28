@@ -79,7 +79,8 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordTextInput.getEditText().setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 mLoginViewModel.login(mUsernameTextInput.getEditText().getText().toString(),
-                        mPasswordTextInput.getEditText().getText().toString());
+                        mPasswordTextInput.getEditText().getText().toString(),
+                        this);
             }
             return false;
         });
@@ -178,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = mUsernameTextInput.getEditText().getText().toString();
             String password = mPasswordTextInput.getEditText().getText().toString();
 
-            mLoginViewModel.login(username, password);
+            mLoginViewModel.login(username, password, this);
         });
 
         /*

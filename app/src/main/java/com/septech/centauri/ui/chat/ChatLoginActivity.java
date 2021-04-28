@@ -103,7 +103,6 @@ public class ChatLoginActivity extends AppCompatActivity
             focusView.requestFocus();
         } else {
             //do login
-            //saveCredentialsAndLogin();
 
             ChatLogin login = new ChatLogin(mJidView.getText().toString(),
                     "Liam Blair",
@@ -122,21 +121,6 @@ public class ChatLoginActivity extends AppCompatActivity
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
-/**
-    private void saveCredentialsAndLogin() {
-        Log.d(TAG, "saveCredentialsAndLogin()");
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit()
-                .putString("xmpp_jid", mJidView.getText().toString())
-                .putString("xmpp_password", mPasswordView.getText().toString())
-                .putBoolean("xmpp_logged_in", true)
-                .apply();
-
-        //start service
-        Intent il = new Intent(this, ChatConnectionService.class);
-        startService(il);
-    }
- **/
 
     @Override
     protected void onPause() {
