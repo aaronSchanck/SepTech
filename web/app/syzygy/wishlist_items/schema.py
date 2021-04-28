@@ -18,12 +18,19 @@ import logging
 
 from marshmallow import Schema, fields
 
+from ..items.schema import ItemLightSchema
+
 log = logging.getLogger(__name__)
 
 
-class WishlistSchema(Schema):
+class WishlistItemSchema(Schema):
     id = fields.Number(dump_only=True)
 
     itemid = fields.Number()
 
-    wishlistid = fields.Number(dump_only=True)
+    wishlistid = fields.Number()
+
+    created_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)
+
+    item = fields.Nested(ItemLightSchema(), dump_only=True)

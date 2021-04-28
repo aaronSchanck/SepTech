@@ -1,6 +1,7 @@
 package com.septech.centauri.domain.repository;
 
 import com.septech.centauri.domain.models.Item;
+import com.septech.centauri.domain.models.ItemReview;
 
 import java.io.File;
 import java.util.List;
@@ -28,4 +29,8 @@ public interface ItemRepository {
     Single<Integer> getAmountInQuery(String query);
 
     Observable<Response<ResponseBody>> getImages(int itemId);
+
+    Single<Item> getItemDetails(int id);
+
+    Single<ItemReview> addItemReview(ItemReview itemReview);
 }

@@ -36,6 +36,9 @@ public class SearchViewModel extends ViewModel {
     private Integer pageSize;
     private Integer currentPage;
 
+    private long searchStartTime;
+    private long searchEndtime;
+
     private final CompositeDisposable mDisposables;
 
     public SearchViewModel() {
@@ -44,7 +47,13 @@ public class SearchViewModel extends ViewModel {
         mDisposables = new CompositeDisposable();
 
         currentPage = 0;
-        pageSize = 20;
+        pageSize = 5;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        mDisposables.clear();
     }
 
     public void searchItems() {
@@ -75,8 +84,16 @@ public class SearchViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Integer>() {
                     @Override
+                    protected void onStart() {
+                        super.onStart();
+                        searchStartTime = System.currentTimeMillis();
+                    }
+
+                    @Override
                     public void onSuccess(@NonNull Integer integer) {
                         Log.i(TAG, "Search amount: " + integer);
+
+                        searchEndtime = System.currentTimeMillis();
 
                         searchAmountLiveData.setValue(integer);
                     }
@@ -98,8 +115,7 @@ public class SearchViewModel extends ViewModel {
     public void lastPage() {
         currentPage -= 1;
 
-        itemsLiveData = new MutableLiveData<>();
-        imagesLiveData = new MutableLiveData<>();
+        imagesLiveData = null;
 
         searchItems();
     }
@@ -107,8 +123,7 @@ public class SearchViewModel extends ViewModel {
     public void nextPage() {
         currentPage += 1;
 
-        itemsLiveData = new MutableLiveData<>();
-        imagesLiveData = new MutableLiveData<>();
+        imagesLiveData = null;
 
         searchItems();
     }
@@ -157,7 +172,6 @@ public class SearchViewModel extends ViewModel {
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
         if (imagesLiveData == null) {
             imagesLiveData = new MutableLiveData<>();
-
             getImages(itemLiveDataToIdList());
         }
         return imagesLiveData;
@@ -189,5 +203,10 @@ public class SearchViewModel extends ViewModel {
 
     public Integer getPageSize() {
         return pageSize;
+    }
+
+    public double getSearchTime() {
+        Log.w("sd", String.valueOf(searchEndtime - searchStartTime));
+        return (searchEndtime - searchStartTime) / 1000.0;
     }
 }

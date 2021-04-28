@@ -2,8 +2,6 @@ package com.septech.centauri.ui.business.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
@@ -21,15 +19,9 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.Business;
-import com.septech.centauri.domain.models.GuestUser;
-import com.septech.centauri.domain.models.User;
+import com.septech.centauri.ui.business.forgotpassword.BusinessForgotPasswordActivity;
 import com.septech.centauri.ui.business.home.BusinessHomeActivity;
 import com.septech.centauri.ui.business.register.BusinessRegisterActivity;
-import com.septech.centauri.ui.user.forgotpassword.ForgotPasswordActivity;
-import com.septech.centauri.ui.user.home.HomeActivity;
-import com.septech.centauri.ui.user.login.LoginActivity;
-import com.septech.centauri.ui.user.login.LoginViewModel;
-import com.septech.centauri.ui.user.register.RegisterActivity;
 
 public class BusinessLoginActivity extends AppCompatActivity {
 
@@ -107,9 +99,6 @@ public class BusinessLoginActivity extends AppCompatActivity {
                     break;
                 case BUSINESS_FOUND:
                     mLoadingIcon.setVisibility(View.GONE);
-                    //TODO need activity to swap to
-//                    Intent intent = new Intent(this, BusinessHomeActivity.class);
-//                    startActivity(intent);
                     break;
             }
         });
@@ -188,7 +177,7 @@ public class BusinessLoginActivity extends AppCompatActivity {
         prompted to enter their email address in order to renew their password.
          */
         mForgotPasswordBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ForgotPasswordActivity.class);
+            Intent intent = new Intent(this, BusinessForgotPasswordActivity.class);
             startActivity(intent);
         });
     }
@@ -200,7 +189,7 @@ public class BusinessLoginActivity extends AppCompatActivity {
         System.out.println("business = " + business);
 
         Intent intent = new Intent(this, BusinessHomeActivity.class);
-        intent.putExtra("id", String.valueOf(business.getId()));
+        intent.putExtra("id", business.getId());
 
         startActivity(intent);
     }

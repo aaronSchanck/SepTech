@@ -24,7 +24,11 @@
     <style name="Theme.Centauri.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:editTextColor">@android:color/white</item>
+
+        <item name="android:editTextColor">@android:color/black</item>
+
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/text_black</item>
     </style>
 
     <style name="Theme.Centauri.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

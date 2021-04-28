@@ -20,6 +20,8 @@ from typing import List, Type
 
 log = logging.getLogger(__name__)
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 class BaseConfig:
     CONFIG_NAME = "base"
@@ -73,8 +75,7 @@ class TestingConfig(BaseConfig):
     TESTING = True
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     SQLALCHEMY_DATABASE_URI = (
-        os.getenv("DATABASE_URI")
-        or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
+        os.getenv("DATABASE_URI") or f"sqlite:///{basedir}/app-test.db"
     )
     UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}

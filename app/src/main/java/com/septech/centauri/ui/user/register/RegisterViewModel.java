@@ -31,21 +31,16 @@ import io.reactivex.schedulers.Schedulers;
 public class RegisterViewModel extends ViewModel {
     private static final String TAG = "RegisterViewModel";
 
-    private final MutableLiveData<RegisterFormState> mRegisterFormState = new MutableLiveData<>();
-    private final MutableLiveData<RegisterResponse> responseLiveData = new MutableLiveData<>();
+    private MutableLiveData<RegisterFormState> formState;
+    private MutableLiveData<RegisterResponse> responseLiveData;
 
     private final UserRepository userRepo;
 
-    private final CompositeDisposable mDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDisposables;
 
     public RegisterViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
-
-        mRegisterFormState.setValue(new RegisterFormState());
-    }
-
-    public MutableLiveData<RegisterResponse> getResponseLiveData() {
-        return responseLiveData;
+        mDisposables = new CompositeDisposable();
     }
     
     @Override
@@ -57,17 +52,7 @@ public class RegisterViewModel extends ViewModel {
         PasswordUtils pwUtils = new PasswordUtils(password);
         String pwHash = pwUtils.hash();
 
-        User user = new User();
-
-        user.setEmail(email);
-        user.setPassword(pwHash);
-        user.setFullName(fullName);
-        user.setPhoneNumber(phoneNumber);
-        user.setPasswordSalt(pwUtils.getSalt());
-
-        user.setCreatedAt(DateTime.nowDateTime());
-        user.setModifiedAt(DateTime.nowDateTime());
-        user.setDateOfBirth(dob);
+        User user = new User(email, pwHash, pwUtils.getSalt(), fullName, dob, phoneNumber);
 
         mDisposables.add(userRepo.createAccount(user)
                 .subscribeOn(Schedulers.io())
@@ -117,12 +102,43 @@ public class RegisterViewModel extends ViewModel {
         );
     }
 
+    public void checkUserExists(String email) {
+        mDisposables.add(userRepo.checkUserExists(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<String>() {
+                    @Override
+                    public void onSuccess(@NonNull String string) {
+                        responseLiveData.setValue(RegisterResponse.EMAIL_DOES_NOT_EXIST);
+                        System.out.println("user = " + string);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        responseLiveData.setValue(RegisterResponse.EMAIL_EXISTS);
+                        System.out.println("e = " + e);
+                    }
+                })
+        );
+    }
+
     public MutableLiveData<RegisterFormState> getRegisterFormState() {
-        return mRegisterFormState;
+        if(formState == null) {
+            formState = new MutableLiveData<>();
+            formState.setValue(new RegisterFormState());
+        }
+        return formState;
+    }
+
+    public MutableLiveData<RegisterResponse> getResponseLiveData() {
+        if(responseLiveData == null) {
+            responseLiveData = new MutableLiveData<>();
+        }
+        return responseLiveData;
     }
 
     public void onUpdateFullName(String fname) {
-        RegisterFormState registerFormState = mRegisterFormState.getValue();
+        RegisterFormState registerFormState = formState.getValue();
 
         assert registerFormState != null;
         registerFormState.setFullNameEdited(true);
@@ -134,11 +150,11 @@ public class RegisterViewModel extends ViewModel {
             registerFormState.checkDataValid();
         }
 
-        mRegisterFormState.setValue(registerFormState);
+        formState.setValue(registerFormState);
     }
 
     public void onUpdateEmail(String email) {
-        RegisterFormState registerFormState = mRegisterFormState.getValue();
+        RegisterFormState registerFormState = formState.getValue();
 
         assert registerFormState != null;
         registerFormState.setEmailEdited(true);
@@ -150,11 +166,11 @@ public class RegisterViewModel extends ViewModel {
             registerFormState.checkDataValid();
         }
 
-        mRegisterFormState.setValue(registerFormState);
+        formState.setValue(registerFormState);
     }
 
     public void onUpdatePassword(String password, String confirmPassword) {
-        RegisterFormState registerFormState = mRegisterFormState.getValue();
+        RegisterFormState registerFormState = formState.getValue();
 
         assert registerFormState != null;
         registerFormState.setPasswordEdited(true);
@@ -175,11 +191,11 @@ public class RegisterViewModel extends ViewModel {
             registerFormState.checkDataValid();
         }
 
-        mRegisterFormState.setValue(registerFormState);
+        formState.setValue(registerFormState);
     }
 
     public void onUpdateConfirmPassword(String confirmPassword, String password) {
-        RegisterFormState registerFormState = mRegisterFormState.getValue();
+        RegisterFormState registerFormState = formState.getValue();
 
         assert registerFormState != null;
         registerFormState.setConfirmPasswordEdited(true);
@@ -191,7 +207,7 @@ public class RegisterViewModel extends ViewModel {
             registerFormState.checkDataValid();
         }
 
-        mRegisterFormState.setValue(registerFormState);
+        formState.setValue(registerFormState);
     }
 
     public boolean isFullNameValid(String fullName) {
@@ -204,25 +220,5 @@ public class RegisterViewModel extends ViewModel {
 
     private boolean isConfirmPasswordValid(String confirmPassword, String password) {
         return confirmPassword.equals(password);
-    }
-
-    public void checkUserExists(String email) {
-        mDisposables.add(userRepo.checkUserExists(email)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<String>() {
-                    @Override
-                    public void onSuccess(@NonNull String string) {
-                        responseLiveData.setValue(RegisterResponse.EMAIL_DOES_NOT_EXIST);
-                        System.out.println("user = " + string);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        responseLiveData.setValue(RegisterResponse.EMAIL_EXISTS);
-                        System.out.println("e = " + e);
-                    }
-                })
-        );
     }
 }

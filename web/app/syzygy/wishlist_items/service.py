@@ -16,15 +16,16 @@ Functions:
 
 import json
 import logging
+from datetime import datetime
 from typing import List
 
-from datetime import datetime
-
 from app import db
+from flask import Response
 from libs.response import ErrResponse, NormalResponse
 
 from .model import WishlistItem
-
+from ..wishlist.model import Wishlist
+from ..items.service import ItemService
 
 log = logging.getLogger(__name__)
 
@@ -96,12 +97,49 @@ class WishlistItemService:
         :rtype: WishlistItem
         """
 
-        new_wishlist_item = WishlistItem()
+        new_wishlist_item = WishlistItem(
+            itemid=new_attrs["itemid"],
+            wishlistid=new_attrs["wishlistid"],
+        )
 
         db.session.add(new_wishlist_item)
         db.session.commit()
 
         return new_wishlist_item
+
+    @staticmethod
+    def wishlist_item_from_item(
+        wishlistid: int, itemid: int
+    ) -> (WishlistItem, Response):
+        wishlist_item = WishlistItemService.check_item_exists(wishlistid, itemid)
+
+        print(wishlist_item)
+
+        if wishlist_item is not None:
+            return None, ErrResponse("Item exists in wishlist", 400)
+
+        item = ItemService.get_by_id(itemid)
+
+        print(item)
+
+        wishlist_item_data = {
+            "itemid": itemid,
+            "wishlistid": wishlistid,
+        }
+
+        wishlist_item = WishlistItemService.create(wishlist_item_data)
+
+        return wishlist_item, NormalResponse("Success", 200)
+
+    @staticmethod
+    def check_item_exists(wishlistid: int, itemid: int):
+        wishlist_item = (
+            WishlistItem.query.filter(WishlistItem.wishlistid == wishlistid)
+            .filter(WishlistItem.itemid == itemid)
+            .first()
+        )
+
+        return wishlist_item
 
     @staticmethod
     def transform(attrs: dict) -> dict:

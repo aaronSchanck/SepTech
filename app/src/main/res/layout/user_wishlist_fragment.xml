@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.user.checkout.CheckoutFragment">
+    tools:context=".ui.user.wishlist.WishlistFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:paddingBottom="20dp"
             android:orientation="vertical">
 
-            <!-- Checkout Header -->
+            <!-- Wish List Header -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/wishlistHeader"
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <!-- End of Checkout Header -->
+            <!-- End of Wish List Header -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/itemsRecyclerView"

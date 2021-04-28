@@ -37,8 +37,10 @@ def create_app(env=None):
     global app
 
     app = Flask(__name__)
+
     app.config.from_object(config_by_name[env or "test"])
-    api = Api(app, title="Centauri API", version="0.3.0")
+
+    api = Api(app, title="Centauri API", version="0.5.0")
 
     path = setup_image_store()
 
@@ -47,8 +49,7 @@ def create_app(env=None):
     register_routes(api, app)
     db.init_app(app)
 
-    app.route("/", methods=["GET"])
-
+    @app.route("/health", methods=["GET"])
     def index():
         return jsonify("healthy")
 

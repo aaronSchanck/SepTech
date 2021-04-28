@@ -13,7 +13,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -39,7 +39,7 @@
     <string name="cart">Cart</string>
     <string name="orders">Orders</string>
     <string name="need_help">Need Help?</string>
-    <string name="home_welcome">Welcome %1$s</string>
+    <string name="home_welcome_text">Welcome</string>
     <string name="settings_search">Settings Search</string>
     <string name="searchLabel">search</string>
     <string name="accountBtn">Account</string>
@@ -202,8 +202,8 @@
     <string name="cart_quantity">QTY %1$d</string>
     <string name="cart_item_number">Item %1$s</string>
     <string name="cart_item_name">%1$s</string>
-    <string name="listingQuantityLeft">%1$d Left In Stock</string>
-    <string name="listing_price">Price: $%1$s ea.</string>
+    <string name="listingQuantityLeft">%1$d Left In Stock!</string>
+    <string name="listing_price">Price: %1$s ea.</string>
     <string name="listing_wishlist_text">Add to WishList</string>
     <string name="listing_cart_text">Add to Cart</string>
     <string name="business_profile_text">%1$s Profile</string>
@@ -225,4 +225,15 @@
     <string name="date_header_today">Today</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date_header_yesterday">Date header yesterday</string>
+    <string name="date_header_today">date header today</string>
+    <string name="listing_wishlist_added_text">Added to Wishlist!</string>
+    <string name="order_date">Order Placed: <b>%1$s</b></string>
+    <string name="cancel_or_return">%1$s Item</string>
+    <string name="item_review_business_name_text">Sold By: %1$s</string>
+    <string name="item_review_item_name_text">%1$s</string>
+    <string name="item_review_item_posted_date">Posted at: %1$s</string>
+    <string name="listing_reviews_found_text">%1$d %2$s found.</string>
+    <string name="listing_rating_score_text">%1$s out of 5</string>
+    <string name="bottom_favorites">Favorites</string>
 </resources>

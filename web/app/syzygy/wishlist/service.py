@@ -1,4 +1,4 @@
-"""/web/app/syzygy/orders/service.py
+"""/web/app/syzygy/wishlist/service.py
 
 Author: Adam Green (adam.green1@maine.edu)
 
@@ -96,7 +96,7 @@ class WishlistService:
         :rtype: Wishlist
         """
 
-        new_order = Wishlist()
+        new_order = Wishlist(userid=new_attrs["userid"])
 
         db.session.add(new_order)
         db.session.commit()
@@ -104,23 +104,19 @@ class WishlistService:
         return new_order
 
     @staticmethod
-    def get_user_active_order(userid: int) -> list:
-        return (
-            Wishlist.query.filter(Wishlist.userid == userid)
-            .filter(Wishlist.ordered == False)
-            .first()
-        )
+    def get_user_active_wishlist(userid: int) -> Wishlist:
+        return Wishlist.query.filter(Wishlist.userid == userid).first()
 
-    def create_user_cart_if_not_exists(userid: int) -> Wishlist:
-        order = WishlistService.get_user_active_order(userid)
+    def create_user_wishlist_if_not_exists(userid: int) -> Wishlist:
+        wishlist = WishlistService.get_user_active_wishlist(userid)
 
-        print(order)
+        print(wishlist)
 
-        if not order:
-            order_data = {"userid": userid, "ordered": False}
+        if not wishlist:
+            wishlist_data = {"userid": userid}
 
-            order = WishlistService.create(order_data)
-        return order
+            wishlist = WishlistService.create(wishlist_data)
+        return wishlist
 
     @staticmethod
     def transform(attrs: dict) -> dict:

@@ -96,12 +96,24 @@ class UserNotificationService:
         :rtype: UserNotification
         """
 
-        new_user_notification = UserNotification()
+        new_user_notification = UserNotification(
+            content=new_attrs["content"],
+            viewed=new_attrs["viewed"],
+        )
 
         db.session.add(new_user_notification)
         db.session.commit()
 
         return new_user_notification
+
+    @staticmethod
+    def create_user_notification(content: str):
+        notification_data = {
+            "content": content,
+            "viewed": False,
+        }
+
+        return UserNotificationService.create(notification_data)
 
     @staticmethod
     def transform(attrs: dict) -> dict:

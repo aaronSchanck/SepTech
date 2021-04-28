@@ -2,6 +2,7 @@ package com.septech.centauri.data.model.item.mapper;
 
 import com.septech.centauri.data.model.category.mapper.CategoryDataMapper;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.itemreview.mapper.ItemReviewDataMapper;
 import com.septech.centauri.domain.models.Item;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class ItemDataMapper {
         item.setCategory(CategoryDataMapper.transform(itemEntity.getCategory()));
         item.setDescription(itemEntity.getDescription());
 
+        item.setReviews(ItemReviewDataMapper.transformItemReviewEntityList(itemEntity.getReviews()));
+
         return item;
     }
 
@@ -52,6 +55,8 @@ public class ItemDataMapper {
         itemEntity.setQuality(item.getQuality());
         itemEntity.setCategory(CategoryDataMapper.transform(item.getCategory()));
         itemEntity.setDescription(item.getDescription());
+
+        itemEntity.setReviews(ItemReviewDataMapper.transformItemReviewList(item.getReviews()));
 
         return itemEntity;
     }

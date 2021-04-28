@@ -26,9 +26,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import List
 
-from ..orders.service import OrderService
-from ..order_items.service import OrderItemService
-
 import bcrypt
 from app import db
 from app.globals import *
@@ -36,7 +33,12 @@ from flask import Response
 from libs.auth import encrypt_pw
 from libs.response import ErrResponse, NormalResponse
 
+from ..order_items.service import OrderItemService
 from ..orders.model import Order
+from ..orders.service import OrderService
+from ..wishlist.model import Wishlist
+from ..wishlist.service import WishlistService
+from ..wishlist_items.service import WishlistItemService
 from .model import User
 
 log = logging.getLogger(__name__)
@@ -218,10 +220,7 @@ class UserService:
 
         UserService.send_password_code_email(user)
 
-        return NormalResponse(
-            "Healthy",
-            200,
-        )
+        return user
 
     @staticmethod
     def gen_unique_reset_code() -> str:
@@ -326,6 +325,26 @@ class UserService:
         order = OrderService.create_user_cart_if_not_exists(id)
 
         return order, NormalResponse("Success", 200)
+
+    @staticmethod
+    def add_to_wishlist(id: int, itemid: int) -> (Wishlist, Response):
+        wishlist = WishlistService.create_user_wishlist_if_not_exists(id)
+
+        print(wishlist)
+
+        wishlist_item, response = WishlistItemService.wishlist_item_from_item(
+            wishlist.id, itemid
+        )
+
+        print(wishlist_item, wishlist_item)
+
+        return wishlist, response
+
+    @staticmethod
+    def get_user_wishlist(id: int) -> (Wishlist, Response):
+        wishlist = WishlistService.create_user_wishlist_if_not_exists(id)
+
+        return wishlist, NormalResponse("Success", 200)
 
     @staticmethod
     def transform(attrs: dict) -> dict:

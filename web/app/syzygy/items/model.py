@@ -20,6 +20,7 @@ from app import db
 
 from datetime import datetime
 
+
 log = logging.getLogger(__name__)
 
 
@@ -39,9 +40,11 @@ class Item(db.Model):
     sellerid = db.Column(db.Integer, db.ForeignKey("businesses.id"))
     seller = db.relationship("Business", backref="items")
 
+    # reviews
+    item_reviews = db.relationship("ItemReview", back_populates="item")
+
     # buyout data
     can_buy = db.Column(db.Boolean)
-
     price = db.Column(db.Integer())
 
     # bid data
@@ -63,8 +66,8 @@ class Item(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
 
     thumbnail = db.Column(db.Integer)
-    images = db.Column(db.ARRAY(db.String))
-    item_variants = db.Column(db.ARRAY(db.Integer))  # array of itemid
+    # images = db.Column(db.ARRAY(db.String))
+    # item_variants = db.Column(db.ARRAY(db.Integer))  # array of itemid
     description = db.Column(db.Text())
     attributes = db.Column(db.JSON)
 

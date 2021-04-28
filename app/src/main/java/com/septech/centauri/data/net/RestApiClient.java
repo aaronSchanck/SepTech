@@ -4,8 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.septech.centauri.data.model.business.BusinessEntity;
 import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.data.model.itemreview.ItemReviewEntity;
 import com.septech.centauri.data.model.order.OrderEntity;
 import com.septech.centauri.data.model.user.UserEntity;
+import com.septech.centauri.data.model.wishlist.WishlistEntity;
+import com.septech.centauri.data.model.wishlistitem.WishlistItemEntity;
+import com.septech.centauri.domain.models.User;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
 //    private final String API_BASE_URL = "https://septech.me/api/";  // base url for our api
-    private final String API_BASE_URL = "http://192.168.0.24:5000/api/";  // base url for our api
+    private final String API_BASE_URL = "http://192.168.4.38:5000/api/";  // base url for our api
 
     private static RestApiClient instance;                          // singleton instance of class
     private RestApi restApi;                                        // retrofit instance of restapi
@@ -37,8 +41,8 @@ public class RestApiClient {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build();
 
@@ -99,6 +103,10 @@ public class RestApiClient {
         return restApi.getItemById(id);
     }
 
+    public Single<ItemEntity> getItemDetails(int id) {
+        return restApi.getItemDetails(id);
+    }
+
     public Single<ItemEntity> createItem(List<MultipartBody.Part> images, ItemEntity itemEntity) {
         MultipartBody.Part[] imagesArr = new MultipartBody.Part[images.size()];
 
@@ -136,7 +144,7 @@ public class RestApiClient {
         return restApi.getBusinessByEmail(email);
     }
 
-    public Single<String> forgotPassword(String email) {
+    public Single<UserEntity> forgotPassword(String email) {
         return restApi.forgotPassword(email);
     }
 
@@ -158,5 +166,21 @@ public class RestApiClient {
 
     public Single<OrderEntity> getUserCart(int userId) {
         return restApi.getUserCart(userId);
+    }
+
+    public Single<WishlistEntity> addToWishlist(int userId, int itemid) {
+        return restApi.addToWishlist(userId, itemid);
+    }
+
+    public Single<WishlistEntity> getUserWishlist(int userId) {
+        return restApi.getUserWishlist(userId);
+    }
+
+    public Single<WishlistItemEntity> getUserWishlistItem(Integer userId, Integer itemId) {
+        return restApi.getUserWishlistItem(userId, itemId);
+    }
+
+    public Single<ItemReviewEntity> addItemReview(ItemReviewEntity itemReviewEntity) {
+        return restApi.addItemReview(itemReviewEntity);
     }
 }

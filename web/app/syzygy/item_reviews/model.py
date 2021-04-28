@@ -29,12 +29,12 @@ class ItemReview(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     userid = db.Column(db.Integer, db.ForeignKey("users.id"))
-    user = db.relationship("User", backref="item_reviews")
+    user = db.relationship("User", back_populates="item_reviews")
 
     itemid = db.Column(db.Integer, db.ForeignKey("items.id"))
-    item = db.relationship("Item", backref="item_reviews")
+    item = db.relationship("Item", back_populates="item_reviews")
 
-    rating = db.Column(db.Integer)
+    rating = db.Column(db.Float)
 
     review_content = db.Column(db.String)
 
@@ -54,6 +54,3 @@ class ItemReview(db.Model):
         self.modified_at = datetime.now()
 
         return self
-
-    def __repr__(self):
-        pass

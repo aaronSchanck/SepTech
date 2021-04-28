@@ -1,6 +1,6 @@
 package com.septech.centauri.domain.models;
 
-public class Business {
+public class Business extends GenericModel {
     private int id;
     private String businessName;
     private String email;
@@ -112,5 +112,10 @@ public class Business {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

@@ -115,7 +115,6 @@ public class Zip {
                 e.printStackTrace();
             }
 
-            File extractedFile = new File(file.getAbsolutePath().replace(".zip", ""));
             if (!file.delete()) Log.w("unpackZip", "Failed to delete the zip file.");
             return Observable.just(uris);
         };
@@ -172,7 +171,6 @@ public class Zip {
                 e.printStackTrace();
             }
 
-            File extractedFile = new File(file.getAbsolutePath().replace(".zip", ""));
             if (!file.delete()) Log.w("unpackZip", "Failed to delete the zip file.");
             return Observable.just(uris);
         };

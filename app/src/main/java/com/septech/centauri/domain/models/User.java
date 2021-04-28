@@ -1,27 +1,55 @@
 package com.septech.centauri.domain.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-public class User {
+public class User extends GenericModel {
     private int id;
+
     private String username;
     private String email;
     private String password;
+    private String passwordSalt;
+
     private String fullName;
+
     private String dateOfBirth;
     private String phoneNumber;
-    private String passwordSalt;
+
+    private Integer mailingAddressId;
+    private Address mailingAddress;
+
+    private Integer billingAddressId;
+    private Address billingAddress;
+
     private String createdAt;
     private String modifiedAt;
+
     private String adminLevel;
 
     public User() {
-
     }
 
     public User(int id) {
         this.id = id;
+    }
+
+    public User(String email, String password, String passwordSalt, String fullName, String dateOfBirth, String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.passwordSalt = passwordSalt;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFirstName() {
+        int index = fullName.indexOf(' ');
+
+        return fullName.substring(0, index);
+    }
+
+    public String getLastName() {
+        int index = fullName.lastIndexOf(' ');
+
+        return index == fullName.length() ? "" : fullName.substring(index + 1);
     }
 
     public int getId() {
@@ -110,5 +138,42 @@ public class User {
 
     public void setAdminLevel(String adminLevel) {
         this.adminLevel = adminLevel;
+    }
+
+    public Integer getMailingAddressId() {
+        return mailingAddressId;
+    }
+
+    public void setMailingAddressId(Integer mailingAddressId) {
+        this.mailingAddressId = mailingAddressId;
+    }
+
+    public Address getMailingAddress() {
+        return mailingAddress;
+    }
+
+    public void setMailingAddress(Address mailingAddress) {
+        this.mailingAddress = mailingAddress;
+    }
+
+    public Integer getBillingAddressId() {
+        return billingAddressId;
+    }
+
+    public void setBillingAddressId(Integer billingAddressId) {
+        this.billingAddressId = billingAddressId;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

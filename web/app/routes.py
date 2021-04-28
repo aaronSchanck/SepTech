@@ -36,6 +36,8 @@ def register_routes(api, app, root="api"):
     from app.syzygy.user_bans import register_routes as attach_user_bans
     from app.syzygy.user_reports import register_routes as attach_user_reports
     from app.syzygy.users import register_routes as attach_users
+    from app.syzygy.wishlist import register_routes as attach_wishlist
+    from app.syzygy.wishlist_items import register_routes as attach_wishlist_items
 
     # Add routes
     attach_addresses(api, app)
@@ -54,3 +56,5 @@ def register_routes(api, app, root="api"):
     attach_user_bans(api, app)
     attach_user_reports(api, app)
     attach_users(api, app)
+    attach_wishlist(api, app)
+    attach_wishlist_items(api, app)

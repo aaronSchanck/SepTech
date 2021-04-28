@@ -1,14 +1,18 @@
 package com.septech.centauri.domain.models;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class Item {
+public class Item extends GenericModel {
     private Integer id;
     private String name;
     private Integer quantity;
     private String createdAt;
     private String updatedAt;
+
     private Integer sellerId;
+    private Business seller;
+
     private Long buyoutPrice;
     private Boolean canBuy;
 
@@ -26,8 +30,28 @@ public class Item {
     private String itemVariants;
     private String description;
 
+    private List<ItemReview> reviews;
+
     public Item() {
         //left empty
+    }
+
+    public Item(String name, Integer quantity, Integer sellerId, Long buyoutPrice, Boolean canBuy, Boolean canBid, String biddingEnds, Long startingBid, Long minBidIncrement, String quality, String description) {
+        this.name = name;
+        this.quantity = quantity;
+        this.quality = quality;
+
+        this.sellerId = sellerId;
+
+        this.canBuy = canBuy;
+        this.buyoutPrice = buyoutPrice;
+
+        this.canBid = canBid;
+        this.biddingEnds = biddingEnds;
+        this.startingBid = startingBid;
+        this.minBidIncrement = minBidIncrement;
+
+        this.description = description;
     }
 
     public Integer getId() {
@@ -76,6 +100,14 @@ public class Item {
 
     public void setSellerId(Integer sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public Business getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Business seller) {
+        this.seller = seller;
     }
 
     public Long getBuyoutPrice() {
@@ -200,6 +232,37 @@ public class Item {
     }
 
     public String getDisplayablePrice() {
-        return "$" + getStringDollarPrice();
+        String dollarPrice = getStringDollarPrice();
+        if (dollarPrice.charAt(0) == '.') {
+            dollarPrice = "0" + dollarPrice;
+        }
+
+        return "$" + dollarPrice;
+    }
+
+    public List<ItemReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ItemReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public float getAverageRating() {
+        if (getReviews().size() == 0) return 0f;
+
+        float sum = 0f;
+
+        for (ItemReview review :
+                getReviews()) {
+            sum += review.getRating();
+        }
+
+        return sum / getReviews().size();
+    }
+
+    @Override
+    public void initTestData() {
+
     }
 }

@@ -16,7 +16,7 @@ import com.septech.centauri.R;
 
 public class AppearenceFragment extends Fragment {
 
-    private AppearenceViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
     public static AppearenceFragment newInstance() {
         return new AppearenceFragment();
@@ -31,7 +31,7 @@ public class AppearenceFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AppearenceViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
         // TODO: Use the ViewModel
     }
 
