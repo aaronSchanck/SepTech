@@ -25,6 +25,7 @@ Classes:
 import logging
 from typing import List
 
+from flask import jsonify
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
