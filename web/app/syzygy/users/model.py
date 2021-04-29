@@ -81,6 +81,9 @@ class User(db.Model):
     # wishlist
     wishlist = db.relationship("Wishlist", back_populates="user", uselist=False)
 
+    # view history
+    view_history = db.relationship("ViewHistory", back_populates="user", uselist=False)
+
     # reviews
     item_reviews = db.relationship("ItemReview", back_populates="user")
 

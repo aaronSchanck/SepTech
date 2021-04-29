@@ -34,6 +34,7 @@ from webargs.flaskparser import use_args, use_kwargs
 
 from ..orders.schema import OrderSchema
 from ..wishlist.schema import WishlistSchema
+from ..view_history.schema import ViewHistorySchema
 from .model import User
 from .schema import UserSchema
 from .service import UserService
@@ -49,6 +50,8 @@ user_schema_many = UserSchema(many=True)
 order_schema = OrderSchema()
 
 wishlist_schema = WishlistSchema()
+
+view_history_schema = ViewHistorySchema(many=True)
 
 
 @api.route("/")
@@ -192,3 +195,26 @@ class UserWishlistResource(Resource):
         return (
             wishlist_schema.dump(wishlist) if response.status_code == 200 else response
         )
+
+@api.route("/<int:id>/view_history")
+@api.param("id", "User ID in database")
+class UserViewHistoryResource(Resource):
+    view_history_args = {"itemid": fields.Int(required=True)}
+
+    def get(self, userid: int):
+        view_history, response = UserService.get_all_by_id(userid)
+
+        return (
+            view_history_schema.dump(view_history) if response.status_code == 200 else response
+        )
+
+    @use_args(view_history_args, location="form")
+    def post(self, args, id: int):
+        itemid = args["itemid"]
+
+        view_history, response = UserService.add_to_view_history(id, itemid)
+
+        return (
+            view_history_schema.dump(view_history) if response.status_code == 200 else response
+        )
+
