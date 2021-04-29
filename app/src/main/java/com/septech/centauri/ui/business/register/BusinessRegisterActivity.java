@@ -70,7 +70,7 @@ public class BusinessRegisterActivity extends AppCompatActivity {
 
         addImageBtn = findViewById(R.id.business_creation_upload_image_Btn );
 
-        loadingIcon = findViewById(R.id.loading_icon);
+        loadingIcon = findViewById(R.id.user_login_loading_icon);
 
         loadingIcon.setVisibility(View.GONE);
 

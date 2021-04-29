@@ -151,7 +151,7 @@ public class RegisterFragment extends Fragment {
                     LoginFragment fragment = LoginFragment.newInstance();
 
                     requireActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.contentfragment, fragment)
+                            .replace(R.id.user_login_content_fragment, fragment)
                             .addToBackStack(null)
                             .commit();
 

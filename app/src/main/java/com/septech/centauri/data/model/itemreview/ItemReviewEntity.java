@@ -14,7 +14,7 @@ public class ItemReviewEntity {
     private int userid;
 
     @SerializedName("user")
-    @Expose
+    @Expose(serialize = false)
     private UserEntity user;
 
     @SerializedName("itemid")

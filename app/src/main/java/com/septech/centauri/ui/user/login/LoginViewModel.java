@@ -1,7 +1,9 @@
 package com.septech.centauri.ui.user.login;
 
+import android.app.Application;
 import android.content.Context;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -21,10 +23,12 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends AndroidViewModel {
     private static final String TAG = "LoginViewModel";
 
     private final int MAX_LOGIN_TRIES = 5;
+
+    private Application context;
 
     private int loginTries;
 
@@ -36,7 +40,8 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<LoginResponse> responseLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginFormState> loginFormStateLiveData = new MutableLiveData<>();
 
-    public LoginViewModel() {
+    public LoginViewModel(Application context) {
+        super(context);
         this.userRepo = UserRepositoryImpl.getInstance();
         this.loginTries = 0;
     }
@@ -59,12 +64,7 @@ public class LoginViewModel extends ViewModel {
         return loginFormStateLiveData;
     }
 
-    @Override
-    protected void onCleared() {
-        mDisposables.clear();
-    }
-
-    public void login(String email, String password, Context context) {
+    public void login(String email, String password) {
         mDisposables.add(userRepo.getUserByEmail(email)
                 .flatMap(user -> userRepo.login(email, password, user.getPasswordSalt()))
                 .subscribeOn(Schedulers.io())
@@ -82,7 +82,8 @@ public class LoginViewModel extends ViewModel {
 
                         // Login to chat server
                         String jid = user.getEmail().replaceAll("[@.]", "") + "@chat.septech.me";
-                        ChatLogin login = new ChatLogin("test_user@chat.septech.me", user.getFullName(),"test", context);
+                        ChatLogin login = new ChatLogin("test_user@chat.septech.me",
+                                user.getFullName(),"test", (Context) getApplication());
                         login.saveCredentialsAndLogin();
                     }
 

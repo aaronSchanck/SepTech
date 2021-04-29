@@ -51,7 +51,7 @@ public class BusinessLoginActivity extends AppCompatActivity {
         mCreateAccountBtn = findViewById(R.id.create_account_btn);
         mForgotPasswordBtn = findViewById(R.id.forgot_password_btn);
 
-        mLoadingIcon = findViewById(R.id.loading_icon);
+        mLoadingIcon = findViewById(R.id.user_login_loading_icon);
 
         mLoadingIcon.setVisibility(View.GONE);
 

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/loading_icon"
+        android:id="@+id/user_login_loading_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:elevation="10dp"

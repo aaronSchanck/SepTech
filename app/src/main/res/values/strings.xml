@@ -225,8 +225,6 @@
     <string name="date_header_today">Today</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="date_header_yesterday">Date header yesterday</string>
-    <string name="date_header_today">date header today</string>
     <string name="listing_wishlist_added_text">Added to Wishlist!</string>
     <string name="order_date">Order Placed: <b>%1$s</b></string>
     <string name="cancel_or_return">%1$s Item</string>

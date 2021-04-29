@@ -47,7 +47,7 @@
             android:hint="@string/password_hint"
             android:imeOptions="actionDone"
             android:selectAllOnFocus="true"
-            app:layout_constraintBottom_toTopOf="@+id/loading_icon"
+            app:layout_constraintBottom_toTopOf="@+id/user_login_loading_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.500"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ProgressBar
-            android:id="@+id/loading_icon"
+            android:id="@+id/user_login_loading_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:elevation="10dp"

@@ -225,8 +225,9 @@ public class LoginFragment extends Fragment {
         Toast.makeText(getActivity(), String.format("Welcome, %s!", user.getFullName()),
                 Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(requireActivity(), HomeActivity.class);
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
         intent.putExtra("id", user.getId());
+        intent.putExtra("name", user.getFullName());
 
         startActivity(intent);
     }

@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.septech.centauri.R;
 import com.septech.centauri.ui.interfaces.CallBackListener;
-import com.septech.centauri.ui.user.settings.SettingsViewModel;
 
 /**
  * An activity representing the login UI/UX for the app end-user. The page consists of fields for
@@ -27,7 +26,6 @@ import com.septech.centauri.ui.user.settings.SettingsViewModel;
  */
 public class LoginActivity extends AppCompatActivity implements CallBackListener {
     private LoginViewModel mLoginViewModel;
-    private SettingsViewModel mSettingsViewModel;
 
     private ProgressBar mLoadingIcon;
 
@@ -38,29 +36,13 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
         setContentView(R.layout.activity_user_login);
 
         mLoginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        mSettingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
-        mLoadingIcon = findViewById(R.id.loading_icon);
+        mLoadingIcon = findViewById(R.id.user_login_loading_icon);
 
         hideLoadingIcon();
         if(savedInstanceState == null) {
             LoginFragment fragment = LoginFragment.newInstance();
-        }
-    }
 
-    private void onSuccessfulLogin(User user) {
-        Toast.makeText(getApplicationContext(), String.format("Welcome, %s!", user.getFullName()),
-                Toast.LENGTH_LONG).show();
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("id", user.getId());
-        intent.putExtra("name", user.getFullName());
-
-        startActivity(intent);
-    }
-
-    private void onUnsuccessfulLogin() {
-        Toast.makeText(getApplicationContext(), "Incorrect login", Toast.LENGTH_SHORT).show();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.user_login_content_fragment, fragment)
                     .commit();
@@ -92,6 +74,7 @@ public class LoginActivity extends AppCompatActivity implements CallBackListener
 
     @Override
     public void initFragment() {
-        hideLoadingIcon();
+//        mLoadingIcon = findViewById(R.id.user_login_loading_icon);
+//        hideLoadingIcon();
     }
 }

@@ -41,6 +41,7 @@ import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.chat.ChatLoginActivity;
 import com.septech.centauri.ui.chat.MessagesActivity;
 import com.septech.centauri.ui.interfaces.CallBackListener;
+import com.septech.centauri.ui.landing.LandingActivity;
 import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.login.LoginActivity;
 import com.septech.centauri.ui.user.search.SearchFragment;
@@ -425,11 +426,14 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener 
                     .setTitle("Logout")
                     .setMessage("Logout this session or all sessions?")
                     .setPositiveButton("All Sessions", (dialog, which) -> {
-
+                        Intent intent = new Intent(this, LandingActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     })
                     .setNeutralButton("Cancel", null)
                     .setNegativeButton("This Session", (dialog, which) -> {
                         Intent intent = new Intent(this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     })
                     .setIcon(R.drawable.ic_baseline_warning_24)

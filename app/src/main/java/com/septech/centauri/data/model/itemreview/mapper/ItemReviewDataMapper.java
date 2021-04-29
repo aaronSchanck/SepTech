@@ -28,7 +28,7 @@ public class ItemReviewDataMapper {
 
         itemReviewEntity.setId(itemReview.getId());
         itemReviewEntity.setUserid(itemReview.getUserid());
-        itemReviewEntity.setUser(UserDataMapper.transform(itemReview.getUser()));
+//        itemReviewEntity.setUser(UserDataMapper.transform(itemReview.getUser()));
         itemReviewEntity.setItemid(itemReview.getItemid());
         itemReviewEntity.setRating(itemReview.getRating());
         itemReviewEntity.setContent(itemReview.getContent());
