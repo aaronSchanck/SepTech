@@ -18,6 +18,8 @@ import logging
 import os
 from typing import List, Type
 
+from conf.db_config import PROD_DB, DEV_DB, TEST_DB
+
 log = logging.getLogger(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -38,10 +40,7 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
-    SQLALCHEMY_DATABASE_URI = (
-        os.getenv("DATABASE_URI")
-        or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or DEV_DB
     UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 
@@ -56,10 +55,7 @@ class ProductionConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
-    SQLALCHEMY_DATABASE_URI = (
-        os.getenv("DATABASE_URI")
-        or "postgres://postgres:cos420umaine@localhost:5444/syzygy"
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or PROD_DB
     UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 
@@ -74,9 +70,7 @@ class TestingConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
-    SQLALCHEMY_DATABASE_URI = (
-        os.getenv("DATABASE_URI") or f"sqlite:///{basedir}/app-test.db"
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or TEST_DB
     UPLOAD_FOLDER = "images"
     ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 

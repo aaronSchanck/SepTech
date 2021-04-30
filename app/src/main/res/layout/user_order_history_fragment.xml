@@ -62,7 +62,7 @@
             <!-- End of Search View -->
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/itemsRecyclerView"
+                android:id="@+id/user_wishlist_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -11,7 +11,7 @@
 
     <!-- Wishlist Heart Button -->
     <ImageView
-        android:id="@+id/wishlistHeartBtn"
+        android:id="@+id/user_wishlist_item_heart_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:scaleType="centerCrop"
@@ -24,7 +24,7 @@
 
     <!-- Item Image -->
     <ImageView
-        android:id="@+id/cartItemImage"
+        android:id="@+id/user_wishlist_item_picture_iv"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"
@@ -39,7 +39,7 @@
 
     <!-- Item Name -->
     <TextView
-        android:id="@+id/itemName"
+        android:id="@+id/user_wishlist_item_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cart_item_name"
@@ -57,7 +57,7 @@
 
     <!-- Item Price -->
     <TextView
-        android:id="@+id/itemPrice"
+        android:id="@+id/user_wishlist_item_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cart_item_name"
@@ -67,13 +67,13 @@
         android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/itemName"
+        app:layout_constraintStart_toStartOf="@+id/user_wishlist_item_name_tv"
         app:layout_constraintVertical_bias="0.8"/>
     <!-- End of Item Price -->
 
     <!-- Add to Cart Button -->
     <Button
-        android:id="@+id/businessProfileBtn"
+        android:id="@+id/user_wishlist_item_addcart_btn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

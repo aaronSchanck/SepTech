@@ -148,4 +148,11 @@ public class CartViewModel extends ViewModel {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public void setOrderLiveData(Order order) {
+        if (orderLiveData == null) {
+            orderLiveData = new MutableLiveData<>();
+        }
+        orderLiveData.setValue(order);
+    }
 }

@@ -101,7 +101,7 @@ class CompactItemItemView extends
             this.onSearchItemListener = onSearchItemListener;
 
             itemImageView = itemView.findViewById(R.id.itemImage);
-            nameTextView = itemView.findViewById(R.id.itemName);
+            nameTextView = itemView.findViewById(R.id.user_wishlist_item_name_tv);
             priceTextView = itemView.findViewById(R.id.priceTextView);
 
             checkMarkImageView = itemView.findViewById(R.id.checkMarkImageView);

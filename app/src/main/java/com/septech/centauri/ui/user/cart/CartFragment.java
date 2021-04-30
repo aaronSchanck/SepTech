@@ -88,15 +88,15 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
         mViewModel.setUserId(mUserViewModel.getUserId());
 
         callBackListener.showLoadingIcon();
-        mViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), order -> {
+        mUserViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), order -> {
             if (order == null) {
                 return;
             }
 
+            mViewModel.setOrderLiveData(order);
+
             cartItemAdapter.setCart(order.getOrderItems());
             rvCartItems.setAdapter(cartItemAdapter);
-
-            mUserViewModel.updateOrderData(order);
 
             if (order.getOrderItems().size() > 0) {
                 mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {

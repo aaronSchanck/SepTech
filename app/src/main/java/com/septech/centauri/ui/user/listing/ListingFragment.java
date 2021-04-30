@@ -123,7 +123,7 @@ public class ListingFragment extends Fragment {
         quantityBackBtn = view.findViewById(R.id.quantityBackBtn);
         quantityForwardBtn = view.findViewById(R.id.quantityForwardBtn);
 
-        businessProfileBtn = view.findViewById(R.id.businessProfileBtn);
+        businessProfileBtn = view.findViewById(R.id.user_wishlist_item_addcart_btn);
 
         listingNameTextView = view.findViewById(R.id.listingNameTextView);
         listingPriceTextView = view.findViewById(R.id.listingPriceTextView);
@@ -321,21 +321,18 @@ public class ListingFragment extends Fragment {
             mUserViewModel.updateOrderData(order);
         });
 
-        mViewModel.getWishlistLiveData().observe(getViewLifecycleOwner(), new Observer<Wishlist>() {
-            @Override
-            public void onChanged(Wishlist wishlist) {
-                System.out.println("wishlist = " + wishlist);
-                System.out.println("wishlist = " + wishlist.getWishlistItems());
+        mViewModel.getWishlistLiveData().observe(getViewLifecycleOwner(), wishlist -> {
+            System.out.println("wishlist = " + wishlist);
+            System.out.println("wishlist = " + wishlist.getWishlistItems());
 
-                for (WishlistItem item :
-                        wishlist.getWishlistItems()) {
-                    if (item.getItemid() == mViewModel.getItemId()) {
-                        wishlistBtn.setText(R.string.listing_wishlist_added_text);
-                        wishlistBtn.setIcon(ContextCompat.getDrawable(requireActivity(),
-                                R.drawable.ic_baseline_check_24));
-                    }
-
+            for (WishlistItem item :
+                    wishlist.getWishlistItems()) {
+                if (item.getItemid() == mViewModel.getItemId()) {
+                    wishlistBtn.setText(R.string.listing_wishlist_added_text);
+                    wishlistBtn.setIcon(ContextCompat.getDrawable(requireActivity(),
+                            R.drawable.ic_baseline_check_24));
                 }
+
             }
         });
     }

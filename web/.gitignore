@@ -119,8 +119,6 @@ venv.bak/
 misc/
 .Rproj.localUser
 
-app/app-test.db
-
 lenv/
 
 # sphinx build folder
@@ -128,3 +126,8 @@ _build/
 
 images/businesses
 images/items
+
+*.db
+*.db-journal
+
+conf/db_config.py

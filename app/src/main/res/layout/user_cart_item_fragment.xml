@@ -10,7 +10,7 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/cartItemImage"
+        android:id="@+id/user_wishlist_item_picture_iv"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
@@ -28,7 +28,7 @@
         android:text="@string/cart_item_name"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cartItemImage"
+        app:layout_constraintStart_toEndOf="@+id/user_wishlist_item_picture_iv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

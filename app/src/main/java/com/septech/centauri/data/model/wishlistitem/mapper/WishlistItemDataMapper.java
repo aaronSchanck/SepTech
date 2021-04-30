@@ -1,5 +1,6 @@
 package com.septech.centauri.data.model.wishlistitem.mapper;
 
+import com.septech.centauri.data.model.item.mapper.ItemDataMapper;
 import com.septech.centauri.data.model.wishlistitem.WishlistItemEntity;
 import com.septech.centauri.domain.models.WishlistItem;
 
@@ -15,6 +16,7 @@ public class WishlistItemDataMapper {
         wishlistItem.setWishlistid(wishlistItemEntity.getWishlistid());
         wishlistItem.setCreatedAt(wishlistItemEntity.getCreatedAt());
         wishlistItem.setModifiedAt(wishlistItemEntity.getModifiedAt());
+        wishlistItem.setItem(ItemDataMapper.transform(wishlistItemEntity.getItem()));
 
         return wishlistItem;
     }
@@ -27,6 +29,7 @@ public class WishlistItemDataMapper {
         wishlistItemEntity.setWishlistid(wishlistItem.getWishlistid());
         wishlistItemEntity.setCreatedAt(wishlistItem.getCreatedAt());
         wishlistItemEntity.setModifiedAt(wishlistItem.getModifiedAt());
+        wishlistItemEntity.setItem(ItemDataMapper.transform(wishlistItem.getItem()));
 
         return wishlistItemEntity;
     }

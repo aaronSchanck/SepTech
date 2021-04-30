@@ -2,6 +2,8 @@ package com.septech.centauri.data.model.wishlistitem;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.septech.centauri.data.model.item.ItemEntity;
+import com.septech.centauri.domain.models.Item;
 
 public class WishlistItemEntity {
 
@@ -12,6 +14,10 @@ public class WishlistItemEntity {
     @SerializedName("itemid")
     @Expose()
     private int itemid;
+
+    @SerializedName("item")
+    @Expose(serialize = false)
+    private ItemEntity item;
 
     @SerializedName("wishlistid")
     @Expose()
@@ -63,5 +69,13 @@ public class WishlistItemEntity {
 
     public void setModifiedAt(String modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public ItemEntity getItem() {
+        return item;
+    }
+
+    public void setItem(ItemEntity item) {
+        this.item = item;
     }
 }

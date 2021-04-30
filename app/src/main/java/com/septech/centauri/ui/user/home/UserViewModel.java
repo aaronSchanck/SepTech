@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.septech.centauri.data.repository.UserRepositoryImpl;
 import com.septech.centauri.domain.models.Order;
 import com.septech.centauri.domain.models.User;
+import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.repository.UserRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,9 +22,10 @@ public class UserViewModel extends ViewModel {
 
     private MutableLiveData<User> userLiveData;
     private MutableLiveData<Order> cartLiveData;
+    private MutableLiveData<Wishlist> wishlistLiveData;
 
     private int userId;
-  
+
     public UserViewModel() {
         userRepo = UserRepositoryImpl.getInstance();
 
@@ -75,19 +77,46 @@ public class UserViewModel extends ViewModel {
                 }));
     }
 
+    private void getUserWishlist() {
+        mDisposables.add(userRepo.getUserWishlist(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Wishlist>() {
+                    @Override
+                    public void onSuccess(@NonNull Wishlist wishlist) {
+                        System.out.println("wishlist = " + wishlist);
+                        wishlistLiveData.setValue(wishlist);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        //failed
+                        System.out.println("e = " + e);
+                    }
+                }));
+    }
+
     public void updateOrderData(Order order) {
         if (cartLiveData == null) {
             cartLiveData = new MutableLiveData<>();
         }
         cartLiveData.setValue(order);
     }
-  
+
 //    public String getName() {
 //        if (userLiveData == null) {
 //            return "Guest";
 //        }
 //        return userLiveData.getValue().getUsername();
 //    }
+
+    public MutableLiveData<Wishlist> getWishlistLiveData() {
+        if (wishlistLiveData == null) {
+            wishlistLiveData = new MutableLiveData<>();
+            getUserWishlist();
+        }
+        return wishlistLiveData;
+    }
 
     public MutableLiveData<User> getUserLiveData() {
         if (userLiveData == null) {

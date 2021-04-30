@@ -48,13 +48,13 @@
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconPadding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/businessProfileBtn"
+                app:layout_constraintTop_toTopOf="@+id/user_wishlist_item_addcart_btn"
                 app:pressedTranslationZ="0dp"
                 app:useCompatPadding="true" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/cartBtn"
-                android:layout_width="175dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:clickable="true"
@@ -102,7 +102,7 @@
                 android:text="@string/listing_price"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/listingNameTextView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listingNameTextView" />
 
             <ImageView
@@ -114,7 +114,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/businessProfileBtn"
+                app:layout_constraintTop_toBottomOf="@+id/user_wishlist_item_addcart_btn"
                 app:srcCompat="@drawable/ic_image_foreground" />
 
             <ImageButton
@@ -258,7 +258,7 @@
                 app:srcCompat="@drawable/ic_right_arrow_black" />
 
             <Button
-                android:id="@+id/businessProfileBtn"
+                android:id="@+id/user_wishlist_item_addcart_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
                 android:paddingRight="8dp"
                 android:text="Seller's Profile"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView" />
 
             <TextView

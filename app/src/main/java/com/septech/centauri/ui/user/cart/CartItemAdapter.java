@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.septech.centauri.R;
-import com.septech.centauri.domain.models.Item;
 import com.septech.centauri.domain.models.OrderItem;
 
 import java.math.BigDecimal;
@@ -101,7 +100,7 @@ class CartItemAdapter extends
 
             this.onItemListener = onItemListener;
 
-            this.itemImageView = itemView.findViewById(R.id.cartItemImage);
+            this.itemImageView = itemView.findViewById(R.id.user_wishlist_item_picture_iv);
 
             this.cartItemName = itemView.findViewById(R.id.cartItemName);
             this.cartItemQuantity = itemView.findViewById(R.id.cartItemQuantity);
