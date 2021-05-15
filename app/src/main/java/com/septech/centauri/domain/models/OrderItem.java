@@ -1,5 +1,7 @@
 package com.septech.centauri.domain.models;
 
+import androidx.annotation.NonNull;
+
 public class OrderItem extends GenericModel {
     private int id;
 
@@ -84,5 +86,11 @@ public class OrderItem extends GenericModel {
     @Override
     public void initTestData() {
 
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "OrderItem " + super.toString();
     }
 }

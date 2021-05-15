@@ -36,7 +36,7 @@
                 app:srcCompat="@drawable/ic_back_arrow" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/wishlistBtn"
+                android:id="@+id/listing_wishlist_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -48,12 +48,12 @@
                 app:icon="@drawable/ic_baseline_add_24"
                 app:iconPadding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/user_wishlist_item_addcart_btn"
+                app:layout_constraintTop_toTopOf="@+id/listing_seller_profile_btn"
                 app:pressedTranslationZ="0dp"
                 app:useCompatPadding="true" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/cartBtn"
+                android:id="@+id/listing_cart_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -62,11 +62,11 @@
                 android:textColorHighlight="#070000"
                 android:textColorLink="#000000"
                 app:icon="@drawable/ic_baseline_add_24"
-                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
-                app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
+                app:layout_constraintEnd_toEndOf="@+id/listing_item_image_iv"
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_image_iv" />
 
             <Button
-                android:id="@+id/user_listing_leave_review_btn"
+                android:id="@+id/listing_leave_review_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,12 +74,12 @@
                 android:textColorHighlight="#070000"
                 android:textColorLink="#000000"
                 app:icon="@drawable/ic_baseline_add_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView26"
+                app:layout_constraintBottom_toBottomOf="@+id/listing_item_reviews_tv"
                 app:layout_constraintEnd_toEndOf="@+id/listingSpinner"
-                app:layout_constraintTop_toTopOf="@+id/textView26" />
+                app:layout_constraintTop_toTopOf="@+id/listing_item_reviews_tv" />
 
             <TextView
-                android:id="@+id/listingNameTextView"
+                android:id="@+id/listing_item_name_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -94,7 +94,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/listingPriceTextView"
+                android:id="@+id/listing_item_price_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -103,10 +103,10 @@
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listingNameTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_name_tv" />
 
             <ImageView
-                android:id="@+id/listingImageView"
+                android:id="@+id/listing_item_image_iv"
                 android:layout_width="0dp"
                 android:layout_height="276dp"
                 android:layout_marginTop="16dp"
@@ -114,44 +114,44 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_wishlist_item_addcart_btn"
+                app:layout_constraintTop_toBottomOf="@+id/listing_seller_profile_btn"
                 app:srcCompat="@drawable/ic_image_foreground" />
 
             <ImageButton
-                android:id="@+id/imageBackBtn"
+                android:id="@+id/listing_image_back_btn"
                 android:layout_width="65dp"
                 android:layout_height="0dp"
                 android:backgroundTint="@android:color/transparent"
                 android:scaleX="2"
                 android:scaleY="2"
-                app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
-                app:layout_constraintStart_toStartOf="@+id/listingImageView"
-                app:layout_constraintTop_toTopOf="@+id/listingImageView"
+                app:layout_constraintBottom_toBottomOf="@+id/listing_item_image_iv"
+                app:layout_constraintStart_toStartOf="@+id/listing_item_image_iv"
+                app:layout_constraintTop_toTopOf="@+id/listing_item_image_iv"
                 app:layout_constraintVertical_bias="0.497"
                 app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
 
             <ImageButton
-                android:id="@+id/imageForwardBtn"
+                android:id="@+id/listing_image_forward_btn"
                 android:layout_width="65dp"
                 android:layout_height="0dp"
                 android:backgroundTint="@android:color/transparent"
                 android:scaleX="2"
                 android:scaleY="2"
-                app:layout_constraintBottom_toBottomOf="@+id/listingImageView"
-                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
-                app:layout_constraintTop_toTopOf="@+id/listingImageView"
+                app:layout_constraintBottom_toBottomOf="@+id/listing_item_image_iv"
+                app:layout_constraintEnd_toEndOf="@+id/listing_item_image_iv"
+                app:layout_constraintTop_toTopOf="@+id/listing_item_image_iv"
                 app:srcCompat="@drawable/ic_right_arrow_black" />
 
             <TextView
-                android:id="@+id/listingDescTextView"
+                android:id="@+id/listing_item_desc_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="96dp"
                 android:text="Some words"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/listingImageView"
+                app:layout_constraintEnd_toEndOf="@+id/listing_item_image_iv"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/listingImageView"
+                app:layout_constraintStart_toStartOf="@+id/listing_item_image_iv"
                 app:layout_constraintTop_toBottomOf="@+id/listing_quantity_edittext" />
 
             <TextView
@@ -163,11 +163,11 @@
                 android:textAllCaps="true"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/listingDescTextView"
-                app:layout_constraintTop_toBottomOf="@+id/listingDescTextView" />
+                app:layout_constraintStart_toStartOf="@+id/listing_item_desc_tv"
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_desc_tv" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/listing_item_reviews_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
@@ -192,14 +192,14 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <RatingBar
-                android:id="@+id/listingRatingBar"
+                android:id="@+id/listing_item_rating_bar"
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 app:layout_constraintBottom_toBottomOf="@+id/itemRatingTextView"
-                app:layout_constraintEnd_toEndOf="@+id/user_listing_leave_review_btn"
-                app:layout_constraintStart_toStartOf="@+id/user_listing_leave_review_btn"
+                app:layout_constraintEnd_toEndOf="@+id/listing_leave_review_btn"
+                app:layout_constraintStart_toStartOf="@+id/listing_leave_review_btn"
                 app:layout_constraintTop_toTopOf="@+id/itemRatingTextView"
                 app:layout_constraintVertical_bias="1.0" />
 
@@ -209,9 +209,9 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/listing_rating_score_text"
-                app:layout_constraintEnd_toEndOf="@+id/listingRatingBar"
-                app:layout_constraintStart_toStartOf="@+id/listingRatingBar"
-                app:layout_constraintTop_toBottomOf="@+id/listingRatingBar" />
+                app:layout_constraintEnd_toEndOf="@+id/listing_item_rating_bar"
+                app:layout_constraintStart_toStartOf="@+id/listing_item_rating_bar"
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_rating_bar" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -223,7 +223,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/listing_reviews_found_tv">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listingRV"
+                    android:id="@+id/listing_review_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -232,7 +232,7 @@
             </RelativeLayout>
 
             <ImageButton
-                android:id="@+id/quantityBackBtn"
+                android:id="@+id/listing_quantity_subtract_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -245,7 +245,7 @@
                 app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
 
             <ImageButton
-                android:id="@+id/quantityForwardBtn"
+                android:id="@+id/listing_quantity_add_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -258,7 +258,7 @@
                 app:srcCompat="@drawable/ic_right_arrow_black" />
 
             <Button
-                android:id="@+id/user_wishlist_item_addcart_btn"
+                android:id="@+id/listing_seller_profile_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -268,18 +268,18 @@
                 android:text="Seller's Profile"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listingPriceTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_price_tv" />
 
             <TextView
-                android:id="@+id/quantityLeftTextView"
+                android:id="@+id/listing_quantity_remaining_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="@string/listingQuantityLeft"
                 android:textColor="#9E0000"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@+id/quantityForwardBtn"
-                app:layout_constraintStart_toEndOf="@+id/quantityBackBtn"
+                app:layout_constraintEnd_toStartOf="@+id/listing_quantity_add_btn"
+                app:layout_constraintStart_toEndOf="@+id/listing_quantity_subtract_btn"
                 app:layout_constraintTop_toBottomOf="@+id/listing_quantity_edittext" />
 
             <EditText
@@ -294,8 +294,8 @@
                 android:text="0"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cartBtn"
-                app:layout_constraintEnd_toStartOf="@+id/cartBtn"
+                app:layout_constraintBottom_toBottomOf="@+id/listing_cart_btn"
+                app:layout_constraintEnd_toStartOf="@+id/listing_cart_btn"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -306,28 +306,28 @@
                 android:layout_marginTop="36dp"
                 android:text="@string/listing_reviews_found_text"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+                app:layout_constraintStart_toStartOf="@+id/listing_item_reviews_tv"
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_reviews_tv" />
 
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toTopOf="@+id/listingDescTextView"
+                app:layout_constraintBottom_toTopOf="@+id/listing_item_desc_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quantityLeftTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/listing_quantity_remaining_tv" />
 
             <View
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toTopOf="@+id/listingRatingBar"
+                app:layout_constraintBottom_toTopOf="@+id/listing_item_rating_bar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listingDescTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/listing_item_desc_tv" />
 
             <View
                 android:id="@+id/divider3"
@@ -344,7 +344,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toTopOf="@+id/user_listing_leave_review_btn"
+                app:layout_constraintBottom_toTopOf="@+id/listing_leave_review_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listingRatingScore" />

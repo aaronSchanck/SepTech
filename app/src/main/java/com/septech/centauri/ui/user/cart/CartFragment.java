@@ -29,33 +29,31 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
     private CartViewModel mViewModel;
     private UserViewModel mUserViewModel;
 
-    private RecyclerView rvCartItems;
-    private CartItemAdapter cartItemAdapter;
+    private RecyclerView mCartRv;
+    private CartItemAdapter mCartAdapter;
 
-    private TextView taxTextView;
-    private TextView shippingTextView;
-    private TextView totalTextView;
+    private TextView mTaxTv;
+    private TextView mShippingTv;
+    private TextView mTotalTv;
 
-    private Button checkoutBtn;
+    private Button mCheckoutBtn;
 
-    private DecimalFormat df;
+    private CallBackListener mCallBackListener;
 
-    private CallBackListener callBackListener;
+    public static CartFragment newInstance() {
+        return new CartFragment();
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         try {
-            callBackListener = (CallBackListener) context;
-            callBackListener.initFragment();
+            mCallBackListener = (CallBackListener) context;
+            mCallBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
-    }
-
-    public static CartFragment newInstance() {
-        return new CartFragment();
     }
 
     @Override
@@ -63,18 +61,16 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_cart_fragment, container, false);
 
-        rvCartItems = view.findViewById(R.id.rvCartItems);
+        mCartRv = view.findViewById(R.id.rvCartItems);
 
-        cartItemAdapter = new CartItemAdapter(this, new ArrayList<>(), new HashMap<>());
-        rvCartItems.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mCartAdapter = new CartItemAdapter(this, new ArrayList<>(), new HashMap<>());
+        mCartRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        taxTextView = view.findViewById(R.id.cartTaxTextView);
-        shippingTextView = view.findViewById(R.id.cartShippingText);
-        totalTextView = view.findViewById(R.id.cartTotalTextView);
+        mTaxTv = view.findViewById(R.id.cartTaxTextView);
+        mShippingTv = view.findViewById(R.id.cartShippingText);
+        mTotalTv = view.findViewById(R.id.cartTotalTextView);
 
-        checkoutBtn = view.findViewById(R.id.cartCheckoutBtn);
-
-        df = Formatting.getMoneyDecimalFormat();
+        mCheckoutBtn = view.findViewById(R.id.cartCheckoutBtn);
 
         return view;
     }
@@ -87,7 +83,7 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         mViewModel.setUserId(mUserViewModel.getUserId());
 
-        callBackListener.showLoadingIcon();
+        mCallBackListener.showLoadingIcon();
         mUserViewModel.getOrderLiveData().observe(getViewLifecycleOwner(), order -> {
             if (order == null) {
                 return;
@@ -95,8 +91,8 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
 
             mViewModel.setOrderLiveData(order);
 
-            cartItemAdapter.setCart(order.getOrderItems());
-            rvCartItems.setAdapter(cartItemAdapter);
+            mCartAdapter.setCart(order.getOrderItems());
+            mCartRv.setAdapter(mCartAdapter);
 
             if (order.getOrderItems().size() > 0) {
                 mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
@@ -104,34 +100,38 @@ public class CartFragment extends Fragment implements CartItemAdapter.OnCartItem
                         return;
                     }
 
-                    callBackListener.hideLoadingIcon();
+                    mCallBackListener.hideLoadingIcon();
 
-                    cartItemAdapter.setImages(images);
-                    rvCartItems.setAdapter(cartItemAdapter);
+                    mCartAdapter.setImages(images);
+                    mCartRv.setAdapter(mCartAdapter);
 
-                    rvCartItems.setVisibility(View.VISIBLE);
+                    mCartRv.setVisibility(View.VISIBLE);
                 });
             } else {
-                callBackListener.hideLoadingIcon();
+                mCallBackListener.hideLoadingIcon();
 
-                rvCartItems.setAdapter(cartItemAdapter);
-                rvCartItems.setVisibility(View.VISIBLE);
+                mCartRv.setAdapter(mCartAdapter);
+                mCartRv.setVisibility(View.VISIBLE);
             }
 
-            taxTextView.setText(getResources().getString(R.string.cartTaxText,
+            DecimalFormat df = Formatting.getMoneyDecimalFormat();
+
+            mTaxTv.setText(getResources().getString(R.string.cartTaxText,
                     df.format(mViewModel.getTax())));
-            shippingTextView.setText(getResources().getString(R.string.cartShippingText,
+            mShippingTv.setText(getResources().getString(R.string.cartShippingText,
                     df.format(mViewModel.getShippingPrice())));
-            totalTextView.setText(getResources().getString(R.string.cartTotalText,
+            mTotalTv.setText(getResources().getString(R.string.cartTotalText,
                     df.format(mViewModel.getTotalPrice())));
 
-            checkoutBtn.setOnClickListener(new View.OnClickListener() {
+            mCheckoutBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     System.out.println("v = " + v);
                 }
             });
         });
+
+        mUserViewModel.refreshUserCart();
     }
 
     @Override

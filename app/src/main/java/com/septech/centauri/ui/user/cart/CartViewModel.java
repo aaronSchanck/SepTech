@@ -30,22 +30,30 @@ import io.reactivex.schedulers.Schedulers;
 public class CartViewModel extends ViewModel {
     private static final String TAG = "CartViewModel";
 
-    private final UserRepository userRepo;
-    private final ItemRepository itemRepo;
+    private final UserRepository mUserRepo;
+    private final ItemRepository mItemRepo;
     private final CompositeDisposable mDisposables;
-    private MutableLiveData<Order> orderLiveData;
-    private MutableLiveData<Map<Integer, Uri>> imagesLiveData;
+    private MutableLiveData<Order> mOrderLiveData;
+    private MutableLiveData<Map<Integer, Uri>> mImagesLiveData;
     private int userId;
 
     public CartViewModel() {
-        userRepo = UserRepositoryImpl.getInstance();
-        itemRepo = ItemRepositoryImpl.getInstance();
+        mUserRepo = UserRepositoryImpl.getInstance();
+        mItemRepo = ItemRepositoryImpl.getInstance();
 
         mDisposables = new CompositeDisposable();
     }
 
     public BigDecimal getItemBasePrice() {
-        List<OrderItem> orderItemList = orderLiveData.getValue().getOrderItems();
+        if(mOrderLiveData == null) {
+            return new BigDecimal("0");
+        }
+
+        if(mOrderLiveData.getValue() == null) {
+            return new BigDecimal("0");
+        }
+
+        List<OrderItem> orderItemList = mOrderLiveData.getValue().getOrderItems();
 
         BigDecimal totalPrice = new BigDecimal("0");
 
@@ -63,6 +71,14 @@ public class CartViewModel extends ViewModel {
     }
 
     public BigDecimal getShippingPrice() {
+        if(mOrderLiveData == null) {
+            return new BigDecimal("0");
+        }
+
+        if(mOrderLiveData.getValue() == null) {
+            return new BigDecimal("0");
+        }
+
         return Rates.SHIPPING_RATE;
     }
 
@@ -71,13 +87,13 @@ public class CartViewModel extends ViewModel {
     }
 
     public void getOrder() {
-        mDisposables.add(userRepo.getUserCart(userId)
+        mDisposables.add(mUserRepo.getUserCart(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Order>() {
                     @Override
                     public void onSuccess(@NonNull Order order) {
-                        orderLiveData.setValue(order);
+                        mOrderLiveData.setValue(order);
                         System.out.println("order = " + order);
                     }
 
@@ -89,7 +105,7 @@ public class CartViewModel extends ViewModel {
     }
 
     private void getImages(int[] itemIds) {
-        mDisposables.add(itemRepo.getItemThumbnails(itemIds)
+        mDisposables.add(mItemRepo.getItemThumbnails(itemIds)
                 .flatMap(Zip.processResponse())
                 .retry(25) //must be used when running the emulator, don't ask. I don't know why
                 .flatMap(Zip.unpackZipThumbnails())
@@ -103,7 +119,7 @@ public class CartViewModel extends ViewModel {
 
                     @Override
                     public void onNext(@NonNull Map<Integer, Uri> map) {
-                        imagesLiveData.setValue(map);
+                        mImagesLiveData.setValue(map);
                     }
 
                     @Override
@@ -114,7 +130,15 @@ public class CartViewModel extends ViewModel {
     }
 
     private int[] orderLiveDataToItemIdArray() {
-        List<OrderItem> orderItems = getOrderLiveData().getValue().getOrderItems();
+        if(mOrderLiveData == null) {
+            return new int[0];
+        }
+
+        if(mOrderLiveData.getValue() == null) {
+            return new int[0];
+        }
+
+        List<OrderItem> orderItems = mOrderLiveData.getValue().getOrderItems();
 
         int[] itemIds = new int[orderItems.size()];
 
@@ -125,20 +149,12 @@ public class CartViewModel extends ViewModel {
         return itemIds;
     }
 
-    public MutableLiveData<Order> getOrderLiveData() {
-        if (orderLiveData == null) {
-            orderLiveData = new MutableLiveData<>();
-            getOrder();
-        }
-        return orderLiveData;
-    }
-
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
-        if (imagesLiveData == null) {
-            imagesLiveData = new MutableLiveData<>();
+        if (mImagesLiveData == null) {
+            mImagesLiveData = new MutableLiveData<>();
             getImages(orderLiveDataToItemIdArray());
         }
-        return imagesLiveData;
+        return mImagesLiveData;
     }
 
     public int getUserId() {
@@ -150,9 +166,9 @@ public class CartViewModel extends ViewModel {
     }
 
     public void setOrderLiveData(Order order) {
-        if (orderLiveData == null) {
-            orderLiveData = new MutableLiveData<>();
+        if (mOrderLiveData == null) {
+            mOrderLiveData = new MutableLiveData<>();
         }
-        orderLiveData.setValue(order);
+        mOrderLiveData.setValue(order);
     }
 }

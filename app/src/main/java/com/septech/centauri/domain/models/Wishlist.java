@@ -1,5 +1,7 @@
 package com.septech.centauri.domain.models;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public class Wishlist extends GenericModel {
@@ -14,6 +16,7 @@ public class Wishlist extends GenericModel {
     }
 
     public void setId(int id) {
+        super.setId(id);
         this.id = id;
     }
 
@@ -52,5 +55,11 @@ public class Wishlist extends GenericModel {
     @Override
     public void initTestData() {
 
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

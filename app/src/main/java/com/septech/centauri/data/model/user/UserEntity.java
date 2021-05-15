@@ -6,141 +6,141 @@ import com.google.gson.annotations.SerializedName;
 public class UserEntity {
     @SerializedName("id")
     @Expose(serialize = false)
-    private int userid;
+    private int mUserId;
 
     @SerializedName("username")
     @Expose(serialize = false)
-    private String username;
+    private String mUsername;
 
     @SerializedName("email")
     @Expose
-    private String email;
+    private String mEmail;
 
     @SerializedName("password")
     @Expose
-    private String password;
+    private String mPassword;
 
     @SerializedName("full_name")
     @Expose
-    private String fullName;
+    private String mFullName;
 
     @SerializedName("date_of_birth")
     @Expose
-    private String dateOfBirth;
+    private String mDateOfBirth;
 
     @SerializedName("phone_number")
     @Expose
-    private String phoneNumber;
+    private String mPhoneNumber;
 
     @SerializedName("password_salt")
     @Expose
-    private String passwordSalt;
+    private String mPasswordSalt;
 
     @SerializedName("created_at")
     @Expose(serialize=false)
-    private String createdAt;
+    private String mCreatedAt;
 
     @SerializedName("modified_at")
     @Expose(serialize=false)
-    private String modifiedAt;
+    private String mModifiedAt;
 
     @SerializedName("admin_level")
     @Expose(serialize=false)
-    private String adminLevel;
+    private String mAdminLevel;
 
     public UserEntity() {
         //empty
     }
 
-    public UserEntity(int userid) {
-        this.userid = userid;
+    public UserEntity(int userId) {
+        this.mUserId = userId;
     }
 
-    public int getUserid() {
-        return userid;
+    public int getUserId() {
+        return mUserId;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUserId(int userId) {
+        mUserId = userId;
     }
 
     public String getUsername() {
-        return username;
+        return mUsername;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        mUsername = username;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        mEmail = email;
     }
 
     public String getPassword() {
-        return password;
+        return mPassword;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        mPassword = password;
     }
 
     public String getFullName() {
-        return fullName;
+        return mFullName;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        mFullName = fullName;
     }
 
     public String getDateOfBirth() {
-        return dateOfBirth;
+        return mDateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        mDateOfBirth = dateOfBirth;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return mPhoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        mPhoneNumber = phoneNumber;
     }
 
     public String getPasswordSalt() {
-        return passwordSalt;
+        return mPasswordSalt;
     }
 
     public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
+        mPasswordSalt = passwordSalt;
     }
 
     public String getCreatedAt() {
-        return createdAt;
+        return mCreatedAt;
     }
 
     public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+        mCreatedAt = createdAt;
     }
 
     public String getModifiedAt() {
-        return modifiedAt;
+        return mModifiedAt;
     }
 
     public void setModifiedAt(String modifiedAt) {
-        this.modifiedAt = modifiedAt;
+        mModifiedAt = modifiedAt;
     }
 
     public String getAdminLevel() {
-        return adminLevel;
+        return mAdminLevel;
     }
 
     public void setAdminLevel(String adminLevel) {
-        this.adminLevel = adminLevel;
+        mAdminLevel = adminLevel;
     }
 }

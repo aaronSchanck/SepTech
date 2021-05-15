@@ -28,9 +28,9 @@ public class SearchViewModel extends ViewModel {
 
     private ItemRepository itemRepo;
 
-    private MutableLiveData<List<Item>> itemsLiveData;
-    private MutableLiveData<Map<Integer, Uri>> imagesLiveData;
-    private MutableLiveData<Integer> searchAmountLiveData;
+    private MutableLiveData<List<Item>> mItemsLiveData;
+    private MutableLiveData<Map<Integer, Uri>> mImagesLiveData;
+    private MutableLiveData<Integer> mSearchAmountLiveData;
 
     private String query;
     private Integer pageSize;
@@ -64,7 +64,7 @@ public class SearchViewModel extends ViewModel {
                     @Override
                     public void onNext(@NonNull List<Item> items) {
                         Log.i(TAG, "Items received: " + items);
-                        itemsLiveData.setValue(items);
+                        mItemsLiveData.setValue(items);
                     }
 
                     @Override
@@ -95,7 +95,7 @@ public class SearchViewModel extends ViewModel {
 
                         searchEndtime = System.currentTimeMillis();
 
-                        searchAmountLiveData.setValue(integer);
+                        mSearchAmountLiveData.setValue(integer);
                     }
 
                     @Override
@@ -107,7 +107,7 @@ public class SearchViewModel extends ViewModel {
 
     private Function<List<Item>, Observable<List<Item>>> emit() {
         return items -> {
-            itemsLiveData.setValue(items);
+            mItemsLiveData.setValue(items);
             return Observable.just(items);
         };
     }
@@ -115,7 +115,7 @@ public class SearchViewModel extends ViewModel {
     public void lastPage() {
         currentPage -= 1;
 
-        imagesLiveData = null;
+        mImagesLiveData = null;
 
         searchItems();
     }
@@ -123,7 +123,7 @@ public class SearchViewModel extends ViewModel {
     public void nextPage() {
         currentPage += 1;
 
-        imagesLiveData = null;
+        mImagesLiveData = null;
 
         searchItems();
     }
@@ -143,7 +143,7 @@ public class SearchViewModel extends ViewModel {
 
                     @Override
                     public void onNext(@NonNull Map<Integer, Uri> map) {
-                        imagesLiveData.setValue(map);
+                        mImagesLiveData.setValue(map);
                     }
 
                     @Override
@@ -154,27 +154,27 @@ public class SearchViewModel extends ViewModel {
     }
 
     public MutableLiveData<Integer> getSearchAmountLiveData() {
-        if (searchAmountLiveData == null) {
-            searchAmountLiveData = new MutableLiveData<>();
+        if (mSearchAmountLiveData == null) {
+            mSearchAmountLiveData = new MutableLiveData<>();
             getSearchAmount();
         }
-        return searchAmountLiveData;
+        return mSearchAmountLiveData;
     }
 
     public MutableLiveData<List<Item>> getItemsLiveData() {
-        if (itemsLiveData == null) {
-            itemsLiveData = new MutableLiveData<>();
+        if (mItemsLiveData == null) {
+            mItemsLiveData = new MutableLiveData<>();
             searchItems();
         }
-        return itemsLiveData;
+        return mItemsLiveData;
     }
 
     public MutableLiveData<Map<Integer, Uri>> getImagesLiveData() {
-        if (imagesLiveData == null) {
-            imagesLiveData = new MutableLiveData<>();
+        if (mImagesLiveData == null) {
+            mImagesLiveData = new MutableLiveData<>();
             getImages(itemLiveDataToIdList());
         }
-        return imagesLiveData;
+        return mImagesLiveData;
     }
 
     private int[] itemLiveDataToIdList() {

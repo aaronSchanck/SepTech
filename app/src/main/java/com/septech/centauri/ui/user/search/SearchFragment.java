@@ -32,21 +32,16 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     private SearchViewModel mViewModel;
     private FilterViewModel mFilterViewModel;
 
-    private boolean mAlreadyLoaded;
+    private RecyclerView mItemsRv;
+    private CompactItemItemView mItemsAdapter;
 
-    private RecyclerView rvItems;
-    private CompactItemItemView adapter;
+    private ImageButton mForwardArrow;
+    private ImageButton mBackArrow;
 
-    private ImageButton forwardArrow;
-    private ImageButton backArrow;
-
-    private TextView searchAmountTextView;
-
-    //timing variables
-
+    private TextView mSearchAmtTv;
 
     //callback listener
-    private CallBackListener callBackListener;
+    private CallBackListener mCallBackListener;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -57,7 +52,8 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         super.onAttach(context);
 
         try {
-            callBackListener = (CallBackListener) context;
+            mCallBackListener = (CallBackListener) context;
+            mCallBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
@@ -74,19 +70,19 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_search_fragment, container, false);
 
-        rvItems = view.findViewById(R.id.rvItems);
+        mItemsRv = view.findViewById(R.id.rvItems);
 
-        adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
-        rvItems.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mItemsAdapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
+        mItemsRv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        rvItems.setAdapter(adapter);
+        mItemsRv.setAdapter(mItemsAdapter);
 
-        searchAmountTextView = view.findViewById(R.id.itemCountTextView);
+        mSearchAmtTv = view.findViewById(R.id.itemCountTextView);
 
-        forwardArrow = view.findViewById(R.id.forwardArrow);
-        backArrow = view.findViewById(R.id.backArrow);
+        mForwardArrow = view.findViewById(R.id.forwardArrow);
+        mBackArrow = view.findViewById(R.id.backArrow);
 
-        callBackListener.showLoadingIcon();
+        mCallBackListener.showLoadingIcon();
 
         return view;
     }
@@ -100,28 +96,26 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
 
         mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
 
-        callBackListener.showLoadingIcon();
+        mCallBackListener.showLoadingIcon();
 
         createButtonListeners();
         createLiveDataObservers();
-
-        System.out.println(mAlreadyLoaded);
     }
 
     private void createButtonListeners() {
-        forwardArrow.setOnClickListener(v -> {
-            rvItems.setVisibility(View.GONE);
-            callBackListener.showLoadingIcon();
-            adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
+        mForwardArrow.setOnClickListener(v -> {
+            mItemsRv.setVisibility(View.GONE);
+            mCallBackListener.showLoadingIcon();
+            mItemsAdapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
 
             mViewModel.nextPage();
             updatePageArrows();
         });
 
-        backArrow.setOnClickListener(v -> {
-            rvItems.setVisibility(View.GONE);
-            callBackListener.showLoadingIcon();
-            adapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
+        mBackArrow.setOnClickListener(v -> {
+            mItemsRv.setVisibility(View.GONE);
+            mCallBackListener.showLoadingIcon();
+            mItemsAdapter = new CompactItemItemView(this, new ArrayList<>(), new HashMap<>());
 
             mViewModel.lastPage();
             updatePageArrows();
@@ -131,19 +125,19 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     private void updatePageArrows() {
         //set forward arrow visilibity
         if ((mViewModel.getCurrentPage() + 1) * mViewModel.getPageSize() < mViewModel.getSearchAmountLiveData().getValue()) {
-            forwardArrow.setActivated(true);
-            forwardArrow.setVisibility(View.VISIBLE);
+            mForwardArrow.setActivated(true);
+            mForwardArrow.setVisibility(View.VISIBLE);
         } else {
-            forwardArrow.setActivated(false);
-            forwardArrow.setVisibility(View.GONE);
+            mForwardArrow.setActivated(false);
+            mForwardArrow.setVisibility(View.GONE);
         }
         //set back arrow visibility
         if (mViewModel.getCurrentPage() > 0) {
-            backArrow.setActivated(true);
-            backArrow.setVisibility(View.VISIBLE);
+            mBackArrow.setActivated(true);
+            mBackArrow.setVisibility(View.VISIBLE);
         } else {
-            backArrow.setActivated(false);
-            backArrow.setVisibility(View.GONE);
+            mBackArrow.setActivated(false);
+            mBackArrow.setVisibility(View.GONE);
         }
     }
 
@@ -153,7 +147,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                 return;
             }
 
-            searchAmountTextView.setText(getResources().getString(R.string.item_amount_string,
+            mSearchAmtTv.setText(getResources().getString(R.string.item_amount_string,
                     String.valueOf(integer), String.valueOf(mViewModel.getSearchTime())));
             updatePageArrows();
         });
@@ -164,7 +158,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
             }
 
             Log.i(TAG, "ItemLiveData input");
-            adapter.setItems(items);
+            mItemsAdapter.setItems(items);
 
             if (items.size() > 0) {
                 mViewModel.getImagesLiveData().observe(getViewLifecycleOwner(), images -> {
@@ -173,15 +167,15 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
                     }
 
                     Log.i(TAG, "createLiveDataObservers: ImageLiveData incoming");
-                    adapter.setImages(images);
-                    rvItems.setAdapter(adapter);
-                    callBackListener.hideLoadingIcon();
-                    rvItems.setVisibility(View.VISIBLE);
+                    mItemsAdapter.setImages(images);
+                    mItemsRv.setAdapter(mItemsAdapter);
+                    mCallBackListener.hideLoadingIcon();
+                    mItemsRv.setVisibility(View.VISIBLE);
                 });
             } else {
-                rvItems.setAdapter(adapter);
-                callBackListener.hideLoadingIcon();
-                rvItems.setVisibility(View.VISIBLE);
+                mItemsRv.setAdapter(mItemsAdapter);
+                mCallBackListener.hideLoadingIcon();
+                mItemsRv.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -190,7 +184,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     public void onItemClick(int position) {
         ListingFragment fragment = ListingFragment.newInstance();
 
-        int itemId = adapter.get(position);
+        int itemId = mItemsAdapter.get(position);
 
         Bundle bundle = new Bundle();
         bundle.putInt("id", itemId);

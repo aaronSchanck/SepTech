@@ -1,5 +1,7 @@
 package com.septech.centauri.domain.models;
 
+import androidx.annotation.NonNull;
+
 public class User extends GenericModel {
     private int id;
 
@@ -57,6 +59,7 @@ public class User extends GenericModel {
     }
 
     public void setId(int id) {
+        super.setId(id);
         this.id = id;
     }
 
@@ -175,5 +178,11 @@ public class User extends GenericModel {
     @Override
     public void initTestData() {
 
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "User " + super.toString();
     }
 }

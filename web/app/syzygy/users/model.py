@@ -89,6 +89,7 @@ class User(db.Model):
 
     # settings
 
+    # admin stuff
     admin_level = db.Column(db.Integer)
 
     def __init__(self, **kwargs):

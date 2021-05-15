@@ -119,6 +119,7 @@
         android:id="@+id/lowestPriceSwitch"
         android:layout_width="wrap_content"
         android:layout_height="10dp"
+        android:enabled="true"
         android:text="Lowest Price"
         app:layout_constraintBottom_toBottomOf="@+id/textView11"
         app:layout_constraintStart_toStartOf="@+id/rangeSlider"
@@ -128,13 +129,16 @@
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:checkedButton="@id/filters_compact_view_btn"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="@+id/rangeSlider"
         app:layout_constraintStart_toStartOf="@+id/rangeSlider"
-        app:layout_constraintTop_toTopOf="@+id/textView">
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/filters_default_view_btn"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,7 +148,7 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/filters_compact_view_btn"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,7 +172,7 @@
         android:layout_width="wrap_content"
         android:layout_height="10dp"
         android:layout_marginTop="8dp"
-        android:text="Popularity"
+        android:text="Most Popular"
         app:layout_constraintEnd_toEndOf="@+id/highestPriceSwitch"
         app:layout_constraintTop_toBottomOf="@+id/highestPriceSwitch" />
 
@@ -177,7 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="10dp"
         android:layout_marginTop="8dp"
-        android:text="Rating"
+        android:text="Highest Rating"
         app:layout_constraintEnd_toEndOf="@+id/popularitySwitch"
         app:layout_constraintTop_toBottomOf="@+id/popularitySwitch" />
 

@@ -1,5 +1,7 @@
 package com.septech.centauri.domain.models;
 
+import androidx.annotation.NonNull;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -59,6 +61,7 @@ public class Item extends GenericModel {
     }
 
     public void setId(Integer id) {
+        super.setId(id);
         this.id = id;
     }
 
@@ -264,5 +267,11 @@ public class Item extends GenericModel {
     @Override
     public void initTestData() {
 
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Item " + super.toString();
     }
 }

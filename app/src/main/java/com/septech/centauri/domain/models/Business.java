@@ -1,5 +1,7 @@
 package com.septech.centauri.domain.models;
 
+import androidx.annotation.NonNull;
+
 public class Business extends GenericModel {
     private int id;
     private String businessName;
@@ -117,5 +119,11 @@ public class Business extends GenericModel {
     @Override
     public void initTestData() {
 
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Business " + super.toString();
     }
 }
