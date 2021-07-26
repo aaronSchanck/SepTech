@@ -207,22 +207,33 @@ class UserService:
 
     @staticmethod
     def reset_password(email: str):
+        print("a1")
         user = UserService.get_by_email(email)
+        print("a1")
 
+        print("a2")
         if user is None:
             return ErrResponse("User does not exist", 400)
+        print("a2")
+        print("a3")
 
         user_changes = {
             "password_reset_code": UserService.gen_unique_reset_code(),
             "password_reset_timeout": datetime.now()
             + timedelta(minutes=PASSWORD_RESET_TIME),
         }
+        print("a3")
+        print("a4")
 
         user = UserService.update(user, user_changes)
+        print("a4")
+        print("a5")
 
         UserService.send_password_code_email(user)
+        print("a5")
+        print("a6")
 
-        return user
+        return NormalResponse("Success", 200)
 
     @staticmethod
     def gen_unique_reset_code() -> str:

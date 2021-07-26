@@ -398,10 +398,10 @@ public class ListingFragment extends Fragment {
 
             holder.getReviewerName().setText(review.getUser().getFullName());
 
+            //get modified at date (last time this review was changed) and set it to the posted
+            // date of the review
             String modifiedAt = review.getModifiedAt();
-
             modifiedAt = modifiedAt.substring(0, modifiedAt.indexOf("T"));
-
             holder.getPostDate().setText(modifiedAt);
 
             String content = review.getContent();

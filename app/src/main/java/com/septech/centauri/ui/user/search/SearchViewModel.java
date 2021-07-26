@@ -8,17 +8,16 @@ import androidx.lifecycle.ViewModel;
 
 import com.septech.centauri.data.repository.ItemRepositoryImpl;
 import com.septech.centauri.domain.models.Item;
+import com.septech.centauri.domain.models.SearchFilters;
 import com.septech.centauri.domain.repository.ItemRepository;
 import com.septech.centauri.lib.Zip;
 
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -26,28 +25,29 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchViewModel extends ViewModel {
     private static final String TAG = "SearchViewModel";
 
-    private ItemRepository itemRepo;
+    private ItemRepository mItemRepo;
 
     private MutableLiveData<List<Item>> mItemsLiveData;
     private MutableLiveData<Map<Integer, Uri>> mImagesLiveData;
     private MutableLiveData<Integer> mSearchAmountLiveData;
 
-    private String query;
-    private Integer pageSize;
-    private Integer currentPage;
+    private SearchFilters mSearchFilters;
+    private String mQuery;
+    private Integer mPageSize;
+    private Integer mCurrentPage;
 
-    private long searchStartTime;
-    private long searchEndtime;
+    private long mSearchStartTime;
+    private long mSearchEndtime;
 
     private final CompositeDisposable mDisposables;
 
     public SearchViewModel() {
-        itemRepo = ItemRepositoryImpl.getInstance();
+        mItemRepo = ItemRepositoryImpl.getInstance();
 
         mDisposables = new CompositeDisposable();
 
-        currentPage = 0;
-        pageSize = 5;
+        mCurrentPage = 0;
+        mPageSize = 5;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void searchItems() {
-        mDisposables.add(itemRepo.searchItems(query, currentPage)
+        mDisposables.add(mItemRepo.searchItems(mQuery, mCurrentPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<List<Item>>() {
@@ -79,21 +79,21 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void getSearchAmount() {
-        mDisposables.add(itemRepo.getAmountInQuery(query)
+        mDisposables.add(mItemRepo.getAmountInQuery(mQuery)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Integer>() {
                     @Override
                     protected void onStart() {
                         super.onStart();
-                        searchStartTime = System.currentTimeMillis();
+                        mSearchStartTime = System.currentTimeMillis();
                     }
 
                     @Override
                     public void onSuccess(@NonNull Integer integer) {
                         Log.i(TAG, "Search amount: " + integer);
 
-                        searchEndtime = System.currentTimeMillis();
+                        mSearchEndtime = System.currentTimeMillis();
 
                         mSearchAmountLiveData.setValue(integer);
                     }
@@ -105,15 +105,8 @@ public class SearchViewModel extends ViewModel {
                 }));
     }
 
-    private Function<List<Item>, Observable<List<Item>>> emit() {
-        return items -> {
-            mItemsLiveData.setValue(items);
-            return Observable.just(items);
-        };
-    }
-
     public void lastPage() {
-        currentPage -= 1;
+        mCurrentPage -= 1;
 
         mImagesLiveData = null;
 
@@ -121,7 +114,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void nextPage() {
-        currentPage += 1;
+        mCurrentPage += 1;
 
         mImagesLiveData = null;
 
@@ -129,7 +122,7 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void getImages(int[] itemIds) {
-        mDisposables.add(itemRepo.getItemThumbnails(itemIds)
+        mDisposables.add(mItemRepo.getItemThumbnails(itemIds)
                 .flatMap(Zip.processResponse())
                 .retry(25) //must be used when running the emulator, don't ask. I don't know why
                 .flatMap(Zip.unpackZipThumbnails())
@@ -190,23 +183,27 @@ public class SearchViewModel extends ViewModel {
     }
 
     public Integer getCurrentPage() {
-        return currentPage;
+        return mCurrentPage;
     }
 
     public String getQuery() {
-        return query;
+        return mQuery;
     }
 
     public void setQuery(String newQuery) {
-        this.query = newQuery;
+        this.mQuery = newQuery;
     }
 
     public Integer getPageSize() {
-        return pageSize;
+        return mPageSize;
     }
 
     public double getSearchTime() {
-        Log.w("sd", String.valueOf(searchEndtime - searchStartTime));
-        return (searchEndtime - searchStartTime) / 1000.0;
+        Log.w("sd", String.valueOf(mSearchEndtime - mSearchStartTime));
+        return (mSearchEndtime - mSearchStartTime) / 1000.0;
+    }
+
+    public void setSearchFilters(SearchFilters searchFilters) {
+        mSearchFilters = searchFilters;
     }
 }

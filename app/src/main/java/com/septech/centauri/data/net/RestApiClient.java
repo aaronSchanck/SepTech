@@ -41,8 +41,8 @@ public class RestApiClient {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build();
 
@@ -97,6 +97,10 @@ public class RestApiClient {
 
     public Single<String> verifyPasswordCode(String code, String email) { return restApi.verifyPasswordCode(code, email); }
 
+    public Single<String> forgotPassword(String email) {
+        return restApi.forgotPassword(email);
+    }
+
     //ITEMS
 
     public Single<ItemEntity> getItemById(int id) {
@@ -142,10 +146,6 @@ public class RestApiClient {
 
     public Single<BusinessEntity> getBusinessByEmail(String email) {
         return restApi.getBusinessByEmail(email);
-    }
-
-    public Single<UserEntity> forgotPassword(String email) {
-        return restApi.forgotPassword(email);
     }
 
     public Single<BusinessEntity> getBusinessById(int id) {

@@ -19,7 +19,6 @@ public class ForgotPasswordEmailViewModel extends ViewModel {
 
     private MutableLiveData<ForgotPasswordEmailFormState> formLiveData;
     private MutableLiveData<ForgotPasswordEmailCloudResponse> responseLiveData;
-    private MutableLiveData<User> userLiveData;
 
     public ForgotPasswordEmailViewModel() {
         this.userRepo = UserRepositoryImpl.getInstance();
@@ -35,16 +34,16 @@ public class ForgotPasswordEmailViewModel extends ViewModel {
         mDisposables.add(userRepo.forgotPassword(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<User>() {
+                .subscribeWith(new DisposableSingleObserver<String>() {
                     @Override
                     public void onStart() {
                         responseLiveData.setValue(ForgotPasswordEmailCloudResponse.LOADING);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull User user) {
+                    public void onSuccess(@NonNull String string) {
+                        System.out.println("string = " + string);
                         responseLiveData.setValue(ForgotPasswordEmailCloudResponse.USER_FOUND);
-                        userLiveData.setValue(user);
                     }
 
                     @Override
@@ -54,13 +53,6 @@ public class ForgotPasswordEmailViewModel extends ViewModel {
                     }
                 })
         );
-    }
-
-    public MutableLiveData<User> getUserLiveData() {
-        if (userLiveData == null) {
-            userLiveData = new MutableLiveData<>();
-        }
-        return userLiveData;
     }
 
     public MutableLiveData<ForgotPasswordEmailFormState> getFormLiveData() {

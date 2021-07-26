@@ -121,7 +121,7 @@ class UserEmailResource(Resource):
     def put(self, email: str):
         """Forgot password API Endpoint"""
         result = UserService.reset_password(email)
-        return jsonify(result)
+        return result
 
 
 @api.route("/<email>/check_exists")
@@ -196,6 +196,7 @@ class UserWishlistResource(Resource):
             wishlist_schema.dump(wishlist) if response.status_code == 200 else response
         )
 
+
 @api.route("/<int:id>/view_history")
 @api.param("id", "User ID in database")
 class UserViewHistoryResource(Resource):
@@ -205,7 +206,9 @@ class UserViewHistoryResource(Resource):
         view_history, response = UserService.get_all_by_id(userid)
 
         return (
-            view_history_schema.dump(view_history) if response.status_code == 200 else response
+            view_history_schema.dump(view_history)
+            if response.status_code == 200
+            else response
         )
 
     @use_args(view_history_args, location="form")
@@ -215,6 +218,7 @@ class UserViewHistoryResource(Resource):
         view_history, response = UserService.add_to_view_history(id, itemid)
 
         return (
-            view_history_schema.dump(view_history) if response.status_code == 200 else response
+            view_history_schema.dump(view_history)
+            if response.status_code == 200
+            else response
         )
-

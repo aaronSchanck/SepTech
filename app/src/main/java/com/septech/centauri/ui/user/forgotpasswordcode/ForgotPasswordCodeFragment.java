@@ -62,14 +62,14 @@ public class ForgotPasswordCodeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity()).get(ForgotPasswordCodeViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ForgotPasswordCodeViewModel.class);
         mForgotPasswordViewModel =
                 new ViewModelProvider(requireActivity()).get(ForgotPasswordViewModel.class);
 
         mVerifyButton.setOnClickListener(v -> {
             callBackListener.hideKeyboard();
             mViewModel.verifyCodeSubmit(mCodeEditText.getText().toString(),
-                    mForgotPasswordViewModel.getUserLiveData().getValue().getEmail());
+                    mForgotPasswordViewModel.getEmailLiveData().getValue());
         });
 
         mViewModel.getFormState().observe(getViewLifecycleOwner(), forgotPasswordCodeFormState -> {

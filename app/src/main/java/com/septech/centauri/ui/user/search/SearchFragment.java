@@ -92,9 +92,11 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
         super.onActivityCreated(savedInstanceState);
 
         mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-        mViewModel.setQuery(getArguments().getString("query"));
-
         mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
+
+        //get the query from the filters viewmodel
+        mViewModel.setQuery(mFilterViewModel.getQuery());
+        mViewModel.setSearchFilters(mFilterViewModel.getSearchFilters());
 
         mCallBackListener.showLoadingIcon();
 
@@ -142,6 +144,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
     }
 
     private void createLiveDataObservers() {
+        //observe the search amount in order to update the timing data at the top of the fragment
         mViewModel.getSearchAmountLiveData().observe(getViewLifecycleOwner(), integer -> {
             if(integer == null) {
                 return;
@@ -152,6 +155,7 @@ public class SearchFragment extends Fragment implements OnSearchItemListener {
             updatePageArrows();
         });
 
+        //observe and get the items, querying the server with the specified search query
         mViewModel.getItemsLiveData().observe(getViewLifecycleOwner(), items -> {
             if(items == null) {
                 return;

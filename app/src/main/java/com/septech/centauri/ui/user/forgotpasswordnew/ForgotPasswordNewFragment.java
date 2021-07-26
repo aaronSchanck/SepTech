@@ -108,7 +108,7 @@ public class ForgotPasswordNewFragment extends Fragment {
 
         mVerifyBtn.setOnClickListener(v -> {
             callBackListener.hideKeyboard();
-            mViewModel.changePassword(mForgotPasswordViewModel.getUserLiveData().getValue(),
+            mViewModel.changePassword(mForgotPasswordViewModel.getEmailLiveData().getValue(),
                     mNewPasswordEditText.getText().toString());
 
         });

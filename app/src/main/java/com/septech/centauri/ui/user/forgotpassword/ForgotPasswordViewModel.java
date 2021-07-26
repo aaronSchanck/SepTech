@@ -17,7 +17,7 @@ public class ForgotPasswordViewModel extends ViewModel {
     private final UserRepository userRepo;
     private final CompositeDisposable mDisposables;
 
-    private MutableLiveData<User> userLiveData;
+    private MutableLiveData<String> emailLiveData;
 
     public ForgotPasswordViewModel() {
         this.userRepo = UserRepositoryImpl.getInstance();
@@ -29,10 +29,18 @@ public class ForgotPasswordViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public MutableLiveData<User> getUserLiveData() {
-        if(userLiveData == null) {
-            userLiveData = new MutableLiveData<>();
+    public MutableLiveData<String> getEmailLiveData() {
+        if(emailLiveData == null) {
+            emailLiveData = new MutableLiveData<>();
         }
-        return userLiveData;
+        return emailLiveData;
+    }
+
+    public void setEmailLiveData(String email) {
+        if(emailLiveData == null) {
+            emailLiveData = new MutableLiveData<>();
+        }
+
+        this.emailLiveData.setValue(email);
     }
 }

@@ -2,6 +2,10 @@ package com.septech.centauri.ui.user.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,27 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import com.septech.centauri.R;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.ui.interfaces.CallBackListener;
 import com.septech.centauri.ui.user.help.HelpFragment;
 import com.septech.centauri.ui.user.orderhistory.OrderHistoryFragment;
 import com.septech.centauri.ui.user.search.SearchFragment;
-import com.septech.centauri.ui.user.cart.CartFragment;
 import com.septech.centauri.ui.user.viewhistory.ViewHistoryFragment;
-import com.septech.centauri.ui.user.wishlist.WishlistFragment;
 
 
 public class HomeFragment extends Fragment {
     private UserViewModel mUserViewModel;
+    private FilterViewModel mFilterViewModel;
 
-    private CallBackListener callBackListener;
+    private CallBackListener mCallBackListener;
 
     private ImageButton mViewItemsBtn;
     private ImageButton mOrdersBtn;
@@ -41,13 +38,14 @@ public class HomeFragment extends Fragment {
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         try {
-            callBackListener = (CallBackListener) context;
-            callBackListener.initFragment();
+            mCallBackListener = (CallBackListener) context;
+            mCallBackListener.initFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement CallBackListener");
         }
@@ -79,11 +77,12 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        mFilterViewModel = new ViewModelProvider(requireActivity()).get(FilterViewModel.class);
 
         mUserViewModel.getUserLiveData().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                if(user == null) return;
+                if (user == null) return;
             }
         });
 
@@ -93,6 +92,8 @@ public class HomeFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("query", "");
             fragment.setArguments(bundle);
+
+            mFilterViewModel.setQuery("");
 
             requireActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contentfragment, fragment)

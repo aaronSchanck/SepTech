@@ -7,13 +7,10 @@ import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.models.Wishlist;
 import com.septech.centauri.domain.models.WishlistItem;
 
-import java.util.Dictionary;
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.disposables.Disposable;
 
 /**
  * A domain-level interface to serve the ViewModels with information grabbed regarding the User
@@ -99,7 +96,7 @@ public interface UserRepository {
 
     Single<String> verifyPasswordCode(String code, String email);
 
-    Single<User> forgotPassword(String email);
+    Single<String> forgotPassword(String email);
 
     Single<Order> addToCart(User user, Item item, int quantity);
 

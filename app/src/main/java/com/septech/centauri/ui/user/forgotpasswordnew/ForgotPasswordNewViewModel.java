@@ -12,9 +12,11 @@ import com.septech.centauri.data.utils.PasswordValidator;
 import com.septech.centauri.domain.models.User;
 import com.septech.centauri.domain.repository.UserRepository;
 
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -44,14 +46,20 @@ public class ForgotPasswordNewViewModel extends ViewModel {
         mDisposables.clear();
     }
 
-    public void changePassword(User user, String newPassword) {
-        PasswordUtils pwUtils = new PasswordUtils(newPassword);
-        String pwHash = pwUtils.hash();
+    public void changePassword(String email, String newPassword) {
 
-        user.setPassword(pwHash);
-        user.setPasswordSalt(pwUtils.getSalt());
 
-        mDisposables.add(userRepo.update(user.getId(), user)
+
+        mDisposables.add(userRepo.getUserByEmail(email)
+                .flatMap(user -> {
+                    PasswordUtils pwUtils = new PasswordUtils(newPassword);
+                    String pwHash = pwUtils.hash();
+
+                    user.setPassword(pwHash);
+                    user.setPasswordSalt(pwUtils.getSalt());
+
+                    return userRepo.update(user.getId(), user);
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {

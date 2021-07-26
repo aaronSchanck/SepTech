@@ -83,19 +83,9 @@ public class ForgotPasswordEmailFragment extends Fragment {
         });
 
         mSubmitButton.setOnClickListener(v -> {
-            mViewModel.forgotPasswordSubmit(mEmailEditText.getText().toString());
-        });
-
-        mViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
-            mForgotPasswordViewModel.getUserLiveData().setValue(user);
-
-            ForgotPasswordCodeFragment fragment =
-                    ForgotPasswordCodeFragment.newInstance();
-
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.user_login_content_fragment, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            String email = mEmailEditText.getText().toString();
+            mForgotPasswordViewModel.getEmailLiveData().setValue(email);
+            mViewModel.forgotPasswordSubmit(email);
         });
 
         mViewModel.getFormLiveData().observe(getViewLifecycleOwner(), forgotPasswordFormState -> {
@@ -138,6 +128,14 @@ public class ForgotPasswordEmailFragment extends Fragment {
                             text = "User found!";
                             toast = Toast.makeText(getActivity(), text, duration);
                             toast.show();
+
+                            ForgotPasswordCodeFragment fragment =
+                                    ForgotPasswordCodeFragment.newInstance();
+
+                            requireActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.user_login_content_fragment, fragment)
+                                    .addToBackStack(null)
+                                    .commit();
 
                             break;
                     }

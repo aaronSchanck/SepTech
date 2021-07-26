@@ -24,11 +24,15 @@ public class FilterViewModel extends ViewModel {
         return mQueryLiveData;
     }
 
-    public void setQueryLiveData(String query) {
+    public void setQuery(String query) {
         if (mQueryLiveData == null) {
             mQueryLiveData = new MutableLiveData<>();
         }
         mQueryLiveData.setValue(query);
+    }
+    
+    public String getQuery() {
+        return mQueryLiveData.getValue();
     }
 
     @NonNull

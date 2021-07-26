@@ -9,7 +9,7 @@ import java.util.List;
 
 public class WishlistItemDataMapper {
     public static WishlistItem transform(WishlistItemEntity wishlistItemEntity) {
-        WishlistItem wishlistItem = new WishlistItem();
+        WishlistItem wishlistItem = new WishlistItem(wishlistItemEntity.getId());
 
         wishlistItem.setId(wishlistItemEntity.getId());
         wishlistItem.setItemid(wishlistItemEntity.getItemid());

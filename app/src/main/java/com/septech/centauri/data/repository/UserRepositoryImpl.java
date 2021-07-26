@@ -100,8 +100,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Single<User> forgotPassword(String email) {
-        return mRestApiClient.forgotPassword(email).map(UserDataMapper::transform);
+    public Single<String> forgotPassword(String email) {
+        return mRestApiClient.forgotPassword(email);
     }
 
     @Override

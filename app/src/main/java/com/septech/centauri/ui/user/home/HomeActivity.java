@@ -173,6 +173,8 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener,
         mLoadingIcon.setVisibility(View.GONE);
 
         mFilterViewModel.getQueryLiveData().observe(this, query -> {
+            if (query == null) return;
+
             SearchFragment fragment = SearchFragment.newInstance();
 
             Bundle bundle = new Bundle();
@@ -455,7 +457,7 @@ public class HomeActivity extends AppCompatActivity implements CallBackListener,
                 }
                 myActionMenuItem.collapseActionView();
 
-                mFilterViewModel.setQueryLiveData(query);
+                mFilterViewModel.setQuery(query);
 
                 return true;
             }
